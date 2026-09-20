@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.10</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.11</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -90,7 +90,7 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(255,189,46,.42);
 .lesson-row .status{font-size:.74rem;color:var(--mut);border:1px solid #39505f;border-radius:999px;padding:2px 7px;white-space:nowrap}
 .lesson-row.clear{border-color:rgba(80,216,144,.58);background:linear-gradient(145deg,#10251c,#0d1b17)}
 .lesson-row.clear .status{color:#a9ffd0;border-color:#3a8d62;font-weight:900}
-.lesson-row.lock{opacity:.52}
+.lesson-row.lock{opacity:.48;filter:saturate(.55);cursor:not-allowed}.lesson-row.lock .num{color:#70828d}.lesson-row.lock .status{color:#8da0aa;border-color:#46545c}
 
 .badge{
   display:inline-flex;align-items:center;gap:5px;background:linear-gradient(180deg,#ffd15b,var(--yel));
@@ -154,7 +154,7 @@ tr:last-child td{border-bottom:0}
   box-shadow:inset 0 1px 0 rgba(255,255,255,.02)
 }
 .term{padding:13px 0;border-bottom:1px solid var(--line)}
-.term:last-child{border-bottom:0}.zukan-link{color:var(--txt);text-align:left;font:inherit;cursor:pointer}.zukan-link:hover{border-color:#6b8798}.zukan-link b{color:#ffd064}
+.term:last-child{border-bottom:0}.term-jump{margin-top:7px;padding:6px 9px;border-radius:9px;border:1px solid #496171;background:#10202a;color:#b8d9ea;font:inherit;font-size:.78rem;font-weight:800;cursor:pointer}.term-jump:hover{border-color:#7b9caf;color:#fff}.zukan-link{color:var(--txt);text-align:left;font:inherit;cursor:pointer}.zukan-link:hover{border-color:#6b8798}.zukan-link b{color:#ffd064}
 .hidden{display:none!important}
 
 #lesson-0-26 .hero{border-color:#806a22;background:linear-gradient(145deg,#2a2413,#101b23 55%)}
@@ -196,7 +196,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.10</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.11</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -243,11 +243,24 @@ tr:last-child td{border-bottom:0}
 </div>
 </section>
 
-<section id="level0" class="screen hidden"><div class="hero"><span class="badge">LEVEL 0</span><h1>現場で話が通じる</h1><p class="mut">安全・工具・締結・測定・現場語。まずは先輩の基本指示を理解して安全に動けるようになる。</p><p class="small">🧪 REVIEW MODE｜現在は確認用のため全Lessonを開放中。本番版はCLEARごとに次LessonがOPEN。</p></div>
+<section id="level0" class="screen hidden"><div class="hero"><span class="badge">LEVEL 0</span><h1>現場で話が通じる</h1><p class="mut">安全・工具・締結・測定・現場語。まずは先輩の基本指示を理解して安全に動けるようになる。</p><p class="small">🧪 REVIEW MODE｜現在は確認用のため全Lessonを開放中。本番版はCLEARごとに次LessonがOPEN。内容・図解・操作感をレビュー中。</p></div>
 <div class="card"><div class="row"><b>進捗</b><span id="progressText2">0 / 26</span></div><div class="progress"><div id="progressBar2"></div></div></div>
 <div class="lesson-list"><button id="row-0-01" class="lesson-row live" onclick="openLesson('0-01')"><span class="num">0-01</span><span><b>⚠️ 勝手に触らない・乗らない・潜らない</b></span><span class="status">START</span></button><button id="row-0-02" class="lesson-row live" onclick="openLesson('0-02')"><span class="num">0-02</span><span><b>⚠️ 止まっている ≠ 安全</b></span><span class="status">START</span></button><button id="row-0-03" class="lesson-row live" onclick="openLesson('0-03')"><span class="num">0-03</span><span><b>🔩 ボルト・ナット・ワッシャー</b></span><span class="status">START</span></button><button id="row-0-04" class="lesson-row live" onclick="openLesson('0-04')"><span class="num">0-04</span><span><b>🔩 六角・キャップ・トラス</b></span><span class="status">START</span></button><button id="row-0-05" class="lesson-row live" onclick="openLesson('0-05')"><span class="num">0-05</span><span><b>📏 M5〜M20って何？</b></span><span class="status">START</span></button><button id="row-0-06" class="lesson-row live" onclick="openLesson('0-06')"><span class="num">0-06</span><span><b>📐 M8×30って何？</b></span><span class="status">START</span></button><button id="row-0-07" class="lesson-row live" onclick="openLesson('0-07')"><span class="num">0-07</span><span><b>🔧 M8なのになぜ13？</b></span><span class="status">START</span></button><button id="row-0-08" class="lesson-row live" onclick="openLesson('0-08')"><span class="num">0-08</span><span><b>🔧 ラチェットとソケット</b></span><span class="status">START</span></button><button id="row-0-09" class="lesson-row live" onclick="openLesson('0-09')"><span class="num">0-09</span><span><b>🔄 ねじはどっちに回す？</b></span><span class="status">START</span></button><button id="row-0-10" class="lesson-row live" onclick="openLesson('0-10')"><span class="num">0-10</span><span><b>🔧 六角レンチ</b></span><span class="status">START</span></button><button id="row-0-11" class="lesson-row live" onclick="openLesson('0-11')"><span class="num">0-11</span><span><b>🔧 モンキーレンチ</b></span><span class="status">START</span></button><button id="row-0-12" class="lesson-row live" onclick="openLesson('0-12')"><span class="num">0-12</span><span><b>🪛 ドライバー</b></span><span class="status">START</span></button><button id="row-0-13" class="lesson-row live" onclick="openLesson('0-13')"><span class="num">0-13</span><span><b>🗜️ ペンチ・ニッパー・プライヤー・ラジペン</b></span><span class="status">START</span></button><button id="row-0-14" class="lesson-row live" onclick="openLesson('0-14')"><span class="num">0-14</span><span><b>🔨 ハンマー・プラハン</b></span><span class="status">START</span></button><button id="row-0-15" class="lesson-row live" onclick="openLesson('0-15')"><span class="num">0-15</span><span><b>📏 スケール・メジャー</b></span><span class="status">START</span></button><button id="row-0-16" class="lesson-row live" onclick="openLesson('0-16')"><span class="num">0-16</span><span><b>📐 ノギス</b></span><span class="status">START</span></button><button id="row-0-17" class="lesson-row live" onclick="openLesson('0-17')"><span class="num">0-17</span><span><b>🕳️ ドリルと「キリ」</b></span><span class="status">START</span></button><button id="row-0-18" class="lesson-row live" onclick="openLesson('0-18')"><span class="num">0-18</span><span><b>🌀 TAPって何？</b></span><span class="status">START</span></button><button id="row-0-19" class="lesson-row live" onclick="openLesson('0-19')"><span class="num">0-19</span><span><b>🔩 ボルトを正しく入れる</b></span><span class="status">START</span></button><button id="row-0-20" class="lesson-row live" onclick="openLesson('0-20')"><span class="num">0-20</span><span><b>🔩 TAP締めとナット締め</b></span><span class="status">START</span></button><button id="row-0-21" class="lesson-row live" onclick="openLesson('0-21')"><span class="num">0-21</span><span><b>⚙️ グラインダーと危険工具</b></span><span class="status">START</span></button><button id="row-0-22" class="lesson-row live" onclick="openLesson('0-22')"><span class="num">0-22</span><span><b>🛠️ ポンチ・ヤスリ・スクレーパー</b></span><span class="status">START</span></button><button id="row-0-23" class="lesson-row live" onclick="openLesson('0-23')"><span class="num">0-23</span><span><b>😱 工具の扱い総集編</b></span><span class="status">START</span></button><button id="row-0-24" class="lesson-row live" onclick="openLesson('0-24')"><span class="num">0-24</span><span><b>🏃 現場での動き方・新人あるある</b></span><span class="status">START</span></button><button id="row-0-25" class="lesson-row live" onclick="openLesson('0-25')"><span class="num">0-25</span><span><b>🗣️ 現場語を聞き取れ！</b></span><span class="status">START</span></button><button id="row-0-26" class="lesson-row live" onclick="openLesson('0-26')"><span class="num">0-26</span><span><b>🎓 LEVEL 0 実技試験</b></span><span class="status">FINAL</span></button></div></section>
 
-<section id="dictionary" class="screen hidden"><div class="hero"><h1>🔍 現場語辞典</h1></div><input id="search" class="search" placeholder="例：13、SW、キャップ…" oninput="filterTerms()"><div class="card" id="terms"><div class="term" data-term="M8 ねじの呼び径が8mmのメートルねじ。工具サイズ8mmという意味ではない。"><b>M8</b><br><span class="mut">ねじの呼び径が8mmのメートルねじ。工具サイズ8mmという意味ではない。</span></div><div class="term" data-term="13 工具の文脈なら二面幅13mmのスパナ・レンチ等。キリの文脈ならφ13mmなど、前後の会話を見る。"><b>13</b><br><span class="mut">工具の文脈なら二面幅13mmのスパナ・レンチ等。キリの文脈ならφ13mmなど、前後の会話を見る。</span></div><div class="term" data-term="平W 平ワッシャー／平座金。"><b>平W</b><br><span class="mut">平ワッシャー／平座金。</span></div><div class="term" data-term="SW スプリングワッシャー／ばね座金。"><b>SW</b><br><span class="mut">スプリングワッシャー／ばね座金。</span></div><div class="term" data-term="キャップ 六角穴付きボルトを指す現場呼称として使用。"><b>キャップ</b><br><span class="mut">六角穴付きボルトを指す現場呼称として使用。</span></div><div class="term" data-term="トラス 頭が低く広いねじ。うちではカバー類でよく使用。"><b>トラス</b><br><span class="mut">頭が低く広いねじ。うちではカバー類でよく使用。</span></div><div class="term" data-term="TAP 穴の内側にめねじを加工すること／その工具・ねじ穴を指す現場語。詳細は0-18。"><b>TAP</b><br><span class="mut">穴の内側にめねじを加工すること／その工具・ねじ穴を指す現場語。詳細は0-18。</span></div><div class="term" data-term="キリ 現場でドリル・ドリル刃を指す呼び方。例：6.8のキリ。"><b>キリ</b><br><span class="mut">現場でドリル・ドリル刃を指す呼び方。例：6.8のキリ。</span></div><div class="term" data-term="メジャー うちではコンベックス、巻き取り式の鋼製巻尺をこう呼ぶ。"><b>メジャー</b><br><span class="mut">うちではコンベックス（巻き取り式の鋼製巻尺）をこう呼ぶ。</span></div></div></section>
+<section id="dictionary" class="screen hidden">
+<div class="hero"><span class="badge">FIELD WORDS</span><h1>🔍 現場語辞典</h1><p class="mut">分からん言葉が飛んできたら、ここで検索。関連Lessonから実物の使い方まで戻れる。</p></div>
+<input id="search" class="search" placeholder="例：13、SW、キャップ…" oninput="filterTerms()">
+<div class="card" id="terms">
+  <div class="term" data-term="M8 ねじ 呼び径 8mm"><b>M8</b><br><span class="mut">ねじの呼び径が約8mmのメートルねじ。工具サイズ8mmという意味ではない。</span><br><button class="term-jump" onclick="openLesson('0-05')">→ 0-05で確認</button></div>
+  <div class="term" data-term="13 二面幅 スパナ レンチ ソケット キリ"><b>13</b><br><span class="mut">工具の文脈なら二面幅13mm。キリの文脈ならφ13mm。数字だけで決めつけない。</span><br><button class="term-jump" onclick="openLesson('0-07')">→ 0-07で確認</button></div>
+  <div class="term" data-term="平W 平ワッシャー 平座金"><b>平W</b><br><span class="mut">平ワッシャー／平座金。座面を広げ、部品表面を守る役割などがある。</span><br><button class="term-jump" onclick="openLesson('0-20')">→ 0-20で確認</button></div>
+  <div class="term" data-term="SW スプリングワッシャー ばね座金"><b>SW</b><br><span class="mut">スプリングワッシャー／ばね座金。うちでは通常締結で基本使用。</span><br><button class="term-jump" onclick="openLesson('0-20')">→ 0-20で確認</button></div>
+  <div class="term" data-term="キャップ 六角穴付きボルト"><b>キャップ</b><br><span class="mut">六角穴付きボルトを指す現場呼称。六角レンチで回す。</span><br><button class="term-jump" onclick="openLesson('0-04')">→ 0-04で確認</button></div>
+  <div class="term" data-term="トラス ねじ カバー"><b>トラス</b><br><span class="mut">頭が低く広いねじ。うちではカバー類でよく使用。</span><br><button class="term-jump" onclick="openLesson('0-04')">→ 0-04で確認</button></div>
+  <div class="term" data-term="TAP タップ めねじ 下穴"><b>TAP</b><br><span class="mut">穴の内側にめねじを加工すること／その工具・ねじ穴を指す現場語。</span><br><button class="term-jump" onclick="openLesson('0-18')">→ 0-18で確認</button></div>
+  <div class="term" data-term="キリ ドリル刃 穴あけ"><b>キリ</b><br><span class="mut">現場でドリル刃を指す呼び方。例：「6.8のキリ」＝φ6.8mmのドリル刃。</span><br><button class="term-jump" onclick="openLesson('0-17')">→ 0-17で確認</button></div>
+  <div class="term" data-term="メジャー コンベックス 巻尺"><b>メジャー</b><br><span class="mut">うちではコンベックス（巻き取り式の鋼製巻尺）をこう呼ぶ。</span><br><button class="term-jump" onclick="openLesson('0-15')">→ 0-15で確認</button></div>
+</div></section>
 <section id="zukan" class="screen hidden">
 <div class="hero"><span class="badge">LEVEL 0 TOOL INDEX</span><h1>⚙️ 工具・部品図鑑</h1><p class="mut">名前を忘れた時に、見た目と用途から関連Lessonへ戻れる簡易図鑑。</p></div>
 <div class="card">
@@ -265,7 +278,7 @@ tr:last-child td{border-bottom:0}
     <button class="tile zukan-link" onclick="openLesson('0-17')"><b>🌀 キリ</b><br>ドリル本体／ドリル刃</button>
     <button class="tile zukan-link" onclick="openLesson('0-18')"><b>🌀 TAP</b><br>下穴／めねじ</button>
   </div>
-  <p class="small">📷 実物写真は次のビジュアル強化フェーズで追加予定。</p>
+  <p class="small">📷 実物写真を追加する場合も、名前・用途・関連Lessonがすぐ分かる構成に統一する。</p>
 </div>
 </section>
 <section id="lesson-0-01" class="screen lesson hidden" data-num="0-01">
@@ -848,7 +861,7 @@ tr:last-child td{border-bottom:0}
 <div class="card company"><h2>🏭 うちでまず覚えること</h2>
 <p><b>「何をしたいか」から工具を選ぶ。</b></p>
 <p>つかむ？ 切る？ 狭い所？ チューブ？ 目的を考えてから工具箱へ行く。</p>
-<p class="small">エアチューブを切る時の標準工具が決まっているなら、会社標準として後で追記する。</p></div>
+<p class="small">エアチューブを切る時は、会社で指定された標準工具・方法を確認してから作業する。</p></div>
 
 <div class="card quiz"><h2>🎮 クイズ</h2>
 <p>配線を切る用途で一番連想しやすいのは？</p>

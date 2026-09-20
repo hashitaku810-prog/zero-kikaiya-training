@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.8</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.9</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -161,7 +161,7 @@ tr:last-child td{border-bottom:0}
 #lesson-0-26 .hero:after{width:7px;background:linear-gradient(#ffd55d,#ff9a1e)}
 #lesson-0-26 .card{border-color:#3b5260}
 #level0ClearBanner{border:1px solid var(--ok);box-shadow:0 0 0 1px rgba(80,216,144,.12),0 12px 34px rgba(0,0,0,.22)}
-.exam-check{border-color:#496477}
+.exam-check{border-color:#496477}.stage-card{border-left:5px solid #7d6a2b;background:linear-gradient(150deg,rgba(255,189,46,.045),var(--panel3) 35%)}.stage-card h2{color:#ffdc7d}
 
 .visual{margin:12px 0 4px;padding:14px;background:#09141c;border:1px solid #294250;border-radius:15px}
 .visual-title{font-size:.78rem;font-weight:900;color:var(--mut);letter-spacing:.06em;margin-bottom:10px}
@@ -196,7 +196,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.8</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.9</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -253,7 +253,16 @@ tr:last-child td{border-bottom:0}
     <div class="hero"><span class="badge">LESSON 0-01</span><h1>⚠️ 勝手に触らない・乗らない・潜らない</h1></div>
 <div class="card danger"><h2>最初にこれだけ</h2><div class="big">機械が止まっていることと、<span class="hi">安全であることは別。</span></div>
 <p>電気・エア・重力・残圧など、見えないエネルギーが残っていることがある。会社で定めた停止・隔離・確認手順と責任者／先輩の指示を守る。</p></div>
-<div class="card"><h2>👀 新人あるある危険行動</h2><p>① ローラーコンベアに乗る・歩く<br>② 光電センサーを手で遮る<br>③ 電源・エアが生きたまま装置内へ手を入れる<br>④ 落とした工具を取りに機械の下へ潜る<br>⑤ センサー・配線・機器を踏む</p></div>
+<div class="card"><h2>👀 新人あるある危険行動</h2><p>① ローラーコンベアに乗る・歩く<br>② 光電センサーを手で遮る<br>③ 電源・エアが生きたまま装置内へ手を入れる<br>④ 落とした工具を取りに機械の下へ潜る<br>⑤ センサー・配線・機器を踏む</p>
+<div class="visual">
+  <div class="visual-title">VISUAL｜「すぐ終わるから」が危ない</div>
+  <div class="visual-row">
+    <div class="visual-box bad"><span class="vicon">🖐️⚙️</span><b>触る</b><br>勝手に手を入れない</div>
+    <div class="visual-box bad"><span class="vicon">👣</span><b>乗る</b><br>コンベアに乗らない</div>
+    <div class="visual-box bad"><span class="vicon">🙇</span><b>潜る</b><br>機械下へ勝手に入らない</div>
+    <div class="visual-box good"><span class="vicon">🙋</span><b>確認する</b><br>先輩・責任者へ聞く</div>
+  </div>
+</div></div>
 <div class="card"><h2>基本ルール</h2><div class="grid"><div class="tile"><b>勝手に触らない</b></div><div class="tile"><b>勝手に入らない</b><br>潜らない・乗らない</div><div class="tile"><b>止まって見えても</b><br>安全と決めつけない</div><div class="tile"><b>分からなければ</b><br>先輩に確認</div></div></div>
 <div class="card quiz"><h2>🎮 ケース問題</h2><p>停止中のコンベアに詰まりを発見。手が届きそう。</p><button data-ok="0">すぐ取る</button><button data-ok="1">指定手順で安全確認し、先輩・責任者に確認</button><div class="feedback"></div>
 <p>工具を機械の下へ落とした。</p><button data-ok="0">潜って取る</button><button data-ok="1">勝手に潜らず、安全な回収方法を確認</button><div class="feedback"></div></div>
@@ -263,7 +272,18 @@ tr:last-child td{border-bottom:0}
     <button id="clear-0-01" class="btn" onclick="clearLesson('0-01')">□ 指導者確認：0-01 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="showLevel0()">← LEVEL 0</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-02')">次へ →</button></div></section><section id="lesson-0-02" class="screen lesson hidden" data-num="0-02">
 <div class="hero"><span class="badge">LESSON 0-02</span><h1>⚠️ 止まっている ≠ 安全</h1></div>
 <div class="card danger"><h2>👀 機械が止まっていても安心しない</h2><div class="big">止まっていることと、<span class="hi">安全であることは別。</span></div><p>見た目に動いていなくても、機械には危険なエネルギーが残っていることがある。</p></div>
-<div class="card"><h2>📖 残っているかもしれないもの</h2><div class="grid"><div class="tile"><b>⚡ 電気</b><br>電源・蓄電・自動復帰</div><div class="tile"><b>💨 エア</b><br>残圧でシリンダーが動く</div><div class="tile"><b>⬇️ 重力</b><br>上がった物が落ちる</div><div class="tile"><b>🌀 蓄えた力</b><br>バネ・慣性・張力など</div></div></div>
+<div class="card"><h2>📖 残っているかもしれないもの</h2><div class="grid"><div class="tile"><b>⚡ 電気</b><br>電源・蓄電・自動復帰</div><div class="tile"><b>💨 エア</b><br>残圧でシリンダーが動く</div><div class="tile"><b>⬇️ 重力</b><br>上がった物が落ちる</div><div class="tile"><b>🌀 蓄えた力</b><br>バネ・慣性・張力など</div></div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜「止まって見える」の裏にエネルギーが残る</div>
+  <div class="visual-row">
+    <div class="visual-box"><span class="vicon">⚡</span><b>電気</b></div>
+    <div class="visual-box"><span class="vicon">💨</span><b>残圧</b></div>
+    <div class="visual-box"><span class="vicon">⬇️</span><b>重力</b></div>
+    <div class="visual-box"><span class="vicon">🌀</span><b>バネ・張力</b></div>
+  </div>
+  <div class="visual-arrow" style="text-align:center;margin:8px 0">↓</div>
+  <div class="visual-box bad"><b>見た目が停止中でも、動く・落ちる・飛ぶ可能性がある</b></div>
+</div></div>
 <div class="card danger"><h2>😱 新人あるある</h2><p>「止まってるから大丈夫やろ」で手を入れる。<br>「すぐ取れるから」で機械の下へ潜る。<br><b>その判断を新人が勝手にしない。</b></p></div>
 <div class="card company"><h2>🏭 うちでの基本</h2><p>停止・遮断・残圧処理・安全確認は、<b>会社で決めた手順と責任者・先輩の指示に従う。</b></p><p class="small">このWeb教材を見ただけで「自分で安全確認できる」とはしない。</p></div>
 <div class="card"><h2>🧠 考えてみよう</h2><p>シリンダーが止まっている。だから手を入れても大丈夫？</p><div class="big">答え：<span class="hi">勝手に判断しない。</span></div></div>
@@ -1551,6 +1571,14 @@ tr:last-child td{border-bottom:0}
 <div class="card"><h2>📖 ヤスリは「往復全力」じゃない</h2>
 <p>一般的な金属用手ヤスリは、<b>押す時に切れる</b>ものが多い。</p>
 <div class="big"><span class="hi">押す時に削る。戻す時は力を抜く。</span></div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜力を掛けるのは押し側</div>
+  <div class="visual-row">
+    <div class="visual-box good"><span class="vicon">➡️</span><b>押す</b><br>適度に力を掛けて削る</div>
+    <div class="visual-box"><span class="vicon">⬅️</span><b>戻す</b><br>力を抜いて戻す</div>
+  </div>
+  <div class="visual-note">バリを取るのが目的なら、形まで変えるほど削らない。</div>
+</div>
 <p>戻し側まで全力で押さえ付けると、動きがぎこちなくなり、狙った面を崩しやすい。</p></div>
 
 <div class="card danger"><h2>😱 うちであるある：どっちにも全力</h2>
@@ -1753,6 +1781,17 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>準備</b><br>出発前に忘れ物チェック</div>
   <div class="tile"><b>記録</b><br>採寸したらすぐ残す</div>
   <div class="tile"><b>片付け</b><br>工具を定位置へ戻す</div>
+</div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜現場仕事は「作業中」だけじゃない</div>
+  <div class="flowline">
+    <div class="flowstep">🎒 準備</div><div class="visual-arrow">→</div>
+    <div class="flowstep key">👀 先読み</div><div class="visual-arrow">→</div>
+    <div class="flowstep">🔧 作業</div><div class="visual-arrow">→</div>
+    <div class="flowstep">📝 記録</div><div class="visual-arrow">→</div>
+    <div class="flowstep">🧰 片付け</div>
+  </div>
+  <div class="visual-note">途中で別作業へ行く時は「どこまでやったか」を残してから離れる。</div>
 </div></div>
 
 <div class="card quiz"><h2>🎮 クイズ</h2>
@@ -1813,7 +1852,15 @@ tr:last-child td{border-bottom:0}
 <div class="card"><h2>🧠 数字だけ聞いて決めつけない</h2>
 <p>「13」は、スパナかもしれんし、キリかもしれん。</p>
 <p>大事なのは<b>前後の会話と作業内容</b>を見ること。</p>
-<div class="big">数字だけじゃなく、<span class="hi">文脈を読む。</span></div></div>
+<div class="big">数字だけじゃなく、<span class="hi">文脈を読む。</span></div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜同じ「13」でも、後ろの言葉で意味が変わる</div>
+  <div class="visual-row">
+    <div class="visual-box good"><span class="vicon">🔧</span><b>13のスパナ</b><br>13mm工具</div>
+    <div class="visual-box good"><span class="vicon">🕳️</span><b>13のキリ</b><br>φ13mmドリル刃</div>
+    <div class="visual-box bad"><span class="vicon">❓</span><b>「13」だけ</b><br>分からなければ聞く</div>
+  </div>
+</div></div>
 
 <div class="card company"><h2>🏭 うちで出やすい言葉</h2>
 <ul>
@@ -1889,6 +1936,19 @@ tr:last-child td{border-bottom:0}
 <div class="card danger"><h2>⚠️ 合格条件は「知ってる」ではなく「安全にできる」</h2>
 <p>LEVEL 0のゴールは、一人前の機械屋になることではない。</p>
 <div class="big">安全に止まれる。<br>基本工具を選べる。<br>指示が分かる。<br><span class="hi">分からない時に勝手にやらない。</span></div>
+<div class="visual">
+  <div class="visual-title">FINAL CHECK｜7つの実技をマンツーマンで確認</div>
+  <div class="flowline">
+    <div class="flowstep key">1 安全</div>
+    <div class="flowstep">2 現場語</div>
+    <div class="flowstep">3 締結</div>
+    <div class="flowstep">4 測定</div>
+    <div class="flowstep">5 キリ/TAP</div>
+    <div class="flowstep">6 工具</div>
+    <div class="flowstep">7 現場行動</div>
+  </div>
+  <div class="visual-note">知識試験ではなく、先輩が「実際にどう動くか」を見る。</div>
+</div>
 <p>危険な判断をした場合は、他ができてもその場で指導して再試験。</p></div>
 
 <div class="card company"><h2>🏭 試験のやり方</h2>
@@ -1906,7 +1966,7 @@ tr:last-child td{border-bottom:0}
 </ul>
 <div class="big">LEVEL 0で一番見たいのは、<span class="hi">危ない時に止まれるか。</span></div></div>
 
-<div class="card"><h2>STAGE 1｜⚠️ 安全判断</h2>
+<div class="card stage-card"><h2>STAGE 1｜⚠️ 安全判断</h2>
 <p><b>先輩が状況を出す：</b>「機械は止まってる。中に落ちた工具を取って」など。</p>
 <ul>
 <li>停止しているだけでは安全ではないと判断できる</li>
@@ -1916,7 +1976,7 @@ tr:last-child td{border-bottom:0}
 </ul>
 <label class="check exam-check"><input type="checkbox">👨‍🔧 STAGE 1 PASS：危険時に止まり、確認できた</label></div>
 
-<div class="card"><h2>STAGE 2｜🗣️ 現場語と工具選び</h2>
+<div class="card stage-card"><h2>STAGE 2｜🗣️ 現場語と工具選び</h2>
 <p><b>先輩がランダムに指示：</b></p>
 <div class="grid">
   <div class="tile">「13持ってきて」</div>
@@ -1928,7 +1988,7 @@ tr:last-child td{border-bottom:0}
 <p>「13」だけで文脈が足りない場合は、何の13か聞き返せればOK。</p>
 <label class="check exam-check"><input type="checkbox">👨‍🔧 STAGE 2 PASS：指示を理解し、正しい工具・部品を選べた</label></div>
 
-<div class="card"><h2>STAGE 3｜🔩 ボルト・ワッシャー・締結</h2>
+<div class="card stage-card"><h2>STAGE 3｜🔩 ボルト・ワッシャー・締結</h2>
 <ul>
 <li>ボルトを最初の数山、手でまっすぐ入れる</li>
 <li>右ねじの締め／緩め方向を姿勢が変わっても判断する</li>
@@ -1938,7 +1998,7 @@ tr:last-child td{border-bottom:0}
 </ul>
 <label class="check exam-check"><input type="checkbox">👨‍🔧 STAGE 3 PASS：締結を正しく組み、異常時に止まれた</label></div>
 
-<div class="card"><h2>STAGE 4｜📏 測定</h2>
+<div class="card stage-card"><h2>STAGE 4｜📏 測定</h2>
 <p><b>3種類を実測：</b></p>
 <ul>
 <li>メジャーで長さをまっすぐ測る</li>
@@ -1950,7 +2010,7 @@ tr:last-child td{border-bottom:0}
 <p>ゼロ点・測定面・斜め当て・強く挟みすぎも確認。</p>
 <label class="check exam-check"><input type="checkbox">👨‍🔧 STAGE 4 PASS：測定具を使い分け、正しく記録できた</label></div>
 
-<div class="card"><h2>STAGE 5｜🕳️ キリ・TAPの理解</h2>
+<div class="card stage-card"><h2>STAGE 5｜🕳️ キリ・TAPの理解</h2>
 <p><b>問題例：</b>「M8並目のTAPを立てたい。何のキリ？」</p>
 <ul>
 <li>M8並目 → 代表的な下穴φ6.8を選べる</li>
@@ -1961,7 +2021,7 @@ tr:last-child td{border-bottom:0}
 <p class="small">実際のTAP加工を試験に含める場合は、必ず先輩立会い・会社手順の範囲で行う。</p>
 <label class="check exam-check"><input type="checkbox">👨‍🔧 STAGE 5 PASS：下穴とTAPを理解し、異常判断ができた</label></div>
 
-<div class="card"><h2>STAGE 6｜🛠️ 工具の扱い</h2>
+<div class="card stage-card"><h2>STAGE 6｜🛠️ 工具の扱い</h2>
 <p>実物を見せて「どこがおかしい？」を答えさせる。</p>
 <ul>
 <li>モンキーのガタ・掛け方</li>
@@ -1975,7 +2035,7 @@ tr:last-child td{border-bottom:0}
 </ul>
 <label class="check exam-check"><input type="checkbox">👨‍🔧 STAGE 6 PASS：工具の危ない使い方を見抜き、理由を説明できた</label></div>
 
-<div class="card"><h2>STAGE 7｜🏃 現場での動き方</h2>
+<div class="card stage-card"><h2>STAGE 7｜🏃 現場での動き方</h2>
 <ul>
 <li>先輩の次工程を見て、必要そうな工具・部品を確認して段取りする</li>
 <li>作業を離れる前に「どこまで・次何する」を整理する</li>

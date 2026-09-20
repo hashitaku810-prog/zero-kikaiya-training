@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.19</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.20</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -216,7 +216,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.19</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.20</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -306,14 +306,26 @@ tr:last-child td{border-bottom:0}
 <div class="card danger"><h2>最初にこれだけ</h2><div class="big">機械が止まっていることと、<span class="hi">安全であることは別。</span></div>
 <p>電気・エア・重力・残圧など、見えないエネルギーが残っていることがある。会社で定めた停止・隔離・確認手順と責任者／先輩の指示を守る。</p></div>
 <div class="card"><h2>👀 新人あるある危険行動</h2><p>① ローラーコンベアに乗る・歩く<br>② 光電センサーを手で遮る<br>③ 電源・エアが生きたまま装置内へ手を入れる<br>④ 落とした工具を取りに機械の下へ潜る<br>⑤ センサー・配線・機器を踏む</p>
-<div class="visual">
-  <div class="visual-title">VISUAL｜「すぐ終わるから」が危ない</div>
-  <div class="visual-row">
-    <div class="visual-box bad"><span class="vicon">🖐️⚙️</span><b>触る</b><br>勝手に手を入れない</div>
-    <div class="visual-box bad"><span class="vicon">👣</span><b>乗る</b><br>コンベアに乗らない</div>
-    <div class="visual-box bad"><span class="vicon">🙇</span><b>潜る</b><br>機械下へ勝手に入らない</div>
-    <div class="visual-box good"><span class="vicon">🙋</span><b>確認する</b><br>先輩・責任者へ聞く</div>
-  </div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜「触る・乗る・潜る」の前に、まず確認</div>
+  <svg class="tech-svg" viewBox="0 0 760 420" role="img" aria-label="新人が勝手に機械へ触る、コンベアへ乗る、機械の下へ潜る危険行動と、先輩へ確認する正しい行動を比較した図。">
+    <rect x="12" y="12" width="176" height="310" rx="20" fill="#2b181a" stroke="#9c5050" stroke-width="3"/>
+    <rect x="198" y="12" width="176" height="310" rx="20" fill="#2b181a" stroke="#9c5050" stroke-width="3"/>
+    <rect x="384" y="12" width="176" height="310" rx="20" fill="#2b181a" stroke="#9c5050" stroke-width="3"/>
+    <rect x="570" y="12" width="178" height="310" rx="20" fill="#10251c" stroke="#3f976a" stroke-width="3"/>
+    <text x="48" y="48" fill="#ffb0b0" font-size="22" font-weight="900">触る</text>
+    <text x="234" y="48" fill="#ffb0b0" font-size="22" font-weight="900">乗る</text>
+    <text x="420" y="48" fill="#ffb0b0" font-size="22" font-weight="900">潜る</text>
+    <text x="601" y="48" fill="#a9ffd0" font-size="22" font-weight="900">確認する</text>
+    <circle cx="100" cy="120" r="28" fill="#d7e4eb"/><line x1="100" y1="148" x2="100" y2="220" stroke="#d7e4eb" stroke-width="10"/><line x1="100" y1="166" x2="147" y2="190" stroke="#ff6f6f" stroke-width="9"/><rect x="143" y="166" width="28" height="52" rx="6" fill="#253947" stroke="#ff6f6f" stroke-width="3"/>
+    <line x1="58" y1="92" x2="162" y2="242" stroke="#ff6f6f" stroke-width="7"/><line x1="162" y1="92" x2="58" y2="242" stroke="#ff6f6f" stroke-width="7"/>
+    <circle cx="286" cy="119" r="28" fill="#d7e4eb"/><line x1="286" y1="147" x2="286" y2="204" stroke="#d7e4eb" stroke-width="10"/><line x1="286" y1="204" x2="246" y2="253" stroke="#d7e4eb" stroke-width="9"/><line x1="286" y1="204" x2="326" y2="253" stroke="#d7e4eb" stroke-width="9"/><rect x="220" y="262" width="132" height="26" rx="8" fill="#253947" stroke="#ff6f6f" stroke-width="3"/>
+    <line x1="224" y1="92" x2="348" y2="242" stroke="#ff6f6f" stroke-width="7"/><line x1="348" y1="92" x2="224" y2="242" stroke="#ff6f6f" stroke-width="7"/>
+    <rect x="412" y="92" width="118" height="88" rx="8" fill="#253947" stroke="#d7e4eb" stroke-width="4"/><circle cx="472" cy="221" r="24" fill="#d7e4eb"/><line x1="472" y1="245" x2="472" y2="278" stroke="#d7e4eb" stroke-width="9"/>
+    <line x1="410" y1="92" x2="536" y2="276" stroke="#ff6f6f" stroke-width="7"/><line x1="536" y1="92" x2="410" y2="276" stroke="#ff6f6f" stroke-width="7"/>
+    <circle cx="659" cy="119" r="28" fill="#50d890"/><line x1="659" y1="147" x2="659" y2="223" stroke="#a9ffd0" stroke-width="10"/><line x1="659" y1="165" x2="624" y2="128" stroke="#a9ffd0" stroke-width="8"/><line x1="659" y1="165" x2="697" y2="132" stroke="#a9ffd0" stroke-width="8"/><text x="601" y="267" fill="#a9ffd0" font-size="16" font-weight="850">先輩・責任者へ</text>
+    <rect x="91" y="347" width="578" height="46" rx="12" fill="#0e1c25" stroke="#456071" stroke-width="2"/><text x="152" y="376" fill="#ffe08b" font-size="18" font-weight="900">「すぐ終わる」より「勝手にやらない」を優先</text>
+  </svg>
 </div></div>
 <div class="card"><h2>基本ルール</h2><div class="grid"><div class="tile"><b>勝手に触らない</b></div><div class="tile"><b>勝手に入らない</b><br>潜らない・乗らない</div><div class="tile"><b>止まって見えても</b><br>安全と決めつけない</div><div class="tile"><b>分からなければ</b><br>先輩に確認</div></div></div>
 <div class="card quiz"><h2>🎮 ケース問題</h2><p>停止中のコンベアに詰まりを発見。手が届きそう。</p><button data-ok="0">すぐ取る</button><button data-ok="1">指定手順で安全確認し、先輩・責任者に確認</button><div class="feedback"></div>
@@ -325,16 +337,17 @@ tr:last-child td{border-bottom:0}
 <div class="hero"><span class="badge">LESSON 0-02</span><h1>⚠️ 止まっている ≠ 安全</h1></div>
 <div class="card danger"><h2>👀 機械が止まっていても安心しない</h2><div class="big">止まっていることと、<span class="hi">安全であることは別。</span></div><p>見た目に動いていなくても、機械には危険なエネルギーが残っていることがある。</p></div>
 <div class="card"><h2>📖 残っているかもしれないもの</h2><div class="grid"><div class="tile"><b>⚡ 電気</b><br>電源・蓄電・自動復帰</div><div class="tile"><b>💨 エア</b><br>残圧でシリンダーが動く</div><div class="tile"><b>⬇️ 重力</b><br>上がった物が落ちる</div><div class="tile"><b>🌀 蓄えた力</b><br>バネ・慣性・張力など</div></div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜「止まって見える」の裏にエネルギーが残る</div>
-  <div class="visual-row">
-    <div class="visual-box"><span class="vicon">⚡</span><b>電気</b></div>
-    <div class="visual-box"><span class="vicon">💨</span><b>残圧</b></div>
-    <div class="visual-box"><span class="vicon">⬇️</span><b>重力</b></div>
-    <div class="visual-box"><span class="vicon">🌀</span><b>バネ・張力</b></div>
-  </div>
-  <div class="visual-arrow" style="text-align:center;margin:8px 0">↓</div>
-  <div class="visual-box bad"><b>見た目が停止中でも、動く・落ちる・飛ぶ可能性がある</b></div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜停止して見えても、4つのエネルギーが残ることがある</div>
+  <svg class="tech-svg" viewBox="0 0 760 400" role="img" aria-label="停止中の機械にも電気、エア残圧、重力、バネや張力などのエネルギーが残り、動く、落ちる、飛ぶ可能性があることを示した図。">
+    <rect x="24" y="26" width="160" height="150" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="72" y="63" fill="#ffe08b" font-size="24" font-weight="900">⚡ 電気</text><path d="M107 82 L82 128 H112 L96 163 L142 108 H114 L130 82 Z" fill="#ffbd2e"/>
+    <rect x="204" y="26" width="160" height="150" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="244" y="63" fill="#a9dfff" font-size="24" font-weight="900">残圧</text><rect x="241" y="101" width="86" height="32" rx="8" fill="#253947" stroke="#65baff" stroke-width="3"/><path d="M267 117 H345" stroke="#65baff" stroke-width="6"/><path d="M345 117 l-18 -13 v26z" fill="#65baff"/>
+    <rect x="384" y="26" width="160" height="150" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="432" y="63" fill="#f7f9fb" font-size="24" font-weight="900">重力</text><rect x="428" y="88" width="72" height="38" rx="6" fill="#d7e4eb"/><path d="M464 136 V163" stroke="#ff6f6f" stroke-width="6"/><path d="M464 165 l-12 -17 h24z" fill="#ff6f6f"/>
+    <rect x="564" y="26" width="172" height="150" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="592" y="63" fill="#f7f9fb" font-size="24" font-weight="900">バネ・張力</text><path d="M596 114 q14 -38 28 0 t28 0 t28 0 t28 0" fill="none" stroke="#b38cff" stroke-width="7"/>
+    <path d="M104 190 V240 M284 190 V240 M464 190 V240 M650 190 V240" stroke="#ff6f6f" stroke-width="5"/>
+    <rect x="104" y="236" width="546" height="88" rx="18" fill="#2b181a" stroke="#9c5050" stroke-width="3"/><text x="177" y="272" fill="#ffb0b0" font-size="22" font-weight="900">止まって見えても</text><text x="161" y="304" fill="#f7f9fb" font-size="20" font-weight="850">動く・落ちる・飛ぶ可能性がある</text>
+    <rect x="90" y="344" width="580" height="38" rx="11" fill="#0e1c25" stroke="#456071" stroke-width="2"/><text x="180" y="369" fill="#ffe08b" font-size="17" font-weight="900">安全は「見た目」ではなく、決められた手順で確認</text>
+  </svg>
 </div></div>
 <div class="card danger"><h2>😱 新人あるある</h2><p>「止まってるから大丈夫やろ」で手を入れる。<br>「すぐ取れるから」で機械の下へ潜る。<br><b>その判断を新人が勝手にしない。</b></p></div>
 <div class="card company"><h2>🏭 うちでの基本</h2><p>停止・遮断・残圧処理・安全確認は、<b>会社で決めた手順と責任者・先輩の指示に従う。</b></p><p class="small">このWeb教材を見ただけで「自分で安全確認できる」とはしない。</p></div>
@@ -345,14 +358,15 @@ tr:last-child td{border-bottom:0}
 <div class="lesson-nav"><button class="btn" onclick="openLesson('0-01')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-03')">次へ →</button></div></section><section id="lesson-0-03" class="screen lesson hidden" data-num="0-03">
     <div class="hero"><span class="badge">LESSON 0-03</span><h1>🔩 ボルト・ナット・ワッシャー</h1></div>
 <div class="card"><h2>👀 4つを見分ける</h2><div class="grid"><div class="tile"><b>ボルト</b><br>外側にねじ山</div><div class="tile"><b>ナット</b><br>内側にねじ</div><div class="tile"><b>平W</b><br>平ワッシャー</div><div class="tile"><b>SW</b><br>スプリングワッシャー</div></div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜まず形で見分ける</div>
-  <div class="visual-row">
-    <div class="visual-box"><span class="vicon">🔩</span><b>ボルト</b><br>外ねじ</div>
-    <div class="visual-box"><span class="vicon">⬡</span><b>ナット</b><br>内ねじ</div>
-    <div class="visual-box"><span class="vicon">⭕</span><b>平W</b><br>平たい座金</div>
-    <div class="visual-box"><span class="vicon">〰️</span><b>SW</b><br>切れ目のある座金</div>
-  </div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜ボルト・ナット・平W・SWを「形」で見分ける</div>
+  <svg class="tech-svg" viewBox="0 0 760 350" role="img" aria-label="ボルト、ナット、平ワッシャー、スプリングワッシャーの形の違いを4分割で示した図。">
+    <rect x="18" y="18" width="170" height="250" rx="20" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="66" y="53" fill="#ffe08b" font-size="21" font-weight="900">ボルト</text><polygon points="70,90 121,90 140,112 121,134 70,134 51,112" fill="#b8c8d1"/><rect x="88" y="134" width="16" height="93" rx="4" fill="#d7e4eb"/><path d="M88 150 L104 158 M88 169 L104 177 M88 188 L104 196 M88 207 L104 215" stroke="#65baff" stroke-width="3"/><text x="54" y="246" fill="#a8b7c2" font-size="15" font-weight="800">外側にねじ山</text>
+    <rect x="203" y="18" width="170" height="250" rx="20" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="252" y="53" fill="#ffe08b" font-size="21" font-weight="900">ナット</text><polygon points="288,91 335,118 335,172 288,199 241,172 241,118" fill="#b8c8d1"/><circle cx="288" cy="145" r="26" fill="#071017" stroke="#65baff" stroke-width="4"/><text x="250" y="246" fill="#a8b7c2" font-size="15" font-weight="800">内側にねじ</text>
+    <rect x="388" y="18" width="170" height="250" rx="20" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="435" y="53" fill="#ffe08b" font-size="21" font-weight="900">平W</text><ellipse cx="473" cy="146" rx="56" ry="56" fill="#b8c8d1"/><ellipse cx="473" cy="146" rx="25" ry="25" fill="#071017"/><text x="427" y="246" fill="#a8b7c2" font-size="15" font-weight="800">平たい座金</text>
+    <rect x="573" y="18" width="170" height="250" rx="20" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="623" y="53" fill="#ffe08b" font-size="21" font-weight="900">SW</text><path d="M622 105 A55 55 0 1 1 691 185" fill="none" stroke="#ffbd2e" stroke-width="14"/><path d="M622 105 L636 92 M691 185 L705 172" stroke="#ffbd2e" stroke-width="10" stroke-linecap="round"/><text x="604" y="246" fill="#a8b7c2" font-size="15" font-weight="800">切れ目のある座金</text>
+    <rect x="102" y="294" width="556" height="36" rx="11" fill="#0e1c25" stroke="#456071" stroke-width="2"/><text x="191" y="318" fill="#a9dfff" font-size="17" font-weight="900">まず名前と形を一致させる。並び方は0-20で確認</text>
+  </svg>
 </div></div>
 <div class="card company"><h2>🏭 うちの標準</h2><p>通常の締結ではSWを基本的に使用。ただしカバー類をトラスで固定する場合はワッシャーを使わないことが多い。鉄系ボルトはユニクロが多く、ステンレスはSUS304が基本。</p></div>
 <div class="card"><h2>TAP締めとナット締め</h2><div class="big">TAP：ボルト頭 → SW → 平W → 部材 → TAP穴</div><br><div class="big">ナット：ボルト頭 → 平W → 部材 → 平W → SW → ナット</div><p class="small">TAP・キリ穴そのものは後のLessonで詳しく扱う。</p></div>
@@ -364,14 +378,14 @@ tr:last-child td{border-bottom:0}
     <button id="clear-0-03" class="btn" onclick="clearLesson('0-03')">□ 指導者確認：0-03 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="openLesson('0-02')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-04')">次へ →</button></div></section><section id="lesson-0-04" class="screen lesson hidden" data-num="0-04">
     <div class="hero"><span class="badge">LESSON 0-04</span><h1>🔩 六角・キャップ・トラス</h1></div>
 <div class="card"><h2>👀 「全部ボルト」から卒業</h2><div class="grid"><div class="tile"><b>六角ボルト</b><br>外六角をスパナ等で回す</div><div class="tile"><b>キャップボルト</b><br>六角穴付き。六角レンチ等</div><div class="tile"><b>トラス</b><br>頭が低く広い。カバー等</div></div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜頭の形と工具をセットで覚える</div>
-  <div class="visual-row">
-    <div class="visual-box"><span class="vicon">⬡│</span><b>六角</b><br>外側をつかむ</div>
-    <div class="visual-box"><span class="vicon">▣│</span><b>キャップ</b><br>内側の六角穴へ</div>
-    <div class="visual-box"><span class="vicon">◜━◝</span><b>トラス</b><br>低く広い頭</div>
-  </div>
-  <div class="visual-note">名前だけでなく「どこへ工具を掛けるか」まで一緒に見る。</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜頭の形を見ると「どこへ工具を掛けるか」が分かる</div>
+  <svg class="tech-svg" viewBox="0 0 760 360" role="img" aria-label="六角ボルト、六角穴付きボルト、トラスねじの頭形状と対応する工具の掛け方を比較した図。">
+    <rect x="18" y="18" width="226" height="275" rx="20" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="63" y="52" fill="#ffe08b" font-size="21" font-weight="900">六角ボルト</text><polygon points="131,93 184,123 184,183 131,213 78,183 78,123" fill="#b8c8d1"/><path d="M56 153 H206" stroke="#65baff" stroke-width="5"/><text x="58" y="250" fill="#a9dfff" font-size="16" font-weight="850">外側をつかむ</text>
+    <rect x="267" y="18" width="226" height="275" rx="20" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="300" y="52" fill="#ffe08b" font-size="21" font-weight="900">キャップ</text><circle cx="380" cy="153" r="67" fill="#b8c8d1"/><polygon points="380,116 412,134 412,172 380,190 348,172 348,134" fill="#071017" stroke="#ffbd2e" stroke-width="4"/><rect x="371" y="78" width="18" height="70" rx="4" fill="#65baff"/><text x="305" y="250" fill="#a9dfff" font-size="16" font-weight="850">内側の六角穴へ</text>
+    <rect x="516" y="18" width="226" height="275" rx="20" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="585" y="52" fill="#ffe08b" font-size="21" font-weight="900">トラス</text><path d="M557 165 Q628 89 701 165 V194 H557 Z" fill="#b8c8d1"/><path d="M605 147 H653 M629 123 V171" stroke="#071017" stroke-width="8" stroke-linecap="round"/><text x="557" y="250" fill="#a9dfff" font-size="16" font-weight="850">低く広い頭</text>
+    <rect x="89" y="314" width="582" height="32" rx="10" fill="#0e1c25" stroke="#456071" stroke-width="2"/><text x="164" y="336" fill="#ffe08b" font-size="17" font-weight="900">「付く」だけでなく「工具が入って締められる」まで考える</text>
+  </svg>
 </div></div>
 <div class="card company"><h2>🏭 使い分けの感覚</h2><p>六角とキャップは用途を丸暗記しない。<b>工具が入る？ 頭が干渉せん？ 組める？ 後で外せる？</b>を考える。設計側の深掘りは「設計基礎編」以降で扱う。</p></div>
 <div class="card danger"><h2>新人あるある</h2><p>「CAD上では六角でも入ってます！」→ <b>入ることと工具で締められることは別。</b></p></div>
@@ -383,15 +397,18 @@ tr:last-child td{border-bottom:0}
     <button id="clear-0-04" class="btn" onclick="clearLesson('0-04')">□ 指導者確認：0-04 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="openLesson('0-03')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-05')">次へ →</button></div></section><section id="lesson-0-05" class="screen lesson hidden" data-num="0-05">
     <div class="hero"><span class="badge">LESSON 0-05</span><h1>📏 M5〜M20って何？</h1></div>
 <div class="card"><h2>👀 Mの後ろの数字</h2><div class="big"><span class="hi">M8</span> ＝ ねじの呼び径が約 <span class="hi">8mm</span></div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜Mの数字が大きいほど、基本的にねじも太くなる</div>
-  <div class="visual-row">
-    <div class="visual-box"><span class="vicon" style="font-size:1.25rem">●</span><b>M5</b></div>
-    <div class="visual-box"><span class="vicon" style="font-size:1.65rem">●</span><b>M8</b></div>
-    <div class="visual-box"><span class="vicon" style="font-size:2.05rem">●</span><b>M12</b></div>
-    <div class="visual-box"><span class="vicon" style="font-size:2.45rem">●</span><b>M20</b></div>
-  </div>
-  <div class="visual-note">これは「工具サイズ」ではなく、ねじの呼び径。</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜Mの数字は「ねじの呼び径」。工具サイズではない</div>
+  <svg class="tech-svg" viewBox="0 0 760 330" role="img" aria-label="M5、M8、M12、M20のねじ径が順に太くなるイメージと、Mの数字がねじの呼び径であることを示した図。">
+    <line x1="90" y1="165" x2="670" y2="165" stroke="#314957" stroke-width="3"/>
+    <circle cx="120" cy="165" r="25" fill="#253947" stroke="#65baff" stroke-width="5"/><text x="93" y="226" fill="#f7f9fb" font-size="20" font-weight="900">M5</text>
+    <circle cx="290" cy="165" r="40" fill="#253947" stroke="#65baff" stroke-width="5"/><text x="263" y="226" fill="#f7f9fb" font-size="20" font-weight="900">M8</text>
+    <circle cx="465" cy="165" r="58" fill="#253947" stroke="#ffbd2e" stroke-width="5"/><text x="430" y="246" fill="#ffe08b" font-size="20" font-weight="900">M12</text>
+    <circle cx="650" cy="165" r="82" fill="#253947" stroke="#ffbd2e" stroke-width="5"/><text x="613" y="272" fill="#ffe08b" font-size="20" font-weight="900">M20</text>
+    <path d="M99 165 H141 M266 165 H314 M431 165 H499 M602 165 H698" stroke="#d7e4eb" stroke-width="3"/>
+    <rect x="106" y="22" width="548" height="44" rx="12" fill="#0e1c25" stroke="#456071" stroke-width="2"/><text x="195" y="51" fill="#a9dfff" font-size="18" font-weight="900">数字が大きいほど、基本的にねじも太くなる</text>
+    <rect x="142" y="292" width="476" height="26" rx="9" fill="#2b181a" stroke="#9c5050" stroke-width="2"/><text x="242" y="311" fill="#ffb0b0" font-size="16" font-weight="900">M8 ＝ 8mmスパナ、ではない</text>
+  </svg>
 </div>
 <p class="small">厳密には「呼び径」。実測が必ずぴったり8.000mmという意味ではない。</p></div>
 <div class="card company"><h2>🏭 うちでよく使う範囲</h2><div class="grid"><div class="tile"><b>M5</b></div><div class="tile"><b>M6</b></div><div class="tile"><b>M8</b></div><div class="tile"><b>M10</b></div><div class="tile"><b>M12</b></div><div class="tile"><b>M14</b></div><div class="tile"><b>M16</b></div><div class="tile"><b>M20</b></div></div><p>見た目だけで決めず、図面・表示・測定で確認する。</p></div>
@@ -403,14 +420,17 @@ tr:last-child td{border-bottom:0}
     <button id="clear-0-05" class="btn" onclick="clearLesson('0-05')">□ 指導者確認：0-05 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="openLesson('0-04')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-06')">次へ →</button></div></section><section id="lesson-0-06" class="screen lesson hidden" data-num="0-06">
     <div class="hero"><span class="badge">LESSON 0-06</span><h1>📐 M8×30って何？</h1></div>
 <div class="card"><h2>👀 2つの数字</h2><div class="big"><span class="hi">M8</span> × <span class="hi">30</span><br>呼び径8mm × 長さ30mm</div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜M8と30は別の寸法</div>
-  <div class="visual-row">
-    <div class="visual-box good"><span class="vicon">↔️</span><b>M8</b><br>ねじの太さ側</div>
-    <div class="visual-arrow">×</div>
-    <div class="visual-box good"><span class="vicon">↕️</span><b>30</b><br>ボルトの長さ</div>
-  </div>
-  <div class="visual-note">径だけ合っていても、長さが違えば別のボルト。</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜M8×30は「太さ」と「長さ」の2つを見る</div>
+  <svg class="tech-svg" viewBox="0 0 760 340" role="img" aria-label="M8×30ボルトについて、ねじの呼び径M8と座面から先端までの長さ30ミリを別々の寸法として示した図。">
+    <polygon points="95,98 180,98 208,128 180,158 95,158 67,128" fill="#b8c8d1" stroke="#f7f9fb" stroke-width="3"/>
+    <rect x="138" y="158" width="34" height="130" rx="5" fill="#d7e4eb"/>
+    <path d="M138 174 L172 188 M138 198 L172 212 M138 222 L172 236 M138 246 L172 260" stroke="#65baff" stroke-width="4"/>
+    <line x1="112" y1="182" x2="198" y2="182" stroke="#ffbd2e" stroke-width="5"/><line x1="112" y1="169" x2="112" y2="195" stroke="#ffbd2e" stroke-width="4"/><line x1="198" y1="169" x2="198" y2="195" stroke="#ffbd2e" stroke-width="4"/><text x="93" y="220" fill="#ffe08b" font-size="21" font-weight="900">M8</text>
+    <line x1="242" y1="158" x2="242" y2="288" stroke="#65baff" stroke-width="5"/><line x1="228" y1="158" x2="256" y2="158" stroke="#65baff" stroke-width="4"/><line x1="228" y1="288" x2="256" y2="288" stroke="#65baff" stroke-width="4"/><text x="261" y="232" fill="#a9dfff" font-size="21" font-weight="900">30 mm</text>
+    <rect x="360" y="70" width="330" height="90" rx="18" fill="#10251c" stroke="#3f976a" stroke-width="3"/><text x="397" y="108" fill="#a9ffd0" font-size="22" font-weight="900">M8 ＝ 呼び径</text><text x="397" y="139" fill="#a9dfff" font-size="20" font-weight="850">30 ＝ ボルト長さ</text>
+    <rect x="360" y="183" width="330" height="105" rx="18" fill="#2b181a" stroke="#9c5050" stroke-width="3"/><text x="393" y="220" fill="#ffb0b0" font-size="18" font-weight="900">径だけ合ってもダメ</text><text x="393" y="250" fill="#f7f9fb" font-size="17" font-weight="850">短すぎ・長すぎは別トラブル</text>
+  </svg>
 </div>
 <p class="small">一般的な六角ボルト等では座面から先端まで。皿ねじ等は例外がある。</p></div>
 <div class="card danger"><h2>新人あるある</h2><p><b>短すぎ：</b>ねじの掛かり不足。<br><b>長すぎ：</b>TAP穴底への突き当たり、不要な突出、干渉。</p><div class="big">短すぎ ❌　<span class="hi">適切</span> ⭕　長すぎ ❌</div></div>
@@ -422,14 +442,16 @@ tr:last-child td{border-bottom:0}
     <button id="clear-0-06" class="btn" onclick="clearLesson('0-06')">□ 指導者確認：0-06 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="openLesson('0-05')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-07')">次へ →</button></div></section><section id="lesson-0-07" class="screen lesson hidden" data-num="0-07">
     <div class="hero"><span class="badge">LESSON 0-07</span><h1>🔧 M8なのに、なんで13なん？</h1></div>
 <div class="card"><h2>👀 ついに元凶</h2><div class="big"><span class="hi">M8</span> ＝ ねじの呼び径<br><span class="hi">13</span> ＝ 一般的なM8六角頭・ナットに掛ける工具の二面幅</div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜同じボルトの「違う場所」を測っている</div>
-  <div class="visual-row">
-    <div class="visual-box"><span class="vicon">│🔩│</span><b>M8</b><br>ねじ部の呼び径</div>
-    <div class="visual-arrow">≠</div>
-    <div class="visual-box good"><span class="vicon">↔⬡↔</span><b>13 mm</b><br>六角頭の二面幅</div>
-  </div>
-  <div class="visual-note">M8なのに13を使うのは、測っている場所が違うから。</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜M8と13は「同じボルトの別の場所」を表す</div>
+  <svg class="tech-svg" viewBox="0 0 760 350" role="img" aria-label="M8六角ボルトのねじ部呼び径と、六角頭の二面幅13ミリが別の寸法であることを示した図。">
+    <polygon points="300,60 460,60 505,108 460,156 300,156 255,108" fill="#b8c8d1" stroke="#f7f9fb" stroke-width="4"/>
+    <rect x="352" y="156" width="56" height="150" rx="8" fill="#d7e4eb"/>
+    <path d="M352 178 L408 194 M352 211 L408 227 M352 244 L408 260 M352 277 L408 293" stroke="#65baff" stroke-width="4"/>
+    <line x1="250" y1="108" x2="510" y2="108" stroke="#ffbd2e" stroke-width="6"/><line x1="250" y1="91" x2="250" y2="125" stroke="#ffbd2e" stroke-width="5"/><line x1="510" y1="91" x2="510" y2="125" stroke="#ffbd2e" stroke-width="5"/><text x="522" y="115" fill="#ffe08b" font-size="24" font-weight="900">13 mm</text>
+    <line x1="325" y1="225" x2="435" y2="225" stroke="#65baff" stroke-width="6"/><line x1="325" y1="208" x2="325" y2="242" stroke="#65baff" stroke-width="5"/><line x1="435" y1="208" x2="435" y2="242" stroke="#65baff" stroke-width="5"/><text x="214" y="233" fill="#a9dfff" font-size="24" font-weight="900">M8</text>
+    <rect x="103" y="314" width="554" height="26" rx="9" fill="#0e1c25" stroke="#456071" stroke-width="2"/><text x="211" y="333" fill="#ffe08b" font-size="17" font-weight="900">M8なのに13を使う＝測っている場所が違う</text>
+  </svg>
 </div></div>
 <div class="card danger"><h2>🤣 すべての元凶</h2><div class="big">先輩「13持ってきて」<br>新人「……M13？ 😨」</div><p>工具の話なら「13」は13mmのスパナ・レンチ類を指す文脈が多い。</p></div>
 <div class="card company"><h2>🏭 まず覚える対応</h2><table><tr><th>ねじ</th><th>よく使う二面幅</th></tr><tr><td>M5</td><td>8</td></tr><tr><td>M6</td><td>10</td></tr><tr><td>M8</td><td><b>13</b></td></tr><tr><td>M10</td><td>17</td></tr><tr><td>M12</td><td>19</td></tr></table><p class="small">種類・系列で例外あり。現物・図面・仕様を優先。</p></div>
@@ -446,15 +468,17 @@ tr:last-child td{border-bottom:0}
 <div class="tile"><b>ラチェットハンドル</b><br>回すための本体。往復させながら締めたり緩めたりできる。</div>
 <div class="tile"><b>ソケット</b><br>ボルトやナットに直接かぶせる交換式の先端工具。</div>
 </div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜本体と先端工具を組み合わせる</div>
-  <div class="visual-row">
-    <div class="visual-box"><span class="vicon">🔧</span><b>ラチェット</b><br>回す本体</div>
-    <div class="visual-arrow">＋</div>
-    <div class="visual-box good"><span class="vicon">⬢</span><b>13mmソケット</b><br>ボルトに直接掛かる</div>
-    <div class="visual-arrow">→</div>
-    <div class="visual-box"><span class="vicon">🔩</span><b>M8六角</b><br>代表例では13mm</div>
-  </div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜ラチェット本体＋ソケット＋ボルトを分けて考える</div>
+  <svg class="tech-svg" viewBox="0 0 760 350" role="img" aria-label="ラチェットハンドルに13ミリソケットを装着し、代表例としてM8六角ボルトへ掛ける関係を示した図。">
+    <defs><marker id="arrowBlue08" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#65baff"/></marker></defs>
+    <text x="60" y="52" fill="#f7f9fb" font-size="21" font-weight="900">ラチェット本体</text><circle cx="150" cy="126" r="40" fill="#b8c8d1" stroke="#f7f9fb" stroke-width="4"/><rect x="145" y="126" width="18" height="130" rx="8" transform="rotate(22 145 126)" fill="#b8c8d1"/>
+    <text x="316" y="52" fill="#ffe08b" font-size="21" font-weight="900">13mmソケット</text><rect x="360" y="89" width="70" height="80" rx="10" fill="#253947" stroke="#ffbd2e" stroke-width="4"/><polygon points="395,105 418,118 418,144 395,157 372,144 372,118" fill="#071017"/>
+    <text x="583" y="52" fill="#f7f9fb" font-size="21" font-weight="900">M8六角</text><polygon points="625,91 676,120 676,178 625,207 574,178 574,120" fill="#b8c8d1"/><rect x="615" y="207" width="20" height="80" rx="4" fill="#d7e4eb"/>
+    <line x1="224" y1="132" x2="336" y2="132" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue08)"/><line x1="443" y1="132" x2="555" y2="132" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue08)"/>
+    <text x="230" y="108" fill="#a9dfff" font-size="18" font-weight="900">装着</text><text x="463" y="108" fill="#a9dfff" font-size="18" font-weight="900">奥まで掛ける</text>
+    <rect x="86" y="305" width="588" height="31" rx="10" fill="#2a230f" stroke="#9b7920" stroke-width="2"/><text x="207" y="327" fill="#ffe08b" font-size="17" font-weight="900">「13」なのはソケット側のサイズ</text>
+  </svg>
 </div>
 <p class="small">「ラチェット＝13」ではない。13なのはソケット側のサイズ。</p></div>
 
@@ -477,7 +501,7 @@ tr:last-child td{border-bottom:0}
 
 <div class="card company"><h2>🏭 うちでまず覚えること</h2>
 <p>LEVEL 0では、差込角の種類を全部暗記するより先に、<b>「指定サイズのソケットを選ぶ」「ラチェットへ確実に装着する」「正しく掛ける」</b>を優先する。</p>
-<p class="small">よく使う差込角や工具メーカーは、会社標準を確認して追記する。</p></div>
+<p class="small">差込角や工具メーカーは会社ごとに構成が違うため、実際の工具箱と会社標準で確認する。</p></div>
 
 <div class="card quiz"><h2>🎮 クイズ</h2>
 <p>一般的なM8六角ボルトに使うことが多いソケットは？</p>
@@ -1549,15 +1573,19 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>ドリル刃</b><br>穴をあける刃物</div>
 </div>
 <p>現場では、ドリル刃のことを<b>「キリ」</b>と呼ぶことが多い。</p>
-<div class="visual">
-  <div class="visual-title">VISUAL｜本体と刃を分けて覚える</div>
-  <div class="visual-row">
-    <div class="visual-box"><span class="vicon">🔌</span><b>ドリル本体</b><br>回す側</div>
-    <div class="visual-arrow">＋</div>
-    <div class="visual-box good"><span class="vicon">🌀</span><b>キリ</b><br>穴をあける刃</div>
-    <div class="visual-arrow">→</div>
-    <div class="visual-box"><span class="vicon">🕳️</span><b>穴</b><br>6.8のキリ → 約φ6.8</div>
-  </div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜「ドリル本体」と「キリ（ドリル刃）」を分けて覚える</div>
+  <svg class="tech-svg" viewBox="0 0 760 350" role="img" aria-label="ドリル本体へドリル刃を取り付け、回転する刃で穴をあける関係と、6.8のキリが直径6.8ミリのドリル刃を意味することを示した図。">
+    <defs><marker id="arrowBlue17" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#65baff"/></marker></defs>
+    <path d="M66 115 H205 L245 151 V216 H110 L66 184 Z" fill="#b8c8d1" stroke="#f7f9fb" stroke-width="4"/><rect x="94" y="216" width="60" height="72" rx="14" fill="#8f7652"/><circle cx="214" cy="165" r="22" fill="#071017"/>
+    <text x="85" y="72" fill="#f7f9fb" font-size="22" font-weight="900">ドリル本体</text>
+    <line x1="246" y1="165" x2="315" y2="165" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue17)"/>
+    <rect x="320" y="153" width="155" height="24" rx="9" fill="#d7e4eb"/><path d="M335 155 L360 175 M375 155 L400 175 M415 155 L440 175" stroke="#65baff" stroke-width="4"/><polygon points="475,153 508,165 475,177" fill="#d7e4eb"/>
+    <text x="350" y="118" fill="#ffe08b" font-size="22" font-weight="900">キリ</text><text x="337" y="210" fill="#a8b7c2" font-size="17" font-weight="850">穴をあける刃</text>
+    <line x1="520" y1="165" x2="590" y2="165" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue17)"/>
+    <circle cx="644" cy="165" r="52" fill="#253947" stroke="#d7e4eb" stroke-width="4"/><circle cx="644" cy="165" r="25" fill="#071017" stroke="#ffbd2e" stroke-width="4"/><text x="603" y="235" fill="#ffe08b" font-size="18" font-weight="900">約φ6.8穴</text>
+    <rect x="113" y="306" width="534" height="28" rx="9" fill="#0e1c25" stroke="#456071" stroke-width="2"/><text x="218" y="326" fill="#a9dfff" font-size="17" font-weight="900">「6.8のキリ」＝ φ6.8mmのドリル刃</text>
+  </svg>
 </div></div>
 
 <div class="card company"><h2>🏭 うちでよく出る言い方</h2>
@@ -2337,15 +2365,17 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>考える</b><br>力を掛けたら何が起きるか考える</div>
   <div class="tile"><b>聞く</b><br>分からなければ先輩に確認</div>
 </div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜工具で迷った時の4手順</div>
-  <div class="flowline">
-    <div class="flowstep key">✋ 止まる</div><div class="visual-arrow">→</div>
-    <div class="flowstep">👀 見る</div><div class="visual-arrow">→</div>
-    <div class="flowstep">🧠 考える</div><div class="visual-arrow">→</div>
-    <div class="flowstep">🙋 聞く</div>
-  </div>
-  <div class="visual-note">「もっと力」へ行く前に、この4つへ戻る。</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜違和感があったら「止まる → 見る → 考える → 聞く」</div>
+  <svg class="tech-svg" viewBox="0 0 760 360" role="img" aria-label="工具作業で違和感があった時に、止まる、見る、考える、聞くの4手順へ戻る流れを示した図。">
+    <defs><marker id="arrowBlue23" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#65baff"/></marker></defs>
+    <rect x="32" y="82" width="150" height="150" rx="20" fill="#2a230f" stroke="#9b7920" stroke-width="3"/><text x="73" y="126" fill="#ffe08b" font-size="24" font-weight="900">止まる</text><text x="62" y="173" fill="#f7f9fb" font-size="17" font-weight="850">重い・滑る・</text><text x="65" y="199" fill="#f7f9fb" font-size="17" font-weight="850">入らない</text>
+    <rect x="214" y="82" width="150" height="150" rx="20" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="260" y="126" fill="#f7f9fb" font-size="24" font-weight="900">見る</text><text x="241" y="173" fill="#a8b7c2" font-size="17" font-weight="850">工具・対象物</text><text x="255" y="199" fill="#a8b7c2" font-size="17" font-weight="850">・周囲</text>
+    <rect x="396" y="82" width="150" height="150" rx="20" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="440" y="126" fill="#f7f9fb" font-size="24" font-weight="900">考える</text><text x="414" y="173" fill="#a8b7c2" font-size="17" font-weight="850">力を掛けたら</text><text x="429" y="199" fill="#a8b7c2" font-size="17" font-weight="850">どうなる？</text>
+    <rect x="578" y="82" width="150" height="150" rx="20" fill="#10251c" stroke="#3f976a" stroke-width="3"/><text x="624" y="126" fill="#a9ffd0" font-size="24" font-weight="900">聞く</text><text x="600" y="173" fill="#a9ffd0" font-size="17" font-weight="850">分からなければ</text><text x="613" y="199" fill="#a9ffd0" font-size="17" font-weight="850">先輩へ確認</text>
+    <line x1="182" y1="157" x2="207" y2="157" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue23)"/><line x1="364" y1="157" x2="389" y2="157" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue23)"/><line x1="546" y1="157" x2="571" y2="157" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue23)"/>
+    <rect x="116" y="276" width="528" height="42" rx="12" fill="#2b181a" stroke="#9c5050" stroke-width="2"/><text x="224" y="303" fill="#ffb0b0" font-size="18" font-weight="900">「もっと力」の前に、この4手順へ戻る</text>
+  </svg>
 </div></div>
 
 <div class="card quiz"><h2>🎮 クイズ</h2>
@@ -2550,13 +2580,14 @@ tr:last-child td{border-bottom:0}
 <p>「13」は、スパナかもしれんし、キリかもしれん。</p>
 <p>大事なのは<b>前後の会話と作業内容</b>を見ること。</p>
 <div class="big">数字だけじゃなく、<span class="hi">文脈を読む。</span></div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜同じ「13」でも、後ろの言葉で意味が変わる</div>
-  <div class="visual-row">
-    <div class="visual-box good"><span class="vicon">🔧</span><b>13のスパナ</b><br>13mm工具</div>
-    <div class="visual-box good"><span class="vicon">🕳️</span><b>13のキリ</b><br>φ13mmドリル刃</div>
-    <div class="visual-box bad"><span class="vicon">❓</span><b>「13」だけ</b><br>分からなければ聞く</div>
-  </div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜同じ「13」でも、後ろの言葉で意味が変わる</div>
+  <svg class="tech-svg" viewBox="0 0 760 350" role="img" aria-label="13のスパナ、13のキリ、13だけという3つの指示を比較し、数字は文脈で意味が変わり、不明なら具体的に聞き返すことを示した図。">
+    <rect x="18" y="18" width="226" height="252" rx="20" fill="#10251c" stroke="#3f976a" stroke-width="3"/><text x="49" y="55" fill="#a9ffd0" font-size="22" font-weight="900">13のスパナ</text><path d="M77 123 L109 90 L133 112 L110 136 L173 199 L151 221 L88 158 L65 181 L44 159 Z" fill="#d7e4eb"/><text x="61" y="244" fill="#a9ffd0" font-size="18" font-weight="850">13mm工具</text>
+    <rect x="267" y="18" width="226" height="252" rx="20" fill="#10251c" stroke="#3f976a" stroke-width="3"/><text x="310" y="55" fill="#a9ffd0" font-size="22" font-weight="900">13のキリ</text><rect x="315" y="126" width="125" height="24" rx="8" fill="#d7e4eb"/><path d="M325 128 L348 148 M360 128 L383 148 M395 128 L418 148" stroke="#65baff" stroke-width="4"/><polygon points="440,126 470,138 440,150" fill="#d7e4eb"/><text x="311" y="244" fill="#a9ffd0" font-size="18" font-weight="850">φ13mmドリル刃</text>
+    <rect x="516" y="18" width="226" height="252" rx="20" fill="#2b181a" stroke="#9c5050" stroke-width="3"/><text x="576" y="55" fill="#ffb0b0" font-size="22" font-weight="900">「13」だけ</text><text x="594" y="150" fill="#ffbd2e" font-size="78" font-weight="950">?</text><text x="547" y="244" fill="#ffb0b0" font-size="18" font-weight="850">分からなければ聞く</text>
+    <rect x="88" y="295" width="584" height="34" rx="11" fill="#0e1c25" stroke="#456071" stroke-width="2"/><text x="166" y="318" fill="#ffe08b" font-size="17" font-weight="900">「13ってソケットですか、メガネですか？」まで具体的に</text>
+  </svg>
 </div></div>
 
 <div class="card company"><h2>🏭 うちで出やすい言葉</h2>
@@ -2633,25 +2664,27 @@ tr:last-child td{border-bottom:0}
 <div class="card danger"><h2>⚠️ 合格条件は「知ってる」ではなく「安全にできる」</h2>
 <p>LEVEL 0のゴールは、一人前の機械屋になることではない。</p>
 <div class="big">安全に止まれる。<br>基本工具を選べる。<br>指示が分かる。<br><span class="hi">分からない時に勝手にやらない。</span></div>
-<div class="visual">
-  <div class="visual-title">FINAL CHECK｜7つの実技をマンツーマンで確認</div>
-  <div class="flowline">
-    <div class="flowstep key">1 安全</div>
-    <div class="flowstep">2 現場語</div>
-    <div class="flowstep">3 締結</div>
-    <div class="flowstep">4 測定</div>
-    <div class="flowstep">5 キリ/TAP</div>
-    <div class="flowstep">6 工具</div>
-    <div class="flowstep">7 現場行動</div>
-  </div>
-  <div class="visual-note">知識試験ではなく、先輩が「実際にどう動くか」を見る。</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜LEVEL 0 FINAL：7つの実技を先輩とマンツーマン確認</div>
+  <svg class="tech-svg" viewBox="0 0 760 430" role="img" aria-label="LEVEL0最終実技試験の安全、現場語、締結、測定、キリとタップ、工具、現場行動の7ステージを順に示した図。">
+    <defs><marker id="arrowGold26" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#ffbd2e"/></marker></defs>
+    <rect x="42" y="58" width="180" height="92" rx="18" fill="#2b181a" stroke="#9c5050" stroke-width="3"/><text x="65" y="96" fill="#ffb0b0" font-size="20" font-weight="900">1 安全判断</text><text x="65" y="126" fill="#a8b7c2" font-size="15" font-weight="800">危ない時に止まる</text>
+    <rect x="290" y="58" width="180" height="92" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="314" y="96" fill="#f7f9fb" font-size="20" font-weight="900">2 現場語</text><text x="314" y="126" fill="#a8b7c2" font-size="15" font-weight="800">指示を聞き取る</text>
+    <rect x="538" y="58" width="180" height="92" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="562" y="96" fill="#f7f9fb" font-size="20" font-weight="900">3 締結</text><text x="562" y="126" fill="#a8b7c2" font-size="15" font-weight="800">正しく組む</text>
+    <rect x="538" y="205" width="180" height="92" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="562" y="243" fill="#f7f9fb" font-size="20" font-weight="900">4 測定</text><text x="562" y="273" fill="#a8b7c2" font-size="15" font-weight="800">実物を測る</text>
+    <rect x="290" y="205" width="180" height="92" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="314" y="243" fill="#f7f9fb" font-size="20" font-weight="900">5 キリ / TAP</text><text x="314" y="273" fill="#a8b7c2" font-size="15" font-weight="800">関係を理解する</text>
+    <rect x="42" y="205" width="180" height="92" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/><text x="66" y="243" fill="#f7f9fb" font-size="20" font-weight="900">6 工具</text><text x="66" y="273" fill="#a8b7c2" font-size="15" font-weight="800">選ぶ・扱う</text>
+    <rect x="290" y="338" width="180" height="70" rx="18" fill="#10251c" stroke="#3f976a" stroke-width="3"/><text x="315" y="375" fill="#a9ffd0" font-size="20" font-weight="900">7 現場行動</text><text x="331" y="397" fill="#a9ffd0" font-size="14" font-weight="800">確認・記録・片付け</text>
+    <line x1="222" y1="104" x2="282" y2="104" stroke="#ffbd2e" stroke-width="5" marker-end="url(#arrowGold26)"/><line x1="470" y1="104" x2="530" y2="104" stroke="#ffbd2e" stroke-width="5" marker-end="url(#arrowGold26)"/><line x1="628" y1="150" x2="628" y2="197" stroke="#ffbd2e" stroke-width="5" marker-end="url(#arrowGold26)"/><line x1="538" y1="251" x2="478" y2="251" stroke="#ffbd2e" stroke-width="5" marker-end="url(#arrowGold26)"/><line x1="290" y1="251" x2="230" y2="251" stroke="#ffbd2e" stroke-width="5" marker-end="url(#arrowGold26)"/><path d="M132 297 C132 355 215 373 282 373" fill="none" stroke="#ffbd2e" stroke-width="5" marker-end="url(#arrowGold26)"/>
+  </svg>
+  <div class="tech-legend"><span class="legend-ng">● 安全判断は最優先</span><span class="legend-ok">● 最後は「分からない時に確認できるか」</span></div>
 </div>
 <p>危険な判断をした場合は、他ができてもその場で指導して再試験。</p></div>
 
 <div class="card company"><h2>🏭 試験のやり方</h2>
 <p>先輩が実物を使って指示を出し、新人が<b>自分で選ぶ・測る・組む・説明する</b>。</p>
 <p>答えを先に教えない。詰まった時に「分かりません、確認します」と言えることも評価する。</p>
-<p class="small">危険工具の実操作は、会社の教育・資格・社内ルールの範囲でのみ実施する。</p></div>
+<p class="small">危険工具の実操作は、会社の教育・社内ルール・必要な保護具・先輩指導の範囲でのみ実施する。</p></div>
 
 <div class="card danger"><h2>🚨 CRITICAL：これをやったら一旦STOP</h2>
 <ul>

@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.4</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.5</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -163,6 +163,23 @@ tr:last-child td{border-bottom:0}
 #level0ClearBanner{border:1px solid var(--ok);box-shadow:0 0 0 1px rgba(80,216,144,.12),0 12px 34px rgba(0,0,0,.22)}
 .exam-check{border-color:#496477}
 
+.visual{margin:12px 0 4px;padding:14px;background:#09141c;border:1px solid #294250;border-radius:15px}
+.visual-title{font-size:.78rem;font-weight:900;color:var(--mut);letter-spacing:.06em;margin-bottom:10px}
+.visual-row{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap}
+.visual-box{min-width:108px;flex:1 1 120px;text-align:center;background:#142430;border:1px solid #345061;border-radius:12px;padding:11px 9px}
+.visual-box.good{border-color:#3f976a;background:#112a20}
+.visual-box.bad{border-color:#9c5050;background:#2b181a}
+.visual-box .vicon{display:block;font-size:2rem;line-height:1.1;margin-bottom:5px}
+.visual-arrow{font-size:1.55rem;font-weight:950;color:var(--yel)}
+.visual-note{text-align:center;color:var(--mut);font-size:.84rem;margin-top:9px}
+.stack{display:flex;flex-direction:column;gap:5px;align-items:center}
+.stack-part{width:min(100%,250px);padding:7px 10px;border-radius:8px;text-align:center;background:#172936;border:1px solid #385363;font-weight:800}
+.stack-part.key{border-color:#a98322;background:#30270f;color:#ffe08b}
+.stack-part.work{border-color:#4c6b7c;background:#10202a}
+.flowline{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap}
+.flowstep{padding:7px 9px;border-radius:9px;background:#142530;border:1px solid #365161;font-weight:800}
+.flowstep.key{border-color:#9b7920;color:#ffd66e;background:#2a230f}
+
 @media(max-width:430px){
   .app{padding-left:11px;padding-right:11px}
   .topbar{margin-left:-11px;margin-right:-11px;padding-left:11px;padding-right:11px}
@@ -179,7 +196,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.4</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.5</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -435,9 +452,15 @@ tr:last-child td{border-bottom:0}
 <p class="small">六角穴付きボルト（キャップボルト）の代表的な組み合わせ。種類・規格で例外があるため、最終的には現物・図面・仕様を確認する。</p>
 </div>
 
-<div class="card"><h2>🖼️ 図解追加予定</h2>
-<p>将来ここに、<b>通常側とボールポイント側の違い</b>、斜め使用時の接触イメージ、先端破損例をイラストで追加する。</p>
-<p class="small">文章で分かりにくい部分は、現場編の図解追加フェーズで順次ビジュアル化する。</p>
+<div class="card"><h2>👀 通常側とボールポイント側</h2>
+<div class="visual">
+  <div class="visual-title">VISUAL｜同じ六角レンチでも役割が違う</div>
+  <div class="visual-row">
+    <div class="visual-box good"><span class="vicon">┗━━⬢</span><b>通常側</b><br>まっすぐ奥まで掛ける<br>本締めはこちら</div>
+    <div class="visual-box"><span class="vicon">┗━━●</span><b>ボールポイント</b><br>少し斜めから回せる<br>仮回し・狭所の補助</div>
+  </div>
+  <div class="visual-note">ボールポイントは接触面が少ない。強い締め・緩めには使わない。</div>
+</div>
 </div>
 
 <div class="card danger"><h2>😱 新人あるある</h2>
@@ -856,7 +879,17 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>内側寸法</b><br>穴径・溝幅など</div>
   <div class="tile"><b>深さ</b><br>穴・段差の深さ</div>
 </div>
-<p>「長さを測る道具」ではなく、<b>外側・内側・深さ</b>を測り分けられる工具。</p></div>
+<p>「長さを測る道具」ではなく、<b>外側・内側・深さ</b>を測り分けられる工具。</p>
+<div class="visual">
+  <div class="visual-title">VISUAL｜使う場所を先に選ぶ</div>
+  <div class="visual-row">
+    <div class="visual-box"><span class="vicon">↔️</span><b>外側ジョウ</b><br>軸径・板厚</div>
+    <div class="visual-box"><span class="vicon">↕️</span><b>内側ジョウ</b><br>穴径・溝幅</div>
+    <div class="visual-box"><span class="vicon">⬇️</span><b>デプスバー</b><br>穴・段差の深さ</div>
+  </div>
+  <div class="visual-note">数字を見る前に「何を、どの測定部で測るか」を決める。</div>
+</div>
+</div>
 
 <div class="card"><h2>📖 3つの測り方</h2>
 <div class="grid">
@@ -1176,10 +1209,31 @@ tr:last-child td{border-bottom:0}
 
 <div class="card company"><h2>🏭 うちの基本：TAP締め</h2>
 <div class="big">ボルト頭 → <span class="hi">SW → 平W</span> → 部品 → TAP穴</div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜上から順に積むイメージ</div>
+  <div class="stack">
+    <div class="stack-part key">🔩 ボルト頭</div>
+    <div class="stack-part key">〰️ SW</div>
+    <div class="stack-part">⭕ 平W</div>
+    <div class="stack-part work">▰ 部品</div>
+    <div class="stack-part">🌀 TAP穴</div>
+  </div>
+</div>
 <p>締め付ける側がボルト頭なので、うちでは基本的に<b>SWをボルト頭側</b>へ入れる。</p></div>
 
 <div class="card company"><h2>🏭 うちの基本：ナット締め</h2>
 <div class="big">ボルト頭 → <span class="hi">平W</span> → 部品 → <span class="hi">平W → SW → ナット</span></div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜部品を平Wで両側からはさむ</div>
+  <div class="stack">
+    <div class="stack-part key">🔩 ボルト頭</div>
+    <div class="stack-part">⭕ 平W</div>
+    <div class="stack-part work">▰ 部品</div>
+    <div class="stack-part">⭕ 平W</div>
+    <div class="stack-part key">〰️ SW</div>
+    <div class="stack-part key">⬡ ナット</div>
+  </div>
+</div>
 <p>うちでは基本的に、<b>平Wを部品の両面</b>に入れる。SWは締め付け側の<b>ナット側</b>へ入れる。</p></div>
 
 <div class="card danger"><h2>😱 新人あるある</h2>
@@ -1261,6 +1315,16 @@ tr:last-child td{border-bottom:0}
 <div class="card"><h2>🔥 火の粉はどこへ飛ぶ？</h2>
 <p>研削方向とディスクの回転によって、火の粉は一定方向へ強く飛ぶ。</p>
 <p>作業前に、<b>火の粉の行き先</b>を確認する。</p>
+<div class="visual">
+  <div class="visual-title">VISUAL｜作業前に「飛ぶ先」と「跳ねる先」を見る</div>
+  <div class="visual-row">
+    <div class="visual-box"><span class="vicon">⚙️</span><b>サンダー</b><br>高速回転</div>
+    <div class="visual-arrow">→ ✨ →</div>
+    <div class="visual-box bad"><span class="vicon">🚫</span><b>飛散先</b><br>人・ホース・配線・可燃物を置かない</div>
+  </div>
+  <div class="visual-note">火の粉の線上と、噛み込んだ時に本体が跳ねそうな線上へ体を置かない。</div>
+</div>
+
 <div class="grid">
   <div class="tile"><b>人</b><br>顔・手・周囲作業者に向いてない？</div>
   <div class="tile"><b>物</b><br>ホース・配線・樹脂・塗装面に当たらない？</div>

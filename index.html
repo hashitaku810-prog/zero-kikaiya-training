@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.13</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.14</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -216,7 +216,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.13</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.14</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -734,13 +734,60 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>可動あご</b><br>調整ねじで動く側</div>
   <div class="tile"><b>調整ねじ</b><br>口幅を合わせる部分</div>
 </div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜ガタを消して、固定あご側で主に受ける</div>
-  <div class="visual-row">
-    <div class="visual-box good"><span class="vicon">▐⬡▌</span><b>⭕ 口幅ぴったり</b><br>面でしっかり当てる</div>
-    <div class="visual-box bad"><span class="vicon">▐ ⬡ ▌</span><b>❌ ガバガバ</b><br>角をなめやすい</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜モンキーは「口幅」と「力を受ける向き」が大事</div>
+  <svg class="tech-svg" viewBox="0 0 760 455" role="img" aria-label="モンキーレンチの固定あご、可動あご、調整ねじと、口幅ぴったりの正しい掛け方、ガタのある誤った掛け方を比較した図。">
+    <defs>
+      <marker id="arrowBlue11" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#65baff"/></marker>
+      <marker id="arrowRed11" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#ff6f6f"/></marker>
+    </defs>
+
+    <rect x="12" y="12" width="355" height="365" rx="22" fill="#10251c" stroke="#3f976a" stroke-width="3"/>
+    <rect x="393" y="12" width="355" height="365" rx="22" fill="#2b181a" stroke="#9c5050" stroke-width="3"/>
+
+    <text x="36" y="50" fill="#a9ffd0" font-size="25" font-weight="900">⭕ 口幅ぴったり</text>
+    <text x="417" y="50" fill="#ffb0b0" font-size="25" font-weight="900">❌ ガタあり</text>
+
+    <!-- OK wrench -->
+    <g>
+      <path d="M92 120 L132 120 L154 143 L154 191 L127 218 L110 218 L86 194 L86 151 Z" fill="#d7e4eb"/>
+      <rect x="121" y="174" width="35" height="130" rx="12" transform="rotate(28 121 174)" fill="#b8c8d1"/>
+      <rect x="105" y="130" width="18" height="75" rx="5" fill="#071017"/>
+      <rect x="129" y="130" width="18" height="75" rx="5" fill="#071017"/>
+      <polygon points="126,146 145,157 145,179 126,190 107,179 107,157" fill="#253947" stroke="#ffbd2e" stroke-width="4"/>
+      <circle cx="151" cy="214" r="14" fill="#253947" stroke="#ffbd2e" stroke-width="3"/>
+      <text x="42" y="107" fill="#f7f9fb" font-size="17" font-weight="800">固定あご</text>
+      <line x1="94" y1="111" x2="105" y2="139" stroke="#ffbd2e" stroke-width="3"/>
+      <text x="185" y="107" fill="#f7f9fb" font-size="17" font-weight="800">可動あご</text>
+      <line x1="195" y1="111" x2="145" y2="139" stroke="#ffbd2e" stroke-width="3"/>
+      <text x="190" y="230" fill="#f7f9fb" font-size="17" font-weight="800">調整ねじ</text>
+      <line x1="188" y1="224" x2="164" y2="214" stroke="#ffbd2e" stroke-width="3"/>
+      <path d="M240 275 A80 80 0 0 0 181 206" fill="none" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue11)"/>
+      <text x="44" y="327" fill="#a9dfff" font-size="18" font-weight="850">面で当てて、ガタを消す</text>
+    </g>
+
+    <!-- NG wrench -->
+    <g>
+      <path d="M474 120 L514 120 L536 143 L536 191 L509 218 L492 218 L468 194 L468 151 Z" fill="#d7e4eb"/>
+      <rect x="503" y="174" width="35" height="130" rx="12" transform="rotate(28 503 174)" fill="#b8c8d1"/>
+      <rect x="487" y="130" width="18" height="75" rx="5" fill="#071017"/>
+      <rect x="527" y="130" width="18" height="75" rx="5" fill="#071017"/>
+      <polygon points="516,146 535,157 535,179 516,190 497,179 497,157" fill="#253947" stroke="#ff6f6f" stroke-width="4"/>
+      <line x1="505" y1="145" x2="487" y2="145" stroke="#ff6f6f" stroke-width="5"/>
+      <line x1="527" y1="190" x2="545" y2="190" stroke="#ff6f6f" stroke-width="5"/>
+      <path d="M625 274 A80 80 0 0 0 562 204" fill="none" stroke="#ff6f6f" stroke-width="5" marker-end="url(#arrowRed11)"/>
+      <text x="435" y="327" fill="#ffb0b0" font-size="18" font-weight="850">角だけで受ける → なめやすい</text>
+    </g>
+
+    <rect x="74" y="394" width="612" height="42" rx="12" fill="#0e1c25" stroke="#456071" stroke-width="2"/>
+    <text x="105" y="421" fill="#ffe08b" font-size="18" font-weight="850">口幅を合わせる → 向きを確認 → 面でしっかり掛ける</text>
+  </svg>
+  <div class="tech-legend">
+    <span class="legend-ok">● 緑＝OK</span>
+    <span class="legend-key">● 黄＝注目部</span>
+    <span class="legend-move">→ 青＝力の向き</span>
+    <span class="legend-ng">● 赤＝ガタ・NG</span>
   </div>
-  <div class="visual-note">向きは実物で確認。力を掛ける側を固定あごで受けるイメージを持つ。</div>
 </div></div>
 
 <div class="card danger"><h2>😱 新人あるある① 口幅がガバガバ</h2>
@@ -1318,18 +1365,51 @@ tr:last-child td{border-bottom:0}
 <div class="card company"><h2>🏭 6.8のキリがここでつながる</h2>
 <p>代表例として、<b>M8並目のTAP下穴にφ6.8mm</b>を使う。</p>
 <div class="big">M8だから<span class="hi">8mmの穴</span>ではない。</div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜M8並目の代表的な流れ</div>
-  <div class="flowline">
-    <div class="flowstep">① φ6.8 キリ</div>
-    <div class="visual-arrow">→</div>
-    <div class="flowstep">② 下穴</div>
-    <div class="visual-arrow">→</div>
-    <div class="flowstep key">③ M8 TAP</div>
-    <div class="visual-arrow">→</div>
-    <div class="flowstep">④ M8めねじ</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜M8並目は「φ6.8下穴 → M8 TAP → めねじ完成」</div>
+  <svg class="tech-svg" viewBox="0 0 760 390" role="img" aria-label="M8並目の代表例として、直径6.8ミリの下穴をあけ、M8タップでねじ山を加工し、M8めねじが完成する流れを断面で示した図。">
+    <defs>
+      <marker id="arrowBlue18" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#65baff"/></marker>
+    </defs>
+
+    <text x="58" y="48" fill="#f7f9fb" font-size="22" font-weight="900">① φ6.8 キリ</text>
+    <text x="284" y="48" fill="#f7f9fb" font-size="22" font-weight="900">② 下穴</text>
+    <text x="485" y="48" fill="#f7f9fb" font-size="22" font-weight="900">③ M8 TAP</text>
+
+    <!-- Drill -->
+    <polygon points="95,82 125,82 136,188 110,222 84,188" fill="#d7e4eb" stroke="#95aab7" stroke-width="3"/>
+    <path d="M98 95 L126 125 M94 124 L130 160 M91 154 L133 194" stroke="#65baff" stroke-width="6"/>
+    <text x="74" y="255" fill="#ffe08b" font-size="18" font-weight="850">φ6.8</text>
+
+    <line x1="172" y1="155" x2="237" y2="155" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue18)"/>
+
+    <!-- Pilot hole cross section -->
+    <rect x="256" y="92" width="160" height="174" rx="8" fill="#253947" stroke="#d7e4eb" stroke-width="3"/>
+    <rect x="317" y="92" width="38" height="152" rx="3" fill="#071017" stroke="#ffbd2e" stroke-width="4"/>
+    <line x1="317" y1="280" x2="355" y2="280" stroke="#ffbd2e" stroke-width="4"/>
+    <line x1="317" y1="274" x2="317" y2="286" stroke="#ffbd2e" stroke-width="4"/>
+    <line x1="355" y1="274" x2="355" y2="286" stroke="#ffbd2e" stroke-width="4"/>
+    <text x="294" y="314" fill="#ffe08b" font-size="19" font-weight="900">φ6.8 下穴</text>
+
+    <line x1="430" y1="155" x2="475" y2="155" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue18)"/>
+
+    <!-- Tap and threaded hole -->
+    <rect x="510" y="92" width="172" height="174" rx="8" fill="#253947" stroke="#d7e4eb" stroke-width="3"/>
+    <path d="M558 92 L558 238 M634 92 L634 238" stroke="#ffbd2e" stroke-width="4" stroke-dasharray="10 7"/>
+    <path d="M558 104 L571 115 L558 126 L571 137 L558 148 L571 159 L558 170 L571 181 L558 192 L571 203 L558 214 L571 225" fill="none" stroke="#50d890" stroke-width="4"/>
+    <path d="M634 104 L621 115 L634 126 L621 137 L634 148 L621 159 L634 170 L621 181 L634 192 L621 203 L634 214 L621 225" fill="none" stroke="#50d890" stroke-width="4"/>
+    <rect x="588" y="70" width="16" height="130" rx="5" fill="#d7e4eb"/>
+    <path d="M588 86 L604 100 M588 112 L604 126 M588 138 L604 152 M588 164 L604 178" stroke="#65baff" stroke-width="4"/>
+    <text x="548" y="314" fill="#a9ffd0" font-size="19" font-weight="900">M8 めねじ完成</text>
+
+    <rect x="65" y="338" width="630" height="36" rx="10" fill="#2b181a" stroke="#9c5050" stroke-width="2"/>
+    <text x="183" y="362" fill="#ffb0b0" font-size="18" font-weight="900">M8だから「8mmの穴」ではない</text>
+  </svg>
+  <div class="tech-legend">
+    <span class="legend-key">● 黄＝下穴径</span>
+    <span class="legend-move">→ 青＝加工の流れ</span>
+    <span class="legend-ok">● 緑＝完成したねじ山</span>
   </div>
-  <div class="visual-note">「M8のねじを作る」ために、先に8mmより小さい下穴をあける。</div>
 </div>
 <p class="small">ねじサイズ・ピッチ・規格によって下穴径は変わる。表や図面、社内標準を確認する。</p></div>
 <div class="card company"><h2>🏭 代表的な並目TAPと下穴</h2>
@@ -1425,13 +1505,52 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>③ 違和感を見る</b><br>重い・斜め・引っ掛かり</div>
   <div class="tile"><b>④ 工具を使う</b><br>正しく入ってから締める</div>
 </div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜最初の数山で勝負が決まる</div>
-  <div class="visual-row">
-    <div class="visual-box good"><span class="vicon">🔩 ↓</span><b>⭕ まっすぐ</b><br>手で軽く数山入る</div>
-    <div class="visual-box bad"><span class="vicon">🔩 ↘</span><b>❌ 斜め噛み</b><br>最初から重い・傾く</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜最初の数山は「手で・まっすぐ」が基準</div>
+  <svg class="tech-svg" viewBox="0 0 760 410" role="img" aria-label="ボルトをタップ穴へ入れる時の正しいまっすぐな状態と、斜め噛みの状態を断面で比較した図。正しい側は手で数山入り、斜め噛み側は最初から重く、工具で無理に締めないことを示す。">
+    <defs>
+      <marker id="arrowBlue19" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#65baff"/></marker>
+      <marker id="arrowRed19" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#ff6f6f"/></marker>
+    </defs>
+
+    <rect x="12" y="12" width="355" height="342" rx="22" fill="#10251c" stroke="#3f976a" stroke-width="3"/>
+    <rect x="393" y="12" width="355" height="342" rx="22" fill="#2b181a" stroke="#9c5050" stroke-width="3"/>
+
+    <text x="42" y="51" fill="#a9ffd0" font-size="25" font-weight="900">⭕ まっすぐ</text>
+    <text x="423" y="51" fill="#ffb0b0" font-size="25" font-weight="900">❌ 斜め噛み</text>
+
+    <!-- OK threaded hole -->
+    <rect x="87" y="225" width="205" height="95" rx="8" fill="#253947" stroke="#d7e4eb" stroke-width="3"/>
+    <path d="M143 225 L156 237 L143 249 L156 261 L143 273 L156 285 L143 297" fill="none" stroke="#50d890" stroke-width="4"/>
+    <path d="M236 225 L223 237 L236 249 L223 261 L236 273 L223 285 L236 297" fill="none" stroke="#50d890" stroke-width="4"/>
+    <!-- OK bolt -->
+    <rect x="174" y="78" width="30" height="190" rx="5" fill="#d7e4eb"/>
+    <polygon points="158,76 220,76 233,98 220,120 158,120 145,98" fill="#b8c8d1" stroke="#f7f9fb" stroke-width="3"/>
+    <path d="M174 146 L204 160 M174 174 L204 188 M174 202 L204 216 M174 230 L204 244" stroke="#65baff" stroke-width="4"/>
+    <line x1="189" y1="132" x2="189" y2="206" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue19)"/>
+    <text x="112" y="337" fill="#a9ffd0" font-size="18" font-weight="850">手で軽く数山入る</text>
+
+    <!-- NG threaded hole -->
+    <rect x="468" y="225" width="205" height="95" rx="8" fill="#253947" stroke="#d7e4eb" stroke-width="3"/>
+    <path d="M524 225 L537 237 L524 249 L537 261 L524 273 L537 285 L524 297" fill="none" stroke="#ff6f6f" stroke-width="4"/>
+    <path d="M617 225 L604 237 L617 249 L604 261 L617 273 L604 285 L617 297" fill="none" stroke="#ff6f6f" stroke-width="4"/>
+    <!-- angled bolt -->
+    <g transform="rotate(-12 570 225)">
+      <rect x="555" y="78" width="30" height="190" rx="5" fill="#d7e4eb"/>
+      <polygon points="539,76 601,76 614,98 601,120 539,120 526,98" fill="#b8c8d1" stroke="#f7f9fb" stroke-width="3"/>
+      <path d="M555 146 L585 160 M555 174 L585 188 M555 202 L585 216 M555 230 L585 244" stroke="#ff6f6f" stroke-width="4"/>
+    </g>
+    <path d="M640 144 A68 68 0 0 1 660 223" fill="none" stroke="#ff6f6f" stroke-width="5" marker-end="url(#arrowRed19)"/>
+    <text x="446" y="337" fill="#ffb0b0" font-size="18" font-weight="850">最初から重い → 止まる</text>
+
+    <rect x="90" y="369" width="580" height="29" rx="10" fill="#0e1c25" stroke="#456071" stroke-width="2"/>
+    <text x="169" y="390" fill="#ffe08b" font-size="17" font-weight="900">手で入らんものを、工具の力で「入ったこと」にしない</text>
+  </svg>
+  <div class="tech-legend">
+    <span class="legend-ok">● 緑＝正常な噛み合い</span>
+    <span class="legend-move">→ 青＝手で入れる</span>
+    <span class="legend-ng">● 赤＝斜め・異常抵抗</span>
   </div>
-  <div class="visual-note">手で入らないものを、工具の力で「入ったこと」にしない。</div>
 </div></div>
 
 <div class="card danger"><h2>😱 新人あるある① 最初から工具</h2>

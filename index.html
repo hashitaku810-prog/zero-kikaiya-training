@@ -22,7 +22,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px 6px;border-bottom:1p
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
-<div class="card"><div class="row"><b>LEVEL 0 進捗</b><span id="progressText">0 / 24</span></div><div class="progress"><div id="progressBar"></div></div><p class="small">📖 学ぶだけではCLEARにならない。現物でやる → 先輩が確認 → CLEAR。</p><button class="btn primary" onclick="showLevel0()">LEVEL 0を続ける</button></div>
+<div class="card"><div class="row"><b>LEVEL 0 進捗</b><span id="progressText">0 / 25</span></div><div class="progress"><div id="progressBar"></div></div><p class="small">📖 学ぶだけではCLEARにならない。現物でやる → 先輩が確認 → CLEAR。</p><button class="btn primary" onclick="showLevel0()">LEVEL 0を続ける</button></div>
 <div class="card"><h2>🎯 現場編のゴール</h2><p><b>危険な勝手行動をせず、先輩の基本指示を理解し、工具を選び、寸法を測り、主要部品と加工方法を大まかに説明できる。</b></p><p class="small">現場編はLEVEL 0〜2で完結。終わったら次の独立教材「設計基礎編」へ。</p></div>
 <div class="card danger"><h2>⚠️ 最優先</h2><p><b>機械が止まっていることと、安全であることは別。</b> スマホを見ながら機械の周囲を歩かない。</p></div>
 </section>
@@ -66,8 +66,8 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px 6px;border-bottom:1p
 </section>
 
 <section id="level0" class="screen hidden"><div class="hero"><span class="badge">LEVEL 0</span><h1>現場で話が通じる</h1><p class="mut">安全・工具・締結・測定・現場語。まずは先輩の基本指示を理解して安全に動けるようになる。</p></div>
-<div class="card"><div class="row"><b>進捗</b><span id="progressText2">0 / 24</span></div><div class="progress"><div id="progressBar2"></div></div></div>
-<div class="lesson-list"><button id="row-0-01" class="lesson-row live" onclick="openLesson('0-01')"><span class="num">0-01</span><span><b>⚠️ 勝手に触らない・乗らない・潜らない</b></span><span class="status">START</span></button><button id="row-0-02" class="lesson-row live" onclick="openLesson('0-02')"><span class="num">0-02</span><span><b>⚠️ 止まっている ≠ 安全</b></span><span class="status">START</span></button><button id="row-0-03" class="lesson-row live" onclick="openLesson('0-03')"><span class="num">0-03</span><span><b>🔩 ボルト・ナット・ワッシャー</b></span><span class="status">START</span></button><button id="row-0-04" class="lesson-row live" onclick="openLesson('0-04')"><span class="num">0-04</span><span><b>🔩 六角・キャップ・トラス</b></span><span class="status">START</span></button><button id="row-0-05" class="lesson-row live" onclick="openLesson('0-05')"><span class="num">0-05</span><span><b>📏 M5〜M20って何？</b></span><span class="status">START</span></button><button id="row-0-06" class="lesson-row live" onclick="openLesson('0-06')"><span class="num">0-06</span><span><b>📐 M8×30って何？</b></span><span class="status">START</span></button><button id="row-0-07" class="lesson-row live" onclick="openLesson('0-07')"><span class="num">0-07</span><span><b>🔧 M8なのになぜ13？</b></span><span class="status">START</span></button><button id="row-0-08" class="lesson-row live" onclick="openLesson('0-08')"><span class="num">0-08</span><span><b>🔧 ラチェットとソケット</b></span><span class="status">START</span></button><button id="row-0-09" class="lesson-row lock" onclick="notYet()"><span class="num">0-09</span><span><b>🔧 六角レンチ</b></span><span class="status">準備中</span></button><button id="row-0-10" class="lesson-row lock" onclick="notYet()"><span class="num">0-10</span><span><b>🔧 モンキーレンチ</b></span><span class="status">準備中</span></button><button id="row-0-11" class="lesson-row lock" onclick="notYet()"><span class="num">0-11</span><span><b>🪛 ドライバー</b></span><span class="status">準備中</span></button><button id="row-0-12" class="lesson-row lock" onclick="notYet()"><span class="num">0-12</span><span><b>🗜️ ペンチ・ニッパー・プライヤー</b></span><span class="status">準備中</span></button><button id="row-0-13" class="lesson-row lock" onclick="notYet()"><span class="num">0-13</span><span><b>🔨 ハンマー・プラハン</b></span><span class="status">準備中</span></button><button id="row-0-14" class="lesson-row lock" onclick="notYet()"><span class="num">0-14</span><span><b>📏 スケール・コンベックス</b></span><span class="status">準備中</span></button><button id="row-0-15" class="lesson-row lock" onclick="notYet()"><span class="num">0-15</span><span><b>📐 ノギス</b></span><span class="status">準備中</span></button><button id="row-0-16" class="lesson-row lock" onclick="notYet()"><span class="num">0-16</span><span><b>🕳️ ドリルと「キリ」</b></span><span class="status">準備中</span></button><button id="row-0-17" class="lesson-row lock" onclick="notYet()"><span class="num">0-17</span><span><b>🌀 TAPって何？</b></span><span class="status">準備中</span></button><button id="row-0-18" class="lesson-row lock" onclick="notYet()"><span class="num">0-18</span><span><b>🔩 ボルトを正しく入れる</b></span><span class="status">準備中</span></button><button id="row-0-19" class="lesson-row lock" onclick="notYet()"><span class="num">0-19</span><span><b>🔩 TAP締めとナット締め</b></span><span class="status">準備中</span></button><button id="row-0-20" class="lesson-row lock" onclick="notYet()"><span class="num">0-20</span><span><b>⚙️ グラインダーと危険工具</b></span><span class="status">準備中</span></button><button id="row-0-21" class="lesson-row lock" onclick="notYet()"><span class="num">0-21</span><span><b>🛠️ ポンチ・ヤスリ・スクレーパー</b></span><span class="status">準備中</span></button><button id="row-0-22" class="lesson-row lock" onclick="notYet()"><span class="num">0-22</span><span><b>😱 新人がやりがちな工具ミス</b></span><span class="status">準備中</span></button><button id="row-0-23" class="lesson-row lock" onclick="notYet()"><span class="num">0-23</span><span><b>🗣️ 現場語を聞き取れ！</b></span><span class="status">準備中</span></button><button id="row-0-24" class="lesson-row lock" onclick="notYet()"><span class="num">0-24</span><span><b>🎓 LEVEL 0 実技試験</b></span><span class="status">準備中</span></button></div></section>
+<div class="card"><div class="row"><b>進捗</b><span id="progressText2">0 / 25</span></div><div class="progress"><div id="progressBar2"></div></div></div>
+<div class="lesson-list"><button id="row-0-01" class="lesson-row live" onclick="openLesson('0-01')"><span class="num">0-01</span><span><b>⚠️ 勝手に触らない・乗らない・潜らない</b></span><span class="status">START</span></button><button id="row-0-02" class="lesson-row live" onclick="openLesson('0-02')"><span class="num">0-02</span><span><b>⚠️ 止まっている ≠ 安全</b></span><span class="status">START</span></button><button id="row-0-03" class="lesson-row live" onclick="openLesson('0-03')"><span class="num">0-03</span><span><b>🔩 ボルト・ナット・ワッシャー</b></span><span class="status">START</span></button><button id="row-0-04" class="lesson-row live" onclick="openLesson('0-04')"><span class="num">0-04</span><span><b>🔩 六角・キャップ・トラス</b></span><span class="status">START</span></button><button id="row-0-05" class="lesson-row live" onclick="openLesson('0-05')"><span class="num">0-05</span><span><b>📏 M5〜M20って何？</b></span><span class="status">START</span></button><button id="row-0-06" class="lesson-row live" onclick="openLesson('0-06')"><span class="num">0-06</span><span><b>📐 M8×30って何？</b></span><span class="status">START</span></button><button id="row-0-07" class="lesson-row live" onclick="openLesson('0-07')"><span class="num">0-07</span><span><b>🔧 M8なのになぜ13？</b></span><span class="status">START</span></button><button id="row-0-08" class="lesson-row live" onclick="openLesson('0-08')"><span class="num">0-08</span><span><b>🔧 ラチェットとソケット</b></span><span class="status">START</span></button><button id="row-0-09" class="lesson-row live" onclick="openLesson('0-09')"><span class="num">0-09</span><span><b>🔄 ねじはどっちに回す？</b></span><span class="status">START</span></button><button id="row-0-10" class="lesson-row lock" onclick="notYet()"><span class="num">0-10</span><span><b>🔧 六角レンチ</b></span><span class="status">準備中</span></button><button id="row-0-11" class="lesson-row lock" onclick="notYet()"><span class="num">0-11</span><span><b>🔧 モンキーレンチ</b></span><span class="status">準備中</span></button><button id="row-0-12" class="lesson-row lock" onclick="notYet()"><span class="num">0-12</span><span><b>🪛 ドライバー</b></span><span class="status">準備中</span></button><button id="row-0-13" class="lesson-row lock" onclick="notYet()"><span class="num">0-13</span><span><b>🗜️ ペンチ・ニッパー・プライヤー</b></span><span class="status">準備中</span></button><button id="row-0-14" class="lesson-row lock" onclick="notYet()"><span class="num">0-14</span><span><b>🔨 ハンマー・プラハン</b></span><span class="status">準備中</span></button><button id="row-0-15" class="lesson-row lock" onclick="notYet()"><span class="num">0-15</span><span><b>📏 スケール・コンベックス</b></span><span class="status">準備中</span></button><button id="row-0-16" class="lesson-row lock" onclick="notYet()"><span class="num">0-16</span><span><b>📐 ノギス</b></span><span class="status">準備中</span></button><button id="row-0-17" class="lesson-row lock" onclick="notYet()"><span class="num">0-17</span><span><b>🕳️ ドリルと「キリ」</b></span><span class="status">準備中</span></button><button id="row-0-18" class="lesson-row lock" onclick="notYet()"><span class="num">0-18</span><span><b>🌀 TAPって何？</b></span><span class="status">準備中</span></button><button id="row-0-19" class="lesson-row lock" onclick="notYet()"><span class="num">0-19</span><span><b>🔩 ボルトを正しく入れる</b></span><span class="status">準備中</span></button><button id="row-0-20" class="lesson-row lock" onclick="notYet()"><span class="num">0-20</span><span><b>🔩 TAP締めとナット締め</b></span><span class="status">準備中</span></button><button id="row-0-21" class="lesson-row lock" onclick="notYet()"><span class="num">0-21</span><span><b>⚙️ グラインダーと危険工具</b></span><span class="status">準備中</span></button><button id="row-0-22" class="lesson-row lock" onclick="notYet()"><span class="num">0-22</span><span><b>🛠️ ポンチ・ヤスリ・スクレーパー</b></span><span class="status">準備中</span></button><button id="row-0-23" class="lesson-row lock" onclick="notYet()"><span class="num">0-23</span><span><b>😱 新人がやりがちな工具ミス</b></span><span class="status">準備中</span></button><button id="row-0-24" class="lesson-row lock" onclick="notYet()"><span class="num">0-24</span><span><b>🗣️ 現場語を聞き取れ！</b></span><span class="status">準備中</span></button><button id="row-0-25" class="lesson-row lock" onclick="notYet()"><span class="num">0-25</span><span><b>🎓 LEVEL 0 実技試験</b></span><span class="status">準備中</span></button></div></section>
 
 <section id="dictionary" class="screen hidden"><div class="hero"><h1>🔍 現場語辞典</h1></div><input id="search" class="search" placeholder="例：13、SW、キャップ…" oninput="filterTerms()"><div class="card" id="terms"><div class="term" data-term="M8 ねじの呼び径が8mmのメートルねじ。工具サイズ8mmという意味ではない。"><b>M8</b><br><span class="mut">ねじの呼び径が8mmのメートルねじ。工具サイズ8mmという意味ではない。</span></div><div class="term" data-term="13 工具の文脈なら二面幅13mmのスパナ・レンチ等。キリの文脈ならφ13mmなど、前後の会話を見る。"><b>13</b><br><span class="mut">工具の文脈なら二面幅13mmのスパナ・レンチ等。キリの文脈ならφ13mmなど、前後の会話を見る。</span></div><div class="term" data-term="平W 平ワッシャー／平座金。"><b>平W</b><br><span class="mut">平ワッシャー／平座金。</span></div><div class="term" data-term="SW スプリングワッシャー／ばね座金。"><b>SW</b><br><span class="mut">スプリングワッシャー／ばね座金。</span></div><div class="term" data-term="キャップ 六角穴付きボルトを指す現場呼称として使用。"><b>キャップ</b><br><span class="mut">六角穴付きボルトを指す現場呼称として使用。</span></div><div class="term" data-term="トラス 頭が低く広いねじ。うちではカバー類でよく使用。"><b>トラス</b><br><span class="mut">頭が低く広いねじ。うちではカバー類でよく使用。</span></div><div class="term" data-term="TAP 穴の内側にめねじを加工すること／その工具・ねじ穴を指す現場語。詳細は0-16。"><b>TAP</b><br><span class="mut">穴の内側にめねじを加工すること／その工具・ねじ穴を指す現場語。詳細は0-16。</span></div><div class="term" data-term="キリ 現場でドリル・ドリル刃を指す呼び方。例：6.8のキリ。"><b>キリ</b><br><span class="mut">現場でドリル・ドリル刃を指す呼び方。例：6.8のキリ。</span></div></div></section>
 <section id="zukan" class="screen hidden"><div class="hero"><h1>⚙️ 図鑑</h1></div><div class="card"><p>部品・工具の写真図鑑は今後ここへ追加。</p><p class="mut">将来は「名前 → 写真 → 使う場所 → 関連Lesson」へつなぐ。</p></div></section>
@@ -196,8 +196,61 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px 6px;border-bottom:1p
 <div class="lesson-nav">
 <button class="btn" onclick="openLesson('0-07')">← 前へ</button>
 <button class="btn" onclick="showLevel0()">LEVEL 0</button>
-<button class="btn" onclick="notYet()">0-09へ →</button>
-</div></section>
+<button class="btn" onclick="openLesson('0-09')">次へ →</button>
+</div></section><section id="lesson-0-09" class="screen lesson hidden" data-num="0-09">
+<div class="hero"><span class="badge">LESSON 0-09</span><h1>🔄 ねじはどっちに回す？</h1></div>
+
+<div class="card"><h2>👀 まず基本</h2>
+<div class="big">一般的な<span class="hi">右ねじ</span>は<br>ねじの頭側から見て<br><span class="hi">時計回り＝締まる</span><br>反時計回り＝緩む</div>
+<p class="small">よく言う「右締め・左緩め」。ただし、見る向きが変わると手の感覚だけでは混乱しやすい。</p></div>
+
+<div class="card danger"><h2>😱 新人あるある</h2>
+<p>床下から上向きに作業した瞬間、<b>「右ってどっち！？」</b>となる。</p>
+<p>正面・裏側・下向き・上向きで体の向きが変わると、手の動きだけで覚えている人はパニックになりやすい。</p></div>
+
+<div class="card"><h2>🧠 コツは「自分の右」じゃなく回転方向</h2>
+<p>「右手側へ動かす」と覚えず、<b>ボルトの頭を見て時計回りか反時計回りか</b>で考える。</p>
+<div class="grid">
+  <div class="tile"><b>締める</b><br>時計回り ↻</div>
+  <div class="tile"><b>緩める</b><br>反時計回り ↺</div>
+</div>
+<p class="small">裏側から見れば、同じ実際の回転でも見え方は逆になる。どちら側から見ているかを意識する。</p></div>
+
+<div class="card"><h2>🔧 ラチェットではさらに確認</h2>
+<p>0-08で覚えた切替レバーも、<b>「レバーの向き」だけ丸暗記しない。</b></p>
+<p>ソケットをボルトに掛ける前に、空転させて「力が掛かる方向」を確認すると迷いにくい。</p></div>
+
+<div class="card company"><h2>🏭 LEVEL 0ではここまで</h2>
+<p>まずは一般的な右ねじで、向きが変わっても締め・緩めを判断できることを優先する。</p>
+<p class="small">機械には左ねじなどの例外もある。見慣れない箇所や判断できない場合は、勝手に力を掛けず先輩・図面・仕様を確認する。</p></div>
+
+<div class="card quiz"><h2>🎮 クイズ</h2>
+<p>一般的な右ねじを、ねじ頭側から見て締める方向は？</p>
+<button data-ok="1">時計回り</button><button data-ok="0">反時計回り</button><div class="feedback"></div>
+
+<p>上下逆の作業で方向が分からなくなった。どうする？</p>
+<button data-ok="0">勘で一回強く回してみる</button><button data-ok="1">見る向きと回転方向を確認する</button><div class="feedback"></div>
+
+<p>固くて回らない。方向にも自信がない。</p>
+<button data-ok="0">もっと力を掛ける</button><button data-ok="1">止めて確認する</button><div class="feedback"></div>
+</div>
+
+<div class="card mission"><h2>🔧 現場ミッション</h2>
+<label class="check"><input type="checkbox">正面から見て締め・緩め方向を説明できた</label>
+<label class="check"><input type="checkbox">上下逆の位置でも、向きを確認して判断できた</label>
+<label class="check"><input type="checkbox">ラチェットを空転させて力の掛かる方向を確認できた</label>
+</div>
+
+<div class="card"><h2>👷 先輩チェック</h2>
+<p>作業方向を変えても「時計回り／反時計回り」で締め・緩めを判断し、分からない時に無理に回さなければCLEAR。</p>
+<button id="clear-0-09" class="btn" onclick="clearLesson('0-09')">□ 指導者確認：0-09 CLEAR</button></div>
+
+<div class="lesson-nav">
+<button class="btn" onclick="openLesson('0-08')">← 前へ</button>
+<button class="btn" onclick="showLevel0()">LEVEL 0</button>
+<button class="btn" onclick="notYet()">0-10へ →</button>
+</div>
+</section>
 </div>
 
 <nav class="bottom"><div class="bottom-in">
@@ -208,7 +261,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px 6px;border-bottom:1p
 </div></nav>
 
 <script>
-const TOTAL=24, STORAGE_PREFIX='kikaiya_field_';
+const TOTAL=25, STORAGE_PREFIX='kikaiya_field_';
 function migrateOldProgress(){
  if(localStorage.getItem('kikaiya_field_v03_migrated'))return;
  const old={}; for(let i=1;i<=6;i++){let n='0-'+String(i).padStart(2,'0');old[n]=localStorage.getItem('kikaiya_'+n)==='clear';}

@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.18</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.19</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -216,7 +216,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.18</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.19</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -518,14 +518,38 @@ tr:last-child td{border-bottom:0}
 
 <div class="card"><h2>🧠 コツは「自分の右」じゃなく回転方向</h2>
 <p>「右手側へ動かす」と覚えず、<b>ボルトの頭を見て時計回りか反時計回りか</b>で考える。</p>
-<div class="visual">
-  <div class="visual-title">VISUAL｜ねじ頭側から見た一般的な右ねじ</div>
-  <div class="visual-row">
-    <div class="visual-box good"><span class="vicon">↻</span><b>時計回り</b><br>締まる</div>
-    <div class="visual-box"><span class="vicon">🔩</span><b>頭側から見る</b><br>見る側を決める</div>
-    <div class="visual-box"><span class="vicon">↺</span><b>反時計回り</b><br>緩む</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜「自分の右左」ではなく、ねじ頭側から回転方向を見る</div>
+  <svg class="tech-svg" viewBox="0 0 760 390" role="img" aria-label="一般的な右ねじをねじ頭側から見た時、時計回りで締まり、反時計回りで緩むことを示した図。">
+    <defs>
+      <marker id="arrowBlue09" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#65baff"/></marker>
+      <marker id="arrowGray09" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#a8b7c2"/></marker>
+    </defs>
+    <rect x="12" y="12" width="355" height="300" rx="22" fill="#10251c" stroke="#3f976a" stroke-width="3"/>
+    <rect x="393" y="12" width="355" height="300" rx="22" fill="#101d27" stroke="#456071" stroke-width="3"/>
+
+    <text x="43" y="52" fill="#a9ffd0" font-size="25" font-weight="900">↻ 時計回り</text>
+    <text x="425" y="52" fill="#d8e4eb" font-size="25" font-weight="900">↺ 反時計回り</text>
+
+    <!-- left bolt head -->
+    <circle cx="190" cy="176" r="74" fill="#253947" stroke="#d7e4eb" stroke-width="5"/>
+    <polygon points="190,122 237,149 237,203 190,230 143,203 143,149" fill="#071017" stroke="#ffbd2e" stroke-width="5"/>
+    <path d="M125 145 A82 82 0 1 1 129 220" fill="none" stroke="#65baff" stroke-width="7" marker-end="url(#arrowBlue09)"/>
+    <text x="125" y="276" fill="#a9ffd0" font-size="22" font-weight="900">締まる</text>
+
+    <!-- right bolt head -->
+    <circle cx="571" cy="176" r="74" fill="#253947" stroke="#d7e4eb" stroke-width="5"/>
+    <polygon points="571,122 618,149 618,203 571,230 524,203 524,149" fill="#071017" stroke="#ffbd2e" stroke-width="5"/>
+    <path d="M636 145 A82 82 0 1 0 632 220" fill="none" stroke="#a8b7c2" stroke-width="7" marker-end="url(#arrowGray09)"/>
+    <text x="510" y="276" fill="#d8e4eb" font-size="22" font-weight="900">緩む</text>
+
+    <rect x="101" y="331" width="558" height="40" rx="12" fill="#0e1c25" stroke="#456071" stroke-width="2"/>
+    <text x="177" y="357" fill="#ffe08b" font-size="18" font-weight="900">基準は「ねじ頭側から見た回転方向」</text>
+  </svg>
+  <div class="tech-legend">
+    <span class="legend-ok">↻ 時計回り＝締まる</span>
+    <span class="legend-move">↺ 反時計回り＝緩む</span>
   </div>
-  <div class="visual-note">自分の右・左ではなく、ねじ頭を基準に回転方向で考える。</div>
 </div>
 <div class="grid">
   <div class="tile"><b>締める</b><br>時計回り ↻</div>
@@ -2408,16 +2432,63 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>記録</b><br>採寸したらすぐ残す</div>
   <div class="tile"><b>片付け</b><br>工具を定位置へ戻す</div>
 </div>
-<div class="visual">
-  <div class="visual-title">VISUAL｜現場仕事は「作業中」だけじゃない</div>
-  <div class="flowline">
-    <div class="flowstep">🎒 準備</div><div class="visual-arrow">→</div>
-    <div class="flowstep key">👀 先読み</div><div class="visual-arrow">→</div>
-    <div class="flowstep">🔧 作業</div><div class="visual-arrow">→</div>
-    <div class="flowstep">📝 記録</div><div class="visual-arrow">→</div>
-    <div class="flowstep">🧰 片付け</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜現場仕事は「準備 → 先読み → 作業 → 記録 → 片付け」まで1セット</div>
+  <svg class="tech-svg" viewBox="0 0 760 430" role="img" aria-label="現場作業の流れとして、準備、先読み、作業、記録、片付けの5段階と、中断時に作業位置と次の作業を残して復帰する考え方を示した図。">
+    <defs>
+      <marker id="arrowBlue24" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#65baff"/></marker>
+      <marker id="arrowYellow24" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#ffbd2e"/></marker>
+    </defs>
+
+    <!-- five stages -->
+    <rect x="25" y="74" width="126" height="108" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/>
+    <rect x="171" y="74" width="126" height="108" rx="18" fill="#2a230f" stroke="#9b7920" stroke-width="3"/>
+    <rect x="317" y="74" width="126" height="108" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/>
+    <rect x="463" y="74" width="126" height="108" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/>
+    <rect x="609" y="74" width="126" height="108" rx="18" fill="#101d27" stroke="#456071" stroke-width="3"/>
+
+    <text x="57" y="108" fill="#f7f9fb" font-size="21" font-weight="900">準備</text>
+    <text x="201" y="108" fill="#ffe08b" font-size="21" font-weight="900">先読み</text>
+    <text x="349" y="108" fill="#f7f9fb" font-size="21" font-weight="900">作業</text>
+    <text x="494" y="108" fill="#f7f9fb" font-size="21" font-weight="900">記録</text>
+    <text x="635" y="108" fill="#f7f9fb" font-size="21" font-weight="900">片付け</text>
+
+    <text x="43" y="140" fill="#a8b7c2" font-size="15" font-weight="800">図面・工具</text>
+    <text x="43" y="163" fill="#a8b7c2" font-size="15" font-weight="800">部品・測定具</text>
+
+    <text x="188" y="140" fill="#ffe08b" font-size="15" font-weight="800">次に必要な物</text>
+    <text x="188" y="163" fill="#ffe08b" font-size="15" font-weight="800">勝手に進めない</text>
+
+    <text x="335" y="140" fill="#a8b7c2" font-size="15" font-weight="800">安全・手順</text>
+    <text x="335" y="163" fill="#a8b7c2" font-size="15" font-weight="800">確認して進む</text>
+
+    <text x="478" y="140" fill="#a8b7c2" font-size="15" font-weight="800">寸法・場所</text>
+    <text x="478" y="163" fill="#a8b7c2" font-size="15" font-weight="800">その場で残す</text>
+
+    <text x="626" y="140" fill="#a8b7c2" font-size="15" font-weight="800">工具を戻す</text>
+    <text x="626" y="163" fill="#a8b7c2" font-size="15" font-weight="800">置き忘れ確認</text>
+
+    <line x1="151" y1="128" x2="166" y2="128" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue24)"/>
+    <line x1="297" y1="128" x2="312" y2="128" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue24)"/>
+    <line x1="443" y1="128" x2="458" y2="128" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue24)"/>
+    <line x1="589" y1="128" x2="604" y2="128" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue24)"/>
+
+    <!-- interruption / resume loop -->
+    <rect x="146" y="230" width="468" height="116" rx="20" fill="#10251c" stroke="#3f976a" stroke-width="3"/>
+    <text x="177" y="264" fill="#a9ffd0" font-size="21" font-weight="900">途中で別作業へ行く時</text>
+    <text x="177" y="296" fill="#f7f9fb" font-size="17" font-weight="850">① どこまで終わった？</text>
+    <text x="177" y="323" fill="#f7f9fb" font-size="17" font-weight="850">② 次に何をする？</text>
+    <text x="411" y="296" fill="#f7f9fb" font-size="17" font-weight="850">③ 危険な途中状態はない？</text>
+    <text x="411" y="323" fill="#f7f9fb" font-size="17" font-weight="850">④ 必要なら先輩へ伝える</text>
+
+    <path d="M585 215 C650 255 650 350 550 372" fill="none" stroke="#ffbd2e" stroke-width="5" marker-end="url(#arrowYellow24)"/>
+    <path d="M210 372 C115 352 112 250 174 215" fill="none" stroke="#ffbd2e" stroke-width="5" marker-end="url(#arrowYellow24)"/>
+    <text x="281" y="392" fill="#ffe08b" font-size="18" font-weight="900">戻った時に迷わず復帰できる</text>
+  </svg>
+  <div class="tech-legend">
+    <span class="legend-move">→ 青＝通常の流れ</span>
+    <span class="legend-key">→ 黄＝中断・復帰</span>
   </div>
-  <div class="visual-note">途中で別作業へ行く時は「どこまでやったか」を残してから離れる。</div>
 </div></div>
 
 <div class="card quiz"><h2>🎮 クイズ</h2>

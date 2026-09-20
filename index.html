@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.5</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.6</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -196,7 +196,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.5</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.6</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -745,7 +745,18 @@ tr:last-child td{border-bottom:0}
 <div class="card danger"><h2>😱 うちで実際にあるやつ</h2>
 <p><b>シャフトが抜けへん → 鉄ハンマーで端面を直接ガンガン。</b></p>
 <p>その結果、端面がつぶれたり盛り上がったりして、<b>軸受けやベアリングの内径を通らなくなる</b>ことがある。</p>
-<div class="big">抜きたいのに、<span class="hi">さらに抜けなくする。</span></div></div>
+<div class="big">抜きたいのに、<span class="hi">さらに抜けなくする。</span></div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜端面を叩くと「先端だけ太る」ことがある</div>
+  <div class="visual-row">
+    <div class="visual-box good"><span class="vicon">━━━━</span><b>正常なシャフト</b><br>先端までほぼ同じ径</div>
+    <div class="visual-arrow">🔨 →</div>
+    <div class="visual-box bad"><span class="vicon">━━━◉</span><b>端面がつぶれる</b><br>先端が盛り上がる</div>
+    <div class="visual-arrow">→</div>
+    <div class="visual-box bad"><span class="vicon">⭕✖</span><b>穴を通らない</b><br>ベアリング・ブッシュで引っ掛かる</div>
+  </div>
+  <div class="visual-note">「動かない理由」を確認する前に、鉄ハンマーで直接叩かない。</div>
+</div></div>
 
 <div class="card"><h2>📖 シャフト端面は意外と大事</h2>
 <p>シャフトの端面を直接強く叩くと、先端がわずかに変形しても問題になる。</p>
@@ -821,7 +832,15 @@ tr:last-child td{border-bottom:0}
 <div class="card danger"><h2>😱 うちで実際にあるやつ</h2>
 <p><b>スチール製メジャーを床に伸ばしたまま踏む。</b></p>
 <p>テープがねじれたり折れ癖が付いたりして、先端フックを引っ掛けても<b>まっすぐ伸びへん。</b></p>
-<div class="big">測る工具を踏んで、<span class="hi">測りにくい工具にする。</span></div></div>
+<div class="big">測る工具を踏んで、<span class="hi">測りにくい工具にする。</span></div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜測定線が曲がれば、読む値も怪しくなる</div>
+  <div class="visual-row">
+    <div class="visual-box good"><span class="vicon">📏━━━━</span><b>⭕ まっすぐ</b><br>測りたい方向と一致</div>
+    <div class="visual-box bad"><span class="vicon">📏〰〰</span><b>❌ ねじれ・斜め</b><br>フックも姿勢も不安定</div>
+  </div>
+  <div class="visual-note">踏まない・ねじらない・勢いよく戻さない。工具の状態も測定の一部。</div>
+</div></div>
 
 <div class="card"><h2>⚠️ メジャーの扱い</h2>
 <div class="grid">
@@ -972,7 +991,17 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>ドリル本体</b><br>刃物を回す機械・工具</div>
   <div class="tile"><b>ドリル刃</b><br>穴をあける刃物</div>
 </div>
-<p>現場では、ドリル刃のことを<b>「キリ」</b>と呼ぶことが多い。</p></div>
+<p>現場では、ドリル刃のことを<b>「キリ」</b>と呼ぶことが多い。</p>
+<div class="visual">
+  <div class="visual-title">VISUAL｜本体と刃を分けて覚える</div>
+  <div class="visual-row">
+    <div class="visual-box"><span class="vicon">🔌</span><b>ドリル本体</b><br>回す側</div>
+    <div class="visual-arrow">＋</div>
+    <div class="visual-box good"><span class="vicon">🌀</span><b>キリ</b><br>穴をあける刃</div>
+    <div class="visual-arrow">→</div>
+    <div class="visual-box"><span class="vicon">🕳️</span><b>穴</b><br>6.8のキリ → 約φ6.8</div>
+  </div>
+</div></div>
 
 <div class="card company"><h2>🏭 うちでよく出る言い方</h2>
 <div class="big">「<span class="hi">6.8のキリ</span>取って」<br>＝ φ6.8mmのドリル刃</div>
@@ -1045,6 +1074,19 @@ tr:last-child td{border-bottom:0}
 <div class="card company"><h2>🏭 6.8のキリがここでつながる</h2>
 <p>代表例として、<b>M8並目のTAP下穴にφ6.8mm</b>を使う。</p>
 <div class="big">M8だから<span class="hi">8mmの穴</span>ではない。</div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜M8並目の代表的な流れ</div>
+  <div class="flowline">
+    <div class="flowstep">① φ6.8 キリ</div>
+    <div class="visual-arrow">→</div>
+    <div class="flowstep">② 下穴</div>
+    <div class="visual-arrow">→</div>
+    <div class="flowstep key">③ M8 TAP</div>
+    <div class="visual-arrow">→</div>
+    <div class="flowstep">④ M8めねじ</div>
+  </div>
+  <div class="visual-note">「M8のねじを作る」ために、先に8mmより小さい下穴をあける。</div>
+</div>
 <p class="small">ねじサイズ・ピッチ・規格によって下穴径は変わる。表や図面、社内標準を確認する。</p></div>
 <div class="card company"><h2>🏭 代表的な並目TAPと下穴</h2>
 <table>
@@ -1138,6 +1180,14 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>② 手で入れる</b><br>最初の数山を軽く回す</div>
   <div class="tile"><b>③ 違和感を見る</b><br>重い・斜め・引っ掛かり</div>
   <div class="tile"><b>④ 工具を使う</b><br>正しく入ってから締める</div>
+</div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜最初の数山で勝負が決まる</div>
+  <div class="visual-row">
+    <div class="visual-box good"><span class="vicon">🔩 ↓</span><b>⭕ まっすぐ</b><br>手で軽く数山入る</div>
+    <div class="visual-box bad"><span class="vicon">🔩 ↘</span><b>❌ 斜め噛み</b><br>最初から重い・傾く</div>
+  </div>
+  <div class="visual-note">手で入らないものを、工具の力で「入ったこと」にしない。</div>
 </div></div>
 
 <div class="card danger"><h2>😱 新人あるある① 最初から工具</h2>

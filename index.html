@@ -6,7 +6,7 @@ button,input{font:inherit}button{cursor:pointer}.app{max-width:820px;margin:auto
 .hero{padding:22px 0 8px}.hero h1{font-size:2rem;line-height:1.2;margin:6px 0}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px;margin:14px 0}.card h2{margin-top:0;font-size:1.25rem}
 .progress{height:12px;background:#26333d;border-radius:99px;overflow:hidden}.progress>div{height:100%;background:var(--ok);width:0}.row{display:flex;gap:10px;align-items:center;justify-content:space-between}
 .btn{border:1px solid #405766;background:var(--panel2);color:var(--txt);padding:12px 14px;border-radius:12px}.btn.primary{background:var(--yel);border-color:var(--yel);color:#111;font-weight:900}.btn.ok{background:#173b29;border-color:var(--ok)}
-.levels{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.level{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px}.level.open{border-color:#6a5a19}.level.locked{opacity:.52}
+.levels{display:grid;grid-template-columns:1fr;gap:12px}.level{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0;overflow:hidden}.level.open{border-color:#6a5a19}.level.locked{opacity:.52}.level-title{display:block;font-size:1.15rem;font-weight:900;line-height:1.45;margin:7px 0 4px;color:var(--txt);word-break:keep-all}.level .small{display:block;line-height:1.6}.level .btn{margin-top:10px}
 .lesson-list{display:grid;gap:8px}.lesson-row{width:100%;display:grid;grid-template-columns:58px 1fr auto;gap:10px;align-items:center;text-align:left;background:var(--panel);border:1px solid var(--line);color:var(--txt);padding:12px;border-radius:14px}.lesson-row.live{border-color:#536a79}.lesson-row .num{font-weight:900;color:var(--yel)}.lesson-row .status{font-size:.8rem;color:var(--mut)}.lesson-row.clear .status{color:var(--ok);font-weight:900}.lesson-row.lock{opacity:.55}
 .badge{display:inline-block;background:var(--yel);color:#111;font-weight:900;border-radius:99px;padding:3px 10px}.company{border-left:5px solid var(--purple)}.company h2{color:#ccb4ff}.danger{border-left:5px solid var(--bad)}.mission{border-left:5px solid var(--blue)}
 .big{font-size:1.25rem;font-weight:900;background:#0e171f;border-radius:13px;padding:14px;text-align:center}.hi{color:var(--yel)}
@@ -16,7 +16,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px 6px;border-bottom:1p
 .check{display:flex;gap:10px;margin:9px 0}.check input{transform:scale(1.2)}.lesson-nav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin:18px 0}.lesson-nav button{padding:11px 5px}
 .bottom{position:fixed;bottom:0;left:0;right:0;z-index:30;background:#101820f5;border-top:1px solid var(--line)}.bottom-in{max-width:820px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr)}.navbtn{border:0;background:transparent;color:var(--mut);padding:10px 3px;font-size:.78rem}.navbtn span{display:block;font-size:1.25rem}.navbtn.active{color:var(--yel)}
 .search{width:100%;padding:13px;background:var(--panel2);border:1px solid #405766;border-radius:12px;color:var(--txt)}.term{padding:12px 0;border-bottom:1px solid var(--line)}.hidden{display:none!important}
-@media(min-width:650px){.levels{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:repeat(4,1fr)}} 
+@media(min-width:650px){.levels{grid-template-columns:repeat(3,minmax(0,1fr))}.grid{grid-template-columns:repeat(4,1fr)}} 
 </style></head><body>
 <div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.3</div></div>
 
@@ -37,21 +37,21 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px 6px;border-bottom:1p
 <div class="levels">
   <div class="level open">
     <b>LEVEL 0</b><br>
-    <span class="big">🔧 現場で話が通じる</span><br>
+    <span class="level-title">🔧 現場で話が通じる</span><br>
     <span class="small">安全・工具・締結・測定・現場語</span><br>
     <button class="btn" onclick="showLevel0()">OPEN</button>
   </div>
 
   <div class="level locked">
     <b>LEVEL 1</b><br>
-    <span class="big">⚙️ 機械についている物が分かる</span><br>
+    <span class="level-title">⚙️ 機械についている物が分かる</span><br>
     <span class="small">軸・ベアリング・伝動・空圧・センサー・材料</span><br>
     <span class="small">LEVEL 0 CLEAR後に進む</span>
   </div>
 
   <div class="level locked">
     <b>LEVEL 2</b><br>
-    <span class="big">🏭 部品がどう作られているか分かる</span><br>
+    <span class="level-title">🏭 部品がどう作られているか分かる</span><br>
     <span class="small">切断・穴あけ・TAP・旋盤・フライス・板金・溶接・表面処理</span><br>
     <span class="small">LEVEL 1 CLEAR後に進む</span>
   </div>

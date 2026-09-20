@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.12</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.13</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -180,6 +180,13 @@ tr:last-child td{border-bottom:0}
 .flowstep{padding:7px 9px;border-radius:9px;background:#142530;border:1px solid #365161;font-weight:800}
 .flowstep.key{border-color:#9b7920;color:#ffd66e;background:#2a230f}
 
+.tech-figure{margin:12px 0 5px;padding:12px;background:#08131a;border:1px solid #345061;border-radius:16px;overflow:hidden}
+.tech-svg{display:block;width:100%;height:auto;max-height:560px}
+.tech-svg text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}
+.tech-legend{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:9px}
+.tech-legend span{font-size:.76rem;font-weight:850;padding:4px 8px;border-radius:999px;background:#111f29;border:1px solid #314957}
+.legend-ok{color:#a9ffd0}.legend-key{color:#ffe08b}.legend-move{color:#a9dfff}.legend-ng{color:#ffb0b0}
+
 @media(max-width:430px){
   body{line-height:1.64}
   .app{padding-left:11px;padding-right:11px}
@@ -209,7 +216,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.12</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.13</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -585,14 +592,77 @@ tr:last-child td{border-bottom:0}
 </div>
 
 <div class="card"><h2>👀 通常側とボールポイント側</h2>
-<div class="visual">
-  <div class="visual-title">VISUAL｜同じ六角レンチでも役割が違う</div>
-  <div class="visual-row">
-    <div class="visual-box good"><span class="vicon">┗━━⬢</span><b>通常側</b><br>まっすぐ奥まで掛ける<br>本締めはこちら</div>
-    <div class="visual-box"><span class="vicon">┗━━●</span><b>ボールポイント</b><br>少し斜めから回せる<br>仮回し・狭所の補助</div>
+<div class="tech-figure">
+  <div class="visual-title">TECH VISUAL｜同じ六角レンチでも「力を掛ける役割」が違う</div>
+
+  <svg class="tech-svg" viewBox="0 0 760 470" role="img" aria-label="通常側とボールポイント側の使い分け図。通常側はまっすぐ奥まで差して本締め。ボールポイントは斜めから軽く回す補助で、本締めには使わない。">
+    <defs>
+      <marker id="arrowBlue10" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L0,6 L8,3 z" fill="#65baff"/>
+      </marker>
+      <marker id="arrowRed10" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L0,6 L8,3 z" fill="#ff6f6f"/>
+      </marker>
+    </defs>
+
+    <!-- panels -->
+    <rect x="12" y="12" width="355" height="390" rx="22" fill="#10251c" stroke="#3f976a" stroke-width="3"/>
+    <rect x="393" y="12" width="355" height="390" rx="22" fill="#111d27" stroke="#9b7920" stroke-width="3"/>
+
+    <!-- headings -->
+    <circle cx="48" cy="49" r="18" fill="#50d890"/>
+    <path d="M38 49 l7 7 l14 -16" fill="none" stroke="#071017" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="78" y="57" fill="#f7f9fb" font-size="27" font-weight="900">通常側</text>
+    <text x="78" y="86" fill="#a8b7c2" font-size="18" font-weight="700">本締め・強い緩め</text>
+
+    <circle cx="429" cy="49" r="18" fill="#ffbd2e"/>
+    <text x="423" y="57" fill="#17120a" font-size="26" font-weight="950">!</text>
+    <text x="459" y="57" fill="#f7f9fb" font-size="27" font-weight="900">ボールポイント</text>
+    <text x="459" y="86" fill="#a8b7c2" font-size="18" font-weight="700">斜めから軽く回す補助</text>
+
+    <!-- LEFT bolt head -->
+    <rect x="105" y="286" width="165" height="70" rx="16" fill="#253947" stroke="#d7e4eb" stroke-width="3"/>
+    <polygon points="188,298 220,316 220,344 188,362 156,344 156,316" fill="#08131a" stroke="#ffbd2e" stroke-width="4"/>
+    <!-- straight hex key -->
+    <rect x="177" y="112" width="22" height="214" rx="4" fill="#d7e4eb"/>
+    <rect x="177" y="103" width="135" height="22" rx="4" fill="#d7e4eb"/>
+    <!-- engagement highlight -->
+    <rect x="177" y="298" width="22" height="47" rx="3" fill="#ffbd2e"/>
+    <line x1="188" y1="132" x2="188" y2="272" stroke="#65baff" stroke-width="4" marker-end="url(#arrowBlue10)"/>
+    <text x="207" y="207" fill="#65baff" font-size="17" font-weight="800">まっすぐ</text>
+    <path d="M140 258 A62 62 0 0 1 236 244" fill="none" stroke="#65baff" stroke-width="5" marker-end="url(#arrowBlue10)"/>
+    <text x="112" y="389" fill="#a9ffd0" font-size="20" font-weight="900">奥まで差して、面で受ける</text>
+
+    <!-- RIGHT bolt head -->
+    <rect x="486" y="286" width="165" height="70" rx="16" fill="#253947" stroke="#d7e4eb" stroke-width="3"/>
+    <polygon points="568,298 600,316 600,344 568,362 536,344 536,316" fill="#08131a" stroke="#ffbd2e" stroke-width="4"/>
+    <!-- angled key -->
+    <g transform="rotate(-24 568 326)">
+      <rect x="557" y="120" width="22" height="196" rx="4" fill="#d7e4eb"/>
+      <rect x="557" y="111" width="128" height="22" rx="4" fill="#d7e4eb"/>
+      <circle cx="568" cy="321" r="18" fill="#ffbd2e" stroke="#d7e4eb" stroke-width="3"/>
+    </g>
+    <!-- angle guide -->
+    <line x1="568" y1="129" x2="568" y2="270" stroke="#47616f" stroke-width="3" stroke-dasharray="8 8"/>
+    <path d="M568 187 A75 75 0 0 0 535 196" fill="none" stroke="#65baff" stroke-width="4" marker-end="url(#arrowBlue10)"/>
+    <text x="478" y="224" fill="#65baff" font-size="17" font-weight="800">少し斜めOK</text>
+    <!-- torque danger -->
+    <path d="M510 263 A72 72 0 0 1 626 251" fill="none" stroke="#ff6f6f" stroke-width="5" marker-end="url(#arrowRed10)"/>
+    <text x="495" y="389" fill="#ff9a9a" font-size="20" font-weight="900">強いトルク・本締めはNG</text>
+
+    <!-- footer risk strip -->
+    <rect x="55" y="418" width="650" height="40" rx="12" fill="#2b181a" stroke="#9c5050" stroke-width="2"/>
+    <text x="89" y="445" fill="#ffb0b0" font-size="18" font-weight="850">ボールポイントは接触面が少ない → 無理すると先端折損・六角穴なめの原因</text>
+  </svg>
+
+  <div class="tech-legend">
+    <span class="legend-ok">● 緑＝本締め向き</span>
+    <span class="legend-key">● 黄＝接触部・注意</span>
+    <span class="legend-move">→ 青＝動き・角度</span>
+    <span class="legend-ng">● 赤＝強トルクNG</span>
   </div>
-  <div class="visual-note">ボールポイントは接触面が少ない。強い締め・緩めには使わない。</div>
 </div>
+<p class="small"><b>覚え方：</b>ボールポイントは「角度が欲しい時の補助」。最後にしっかり締める／固いボルトを緩め始める時は、通常側をまっすぐ奥まで掛ける。</p>
 </div>
 
 <div class="card danger"><h2>😱 新人あるある</h2>
@@ -619,7 +689,7 @@ tr:last-child td{border-bottom:0}
 
 <div class="card company"><h2>🏭 うちでまず覚えること</h2>
 <p>LEVEL 0では、<b>キャップボルトを見たら六角レンチを連想できること</b>、サイズ違いを無理に使わないこと、奥まで差して使うことを優先する。</p>
-<p class="small">よく使う六角レンチサイズやT型・L型の使い分けは、実際の工具構成に合わせて追記する。</p></div>
+<p class="small">T型・L型など形状が違っても、まずは「正しいサイズ」「奥まで掛ける」「強トルク時は通常側」を共通ルールとして覚える。</p></div>
 
 <div class="card quiz"><h2>🎮 クイズ</h2>
 <p>六角レンチを主に使うのは？</p>

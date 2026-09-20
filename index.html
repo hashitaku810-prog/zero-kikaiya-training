@@ -27,11 +27,43 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px 6px;border-bottom:1p
 <div class="card danger"><h2>⚠️ 最優先</h2><p><b>機械が止まっていることと、安全であることは別。</b> スマホを見ながら機械の周囲を歩かない。</p></div>
 </section>
 
-<section id="levels" class="screen hidden"><div class="hero"><span class="badge">現場編</span><h1>LEVEL MAP</h1><p class="mut">この教材はLEVEL 0〜2で完結します。</p></div><div class="levels">
-<div class="level open"><b>LEVEL 0</b><br>安全・工具・現場語<br><button class="btn" onclick="showLevel0()">OPEN</button></div>
-<div class="level locked"><b>LEVEL 1</b><br>部品と材料<br><span class="small">LEVEL 0完成後に制作</span></div>
-<div class="level locked"><b>LEVEL 2</b><br>加工と製作<br><span class="small">LEVEL 1完成後に制作</span></div>
-</div><div class="card"><h2>🎓 現場編 CLEAR</h2><p>LEVEL 0〜2と最終実技を終えたら、この教材は卒業。</p><div class="big">もう「何言ってるか分からん新人」ではありません。</div></div></section>
+<section id="levels" class="screen hidden">
+<div class="hero">
+  <span class="badge">現場編</span>
+  <h1>LEVEL MAP</h1>
+  <p class="mut">「現場で話が通じる」から始めて、機械の部品と作り方まで身につける。</p>
+</div>
+
+<div class="levels">
+  <div class="level open">
+    <b>LEVEL 0</b><br>
+    <span class="big">🔧 現場で話が通じる</span><br>
+    <span class="small">安全・工具・締結・測定・現場語</span><br>
+    <button class="btn" onclick="showLevel0()">OPEN</button>
+  </div>
+
+  <div class="level locked">
+    <b>LEVEL 1</b><br>
+    <span class="big">⚙️ 機械についている物が分かる</span><br>
+    <span class="small">軸・ベアリング・伝動・空圧・センサー・材料</span><br>
+    <span class="small">LEVEL 0 CLEAR後に進む</span>
+  </div>
+
+  <div class="level locked">
+    <b>LEVEL 2</b><br>
+    <span class="big">🏭 部品がどう作られているか分かる</span><br>
+    <span class="small">切断・穴あけ・TAP・旋盤・フライス・板金・溶接・表面処理</span><br>
+    <span class="small">LEVEL 1 CLEAR後に進む</span>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🎓 現場編 FINAL</h2>
+  <p>LEVEL 0〜2をCLEARしたら、最後に現場編卒業実技へ。</p>
+  <div class="big">安全に動ける。工具を選べる。部品が分かる。作り方が分かる。</div>
+  <p class="small">ここまで来たら、次の独立教材「設計基礎編」へ。</p>
+</div>
+</section>
 
 <section id="level0" class="screen hidden"><div class="hero"><span class="badge">LEVEL 0</span><h1>現場で話が通じる</h1><p class="mut">安全・工具・締結・測定・現場語。まずは先輩の基本指示を理解して安全に動けるようになる。</p></div>
 <div class="card"><div class="row"><b>進捗</b><span id="progressText2">0 / 24</span></div><div class="progress"><div id="progressBar2"></div></div></div>

@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.7</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.8</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -196,7 +196,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.7</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.8</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -589,6 +589,14 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>固定あご</b><br>本体と一体の動かない側</div>
   <div class="tile"><b>可動あご</b><br>調整ねじで動く側</div>
   <div class="tile"><b>調整ねじ</b><br>口幅を合わせる部分</div>
+</div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜ガタを消して、固定あご側で主に受ける</div>
+  <div class="visual-row">
+    <div class="visual-box good"><span class="vicon">▐⬡▌</span><b>⭕ 口幅ぴったり</b><br>面でしっかり当てる</div>
+    <div class="visual-box bad"><span class="vicon">▐ ⬡ ▌</span><b>❌ ガバガバ</b><br>角をなめやすい</div>
+  </div>
+  <div class="visual-note">向きは実物で確認。力を掛ける側を固定あごで受けるイメージを持つ。</div>
 </div></div>
 
 <div class="card danger"><h2>😱 新人あるある① 口幅がガバガバ</h2>
@@ -668,6 +676,15 @@ tr:last-child td{border-bottom:0}
 <tr><td>#2</td><td>一般的によく使うサイズ</td></tr>
 <tr><td>#3</td><td>大きめのねじ</td></tr>
 </table>
+<div class="visual">
+  <div class="visual-title">VISUAL｜＋でも先端サイズが違う</div>
+  <div class="visual-row">
+    <div class="visual-box"><span class="vicon" style="font-size:1.35rem">✚</span><b>#1</b><br>小さめ</div>
+    <div class="visual-box good"><span class="vicon" style="font-size:1.85rem">✚</span><b>#2</b><br>よく使う</div>
+    <div class="visual-box"><span class="vicon" style="font-size:2.35rem">✚</span><b>#3</b><br>大きめ</div>
+  </div>
+  <div class="visual-note">ねじ頭へ深く入り、ガタが少ない番手を選ぶ。</div>
+</div>
 <p class="small">ねじ頭の形状・規格によって適合は変わる。LEVEL 0では「番手がある」「合う物を選ぶ」を優先する。</p>
 </div>
 
@@ -685,7 +702,15 @@ tr:last-child td{border-bottom:0}
 
 <div class="card"><h2>💪 回すだけじゃなく「押す」</h2>
 <p>＋ねじは回転だけでなく、<b>ねじ頭へまっすぐ押し付けながら回す</b>のが基本。</p>
-<p>斜めから回すと、ねじ頭から先端が逃げてナメやすい。</p></div>
+<p>斜めから回すと、ねじ頭から先端が逃げてナメやすい。</p>
+<div class="visual">
+  <div class="visual-title">VISUAL｜押す方向と回す方向を分けて考える</div>
+  <div class="visual-row">
+    <div class="visual-box good"><span class="vicon">⬇️🪛</span><b>押す</b><br>ねじ頭へまっすぐ</div>
+    <div class="visual-arrow">＋</div>
+    <div class="visual-box good"><span class="vicon">↻</span><b>回す</b><br>軸を傾けない</div>
+  </div>
+</div></div>
 
 <div class="card danger"><h2>⚠️ 固いねじほど慎重に</h2>
 <p>固いからといって、番手違いのまま力を増やすとねじ頭を壊しやすい。</p>
@@ -734,6 +759,15 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>ニッパー</b><br>主に線材・配線などを切る</div>
   <div class="tile"><b>プライヤー</b><br>物をつかむ・保持する</div>
   <div class="tile"><b>ラジオペンチ</b><br>細い先端で狭い場所をつかむ・曲げる</div>
+</div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜目的から工具を選ぶ</div>
+  <div class="visual-row">
+    <div class="visual-box"><span class="vicon">✋</span><b>つかむ＋曲げる</b><br>ペンチ</div>
+    <div class="visual-box"><span class="vicon">✂️</span><b>切る</b><br>ニッパー</div>
+    <div class="visual-box"><span class="vicon">🗜️</span><b>保持する</b><br>プライヤー</div>
+    <div class="visual-box"><span class="vicon">🤏</span><b>狭い・細かい</b><br>ラジペン</div>
+  </div>
 </div></div>
 
 <div class="card danger"><h2>😱 新人あるある</h2>
@@ -748,6 +782,14 @@ tr:last-child td{border-bottom:0}
 <div class="card danger"><h2>😱 うちでよくあるやつ：エアチューブ</h2>
 <p>ニッパーでエアチューブを切らせると、<b>だいたい斜めに切る。</b></p>
 <div class="big">斜め切り・つぶれた切り口<br>→ <span class="hi">継手への差し込み不良やエア漏れの原因</span>になりやすい。</div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜チューブ端面は「まっすぐ・つぶさない」</div>
+  <div class="visual-row">
+    <div class="visual-box good"><span class="vicon">━━│</span><b>⭕ 直角</b><br>端面が平ら</div>
+    <div class="visual-box bad"><span class="vicon">━━╱</span><b>❌ 斜め</b><br>差し込みが不安定</div>
+    <div class="visual-box bad"><span class="vicon">━━〈</span><b>❌ つぶれ</b><br>シール不良の原因</div>
+  </div>
+</div>
 <p>エアチューブは、できるだけ<b>直角で、つぶさず、きれいに切る</b>。</p>
 <p class="small">専用のチューブカッターがあるなら、そちらを使う方が確実。</p></div>
 

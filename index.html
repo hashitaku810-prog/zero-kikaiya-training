@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.9</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.10</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -154,7 +154,7 @@ tr:last-child td{border-bottom:0}
   box-shadow:inset 0 1px 0 rgba(255,255,255,.02)
 }
 .term{padding:13px 0;border-bottom:1px solid var(--line)}
-.term:last-child{border-bottom:0}
+.term:last-child{border-bottom:0}.zukan-link{color:var(--txt);text-align:left;font:inherit;cursor:pointer}.zukan-link:hover{border-color:#6b8798}.zukan-link b{color:#ffd064}
 .hidden{display:none!important}
 
 #lesson-0-26 .hero{border-color:#806a22;background:linear-gradient(145deg,#2a2413,#101b23 55%)}
@@ -196,7 +196,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.9</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.10</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -248,7 +248,26 @@ tr:last-child td{border-bottom:0}
 <div class="lesson-list"><button id="row-0-01" class="lesson-row live" onclick="openLesson('0-01')"><span class="num">0-01</span><span><b>⚠️ 勝手に触らない・乗らない・潜らない</b></span><span class="status">START</span></button><button id="row-0-02" class="lesson-row live" onclick="openLesson('0-02')"><span class="num">0-02</span><span><b>⚠️ 止まっている ≠ 安全</b></span><span class="status">START</span></button><button id="row-0-03" class="lesson-row live" onclick="openLesson('0-03')"><span class="num">0-03</span><span><b>🔩 ボルト・ナット・ワッシャー</b></span><span class="status">START</span></button><button id="row-0-04" class="lesson-row live" onclick="openLesson('0-04')"><span class="num">0-04</span><span><b>🔩 六角・キャップ・トラス</b></span><span class="status">START</span></button><button id="row-0-05" class="lesson-row live" onclick="openLesson('0-05')"><span class="num">0-05</span><span><b>📏 M5〜M20って何？</b></span><span class="status">START</span></button><button id="row-0-06" class="lesson-row live" onclick="openLesson('0-06')"><span class="num">0-06</span><span><b>📐 M8×30って何？</b></span><span class="status">START</span></button><button id="row-0-07" class="lesson-row live" onclick="openLesson('0-07')"><span class="num">0-07</span><span><b>🔧 M8なのになぜ13？</b></span><span class="status">START</span></button><button id="row-0-08" class="lesson-row live" onclick="openLesson('0-08')"><span class="num">0-08</span><span><b>🔧 ラチェットとソケット</b></span><span class="status">START</span></button><button id="row-0-09" class="lesson-row live" onclick="openLesson('0-09')"><span class="num">0-09</span><span><b>🔄 ねじはどっちに回す？</b></span><span class="status">START</span></button><button id="row-0-10" class="lesson-row live" onclick="openLesson('0-10')"><span class="num">0-10</span><span><b>🔧 六角レンチ</b></span><span class="status">START</span></button><button id="row-0-11" class="lesson-row live" onclick="openLesson('0-11')"><span class="num">0-11</span><span><b>🔧 モンキーレンチ</b></span><span class="status">START</span></button><button id="row-0-12" class="lesson-row live" onclick="openLesson('0-12')"><span class="num">0-12</span><span><b>🪛 ドライバー</b></span><span class="status">START</span></button><button id="row-0-13" class="lesson-row live" onclick="openLesson('0-13')"><span class="num">0-13</span><span><b>🗜️ ペンチ・ニッパー・プライヤー・ラジペン</b></span><span class="status">START</span></button><button id="row-0-14" class="lesson-row live" onclick="openLesson('0-14')"><span class="num">0-14</span><span><b>🔨 ハンマー・プラハン</b></span><span class="status">START</span></button><button id="row-0-15" class="lesson-row live" onclick="openLesson('0-15')"><span class="num">0-15</span><span><b>📏 スケール・メジャー</b></span><span class="status">START</span></button><button id="row-0-16" class="lesson-row live" onclick="openLesson('0-16')"><span class="num">0-16</span><span><b>📐 ノギス</b></span><span class="status">START</span></button><button id="row-0-17" class="lesson-row live" onclick="openLesson('0-17')"><span class="num">0-17</span><span><b>🕳️ ドリルと「キリ」</b></span><span class="status">START</span></button><button id="row-0-18" class="lesson-row live" onclick="openLesson('0-18')"><span class="num">0-18</span><span><b>🌀 TAPって何？</b></span><span class="status">START</span></button><button id="row-0-19" class="lesson-row live" onclick="openLesson('0-19')"><span class="num">0-19</span><span><b>🔩 ボルトを正しく入れる</b></span><span class="status">START</span></button><button id="row-0-20" class="lesson-row live" onclick="openLesson('0-20')"><span class="num">0-20</span><span><b>🔩 TAP締めとナット締め</b></span><span class="status">START</span></button><button id="row-0-21" class="lesson-row live" onclick="openLesson('0-21')"><span class="num">0-21</span><span><b>⚙️ グラインダーと危険工具</b></span><span class="status">START</span></button><button id="row-0-22" class="lesson-row live" onclick="openLesson('0-22')"><span class="num">0-22</span><span><b>🛠️ ポンチ・ヤスリ・スクレーパー</b></span><span class="status">START</span></button><button id="row-0-23" class="lesson-row live" onclick="openLesson('0-23')"><span class="num">0-23</span><span><b>😱 工具の扱い総集編</b></span><span class="status">START</span></button><button id="row-0-24" class="lesson-row live" onclick="openLesson('0-24')"><span class="num">0-24</span><span><b>🏃 現場での動き方・新人あるある</b></span><span class="status">START</span></button><button id="row-0-25" class="lesson-row live" onclick="openLesson('0-25')"><span class="num">0-25</span><span><b>🗣️ 現場語を聞き取れ！</b></span><span class="status">START</span></button><button id="row-0-26" class="lesson-row live" onclick="openLesson('0-26')"><span class="num">0-26</span><span><b>🎓 LEVEL 0 実技試験</b></span><span class="status">FINAL</span></button></div></section>
 
 <section id="dictionary" class="screen hidden"><div class="hero"><h1>🔍 現場語辞典</h1></div><input id="search" class="search" placeholder="例：13、SW、キャップ…" oninput="filterTerms()"><div class="card" id="terms"><div class="term" data-term="M8 ねじの呼び径が8mmのメートルねじ。工具サイズ8mmという意味ではない。"><b>M8</b><br><span class="mut">ねじの呼び径が8mmのメートルねじ。工具サイズ8mmという意味ではない。</span></div><div class="term" data-term="13 工具の文脈なら二面幅13mmのスパナ・レンチ等。キリの文脈ならφ13mmなど、前後の会話を見る。"><b>13</b><br><span class="mut">工具の文脈なら二面幅13mmのスパナ・レンチ等。キリの文脈ならφ13mmなど、前後の会話を見る。</span></div><div class="term" data-term="平W 平ワッシャー／平座金。"><b>平W</b><br><span class="mut">平ワッシャー／平座金。</span></div><div class="term" data-term="SW スプリングワッシャー／ばね座金。"><b>SW</b><br><span class="mut">スプリングワッシャー／ばね座金。</span></div><div class="term" data-term="キャップ 六角穴付きボルトを指す現場呼称として使用。"><b>キャップ</b><br><span class="mut">六角穴付きボルトを指す現場呼称として使用。</span></div><div class="term" data-term="トラス 頭が低く広いねじ。うちではカバー類でよく使用。"><b>トラス</b><br><span class="mut">頭が低く広いねじ。うちではカバー類でよく使用。</span></div><div class="term" data-term="TAP 穴の内側にめねじを加工すること／その工具・ねじ穴を指す現場語。詳細は0-18。"><b>TAP</b><br><span class="mut">穴の内側にめねじを加工すること／その工具・ねじ穴を指す現場語。詳細は0-18。</span></div><div class="term" data-term="キリ 現場でドリル・ドリル刃を指す呼び方。例：6.8のキリ。"><b>キリ</b><br><span class="mut">現場でドリル・ドリル刃を指す呼び方。例：6.8のキリ。</span></div><div class="term" data-term="メジャー うちではコンベックス、巻き取り式の鋼製巻尺をこう呼ぶ。"><b>メジャー</b><br><span class="mut">うちではコンベックス（巻き取り式の鋼製巻尺）をこう呼ぶ。</span></div></div></section>
-<section id="zukan" class="screen hidden"><div class="hero"><h1>⚙️ 図鑑</h1></div><div class="card"><p>部品・工具の写真図鑑は今後ここへ追加。</p><p class="mut">将来は「名前 → 写真 → 使う場所 → 関連Lesson」へつなぐ。</p></div></section>
+<section id="zukan" class="screen hidden">
+<div class="hero"><span class="badge">LEVEL 0 TOOL INDEX</span><h1>⚙️ 工具・部品図鑑</h1><p class="mut">名前を忘れた時に、見た目と用途から関連Lessonへ戻れる簡易図鑑。</p></div>
+<div class="card">
+  <div class="grid">
+    <button class="tile zukan-link" onclick="openLesson('0-03')"><b>🔩 ボルト・W</b><br>ボルト／ナット／平W／SW</button>
+    <button class="tile zukan-link" onclick="openLesson('0-04')"><b>🔩 ねじ頭</b><br>六角／キャップ／トラス</button>
+    <button class="tile zukan-link" onclick="openLesson('0-08')"><b>🔧 ラチェット</b><br>ハンドル／ソケット</button>
+    <button class="tile zukan-link" onclick="openLesson('0-10')"><b>⬢ 六角レンチ</b><br>通常側／ボールポイント</button>
+    <button class="tile zukan-link" onclick="openLesson('0-11')"><b>🔧 モンキー</b><br>固定あご／可動あご</button>
+    <button class="tile zukan-link" onclick="openLesson('0-12')"><b>🪛 ドライバー</b><br>＋／－／番手</button>
+    <button class="tile zukan-link" onclick="openLesson('0-13')"><b>✂️ 握り工具</b><br>ペンチ／ニッパー／ラジペン</button>
+    <button class="tile zukan-link" onclick="openLesson('0-14')"><b>🔨 ハンマー</b><br>鉄ハンマー／プラハン</button>
+    <button class="tile zukan-link" onclick="openLesson('0-15')"><b>📏 測る</b><br>スケール／メジャー</button>
+    <button class="tile zukan-link" onclick="openLesson('0-16')"><b>📐 ノギス</b><br>外側／内側／深さ</button>
+    <button class="tile zukan-link" onclick="openLesson('0-17')"><b>🌀 キリ</b><br>ドリル本体／ドリル刃</button>
+    <button class="tile zukan-link" onclick="openLesson('0-18')"><b>🌀 TAP</b><br>下穴／めねじ</button>
+  </div>
+  <p class="small">📷 実物写真は次のビジュアル強化フェーズで追加予定。</p>
+</div>
+</section>
 <section id="lesson-0-01" class="screen lesson hidden" data-num="0-01">
     <div class="hero"><span class="badge">LESSON 0-01</span><h1>⚠️ 勝手に触らない・乗らない・潜らない</h1></div>
 <div class="card danger"><h2>最初にこれだけ</h2><div class="big">機械が止まっていることと、<span class="hi">安全であることは別。</span></div>
@@ -466,6 +485,15 @@ tr:last-child td{border-bottom:0}
 
 <div class="card"><h2>🧠 コツは「自分の右」じゃなく回転方向</h2>
 <p>「右手側へ動かす」と覚えず、<b>ボルトの頭を見て時計回りか反時計回りか</b>で考える。</p>
+<div class="visual">
+  <div class="visual-title">VISUAL｜ねじ頭側から見た一般的な右ねじ</div>
+  <div class="visual-row">
+    <div class="visual-box good"><span class="vicon">↻</span><b>時計回り</b><br>締まる</div>
+    <div class="visual-box"><span class="vicon">🔩</span><b>頭側から見る</b><br>見る側を決める</div>
+    <div class="visual-box"><span class="vicon">↺</span><b>反時計回り</b><br>緩む</div>
+  </div>
+  <div class="visual-note">自分の右・左ではなく、ねじ頭を基準に回転方向で考える。</div>
+</div>
 <div class="grid">
   <div class="tile"><b>締める</b><br>時計回り ↻</div>
   <div class="tile"><b>緩める</b><br>反時計回り ↺</div>
@@ -1696,6 +1724,16 @@ tr:last-child td{border-bottom:0}
   <div class="tile"><b>見る</b><br>工具・対象物・周囲を見る</div>
   <div class="tile"><b>考える</b><br>力を掛けたら何が起きるか考える</div>
   <div class="tile"><b>聞く</b><br>分からなければ先輩に確認</div>
+</div>
+<div class="visual">
+  <div class="visual-title">VISUAL｜工具で迷った時の4手順</div>
+  <div class="flowline">
+    <div class="flowstep key">✋ 止まる</div><div class="visual-arrow">→</div>
+    <div class="flowstep">👀 見る</div><div class="visual-arrow">→</div>
+    <div class="flowstep">🧠 考える</div><div class="visual-arrow">→</div>
+    <div class="flowstep">🙋 聞く</div>
+  </div>
+  <div class="visual-note">「もっと力」へ行く前に、この4つへ戻る。</div>
 </div></div>
 
 <div class="card quiz"><h2>🎮 クイズ</h2>
@@ -2080,7 +2118,7 @@ tr:last-child td{border-bottom:0}
 </div></nav>
 
 <script>
-const TOTAL=26, STORAGE_PREFIX='kikaiya_field_';
+const TOTAL=26, STORAGE_PREFIX='kikaiya_field_', REVIEW_MODE=true;
 function migrateOldProgress(){
  if(localStorage.getItem('kikaiya_field_v03_migrated'))return;
  const old={}; for(let i=1;i<=6;i++){let n='0-'+String(i).padStart(2,'0');old[n]=localStorage.getItem('kikaiya_'+n)==='clear';}
@@ -2092,7 +2130,20 @@ function migrateOldProgress(){
 function hideAll(){document.querySelectorAll('.screen').forEach(x=>x.classList.add('hidden'));}
 function showScreen(id){hideAll();document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('active',x.dataset.nav===id));window.scrollTo(0,0);updateUI();}
 function showLevel0(){showScreen('level0');}
-function openLesson(n){if(!n)return;hideAll();let el=document.getElementById('lesson-'+n);if(el){el.classList.remove('hidden');document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));window.scrollTo(0,0);bindQuiz(el);updateUI();}}
+function lessonIndex(n){return parseInt(String(n).split('-')[1],10);}
+function isUnlocked(n){
+ if(REVIEW_MODE)return true;
+ const i=lessonIndex(n);
+ if(i<=1)return true;
+ const prev='0-'+String(i-1).padStart(2,'0');
+ return isDone(prev);
+}
+function openLesson(n){
+ if(!n)return;
+ if(!isUnlocked(n)){alert('🔒 前のLessonをCLEARするとOPENするで。');return;}
+ hideAll();let el=document.getElementById('lesson-'+n);
+ if(el){el.classList.remove('hidden');document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));window.scrollTo(0,0);bindQuiz(el);updateUI();}
+}
 function notYet(){alert('このLessonはこれから実装やで 🔧');}
 function clearLesson(n){localStorage.setItem(STORAGE_PREFIX+n,'clear');updateUI();let b=document.getElementById('clear-'+n);if(b){b.classList.add('ok');b.textContent='✓ '+n+' CLEAR済み';}}
 function isDone(n){return localStorage.getItem(STORAGE_PREFIX+n)==='clear';}
@@ -2117,7 +2168,37 @@ function clearLevel0Exam(){
   if(banner)banner.classList.remove('hidden');
   alert('🎓 LEVEL 0 CLEAR！ 次はLEVEL 1や！');
 }
-function updateUI(){let c=0;for(let i=1;i<=TOTAL;i++){let n='0-'+String(i).padStart(2,'0'),done=isDone(n);if(done)c++;let row=document.getElementById('row-'+n);if(row){row.classList.toggle('clear',done);if(done)row.querySelector('.status').textContent='✓ CLEAR';}let b=document.getElementById('clear-'+n);if(b&&done){b.classList.add('ok');b.textContent='✓ '+n+' CLEAR済み';}}document.querySelectorAll('.lesson').forEach(sec=>{let n=sec.dataset.num;let nav=sec.querySelector('.lesson-nav');if(!nav)return;let buttons=nav.querySelectorAll('button');let next=buttons[buttons.length-1];if(next)next.classList.toggle('next-ready',isDone(n));});let pct=c/TOTAL*100;['progressBar','progressBar2'].forEach(id=>{let e=document.getElementById(id);if(e)e.style.width=pct+'%';});document.getElementById('progressText').textContent=c+' / '+TOTAL;document.getElementById('progressText2').textContent=c+' / '+TOTAL;let banner=document.getElementById('level0ClearBanner');if(banner)banner.classList.toggle('hidden',!isDone('0-26'));}
+function updateUI(){
+ let c=0;
+ for(let i=1;i<=TOTAL;i++){
+   let n='0-'+String(i).padStart(2,'0'),done=isDone(n),unlocked=isUnlocked(n);
+   if(done)c++;
+   let row=document.getElementById('row-'+n);
+   if(row){
+     row.classList.toggle('clear',done);
+     row.classList.toggle('lock',!unlocked&&!done);
+     const st=row.querySelector('.status');
+     if(st){
+       if(done)st.textContent='✓ CLEAR';
+       else if(!unlocked)st.textContent='🔒 LOCK';
+       else st.textContent=(n==='0-26'?'FINAL':'START');
+     }
+   }
+   let b=document.getElementById('clear-'+n);
+   if(b&&done){b.classList.add('ok');b.textContent='✓ '+n+' CLEAR済み';}
+ }
+ document.querySelectorAll('.lesson').forEach(sec=>{
+   let n=sec.dataset.num,nav=sec.querySelector('.lesson-nav');
+   if(!nav)return;
+   let buttons=nav.querySelectorAll('button'),next=buttons[buttons.length-1];
+   if(next)next.classList.toggle('next-ready',isDone(n));
+ });
+ let pct=c/TOTAL*100;
+ ['progressBar','progressBar2'].forEach(id=>{let e=document.getElementById(id);if(e)e.style.width=pct+'%';});
+ document.getElementById('progressText').textContent=c+' / '+TOTAL;
+ document.getElementById('progressText2').textContent=c+' / '+TOTAL;
+ let banner=document.getElementById('level0ClearBanner');if(banner)banner.classList.toggle('hidden',!isDone('0-26'));
+}
 function bindQuiz(root){root.querySelectorAll('.quiz button').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound=1;b.onclick=()=>{b.classList.add(b.dataset.ok==='1'?'good':'bad');let p=b.nextElementSibling;while(p&&!p.classList.contains('feedback'))p=p.nextElementSibling;if(p){p.textContent=b.dataset.ok==='1'?'⭕ 正解！':'❌ もう一回考えてみよう。';p.style.color=b.dataset.ok==='1'?'var(--ok)':'var(--bad)';}}});}
 function filterTerms(){let q=document.getElementById('search').value.toLowerCase();document.querySelectorAll('.term').forEach(x=>x.style.display=x.dataset.term.toLowerCase().includes(q)?'block':'none');}
 migrateOldProgress();showScreen('home');

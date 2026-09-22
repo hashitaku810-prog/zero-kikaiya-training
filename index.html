@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.24</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.25</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -213,7 +213,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.24</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.25</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -1933,6 +1933,16 @@ tr:last-child td{border-bottom:0}
 
 <script>
 const TOTAL=26, STORAGE_PREFIX='kikaiya_field_', REVIEW_MODE=false;
+function initializeTrainingMode(){
+ if(REVIEW_MODE)return;
+ const key=STORAGE_PREFIX+'training_v025_initialized';
+ if(localStorage.getItem(key))return;
+ for(let i=1;i<=TOTAL;i++){
+   const n='0-'+String(i).padStart(2,'0');
+   localStorage.removeItem(STORAGE_PREFIX+n);
+ }
+ localStorage.setItem(key,'1');
+}
 function migrateOldProgress(){
  if(localStorage.getItem('kikaiya_field_v03_migrated'))return;
  const old={}; for(let i=1;i<=6;i++){let n='0-'+String(i).padStart(2,'0');old[n]=localStorage.getItem('kikaiya_'+n)==='clear';}
@@ -2039,5 +2049,5 @@ function updateUI(){
 }
 function bindQuiz(root){root.querySelectorAll('.quiz button').forEach(b=>{if(b.dataset.bound)return;b.dataset.bound=1;b.onclick=()=>{b.classList.add(b.dataset.ok==='1'?'good':'bad');let p=b.nextElementSibling;while(p&&!p.classList.contains('feedback'))p=p.nextElementSibling;if(p){p.textContent=b.dataset.ok==='1'?'⭕ 正解！':'❌ もう一回考えてみよう。';p.style.color=b.dataset.ok==='1'?'var(--ok)':'var(--bad)';}}});}
 function filterTerms(){let q=document.getElementById('search').value.toLowerCase();document.querySelectorAll('.term').forEach(x=>x.style.display=x.dataset.term.toLowerCase().includes(q)?'block':'none');}
-migrateOldProgress();showScreen('home');
+migrateOldProgress();initializeTrainingMode();showScreen('home');
 </script></body></html>

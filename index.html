@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.21</title><style>
+<title>ゼロから始める機械屋への道 ― 現場編 Ver.0.22</title><style>
 :root{
   --bg:#071017;--bg2:#0b151e;--panel:#111d27;--panel2:#182733;--panel3:#0d1821;
   --line:#2d4352;--line2:#456071;--txt:#f7f9fb;--mut:#a8b7c2;
@@ -187,6 +187,11 @@ tr:last-child td{border-bottom:0}
 .tech-legend span{font-size:.76rem;font-weight:850;padding:4px 8px;border-radius:999px;background:#111f29;border:1px solid #314957}
 .legend-ok{color:#a9ffd0}.legend-key{color:#ffe08b}.legend-move{color:#a9dfff}.legend-ng{color:#ffb0b0}
 
+
+.lesson-image{margin:12px 0 16px;padding:7px;background:#08131a;border:1px solid #345061;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.lesson-image img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;border-radius:10px;background:#050b10}
+.lesson-image figcaption{padding:7px 5px 2px;color:var(--mut);font-size:.78rem;text-align:center}
+
 @media(max-width:430px){
   body{line-height:1.64}
   .app{padding-left:11px;padding-right:11px}
@@ -216,7 +221,7 @@ tr:last-child td{border-bottom:0}
   .card{padding:20px}
 }
 </style></head><body>
-<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.21</div></div>
+<div class="app"><div class="topbar"><div class="brand">🔧 ゼロから始める機械屋への道</div><div class="sub">新人教育Webアプリ｜現場編 Prototype Ver.0.22</div></div>
 
 <section id="home" class="screen">
 <div class="hero"><span class="badge">現場編 START 🔧</span><h1>まずは、現場で<br>話が通じる新人へ。</h1><p class="mut">安全 → 工具 → 測定 → 部品 → 加工。設計の前に、機械屋の土台を作る。</p></div>
@@ -304,7 +309,8 @@ tr:last-child td{border-bottom:0}
 </div>
 </section>
 <section id="lesson-0-01" class="screen lesson hidden" data-num="0-01">
-    <div class="hero"><span class="badge">LESSON 0-01</span><h1>⚠️ 勝手に触らない・乗らない・潜らない</h1></div>
+<div class="hero"><span class="badge">LESSON 0-01</span><h1>⚠️ 勝手に触らない・乗らない・潜らない</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-01.jpg" alt="⚠️ 勝手に触らない・乗らない・潜らないの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-01</figcaption></figure>
 <div class="card danger"><h2>最初にこれだけ</h2><div class="big">機械が止まっていることと、<span class="hi">安全であることは別。</span></div>
 <p>電気・エア・重力・残圧など、見えないエネルギーが残っていることがある。会社で定めた停止・隔離・確認手順と責任者／先輩の指示を守る。</p></div>
 <div class="card"><h2>👀 新人あるある危険行動</h2><p>① ローラーコンベアに乗る・歩く<br>② 光電センサーを手で遮る<br>③ 電源・エアが生きたまま装置内へ手を入れる<br>④ 落とした工具を取りに機械の下へ潜る<br>⑤ センサー・配線・機器を踏む</p>
@@ -337,6 +343,7 @@ tr:last-child td{border-bottom:0}
     <div class="card"><h2>👷 先輩チェック</h2><p>現物・口頭確認ができたら、指導者と一緒にCLEAR。</p>
     <button id="clear-0-01" class="btn" onclick="clearLesson('0-01')">□ 指導者確認：0-01 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="showScreen('home')">← HOME</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-02')">次へ →</button></div></section><section id="lesson-0-02" class="screen lesson hidden" data-num="0-02">
 <div class="hero"><span class="badge">LESSON 0-02</span><h1>⚠️ 止まっている ≠ 安全</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-02.jpg" alt="⚠️ 止まっている ≠ 安全の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-02</figcaption></figure>
 <div class="card danger"><h2>👀 機械が止まっていても安心しない</h2><div class="big">止まっていることと、<span class="hi">安全であることは別。</span></div><p>見た目に動いていなくても、機械には危険なエネルギーが残っていることがある。</p></div>
 <div class="card"><h2>📖 残っているかもしれないもの</h2><div class="grid"><div class="tile"><b>⚡ 電気</b><br>電源・蓄電・自動復帰</div><div class="tile"><b>💨 エア</b><br>残圧でシリンダーが動く</div><div class="tile"><b>⬇️ 重力</b><br>上がった物が落ちる</div><div class="tile"><b>🌀 蓄えた力</b><br>バネ・慣性・張力など</div></div>
 <div class="tech-figure">
@@ -358,7 +365,8 @@ tr:last-child td{border-bottom:0}
 <div class="card mission"><h2>🔧 現場ミッション</h2><label class="check"><input type="checkbox">実機で「電気・エア・重力」の危険箇所を先輩と確認</label><label class="check"><input type="checkbox">分からない時に勝手に触らず確認すると言えた</label></div>
 <div class="card"><h2>👷 先輩チェック</h2><p>「止まっている＝安全」ではない理由を自分の言葉で説明できたらCLEAR。</p><button id="clear-0-02" class="btn" onclick="clearLesson('0-02')">□ 指導者確認：0-02 CLEAR</button></div>
 <div class="lesson-nav"><button class="btn" onclick="openLesson('0-01')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-03')">次へ →</button></div></section><section id="lesson-0-03" class="screen lesson hidden" data-num="0-03">
-    <div class="hero"><span class="badge">LESSON 0-03</span><h1>🔩 ボルト・ナット・ワッシャー</h1></div>
+<div class="hero"><span class="badge">LESSON 0-03</span><h1>🔩 ボルト・ナット・ワッシャー</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-03.jpg" alt="🔩 ボルト・ナット・ワッシャーの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-03</figcaption></figure>
 <div class="card"><h2>👀 4つを見分ける</h2><div class="grid"><div class="tile"><b>ボルト</b><br>外側にねじ山</div><div class="tile"><b>ナット</b><br>内側にねじ</div><div class="tile"><b>平W</b><br>平ワッシャー</div><div class="tile"><b>SW</b><br>スプリングワッシャー</div></div>
 <div class="tech-figure">
   <div class="visual-title">TECH VISUAL｜ボルト・ナット・平W・SWを「形」で見分ける</div>
@@ -378,7 +386,8 @@ tr:last-child td{border-bottom:0}
 
     <div class="card"><h2>👷 先輩チェック</h2><p>現物・口頭確認ができたら、指導者と一緒にCLEAR。</p>
     <button id="clear-0-03" class="btn" onclick="clearLesson('0-03')">□ 指導者確認：0-03 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="openLesson('0-02')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-04')">次へ →</button></div></section><section id="lesson-0-04" class="screen lesson hidden" data-num="0-04">
-    <div class="hero"><span class="badge">LESSON 0-04</span><h1>🔩 六角・キャップ・トラス</h1></div>
+<div class="hero"><span class="badge">LESSON 0-04</span><h1>🔩 六角・キャップ・トラス</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-04.jpg" alt="🔩 六角・キャップ・トラスの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-04</figcaption></figure>
 <div class="card"><h2>👀 「全部ボルト」から卒業</h2><div class="grid"><div class="tile"><b>六角ボルト</b><br>外六角をスパナ等で回す</div><div class="tile"><b>キャップボルト</b><br>六角穴付き。六角レンチ等</div><div class="tile"><b>トラス</b><br>頭が低く広い。カバー等</div></div>
 <div class="tech-figure">
   <div class="visual-title">TECH VISUAL｜頭の形を見ると「どこへ工具を掛けるか」が分かる</div>
@@ -397,7 +406,8 @@ tr:last-child td{border-bottom:0}
 
     <div class="card"><h2>👷 先輩チェック</h2><p>現物・口頭確認ができたら、指導者と一緒にCLEAR。</p>
     <button id="clear-0-04" class="btn" onclick="clearLesson('0-04')">□ 指導者確認：0-04 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="openLesson('0-03')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-05')">次へ →</button></div></section><section id="lesson-0-05" class="screen lesson hidden" data-num="0-05">
-    <div class="hero"><span class="badge">LESSON 0-05</span><h1>📏 M5〜M20って何？</h1></div>
+<div class="hero"><span class="badge">LESSON 0-05</span><h1>📏 M5〜M20って何？</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-05.jpg" alt="📏 M5〜M20って何？の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-05</figcaption></figure>
 <div class="card"><h2>👀 Mの後ろの数字</h2><div class="big"><span class="hi">M8</span> ＝ ねじの呼び径が約 <span class="hi">8mm</span></div>
 <div class="tech-figure">
   <div class="visual-title">TECH VISUAL｜Mの数字は「ねじの呼び径」。工具サイズではない</div>
@@ -420,7 +430,8 @@ tr:last-child td{border-bottom:0}
 
     <div class="card"><h2>👷 先輩チェック</h2><p>現物・口頭確認ができたら、指導者と一緒にCLEAR。</p>
     <button id="clear-0-05" class="btn" onclick="clearLesson('0-05')">□ 指導者確認：0-05 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="openLesson('0-04')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-06')">次へ →</button></div></section><section id="lesson-0-06" class="screen lesson hidden" data-num="0-06">
-    <div class="hero"><span class="badge">LESSON 0-06</span><h1>📐 M8×30って何？</h1></div>
+<div class="hero"><span class="badge">LESSON 0-06</span><h1>📐 M8×30って何？</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-06.jpg" alt="📐 M8×30って何？の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-06</figcaption></figure>
 <div class="card"><h2>👀 2つの数字</h2><div class="big"><span class="hi">M8</span> × <span class="hi">30</span><br>呼び径8mm × 長さ30mm</div>
 <div class="tech-figure">
   <div class="visual-title">TECH VISUAL｜M8×30は「太さ」と「長さ」の2つを見る</div>
@@ -442,7 +453,8 @@ tr:last-child td{border-bottom:0}
 
     <div class="card"><h2>👷 先輩チェック</h2><p>現物・口頭確認ができたら、指導者と一緒にCLEAR。</p>
     <button id="clear-0-06" class="btn" onclick="clearLesson('0-06')">□ 指導者確認：0-06 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="openLesson('0-05')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-07')">次へ →</button></div></section><section id="lesson-0-07" class="screen lesson hidden" data-num="0-07">
-    <div class="hero"><span class="badge">LESSON 0-07</span><h1>🔧 M8なのに、なんで13なん？</h1></div>
+<div class="hero"><span class="badge">LESSON 0-07</span><h1>🔧 M8なのに、なんで13なん？</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-07.jpg" alt="🔧 M8なのに、なんで13なん？の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-07</figcaption></figure>
 <div class="card"><h2>👀 ついに元凶</h2><div class="big"><span class="hi">M8</span> ＝ ねじの呼び径<br><span class="hi">13</span> ＝ 一般的なM8六角頭・ナットに掛ける工具の二面幅</div>
 <div class="tech-figure">
   <div class="visual-title">TECH VISUAL｜M8と13は「同じボルトの別の場所」を表す</div>
@@ -464,6 +476,7 @@ tr:last-child td{border-bottom:0}
     <div class="card"><h2>👷 先輩チェック</h2><p>現物・口頭確認ができたら、指導者と一緒にCLEAR。</p>
     <button id="clear-0-07" class="btn" onclick="clearLesson('0-07')">□ 指導者確認：0-07 CLEAR</button></div><div class="lesson-nav"><button class="btn" onclick="openLesson('0-06')">← 前へ</button><button class="btn" onclick="showLevel0()">LEVEL 0</button><button class="btn" onclick="openLesson('0-08')">次へ →</button></div></section><section id="lesson-0-08" class="screen lesson hidden" data-num="0-08">
 <div class="hero"><span class="badge">LESSON 0-08</span><h1>🔧 ラチェットとソケット</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-08.jpg" alt="🔧 ラチェットとソケットの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-08</figcaption></figure>
 
 <div class="card"><h2>👀 まずは2つに分けて考える</h2>
 <div class="grid">
@@ -533,6 +546,7 @@ tr:last-child td{border-bottom:0}
 <button class="btn" onclick="openLesson('0-09')">次へ →</button>
 </div></section><section id="lesson-0-09" class="screen lesson hidden" data-num="0-09">
 <div class="hero"><span class="badge">LESSON 0-09</span><h1>🔄 ねじはどっちに回す？</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-09.jpg" alt="🔄 ねじはどっちに回す？の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-09</figcaption></figure>
 
 <div class="card"><h2>👀 まず基本</h2>
 <div class="big">一般的な<span class="hi">右ねじ</span>は<br>ねじの頭側から見て<br><span class="hi">時計回り＝締まる</span><br>反時計回り＝緩む</div>
@@ -619,6 +633,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-10" class="screen lesson hidden" data-num="0-10">
 <div class="hero"><span class="badge">LESSON 0-10</span><h1>🔧 六角レンチ</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-10.jpg" alt="🔧 六角レンチの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-10</figcaption></figure>
 
 <div class="card"><h2>👀 何に使う？</h2>
 <div class="big">六角レンチは、<span class="hi">六角穴付きボルト（キャップ）</span>を回す工具。</div>
@@ -773,6 +788,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-11" class="screen lesson hidden" data-num="0-11">
 <div class="hero"><span class="badge">LESSON 0-11</span><h1>🔧 モンキーレンチ</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-11.jpg" alt="🔧 モンキーレンチの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-11</figcaption></figure>
 
 <div class="card"><h2>👀 何が便利？</h2>
 <div class="big">口幅を変えられるから、<span class="hi">いろんな二面幅に合わせられる。</span></div>
@@ -898,6 +914,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-12" class="screen lesson hidden" data-num="0-12">
 <div class="hero"><span class="badge">LESSON 0-12</span><h1>🪛 ドライバー</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-12.jpg" alt="🪛 ドライバーの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-12</figcaption></figure>
 
 <div class="card"><h2>👀 「＋なら全部一緒」ではない</h2>
 <div class="big">ドライバーには、<span class="hi">形とサイズ（番手）</span>がある。</div>
@@ -1048,6 +1065,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-13" class="screen lesson hidden" data-num="0-13">
 <div class="hero"><span class="badge">LESSON 0-13</span><h1>🗜️ ペンチ・ニッパー・プライヤー・ラジペン</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-13.jpg" alt="🗜️ ペンチ・ニッパー・プライヤー・ラジペンの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-13</figcaption></figure>
 
 <div class="card"><h2>👀 見た目は似てても仕事が違う</h2>
 <div class="grid">
@@ -1199,6 +1217,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-14" class="screen lesson hidden" data-num="0-14">
 <div class="hero"><span class="badge">LESSON 0-14</span><h1>🔨 ハンマー・プラハン</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-14.jpg" alt="🔨 ハンマー・プラハンの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-14</figcaption></figure>
 
 <div class="card"><h2>👀 「叩く工具」も使い分ける</h2>
 <div class="grid">
@@ -1320,6 +1339,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-15" class="screen lesson hidden" data-num="0-15">
 <div class="hero"><span class="badge">LESSON 0-15</span><h1>📏 スケール・メジャー</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-15.jpg" alt="📏 スケール・メジャーの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-15</figcaption></figure>
 
 <div class="card"><h2>👀 まず呼び方</h2>
 <div class="grid">
@@ -1429,6 +1449,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-16" class="screen lesson hidden" data-num="0-16">
 <div class="hero"><span class="badge">LESSON 0-16</span><h1>📐 ノギス</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-16.jpg" alt="📐 ノギスの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-16</figcaption></figure>
 
 <div class="card"><h2>👀 ノギスで何が測れる？</h2>
 <div class="grid">
@@ -1568,6 +1589,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-17" class="screen lesson hidden" data-num="0-17">
 <div class="hero"><span class="badge">LESSON 0-17</span><h1>🕳️ ドリルと「キリ」</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-17.jpg" alt="🕳️ ドリルと「キリ」の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-17</figcaption></figure>
 
 <div class="card"><h2>👀 「ドリル」と「キリ」は同じ？</h2>
 <div class="grid">
@@ -1653,6 +1675,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-18" class="screen lesson hidden" data-num="0-18">
 <div class="hero"><span class="badge">LESSON 0-18</span><h1>🌀 TAPって何？</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-18.jpg" alt="🌀 TAPって何？の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-18</figcaption></figure>
 
 <div class="card"><h2>👀 TAPは何をする？</h2>
 <div class="big">下穴の内側に<span class="hi">めねじ</span>を作る工具・加工。</div>
@@ -1789,6 +1812,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-19" class="screen lesson hidden" data-num="0-19">
 <div class="hero"><span class="badge">LESSON 0-19</span><h1>🔩 ボルトを正しく入れる</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-19.jpg" alt="🔩 ボルトを正しく入れるの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-19</figcaption></figure>
 
 <div class="card"><h2>👀 「入った＝OK」ではない</h2>
 <div class="big">ボルトはまず<span class="hi">手で入るか</span>を確認する。</div>
@@ -1911,6 +1935,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-20" class="screen lesson hidden" data-num="0-20">
 <div class="hero"><span class="badge">LESSON 0-20</span><h1>🔩 TAP締めとナット締め</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-20.jpg" alt="🔩 TAP締めとナット締めの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-20</figcaption></figure>
 
 <div class="card"><h2>👀 同じボルトでも、締め方で並びが変わる</h2>
 <p>新人がよく混乱するのが、<b>平ワッシャー（平W）とスプリングワッシャー（SW）の位置</b>。</p>
@@ -2057,6 +2082,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-21" class="screen lesson hidden" data-num="0-21">
 <div class="hero"><span class="badge">LESSON 0-21</span><h1>⚙️ グラインダーと危険工具</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-21.jpg" alt="⚙️ グラインダーと危険工具の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-21</figcaption></figure>
 
 <div class="card"><h2>👀 「削るだけ」の工具ではない</h2>
 <p>ディスクグラインダー（現場で「サンダー」と呼ぶこともある）は、高速回転する砥石・ディスクを使う危険工具。</p>
@@ -2200,6 +2226,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-22" class="screen lesson hidden" data-num="0-22">
 <div class="hero"><span class="badge">LESSON 0-22</span><h1>🛠️ ポンチ・ヤスリ・スクレーパー</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-22.jpg" alt="🛠️ ポンチ・ヤスリ・スクレーパーの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-22</figcaption></figure>
 
 <div class="card"><h2>👀 地味やけど、仕上がりを左右する3つ</h2>
 <div class="grid">
@@ -2312,6 +2339,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-23" class="screen lesson hidden" data-num="0-23">
 <div class="hero"><span class="badge">LESSON 0-23</span><h1>😱 工具の扱い総集編</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-23.jpg" alt="😱 工具の扱い総集編の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-23</figcaption></figure>
 
 <div class="card"><h2>👀 工具は「知ってる」だけでは足りない</h2>
 <p>ここまでの工具Lessonで出てきた失敗をまとめて確認する。</p>
@@ -2416,6 +2444,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-24" class="screen lesson hidden" data-num="0-24">
 <div class="hero"><span class="badge">LESSON 0-24</span><h1>🏃 現場での動き方・新人あるある</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-24.jpg" alt="🏃 現場での動き方・新人あるあるの実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-24</figcaption></figure>
 
 <div class="card"><h2>👀 作業ができるだけで「仕事ができる」ではない</h2>
 <p>現場では、先輩の指示を待つだけじゃなく、<b>次の作業・忘れ物・記録・片付け</b>まで考えて動けると強い。</p>
@@ -2565,6 +2594,7 @@ tr:last-child td{border-bottom:0}
 </div>
 </section><section id="lesson-0-25" class="screen lesson hidden" data-num="0-25">
 <div class="hero"><span class="badge">LESSON 0-25</span><h1>🗣️ 現場語を聞き取れ！</h1></div>
+<figure class="lesson-image"><img src="images/level0/0-25.jpg" alt="🗣️ 現場語を聞き取れ！の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-25</figcaption></figure>
 
 <div class="card"><h2>👀 現場では、文章より短い言葉で飛んでくる</h2>
 <p>先輩は忙しい。指示は長い説明じゃなく、<b>短い現場語</b>で飛んでくる。</p>
@@ -2662,6 +2692,7 @@ tr:last-child td{border-bottom:0}
 </section><section id="lesson-0-26" class="screen lesson hidden" data-num="0-26">
 <div class="hero"><span class="badge">LEVEL 0 FINAL</span><h1>🎓 LEVEL 0 実技試験</h1>
 <p class="mut">Webクイズではなく、実物・実機で「できる」を確認する最終試験。</p></div>
+<figure class="lesson-image"><img src="images/level0/0-26.jpg" alt="🎓 LEVEL 0 実技試験の実物認識用教材画像" loading="lazy" decoding="async"><figcaption>実物認識ビジュアル｜0-26</figcaption></figure>
 
 <div class="card danger"><h2>⚠️ 合格条件は「知ってる」ではなく「安全にできる」</h2>
 <p>LEVEL 0のゴールは、一人前の機械屋になることではない。</p>

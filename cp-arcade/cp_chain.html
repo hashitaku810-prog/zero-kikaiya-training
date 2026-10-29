@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#120f2b">
+<title>CP CHAIN | ころころ連鎖ゲーム</title>
+<style>
+:root{color-scheme:dark;font-family:ui-rounded,system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;--ink:#f6f3ff;--muted:#ada2d1;--violet:#9b85ff;--line:#514275}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#110e29;color:var(--ink)}
+body{display:flex;justify-content:center;align-items:flex-start;overflow-x:hidden;overscroll-behavior:contain;background:radial-gradient(ellipse 65% 40% at 50% -10%,#4b2f87 0%,transparent 90%),linear-gradient(180deg,#161134 0%,#110e29 70%)}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #ffdf80;outline-offset:2px}
+.game{width:min(100%,430px);min-height:100dvh;padding:12px 12px max(12px,env(safe-area-inset-bottom));user-select:none;-webkit-user-select:none}
+.mast{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand-balls{position:relative;width:43px;height:43px;border-radius:14px;background:linear-gradient(150deg,#49357a,#261d4d);border:1px solid #6a4ca0;box-shadow:inset 0 2px 2px #ffffff16;flex:none}
+.brand-ball{position:absolute;width:19px;height:19px;border-radius:50%;box-shadow:inset -3px -4px #0002,inset 2px 3px #fff7}
+.brand-ball.a{left:7px;top:7px;background:#ff739f}.brand-ball.b{left:17px;top:17px;background:#58dfbf}
+.eyebrow{font-weight:900;color:#baabec;font-size:9px;letter-spacing:2px;line-height:1.4}
+h1{font-size:24px;line-height:1.03;margin:2px 0 0;letter-spacing:1px;font-weight:1000}
+h1 span{color:#ff92c7}
+.mast-actions{display:flex;gap:6px}
+.top-btn{width:39px;height:39px;padding:0;border:1px solid #504474;border-radius:12px;background:#241b46;color:#efeaff;font-weight:900;font-size:18px;box-shadow:inset 0 2px 0 #ffffff12;touch-action:manipulation}
+.top-btn:active{transform:translateY(1px);background:#36275d}
+.score-row{display:grid;grid-template-columns:1.4fr .95fr .85fr;gap:7px;margin-bottom:10px}
+.stat{background:linear-gradient(165deg,#30234f,#211b3d);border:1px solid #514074;border-radius:13px;min-height:59px;padding:7px 9px;box-shadow:inset 0 1px #ffffff14,0 3px 10px #09051c35}
+.stat-label{font-size:9px;color:#bcb0df;font-weight:1000;letter-spacing:1.25px}
+.stat-val{font-size:19px;font-weight:1000;line-height:1.48;letter-spacing:.2px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stat:first-child .stat-val{color:#ffe78b}
+.play-area{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:9px;align-items:start;justify-content:center;max-width:350px;margin:0 auto}
+.board-frame{position:relative;min-width:0;isolation:isolate;background:#15112f;border:3px solid #8b70c2;border-radius:15px;overflow:hidden;box-shadow:0 7px 0 #392658,0 20px 35px #06021675,0 0 29px #9d63ee19}
+.board-frame::before{content:"";position:absolute;z-index:1;pointer-events:none;inset:0;border-radius:11px;box-shadow:inset 0 0 20px #02030d77}
+#board{display:block;width:100%;height:auto;aspect-ratio:1 / 2;touch-action:none;background:#191437}
+.side{display:flex;flex-direction:column;gap:9px}
+.side-card{border:1px solid #5e4d86;background:linear-gradient(155deg,#312452,#201a3d);border-radius:13px;text-align:center;padding:9px 5px;box-shadow:inset 0 1px #ffffff15}
+.side-heading{font-size:10px;font-weight:1000;letter-spacing:1.3px;color:#bfb3e8}
+.next-canvas{display:block;width:64px;height:81px;margin:2px auto 0}
+.next-mini{display:block;width:56px;height:58px;margin:1px auto 0}
+.side-card .num{font-size:24px;font-weight:1000;line-height:1.3;color:#9fffe0;font-variant-numeric:tabular-nums}
+.side-card .small{font-size:9px;color:#b6a7dc;font-weight:750}
+.side-tip{border:1px dashed #584578;background:#211a3a;border-radius:11px;text-align:center;color:#c2b5e4;font-size:10px;line-height:1.7;padding:9px 3px}
+.side-tip strong{color:#ffe185;font-size:12px}
+.status-row{max-width:350px;margin:12px auto 0;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;font-weight:800;color:#b5a7dd}
+.status-led{display:inline-block;width:7px;height:7px;background:#84eeca;border-radius:50%;vertical-align:0;margin-right:5px;box-shadow:0 0 10px #5bf1c7}
+.status-led.off{background:#f6be7a;box-shadow:none}
+.status-bubble{color:#ffe59c;font-weight:1000;white-space:nowrap}
+.controls{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;max-width:350px;margin:9px auto 0}
+.ctrl{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-width:0;min-height:67px;background:linear-gradient(170deg,#3e3166,#2b214e);border:1px solid #695593;border-bottom:4px solid #4c396f;border-radius:14px;color:#fff5ff;padding:4px 0;touch-action:none;-webkit-touch-callout:none;box-shadow:inset 0 1px #ffffff24}
+.ctrl .glyph{font-weight:1000;font-size:27px;line-height:1.2}
+.ctrl small{color:#c6bce6;font-weight:800;font-size:10px}
+.ctrl:active,.ctrl.held{transform:translateY(3px);border-bottom-width:1px;filter:brightness(1.2)}
+.ctrl.drop{color:#302047;background:linear-gradient(160deg,#ffdf83,#fba954);border:1px solid #ffe5a1;border-bottom:4px solid #be713d}
+.ctrl.drop small{color:#50344b}
+.help{max-width:360px;margin:11px auto 0;text-align:center;color:#9989c3;font-size:11px;line-height:1.65}
+.help b{color:#cfc0fa}
+.overlay{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:13px;background:#130e2ddd;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.overlay.hidden{display:none}
+.overlay .hero{display:flex;justify-content:center;gap:5px;margin-bottom:14px;filter:drop-shadow(0 9px 10px #0005)}
+.hero i{width:32px;height:32px;border-radius:50%;display:block;box-shadow:inset 4px 4px #ffffff6b,inset -4px -5px #0002;border:1px solid #fff5}
+.hero i:nth-child(1){background:#ff739f;transform:translateY(7px)}
+.hero i:nth-child(2){background:#ffce70;transform:translateY(-3px)}
+.hero i:nth-child(3){background:#5ee2bd;transform:translateY(7px)}
+.overlay-title{font-size:26px;line-height:1.22;font-weight:1000;text-shadow:0 2px 12px #0008;letter-spacing:1px}
+.overlay-desc{font-size:12px;line-height:1.9;color:#ddd4f6;margin:10px 0 18px}
+.overlay-desc strong{color:#ffe58b}
+.overlay-btn{font-size:16px;font-weight:1000;border:0;background:linear-gradient(170deg,#ffe597,#ffb85d);color:#3c2340;border-radius:14px;padding:12px 18px;min-width:150px;box-shadow:0 5px 0 #9c5b4a,0 12px 20px #0005;touch-action:manipulation}
+.overlay-btn:active{transform:translateY(3px);box-shadow:0 2px 0 #9c5b4a}
+@media(max-width:360px){.game{padding:8px 8px max(10px,env(safe-area-inset-bottom))}.play-area{grid-template-columns:minmax(0,1fr) 80px;gap:7px}.side{gap:7px}.side-card{padding:7px 3px}.score-row{gap:5px}.stat{padding:6px 7px}.stat-val{font-size:17px}.controls{gap:5px}.ctrl{min-height:61px}.ctrl .glyph{font-size:25px}.side-tip{font-size:9px}.overlay-title{font-size:22px}}
+@media(max-height:730px){.game{padding-top:6px}.mast{margin-bottom:7px}.score-row{margin-bottom:7px}.stat{min-height:51px;padding-top:5px;padding-bottom:5px}.play-area{max-width:min(350px, calc((100dvh - 278px) * .64))}.status-row{margin-top:9px}.controls{margin-top:7px}.ctrl{min-height:56px}.help{margin-top:7px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+.cp-arcade-return{display:inline-flex;align-items:center;gap:5px;color:#a9cff4;font-size:12px;font-weight:800;text-decoration:none;padding:4px 4px 9px;min-height:28px;touch-action:manipulation}.cp-arcade-return:active{opacity:.6}
+</style>
+</head>
+<body>
+<main class="game" id="cp-chain-game">
+  <a href="./index.html" class="cp-arcade-return">‹ ゲーム一覧へ戻る</a>
+  <header class="mast">
+    <div class="brand"><div class="brand-balls" aria-hidden="true"><i class="brand-ball a"></i><i class="brand-ball b"></i></div><div><div class="eyebrow">POCKET ARCADE / 02</div><h1>CP <span>CHAIN</span></h1></div></div>
+    <div class="mast-actions"><button class="top-btn" id="sound" type="button" aria-label="効果音切り替え" title="効果音をオン・オフ">🔇</button><button class="top-btn" id="pause" type="button" aria-label="一時停止" title="一時停止">Ⅱ</button></div>
+  </header>
+  <section class="score-row" aria-label="スコア表示">
+    <div class="stat"><div class="stat-label">SCORE</div><div class="stat-val" id="score">000000</div></div>
+    <div class="stat"><div class="stat-label">BEST</div><div class="stat-val" id="best">0</div></div>
+    <div class="stat"><div class="stat-label">LEVEL</div><div class="stat-val" id="level">01</div></div>
+  </section>
+  <section class="play-area">
+    <div class="board-frame">
+      <canvas id="board" width="300" height="600" aria-label="6列12段の連鎖パズル盤面"></canvas>
+      <div class="overlay" id="overlay">
+        <div class="hero" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="overlay-title" id="overlay-title">ころころ連鎖！</div>
+        <div class="overlay-desc" id="overlay-desc">同じ色を<strong>4つ以上</strong>つなげて消そう！<br>消えたあとにまたつながると連鎖やで ✨</div>
+        <button class="overlay-btn" id="overlay-btn" type="button">あそぶ ▶</button>
+      </div>
+    </div>
+    <aside class="side" aria-label="次のペアと連鎖情報">
+      <div class="side-card"><div class="side-heading">NEXT</div><canvas id="next" class="next-canvas" width="80" height="102" aria-label="次の色玉ペア"></canvas></div>
+      <div class="side-card"><div class="side-heading">AFTER</div><canvas id="after" class="next-mini" width="64" height="66" aria-label="その次の色玉ペア"></canvas></div>
+      <div class="side-card"><div class="side-heading">MAX CHAIN</div><div class="num" id="chain">0</div><div class="small">最高連鎖</div></div>
+      <div class="side-tip"><strong>4つで消える!</strong><br>タテ・ヨコに<br>つなげよう</div>
+    </aside>
+  </section>
+  <div class="status-row"><span><i id="status-led" class="status-led off"></i><span id="status">READY</span></span><span class="status-bubble" id="last-chain">連鎖をねらおう ✨</span></div>
+  <div class="controls" aria-label="ゲーム操作">
+    <button class="ctrl" type="button" data-action="left" aria-label="左に動かす"><span class="glyph">←</span><small>ひだり</small></button>
+    <button class="ctrl" type="button" data-action="rotate" aria-label="右に回転"><span class="glyph">↻</span><small>まわす</small></button>
+    <button class="ctrl" type="button" data-action="right" aria-label="右に動かす"><span class="glyph">→</span><small>みぎ</small></button>
+    <button class="ctrl" type="button" data-action="down" aria-label="下に動かす"><span class="glyph">↓</span><small>したへ</small></button>
+    <button class="ctrl drop" type="button" data-action="drop" aria-label="一気に落とす"><span class="glyph">⤓</span><small>一気落とし</small></button>
+  </div>
+  <p class="help">盤面<strong><b>タップで回転</b></strong> ／ 横スワイプで移動 ／ 下スワイプで一気落とし<br>スマホだけで遊べる・ベストスコア保存・オフライン対応</p>
+</main>
+<script>
+(()=>{
+'use strict';
+const root=document.getElementById('cp-chain-game');
+if(!root||root.dataset.running==='yes')return;
+root.dataset.running='yes';
+const $=s=>root.querySelector(s);
+const canvas=$('#board'),ctx=canvas.getContext('2d'),nextCanvas=$('#next'),nextCtx=nextCanvas.getContext('2d'),afterCanvas=$('#after'),afterCtx=afterCanvas.getContext('2d');
+const COLS=6,ROWS=12,CELL=50;
+const COLORS={P:{fill:'#ff789e',light:'#ffb5cb',dark:'#bc3f73'},Y:{fill:'#ffce70',light:'#ffedaa',dark:'#ba7838'},G:{fill:'#56dfb7',light:'#abffe6',dark:'#278c7d'},B:{fill:'#78b5ff',light:'#b6d8ff',dark:'#3b6bc3'}};
+const KEYS=Object.keys(COLORS),DIRECTIONS=[[0,-1],[1,0],[0,1],[-1,0]];
+let board,active,queue,score=0,best=0,level=1,cleared=0,maxChain=0,dropCount=0,lastChain=0;
+let mode='ready',modeBeforePause='playing',pausedAt=0,phase='',stageEnd=0,chain=0,flashCells=[],fallItems=[],fallDuration=0,fallStart=0;
+let lastFrame=performance.now(),fallClock=0,particles=[],floating=[],audioOn=false,audioCtx=null,gesture=null;
+try{best=Number(localStorage.getItem('cp-chain-best-v1'))||0}catch(_){}
+const blank=()=>Array.from({length:ROWS},()=>Array(COLS).fill(null));
+const pick=()=>KEYS[Math.floor(Math.random()*KEYS.length)];
+const pair=()=>({a:pick(),b:pick()});
+const child=(x,y,rot)=>({x:x+DIRECTIONS[rot][0],y:y+DIRECTIONS[rot][1]});
+function cells(p,x=p.x,y=p.y,rot=p.rot){const b=child(x,y,rot);return[{x,y,color:p.a},{x:b.x,y:b.y,color:p.b}]}
+function canPlace(p,x,y,rot){return cells(p,x,y,rot).every(c=>c.x>=0&&c.x<COLS&&c.y>=0&&c.y<ROWS&&!board[c.y][c.x])}
+function saveBest(){if(score>best){best=score;try{localStorage.setItem('cp-chain-best-v1',String(best))}catch(_){}}}
+function update(){saveBest();$('#score').textContent=String(score).padStart(6,'0');$('#best').textContent=best.toLocaleString('ja-JP');$('#level').textContent=String(level).padStart(2,'0');$('#chain').textContent=maxChain;
+  const states={ready:'READY',playing:'PLAYING',resolving:'CHAIN...',paused:'PAUSED',over:'GAME OVER'};
+  $('#status').textContent=states[mode];$('#status-led').classList.toggle('off',mode!=='playing'&&mode!=='resolving');$('#pause').textContent=mode==='paused'?'▶':'Ⅱ';
+  $('#last-chain').textContent=chain>=2?`${chain}れんさ中！ ✨`:lastChain>=2?`直前 ${lastChain}れんさ！ 🎉`:cleared?`消した数 ${cleared}コ`:'連鎖をねらおう ✨';
+}
+function showOverlay(title,desc,btn){$('#overlay-title').textContent=title;$('#overlay-desc').innerHTML=desc;$('#overlay-btn').textContent=btn;$('#overlay').classList.remove('hidden')}
+function hideOverlay(){$('#overlay').classList.add('hidden')}
+function newGame(){board=blank();active=null;queue=[pair(),pair()];score=0;level=1;cleared=0;maxChain=0;dropCount=0;lastChain=0;chain=0;flashCells=[];fallItems=[];particles=[];floating=[];fallClock=0;mode='playing';phase='';lastFrame=performance.now();spawn();hideOverlay();update();drawPreviews();render(lastFrame)}
+function spawn(){active={...queue.shift(),x:2,y:1,rot:0};queue.push(pair());drawPreviews();if(!canPlace(active,active.x,active.y,active.rot)){active=null;gameOver()}}
+function gameOver(){mode='over';phase='';flashCells=[];fallItems=[];saveBest();update();playSfx('end');showOverlay('ゲームオーバー',`スコア <strong>${score.toLocaleString('ja-JP')} 点</strong><br>最高連鎖 ${maxChain} れんさ！<br>もう一回いっとく？`,'もう一回 ▶')}
+function playSfx(kind,n=1){if(!audioOn)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();let t=audioCtx.currentTime;
+  const tones=kind==='clear'?[330*Math.pow(1.26,Math.min(n-1,4)),495*Math.pow(1.23,Math.min(n-1,4))]:kind==='drop'?[135]:kind==='rotate'?[440]:kind==='end'?[280,210]:[360];
+  tones.forEach((f,i)=>{const o=audioCtx.createOscillator(),v=audioCtx.createGain();o.type=kind==='drop'?'triangle':'sine';o.frequency.setValueAtTime(f,t+i*.07);v.gain.setValueAtTime(.0001,t+i*.07);v.gain.exponentialRampToValueAtTime(kind==='clear'?.10:.045,t+i*.07+.012);v.gain.exponentialRampToValueAtTime(.0001,t+i*.07+(kind==='end'?.18:.1));o.connect(v).connect(audioCtx.destination);o.start(t+i*.07);o.stop(t+i*.07+.21)})}catch(_){}}
+function move(dx){if(mode!=='playing'||!active)return;const x=active.x+dx;if(canPlace(active,x,active.y,active.rot)){active.x=x;playSfx('move')}render(performance.now())}
+function rotate(){if(mode!=='playing'||!active)return;const nr=(active.rot+1)%4;for(const[dx,dy]of[[0,0],[-1,0],[1,0],[0,-1],[-2,0],[2,0],[0,1]]){if(canPlace(active,active.x+dx,active.y+dy,nr)){active.x+=dx;active.y+=dy;active.rot=nr;playSfx('rotate');break}}render(performance.now())}
+function down(addPoints=false){if(mode!=='playing'||!active)return;const ny=active.y+1;if(canPlace(active,active.x,ny,active.rot)){active.y=ny;if(addPoints){score++;update()}}else lock();fallClock=0;render(performance.now())}
+function drop(){if(mode!=='playing'||!active)return;let n=0;while(canPlace(active,active.x,active.y+1,active.rot)){active.y++;n++}score+=n*2;playSfx('drop');lock();fallClock=0;render(performance.now())}
+function lock(){if(!active||mode!=='playing')return;for(const c of cells(active)){if(c.y<0||c.y>=ROWS){gameOver();return}board[c.y][c.x]=c.color}active=null;dropCount++;mode='resolving';chain=0;flashCells=[];startGravity(performance.now());update()}
+function startGravity(now){fallItems=[];
+  for(let x=0;x<COLS;x++){let dest=ROWS-1;for(let y=ROWS-1;y>=0;y--){const color=board[y][x];if(color!==null){if(y!==dest){board[dest][x]=color;board[y][x]=null;fallItems.push({x,from:y,to:dest,color})}dest--}}}
+  fallStart=now;fallDuration=fallItems.length?Math.min(420,170+Math.max(...fallItems.map(v=>v.to-v.from))*35):0;
+  phase=fallItems.length?'fall':'check';stageEnd=now+(fallDuration||140);
+}
+function findMatches(){const visited=Array.from({length:ROWS},()=>Array(COLS).fill(false)),hits=[];
+  for(let y=0;y<ROWS;y++)for(let x=0;x<COLS;x++){if(board[y][x]===null||visited[y][x])continue;const color=board[y][x],group=[],stack=[[x,y]];visited[y][x]=true;
+    while(stack.length){const[cx,cy]=stack.pop();group.push({x:cx,y:cy,color});for(const [dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const nx=cx+dx,ny=cy+dy;if(nx>=0&&nx<COLS&&ny>=0&&ny<ROWS&&!visited[ny][nx]&&board[ny][nx]===color){visited[ny][nx]=true;stack.push([nx,ny])}}}
+    if(group.length>=4)hits.push(...group);
+  }return hits;
+}
+function burst(c){const color=COLORS[c.color].fill;for(let i=0;i<9;i++){const ang=Math.random()*Math.PI*2,speed=65+Math.random()*145;particles.push({x:(c.x+.5)*CELL,y:(c.y+.5)*CELL,vx:Math.cos(ang)*speed,vy:Math.sin(ang)*speed-40,life:.3+Math.random()*.42,max:.75,r:2+Math.random()*4,color})}if(particles.length>350)particles.splice(0,particles.length-350)}
+function updateResolve(now){if(mode!=='resolving'||now<stageEnd)return;
+ if(phase==='fall'){fallItems=[];phase='check';stageEnd=now+125;return}
+ if(phase==='check'){const hits=findMatches();if(hits.length){chain++;maxChain=Math.max(maxChain,chain);flashCells=hits;phase='flash';stageEnd=now+365;const gained=hits.length*10*Math.pow(3,Math.min(chain-1,6));score+=gained;cleared+=hits.length;level=1+Math.floor(cleared/38);floating=[];floating.push({text:chain===1?'GOOD!':`${chain}れんさ!!`,life:1.0,x:150,y:275,color:chain===1?'#fff1a8':'#ffb9e9'});playSfx('clear',chain);if(chain>=2&&navigator.vibrate)try{navigator.vibrate([45,25,45])}catch(_){};update()}else{lastChain=chain;chain=0;mode='playing';phase='';spawn();update()}return}
+ if(phase==='flash'){for(const c of flashCells){board[c.y][c.x]=null;burst(c)}flashCells=[];startGravity(now);return}
+}
+function pause(){const now=performance.now();if(mode==='playing'||mode==='resolving'){modeBeforePause=mode;mode='paused';pausedAt=now;showOverlay('ちょっと休憩 ☕','止めてる間はブロックも動かへんで。<br>好きなタイミングで再開してな。','つづける ▶');update()}else if(mode==='paused'){const elapsed=now-pausedAt;mode=modeBeforePause;stageEnd+=elapsed;fallStart+=elapsed;lastFrame=now;hideOverlay();update()}}
+function roundRect(g,x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r)}
+function drawBall(g,x,y,size,color,opt={}){const z=COLORS[color];if(!z)return;const cx=x+size/2,cy=y+size/2,r=size*.435*(opt.scale||1);g.save();g.globalAlpha=opt.alpha??1;
+  if(opt.ghost){g.beginPath();g.arc(cx,cy,r,0,Math.PI*2);g.fillStyle=z.fill+'20';g.fill();g.lineWidth=2;g.strokeStyle=z.light+'90';g.stroke();g.restore();return}
+  g.shadowColor='#03001499';g.shadowBlur=size*.14;g.shadowOffsetY=size*.1;g.beginPath();g.arc(cx,cy,r,0,Math.PI*2);g.fillStyle=z.dark;g.fill();g.shadowBlur=0;g.shadowOffsetY=0;
+  const grad=g.createRadialGradient(cx-r*.48,cy-r*.58,r*.05,cx+r*.1,cy+r*.08,r*1.8);grad.addColorStop(0,z.light);grad.addColorStop(.49,z.fill);grad.addColorStop(1,z.dark);g.beginPath();g.arc(cx,cy,r*.95,0,Math.PI*2);g.fillStyle=grad;g.fill();
+  g.beginPath();g.ellipse(cx-r*.33,cy-r*.48,r*.3,r*.16,-.55,0,Math.PI*2);g.fillStyle='#ffffff88';g.fill();
+  // たまごみたいな目とにっこり口
+  const eyeY=cy+r*.08,spacing=r*.32;g.fillStyle='#fff';for(const off of [-spacing,spacing]){g.beginPath();g.ellipse(cx+off,eyeY,r*.16,r*.22,0,0,Math.PI*2);g.fill()}
+  g.fillStyle='#292242';for(const off of [-spacing,spacing]){g.beginPath();g.arc(cx+off+r*.04,eyeY+r*.045,r*.085,0,Math.PI*2);g.fill()}
+  g.strokeStyle='#6d33517a';g.lineWidth=Math.max(1,size*.024);g.lineCap='round';g.beginPath();g.arc(cx,cy+r*.2,r*.18,.20,Math.PI-.20);g.stroke();
+  if(opt.flash){g.strokeStyle='#fff';g.lineWidth=3;g.shadowColor=z.fill;g.shadowBlur=18;g.beginPath();g.arc(cx,cy,r*1.13,0,Math.PI*2);g.stroke()}
+  g.restore();}
+function render(now){ctx.clearRect(0,0,300,600);const bg=ctx.createLinearGradient(0,0,0,600);bg.addColorStop(0,'#241847');bg.addColorStop(1,'#171231');ctx.fillStyle=bg;ctx.fillRect(0,0,300,600);
+  for(let y=0;y<ROWS;y++)for(let x=0;x<COLS;x++){ctx.fillStyle=(x+y)%2===0?'#ffffff07':'#ffffff04';roundRect(ctx,x*CELL+2,y*CELL+2,CELL-4,CELL-4,8);ctx.fill()}
+  // ボードの目盛りと危険ゾーン
+  ctx.fillStyle='#ff92aa10';ctx.fillRect(0,0,300,CELL*2);ctx.strokeStyle='#ffb4c236';ctx.lineWidth=1;ctx.setLineDash([5,7]);ctx.beginPath();ctx.moveTo(0,CELL*2);ctx.lineTo(300,CELL*2);ctx.stroke();ctx.setLineDash([]);
+  const hidden=new Set(fallItems.map(v=>v.x+','+v.to)),flashing=new Set(flashCells.map(v=>v.x+','+v.y));
+  for(let y=0;y<ROWS;y++)for(let x=0;x<COLS;x++){const color=board[y]?.[x];if(color!==null&&!hidden.has(x+','+y))drawBall(ctx,x*CELL,y*CELL,CELL,color,flashing.has(x+','+y)?{flash:true,scale:1+.07*Math.sin(now/70)}:{})}
+  if(fallItems.length){const ratio=Math.max(0,Math.min(1,(now-fallStart)/fallDuration));const ease=1-(1-ratio)*(1-ratio);for(const v of fallItems)drawBall(ctx,v.x*CELL,(v.from+(v.to-v.from)*ease)*CELL,CELL,v.color)}
+  if(active&&mode==='playing'){let gy=active.y;while(canPlace(active,active.x,gy+1,active.rot))gy++;for(const c of cells(active,active.x,gy,active.rot))drawBall(ctx,c.x*CELL,c.y*CELL,CELL,c.color,{ghost:true});for(const c of cells(active))drawBall(ctx,c.x*CELL,c.y*CELL,CELL,c.color)}
+  for(const p of particles){ctx.save();ctx.globalAlpha=Math.min(1,p.life/.5);ctx.fillStyle=p.color;ctx.translate(p.x,p.y);ctx.rotate(Math.atan2(p.vy,p.vx));ctx.fillRect(-p.r*.5,-p.r*.5,p.r*2,p.r);ctx.restore()}
+  for(const s of floating){ctx.save();ctx.globalAlpha=Math.min(1,s.life*1.7);ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='1000 43px system-ui,sans-serif';ctx.shadowColor='#2b174c';ctx.shadowBlur=16;ctx.lineWidth=8;ctx.strokeStyle='#251546';ctx.strokeText(s.text,s.x,s.y);ctx.fillStyle=s.color;ctx.fillText(s.text,s.x,s.y);ctx.restore()}
+}
+function drawPreview(g,p,size){const W=g.canvas.width,H=g.canvas.height;g.clearRect(0,0,W,H);if(!p)return;const s=size;drawBall(g,W/2-s/2,H/2-s*1.04,s,p.b);drawBall(g,W/2-s/2,H/2+s*.03,s,p.a)}
+function drawPreviews(){drawPreview(nextCtx,queue?.[0],37);drawPreview(afterCtx,queue?.[1],28)}
+function frame(now){const dt=Math.min((now-lastFrame)||0,70);lastFrame=now;if(mode==='playing'&&active){fallClock+=dt;const interval=Math.max(170,800*Math.pow(.86,level-1));if(fallClock>=interval){fallClock=0;down(false)}}else if(mode==='resolving'){updateResolve(now)}
+ if(mode!=='paused'){const delta=dt/1000;particles=particles.filter(p=>(p.life-=delta)>0);for(const p of particles){p.x+=p.vx*delta;p.y+=p.vy*delta;p.vy+=370*delta}floating=floating.filter(s=>(s.life-=delta*.75)>0);for(const s of floating)s.y-=17*delta}
+ render(now);requestAnimationFrame(frame)}
+function action(a){if(mode!=='playing')return;switch(a){case'left':move(-1);break;case'right':move(1);break;case'rotate':rotate();break;case'down':down(true);break;case'drop':drop();break}}
+root.querySelectorAll('.ctrl').forEach(btn=>{let timer=null,repeater=null;const stop=()=>{clearTimeout(timer);clearInterval(repeater);timer=repeater=null;btn.classList.remove('held')};btn.addEventListener('pointerdown',e=>{e.preventDefault();stop();btn.classList.add('held');action(btn.dataset.action);if(['left','right','down'].includes(btn.dataset.action))timer=setTimeout(()=>{repeater=setInterval(()=>action(btn.dataset.action),95)},235)});for(const ev of ['pointerup','pointercancel','lostpointercapture','pointerleave'])btn.addEventListener(ev,stop);btn.addEventListener('click',e=>{if(e.detail===0)action(btn.dataset.action)});btn.addEventListener('contextmenu',e=>e.preventDefault())});
+canvas.addEventListener('pointerdown',e=>{if(mode!=='playing')return;gesture={x:e.clientX,y:e.clientY,px:e.clientX,moved:false};try{canvas.setPointerCapture(e.pointerId)}catch(_){}});
+canvas.addEventListener('pointermove',e=>{if(!gesture||mode!=='playing')return;const unit=canvas.getBoundingClientRect().width/6;const dx=e.clientX-gesture.px;if(Math.abs(dx)>unit*.67){const times=Math.min(5,Math.floor(Math.abs(dx)/(unit*.67)));for(let i=0;i<times;i++)move(dx>0?1:-1);gesture.px=e.clientX;gesture.moved=true}});
+canvas.addEventListener('pointerup',e=>{if(!gesture)return;const dx=e.clientX-gesture.x,dy=e.clientY-gesture.y,swiped=gesture.moved;gesture=null;if(mode!=='playing')return;if(dy>42&&Math.abs(dy)>Math.abs(dx)*.75)drop();else if(dy< -36&&Math.abs(dy)>Math.abs(dx)*.75)rotate();else if(Math.abs(dx)<17&&Math.abs(dy)<17&&!swiped)rotate()});
+canvas.addEventListener('pointercancel',()=>gesture=null);
+$('#overlay-btn').addEventListener('click',()=>mode==='paused'?pause():newGame());
+$('#pause').addEventListener('click',()=>{if(mode==='over'||mode==='ready')newGame();else pause()});
+$('#sound').addEventListener('click',()=>{audioOn=!audioOn;$('#sound').textContent=audioOn?'🔊':'🔇';$('#sound').setAttribute('aria-label',audioOn?'効果音オン':'効果音オフ');if(audioOn)playSfx('rotate')});
+document.addEventListener('keydown',e=>{const k=e.key;if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' ','p','P','Escape','z','Z','x','X'].includes(k))return;if(['INPUT','TEXTAREA','SELECT'].includes(e.target?.tagName))return;e.preventDefault();if(['p','P','Escape'].includes(k)){pause();return}if(mode!=='playing')return;if(k==='ArrowLeft')move(-1);else if(k==='ArrowRight')move(1);else if(k==='ArrowUp'||k==='z'||k==='Z'||k==='x'||k==='X')rotate();else if(k==='ArrowDown')down(true);else if(k===' ')drop()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&(mode==='playing'||mode==='resolving'))pause()});
+// テスト用の読み取り専用スナップショット (遊びには影響なし)
+if(new URLSearchParams(location.search).has('cp_test'))window.__CPChainTest={snapshot:()=>({mode,score,best,level,cleared,maxChain,phase,chain,board:board.map(r=>r.slice()),active:active?{...active}:null,queue:queue.map(p=>({...p}))}),inject:(testBoard)=>{if(!Array.isArray(testBoard)||testBoard.length!==ROWS)return;board=testBoard.map(r=>r.slice());mode='resolving';chain=0;phase='check';stageEnd=0;active=null;update()},findMatches:()=>findMatches()};
+board=blank();active=null;queue=[pair(),pair()];update();drawPreviews();render(performance.now());requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

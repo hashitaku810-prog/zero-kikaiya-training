@@ -31,6 +31,29 @@ canvas{display:block;width:100%;height:auto;image-rendering:pixelated;touch-acti
 @media(max-width:355px){.shell{padding-left:7px;padding-right:7px}.brand h1{font-size:16px}.brand small{font-size:9px}.modal{padding:15px}.dpad{grid-template-rows:repeat(2,44px)}}
 @media(min-width:700px){.shell{padding-top:22px}.toast{bottom:40px}}
 @media(prefers-reduced-motion:reduce){.toast{transition:none}}
+.circuit .wire{position:relative;overflow:visible;min-width:0}
+.circuit .wire.port-in{border:3px solid #8cc8ff;background:#173954;box-shadow:inset 0 0 0 1px #d9f3ff55,0 0 12px #5aaff84a}
+.circuit .wire.port-out{border:3px solid #ffc273;background:#523a24;box-shadow:inset 0 0 0 1px #fff2c04a,0 0 12px #ffbb685c}
+.circuit .wire.port-in.on,.circuit .wire.port-out.on{background:#205b52}
+.circuit .wire.port-in svg path{stroke:#90d6ff}
+.circuit .wire.port-out svg path{stroke:#ffd09a}
+.port-tag{position:absolute;top:-8px;left:-4px;background:#9fd8ff;color:#0c2740;border:1px solid #edfaff;border-radius:5px;padding:1px 4px;z-index:3;font-size:10px;font-weight:1000;letter-spacing:.02em;white-space:nowrap;line-height:1.2;pointer-events:none;box-shadow:0 2px 5px #0009}
+.port-tag.out{background:#ffd091;color:#442409;border-color:#fff2ce}
+.circuit-port-guide{max-width:320px;margin:12px auto 5px;border:1px solid #516981;background:#12243a;border-radius:11px;padding:10px 11px;display:grid;gap:7px;font-size:12px;color:#ddeaf4;line-height:1.5}
+.circuit-port-guide b{color:#ffffff}
+.circuit-port-guide .in{color:#acdfff}
+.circuit-port-guide .out{color:#ffd39b}
+.circuit-port-guide .hintline{font-size:11px;color:#acbfcd;border-top:1px solid #445c72;padding-top:6px}
+.combat-status{font-size:12px;line-height:1.7;border:1px solid #657c90;border-radius:10px;background:#152940;padding:10px 12px;margin:12px 0;color:#f0f8fe}
+.combat-dice{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:13px 0}
+.combat-die{background:#122a40;border:1px solid #7193ac;border-radius:12px;padding:10px;text-align:center;color:#d8f4ff;min-width:0}
+.combat-die.foe{background:#342534;border-color:#ac7783;color:#ffe4e6}
+.combat-die strong{display:block;font-size:31px;line-height:1.25;color:#fff4d8;font-variant-numeric:tabular-nums}
+.combat-die span{display:block;font-size:11px;margin-bottom:4px}
+.combat-report{border-left:3px solid #e4bc84;background:#392f2c70;padding:10px 12px;margin:10px 0;line-height:1.6;font-size:13px;white-space:pre-line;color:#f6eade}
+.combat-report.win{border-color:#77e3c6;background:#183d3d80;color:#d0fff1}
+.combat-rule{font-size:11px;color:#b9cadd;line-height:1.6;margin-top:3px}
+@media(max-width:365px){.port-tag{font-size:9px}.circuit-port-guide{font-size:11px}}
 </style>
 </head>
 <body>
@@ -38,8 +61,8 @@ canvas{display:block;width:100%;height:auto;image-rendering:pixelated;touch-acti
 <header><div class="brand"><div class="logo">⚙</div><div><h1>CP QUEST</h1><small>あしたをつなぐ修理屋｜第1章</small></div></div><div class="top-actions"><button id="sound" aria-label="効果音の切り替え">♪</button><button id="journal" aria-label="調査手帳を開く">▤</button><button id="menu" aria-label="メニューを開く">☰</button></div></header>
 <section class="status" aria-live="polite"><div class="stagehead"><strong id="stageTitle">消えた港の灯</strong><span id="stageNum">STAGE 1 / 5</span></div><div class="progress" id="progress" aria-label="ステージ進捗"></div><div class="metarow"><div class="health" id="health" aria-label="体力"></div><span id="parts">技術部品 0</span></div><div class="objective"><b>任務：</b><span id="objective">工房の異変を調べる</span></div></section>
 <div class="frame"><canvas id="game" width="960" height="800" aria-label="探索ゲーム画面。十字キーとアクションボタンで操作します"></canvas></div>
-<div class="mapkey"><span>十字キーで移動／Aで調べる・攻撃<br>マップの場所をタップして移動もできる</span><span id="near">⚙ 修理屋の工房</span></div>
-<div class="controls"><div class="dpad"><div class="cap">MOVE</div><button class="ctl up" data-move="0,-1" aria-label="上へ移動">▲</button><button class="ctl left" data-move="-1,0" aria-label="左へ移動">◀</button><button class="ctl down" data-move="0,1" aria-label="下へ移動">▼</button><button class="ctl right" data-move="1,0" aria-label="右へ移動">▶</button><div class="hint">HOLD<br>OK</div></div><div class="actions"><button class="primary" id="action">A　調べる / 攻撃</button><button class="secondary" id="scan">◉ スキャン</button><button class="secondary" id="help">？ 遊び方</button></div></div>
+<div class="mapkey"><span>十字キーで移動／Aで調べる・ダイス戦闘<br>マップの場所をタップして移動もできる</span><span id="near">⚙ 修理屋の工房</span></div>
+<div class="controls"><div class="dpad"><div class="cap">MOVE</div><button class="ctl up" data-move="0,-1" aria-label="上へ移動">▲</button><button class="ctl left" data-move="-1,0" aria-label="左へ移動">◀</button><button class="ctl down" data-move="0,1" aria-label="下へ移動">▼</button><button class="ctl right" data-move="1,0" aria-label="右へ移動">▶</button><div class="hint">HOLD<br>OK</div></div><div class="actions"><button class="primary" id="action">A　調べる / 戦闘</button><button class="secondary" id="scan">◉ スキャン</button><button class="secondary" id="help">？ 遊び方</button></div></div>
 <div class="foot"><span>© CP ARCADE ・ オリジナル物語RPG</span><button id="arcade">ゲームセンターに戻る ↗</button></div>
 </main>
 <div id="toast" class="toast" role="status"></div><div id="overlay" class="overlay hidden" aria-hidden="true"><div id="modal" class="modal" role="dialog" aria-modal="true"></div></div>
@@ -128,7 +151,42 @@ function advanceTurn(){g.turns++;if(g.stage!==4){for(const e of g.enemies){if(e.
  if(g.hp<=0){gameOver();return}persist();}
 function damage(n,msg){g.hp=Math.max(0,g.hp-n);addFx(g.x,g.y,'#ff7e96',8);playSound(165,.12,'sawtooth');toast(msg);updateHUD()}
 function move(dx,dy){if(mode!=='play'||!g||g.finished)return false;let nx=g.x+dx,ny=g.y+dy;if(!mapOk(nx,ny)){playSound(150,.025);return false}if(creatureAt(nx,ny)){attack(creatureAt(nx,ny));return false}g.x=nx;g.y=ny;g.steps++;if(g.steps%2===0)playSound(200,.017,'triangle',.02);advanceTurn();updateHUD();return true}
-function attack(e){if(mode!=='play'||!e||e.hp<=0)return;if(e.kind==='boss'&&!(g.flags.s5sw1&&g.flags.s5sw2)){toast('装甲が帯電している！ 安全装置を2つ解除しよう');playSound(170,.15,'sawtooth');return}e.hp--;addFx(e.x,e.y,e.kind==='boss'?'#f2ba71':'#7fe6d8',12);playSound(440,.10,'square',.032);if(e.hp>0){toast(e.kind==='boss'?'守護機の制御を少しずつ止めている！':'暴走巡回機を鎮静中！');advanceTurn()}else if(e.kind==='boss'){flag('s5boss');addClue('s5boss');soundSeq();scene([['守護機','……停止信号、受理。整備担当……「R-04」……。'],['ポル','これ、守護機の登録者の名前……？ リク、制御核を調べて！']],()=>toast('中央制御核を調べよう'))}else{g.parts+=4;toast('暴走機を停止！ 技術部品 +4');soundSeq();persist();updateHUD()}}
+const DICE_FACE=['','⚀','⚁','⚂','⚃','⚄','⚅'];
+let qaDiceQueue=null;
+function rollD6(){if(qaDiceQueue?.length)return Math.max(1,Math.min(6,Number(qaDiceQueue.shift())||1));return 1+Math.floor(Math.random()*6)}
+function attack(e){if(mode!=='play'||!e||e.hp<=0)return;
+ if(e.kind==='boss'&&!(g.flags.s5sw1&&g.flags.s5sw2)){toast('二つの安全装置を解除しないと戦えない');playSound(170,.15,'sawtooth');return}
+ stopAuto();startCombat(e)}
+function startCombat(e){let focus=0,round=0,last=null;
+ const enemyName=e.kind==='boss'?'灯台守護機':'暴走巡回機';
+ function dicePanel(label,roll,bonus,foe=false){let box=mk('div','combat-die'+(foe?' foe':''));box.appendChild(mk('span','',label));box.appendChild(mk('strong','',roll?DICE_FACE[roll]+' '+roll:'🎲 ?'));box.appendChild(mk('span','',roll?'補正 '+(bonus>=0?'+':'')+bonus+' / 合計 '+(roll+bonus):'1〜6の目が出る'));return box}
+ function render(){openModal();mode='combat';textblock('div','eyebrow','DICE BATTLE / ROUND '+(round+1));textblock('h2','','🎲 '+enemyName+'との戦闘');textblock('div','combat-status','リク ♥ '+g.hp+' / '+MAXHP+'　｜　'+enemyName+' HP '+e.hp+' / '+(e.maxhp??(e.kind==='boss'?4:2))+'　｜　技術部品 '+g.parts+(focus?'　｜　集中 +'+focus:''));
+  if(last){let grid=mk('div','combat-dice');grid.appendChild(dicePanel(last.playerLabel,last.playerRoll,last.playerBonus));grid.appendChild(dicePanel(last.enemyLabel,last.enemyRoll,last.enemyBonus,true));modal.appendChild(grid);textblock('div','combat-report',last.message)}else{textblock('p','combat-rule','攻撃：自分の出目＋補正が敵以上なら命中。敵の反撃も別のダイス対決で判定される。');}
+  let area=mk('div','modalbuttons');addBtn(area,'⚔ ダイスを振って攻撃',()=>playRound('attack'));
+  addBtn(area,'🛡 防御・集中（次回攻撃＋2）',()=>playRound('guard'),'alt');
+  const heal=addBtn(area,'🔧 応急修理（部品5個でHP＋3）',()=>playRound('heal'),'alt');heal.disabled=g.parts<5||g.hp>=MAXHP;
+  addBtn(area,'↩ いったん撤退する',()=>{clearOverlay();toast('距離を取って立て直そう。敵はまだ動いている')},'alt');modal.appendChild(area);
+  textblock('p','combat-rule','※ 強い出目は追加ダメージ。防御を選ぶと反撃を受けにくい。撤退して回復や別ルートも考えられる。');}
+ function finishWin(lastHit){let reward=e.kind==='boss'?0:4;g.parts+=reward;if(e.kind==='boss'){flag('s5boss');addClue('s5boss')}persist();updateHUD();openModal();mode='combat';textblock('div','eyebrow','DICE BATTLE / VICTORY');textblock('h2','','⚙ '+enemyName+'を停止！');textblock('div','combat-report win',lastHit+'\n'+(reward?'技術部品 +'+reward:'灯台守護機の制御装置、停止'));soundSeq();buttons(['冒険に戻る',()=>{clearOverlay();if(e.kind==='boss'){scene([['守護機','……停止信号、受理。整備担当……「R-04」……。'],['ポル','これ、守護機の登録者の名前……？ リク、制御核を調べて！']])}else{toast('巡回機を停止！ 技術部品 +'+reward)}}]);}
+ function playRound(kind){if(mode!=='combat'||e.hp<=0)return;round++;g.turns++;
+  let p=rollD6(),q=rollD6(),pbonus=0,ebonus=0,message='';
+  if(kind==='attack'){
+   pbonus=(g.upgraded?1:0)+focus;ebonus=e.kind==='boss'?1:0;
+   const margin=(p+pbonus)-(q+ebonus);focus=0;
+   if(margin>=0){const dealt=1+(margin>=3?1:0)+(g.upgraded&&e.kind!=='boss'?1:0);e.hp=Math.max(0,e.hp-dealt);addFx(e.x,e.y,e.kind==='boss'?'#ffd19a':'#9debd5',15);playSound(660,.09,'square');message='攻撃成功！ '+dealt+'ダメージ（差 '+margin+'）';}
+   else{playSound(190,.12,'sawtooth');message='攻撃失敗！ 敵が回避（差 '+margin+'）';}
+  }else if(kind==='guard'){focus=Math.min(4,focus+2);pbonus=3;message='防御姿勢。次の攻撃に集中＋'+focus+'。'}
+  else{g.parts-=5;let healed=Math.min(3,MAXHP-g.hp);g.hp+=healed;message='修理キットを使用。HP＋'+healed+'（部品－5）';}
+  if(e.hp<=0){persist();updateHUD();finishWin('自分 '+DICE_FACE[p]+ ' '+(p+pbonus)+' ／ 敵 '+DICE_FACE[q]+' '+(q+ebonus)+'\n'+message);return}
+  // Enemy gets one contested retaliation per round, but guarding increases the player's defense.
+  let ep=rollD6(),dp=rollD6(),enemyBonus=(e.kind==='boss'||g.stage>=3)?1:0,defenseBonus=kind==='guard'?3:0;
+  let margin=(ep+enemyBonus)-(dp+defenseBonus),hurt=margin>0?1+(margin>=4?1:0):0;
+  if(hurt){g.hp=Math.max(0,g.hp-hurt);addFx(g.x,g.y,'#ff8298',12);playSound(170,.12,'sawtooth');message+='\n敵の反撃 '+(ep+enemyBonus)+' 対 防御 '+(dp+defenseBonus)+' → HP－'+hurt;}
+  else{message+='\n敵の反撃 '+(ep+enemyBonus)+' 対 防御 '+(dp+defenseBonus)+' → 回避！';}
+  last=kind==='attack'?{playerLabel:'リクの攻撃',playerRoll:p,playerBonus:pbonus,enemyLabel:'敵の回避判定',enemyRoll:q,enemyBonus:ebonus,message}:{playerLabel:kind==='guard'?'リクの防御':'修理中の防御',playerRoll:dp,playerBonus:defenseBonus,enemyLabel:'敵の反撃',enemyRoll:ep,enemyBonus,message};
+  if(g.hp<=0){gameOver('最後の判定：'+message);return}
+  persist();updateHUD();render();}
+ render()}
 function act(){if(mode!=='play'||!g)return;stopAuto();let enemies=g.enemies.filter(e=>e.hp>0&&dist(e,g)<=1);if(enemies.length){attack(enemies[0]);return}let near=nearbyThings();if(near.length){interact(near[0]);return}toast('近くに調べるものがない。光る設備を探そう')}
 function interact(o){if(mode!=='play')return;stopAuto();playSound(690,.06,'triangle');switch(o.id){
  case 's1note':flag('s1note');addClue('s1note');scene([['リク','文字の癖が、どこかで見たものに似ている……。'],['設計図','交換するのは部品ではない。「負荷の行き先」を見直せ。'],['リク','工房の発電盤も同じ型か。まずは回路をつなぎ直すぞ。']]);break;
@@ -166,12 +224,12 @@ function endChapter(light){g.lighting=light;g.finished=true;addClue('s5final');i
  [['灯台','標準点灯。街全域への光の供給を開始。'],['ポル','やった！ ほら、街じゅうが明るく……'],['ナギ','……あの子のお母さん、自分の子の名前が分からないんやって。'],['リク','……俺が、今やったことで？'],['不明な通信','修理を続けるな。あなたは四年前と同じ過ちを繰り返している。']]:
  [['灯台','低負荷点灯。港湾部の明かりを限定的に回復。'],['ポル','街じゅうじゃない。でも、今夜はこれで港へ帰れる。'],['ナギ','……救われた人も、暗いままの家もある。忘れた名前は戻らない。'],['リク','全部を直すことより、何を守るかを選ぶことが必要なんやな。'],['不明な通信','……ようやく、少し違う選択をしたのね。']]
  ,()=>scene([['中央制御核','認証済み：R-04。最終整備担当：RIKU。登録日：四年前。'],['リク','……俺の名前？ なんで、俺がこの装置を設計したことになってる？'],['ポル','リク……僕、思い出したことがある。でも、今はまだ……。'],['不明な通信','私はセラ。あなたが忘れたことを知っている。次は鉄橋で待つ。'],['第1章 完','消えた港の灯——朝は、まだ来ない。']],()=>endScreen()));}
-function endScreen(){openModal();mode='ending';textblock('div','eyebrow','CHAPTER 01 / CLEAR');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','消えた港の灯 — 完');const hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">夜明けはまだ、遠い。</span>';modal.appendChild(hero);textblock('p','',g.lighting==='partial'?'港の一部に灯が戻った。負荷を抑えた選択は、果たして正しかったのか。':'街全域に灯が戻った。その裏で、新たな記憶が失われた。');textblock('p','muted','調査記録 '+g.clues.length+'件 / 技術部品 '+g.parts+' / 選択 '+(g.branch==='bypass'?'旧迂回回路':'主回路'));textblock('h2','','第2章「風の止まった鉄橋」へ続く');buttons(['調査手帳を読む',()=>showJournal()],['タイトルに戻る',()=>showTitle() ,'alt']);}
-function gameOver(){openModal();mode='gameover';textblock('div','eyebrow','SYSTEM / RECOVERY');textblock('h2','','修理屋、倒れる');textblock('p','','ポル「リク、まだ諦めないで。ここからやり直せる。」');buttons(['このステージから再挑戦',()=>retryStage()],['タイトルへ',()=>showTitle(),'alt']);}
+function endScreen(){openModal();mode='ending';textblock('div','eyebrow','CHAPTER 01 / CLEAR');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','消えた港の灯 — 完');const hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">夜明けはまだ、遠い。</span>';modal.appendChild(hero);textblock('p','',g.lighting==='partial'?'港の一部に灯が戻った。負荷を抑えた選択は、果たして正しかったのか。':'街全域に灯が戻った。その裏で、新たな記憶が失われた。');textblock('p','muted','調査記録 '+g.clues.length+'件 / 技術部品 '+g.parts+' / 選択 '+(g.branch==='bypass'?'旧迂回回路':'主回路'));textblock('h2','','第2章「風の止まった鉄橋」へ続く');buttons(['▶ 第2章へ進む',()=>{location.href='./cp_quest_ch2.html'}],['調査手帳を読む',()=>showJournal(),'alt'],['タイトルに戻る',()=>showTitle(),'alt']);}
+function gameOver(reason=''){openModal();mode='gameover';textblock('div','eyebrow','SYSTEM / RECOVERY');textblock('h2','','修理屋、倒れる');if(reason)textblock('div','combat-report',reason);textblock('p','','ポル「リク、まだ諦めないで。ここからやり直せる。」');buttons(['このステージから再挑戦',()=>retryStage()],['タイトルへ',()=>showTitle(),'alt']);}
 function retryStage(){let i=g.stage;for(const o of STAGES[i].objects)delete g.flags[o.id];if(i===0){delete g.flags.s1gen}else if(i===1){delete g.flags.s2pol}else if(i===2){delete g.flags.s3pump}else if(i===3){delete g.flags.s4done;g.branch=null}else if(i===4){delete g.flags.s5boss;}g.hp=MAXHP;startStage(i,true)}
-function showTitle(){openModal();mode='menu';textblock('div','eyebrow','A CP ARCADE ORIGINAL');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','― あしたをつなぐ修理屋 ―');const hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">壊れていたのは、世界か。それとも記憶か。</span>';modal.appendChild(hero);textblock('p','','第1章「消えた港の灯」 全5ステージ。探索・修理・戦闘・選択の物語。');let acts=[];if(readSave()){acts.push(['続きから再開',()=>resumeGame()]);}acts.push(['第1章をはじめる',()=>{if(readSave()){confirmNew()}else newGame()},readSave()?'alt':'']);acts.push(['遊び方を確認',()=>showHelp('menu'),'alt']);buttons(...acts);}
+function showTitle(){openModal();mode='menu';textblock('div','eyebrow','A CP ARCADE ORIGINAL');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','― あしたをつなぐ修理屋 ―');const hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">壊れていたのは、世界か。それとも記憶か。</span>';modal.appendChild(hero);textblock('p','','第1章「消えた港の灯」 全5ステージ。探索・修理・戦闘・選択の物語。');let acts=[];if(readSave()){acts.push([readSave().finished?'第1章のクリア記録を見る':'続きから再開',()=>resumeGame()]);if(readSave().finished)acts.push(['▶ 第2章へ進む',()=>{location.href='./cp_quest_ch2.html'}]);}acts.push(['第1章をはじめる',()=>{if(readSave()){confirmNew()}else newGame()},readSave()?'alt':'']);acts.push(['遊び方を確認',()=>showHelp('menu'),'alt']);buttons(...acts);}
 function confirmNew(){simple('本当に最初から？',['保存されている第1章の進行状況を初期化するで。'],[['新しい冒険を始める',()=>newGame(),'warn'],['キャンセル',()=>showTitle(),'alt']]);}
-function showHelp(from){const back=from==='menu'?showTitle:()=>clearOverlay();simple('遊び方',['十字キーで上下左右に移動。Aボタンで近くの物を調べたり、敵を攻撃できる。','光る装置や記録を探そう。マップ上の場所をタップすると、そこへ向かって自動移動する（危険な場所では注意）。','ポルを修理すると「スキャン」が使える。各ステージの出口を調べると次へ進む。進行状況はこのブラウザに自動保存される。','PCなら矢印キー・WASDで移動、スペースでアクション、Eでスキャン。'],[['ゲームに戻る',back]]);}
+function showHelp(from){const back=from==='menu'?showTitle:()=>clearOverlay();simple('遊び方',['十字キーで上下左右に移動。Aボタンで近くの物を調べたり、敵とのダイス戦闘を始められる。','光る装置や記録を探そう。マップ上の場所をタップすると、そこへ向かって自動移動する（危険な場所では注意）。','配線盤は青いIN ▶がスタート、オレンジのOUT →がゴール。敵と自分がダイスを振り、攻撃・防御・応急修理・撤退を選べる。','ポルを修理すると「スキャン」が使える。各ステージの出口を調べると次へ進む。進行状況はこのブラウザに自動保存される。','PCなら矢印キー・WASDで移動、スペースでアクション、Eでスキャン。'],[['ゲームに戻る',back]]);}
 function showMenu(){if(mode!=='play')return;simple('一時停止',['現在のステージ '+(g.stage+1)+' / 5。進行状況は自動保存されている。'],[['冒険を続ける',()=>clearOverlay()],['調査手帳を開く',()=>showJournal(),'alt'],['タイトルに戻る',()=>showTitle(),'alt']]);}
 function showJournal(){if(!g){showTitle();return}let back=g.finished?endScreen:()=>clearOverlay();openModal();mode='journal';textblock('div','eyebrow','EVIDENCE / 調査資料');textblock('h2','','リクの調査手帳');textblock('p','muted','拾い集めた記録。修理したあとの出来事も、忘れないために書いておく。');let wrap=mk('div','journal');if(!g.clues.length){wrap.appendChild(mk('p','muted','まだ記録はない。工房の設計図や時計を調べよう。'));}for(const id of g.clues){let data=CLUES[id];if(!data)continue;let item=mk('div','journalentry');item.appendChild(mk('h3','',data[0]));item.appendChild(mk('p','',data[1]));wrap.appendChild(item);}modal.appendChild(wrap);buttons(['閉じる',back]);}
 function getWireRoute(k){return [ [[0,1],[0,0],[1,0],[2,0],[2,1]],[[0,1],[0,2],[1,2],[2,2],[2,1]],[[0,1],[0,0],[1,0],[1,1],[1,2],[2,2],[2,1]] ][k];}
@@ -180,8 +238,8 @@ function makeTiles(k){let tiles=[6,10,12,3,5,6,9,10,12],route=getWireRoute(k);fo
  return tiles.map((m,i)=>{let r=(i*3+k*2+1)%4;for(let v=0;v<r;v++)m=((m<<1)&15)|((m&8)?1:0);return m})}
 function connected(tiles){let visited=new Set(),stack=[[0,1]],active=new Set();if(!(tiles[3]&8))return {solved:false,active};while(stack.length){let [x,y]=stack.pop(),key=y*3+x;if(visited.has(key))continue;visited.add(key);active.add(key);let m=tiles[key];if(x===2&&y===1&&(m&2))return {solved:true,active};for(let [dx,dy,bit,back] of DIRS){let nx=x+dx,ny=y+dy;if(nx<0||nx>=3||ny<0||ny>=3)continue;if((m&bit)&&(tiles[ny*3+nx]&back))stack.push([nx,ny])}}return {solved:false,active}}
 function wireSvg(m){let L=[];if(m&1)L.push('M 50 50 L 50 5');if(m&2)L.push('M 50 50 L 95 50');if(m&4)L.push('M 50 50 L 50 95');if(m&8)L.push('M 50 50 L 5 50');return '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="'+L.join(' ')+'" fill="none" stroke="#7bd8ce" stroke-width="14" stroke-linecap="round"/><circle cx="50" cy="50" r="10" fill="#e1fff9"/></svg>'}
-function wirePuzzle(title,k,onSuccess){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / CIRCUIT');textblock('h2','',title);textblock('p','','端子をタップして90°回転。左の電源から右の出力まで、回路を接続しよう。');let tiles=makeTiles(k),board=mk('div','circuit'),feedback=mk('div','feedback','● 左が入力　 →　 右が出力');modal.appendChild(board);modal.appendChild(feedback);
- function redraw(){let {solved,active}=connected(tiles);board.replaceChildren();tiles.forEach((m,i)=>{let b=mk('button','wire'+(active.has(i)?' on':''));b.type='button';b.setAttribute('aria-label','回路端子'+(i+1)+'を回転');b.innerHTML=wireSvg(m);b.addEventListener('click',()=>{tiles[i]=((tiles[i]<<1)&15)|((tiles[i]&8)?1:0);playSound(500,.035,'square',.02);redraw();});board.appendChild(b)});if(solved){feedback.textContent='接続成功！ 電流が流れた。';feedback.style.color='#93efca';playSound(860,.18);setTimeout(()=>{if(mode!=='puzzle')return;clearOverlay();onSuccess()},550)}else feedback.textContent='端子をタップで回転して電流をつなごう';}
+function wirePuzzle(title,k,onSuccess){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / CIRCUIT');textblock('h2','',title);textblock('p','','端子をタップして90°回転。青いIN（左の2段目）からオレンジのOUT（右の2段目）まで配線しよう。');let guide=mk('div','circuit-port-guide');guide.innerHTML='<span class="in">🔵 IN ▶：左端の2段目（電源）</span><span class="out">🟠 OUT →：右端の2段目（出口）</span>';modal.appendChild(guide);let tiles=makeTiles(k),board=mk('div','circuit'),feedback=mk('div','feedback','IN ▶ から OUT → に通電させよう');modal.appendChild(board);modal.appendChild(feedback);
+ function redraw(){let {solved,active}=connected(tiles);board.replaceChildren();tiles.forEach((m,i)=>{let inPin=i===3,outPin=i===5,b=mk('button','wire'+(active.has(i)?' on':'')+(inPin?' port-in':'')+(outPin?' port-out':''));b.type='button';b.setAttribute('aria-label','回路端子'+(i+1)+(inPin?' IN 電源':outPin?' OUT 出口':'')+'を回転');b.innerHTML=wireSvg(m);if(inPin||outPin)b.appendChild(mk('span','port-tag'+(outPin?' out':''),inPin?'IN ▶':'OUT →'));b.addEventListener('click',()=>{tiles[i]=((tiles[i]<<1)&15)|((tiles[i]&8)?1:0);playSound(500,.035,'square',.02);redraw();});board.appendChild(b)});if(solved){feedback.textContent='接続成功！ 電流が流れた。';feedback.style.color='#93efca';playSound(860,.18);setTimeout(()=>{if(mode!=='puzzle')return;clearOverlay();onSuccess()},550)}else feedback.textContent='端子をタップで回転して電流をつなごう';}
  redraw();let footer=mk('div','modalbuttons');addBtn(footer,'いったん戻る',()=>clearOverlay(),'alt');modal.appendChild(footer);}
 function orderPuzzle(onSuccess){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / SEQUENCE');textblock('h2','','ポルの修復手順');textblock('p','','整備メモ：「まず摩耗を除く。次に電気を通し、最後に思考を起動する」');let seq=mk('div','sequence'),fb=mk('div','feedback','整備する順番に部品をタップしよう');let done=[];modal.appendChild(seq);modal.appendChild(fb);let items=[['🧠','制御板',2],['⚙️','軸受',0],['🔌','導線',1]];
  function refresh(){seq.replaceChildren();items.forEach(([sym,name,id])=>{let b=mk('button',done.includes(id)?'selected':'');b.innerHTML='<span>'+sym+'</span>'+name;b.disabled=done.includes(id);b.addEventListener('click',()=>{if(id!==done.length){done=[];fb.textContent='順序が違う。整備メモを見直そう';fb.style.color='#f6a8a8';playSound(170,.12);refresh();return}done.push(id);fb.textContent=['軸受交換：可動部が回復','導線接続：電力供給が回復','制御板起動：記憶回路が応答'][id];fb.style.color='#a8efdf';playSound(680,.08);if(done.length===3){soundSeq();setTimeout(()=>{if(mode!=='puzzle')return;clearOverlay();onSuccess()},600)}else refresh()});seq.appendChild(b)})}refresh();buttons(['いったん戻る',()=>clearOverlay(),'alt']);}

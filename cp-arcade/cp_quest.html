@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#090e1d">
+<meta name="description" content="CP QUEST — あしたをつなぐ修理屋。探索・謎解き・修理・選択で進むオリジナル物語RPG。第1章全5ステージ。">
+<title>CP QUEST｜あしたをつなぐ修理屋</title>
+<style>
+:root{--bg:#080c19;--panel:#111a2d;--panel2:#17233a;--edge:#32425d;--ink:#eef5fc;--muted:#a4b5cb;--cyan:#87ecd8;--amber:#f5c578;--rose:#f1889b;--blue:#81b2ef}
+*{box-sizing:border-box}html{height:100%;background:var(--bg)}body{margin:0;color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;min-height:100%;background:radial-gradient(ellipse at 50% -25%,#304064 0%,#101b31 42%,#080c19 75%)}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}button:disabled{opacity:.35;cursor:not-allowed}
+.shell{max-width:485px;margin:auto;padding:10px 10px calc(14px + env(safe-area-inset-bottom));}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 3px 10px}
+.brand{display:flex;align-items:center;gap:10px}.logo{border:1px solid #637aa0;width:43px;height:43px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(155deg,#2a4b66,#111b31);box-shadow:inset 0 1px 8px #80d9e522;color:#c4fff1;font-weight:900;font-size:20px}.brand h1{font-size:19px;margin:0;letter-spacing:.12em;line-height:1.1}.brand small{display:block;margin-top:4px;color:var(--muted);font-size:10px;letter-spacing:.045em}.top-actions{display:flex;align-items:center;gap:6px}.top-actions button{width:39px;height:39px;border:1px solid var(--edge);border-radius:11px;color:#c7d8e8;background:#162238;font-size:16px}
+.status{border:1px solid #32415e;background:linear-gradient(140deg,#18253b,#111a2d);border-radius:14px;padding:10px 12px;margin-bottom:9px;box-shadow:0 6px 30px #0002}
+.stagehead{display:flex;align-items:center;justify-content:space-between;gap:8px}.stagehead strong{font-size:14px;letter-spacing:.01em}.stagehead span{font-size:10px;color:var(--amber);font-weight:900;letter-spacing:.1em}
+.progress{display:flex;gap:5px;margin:9px 0 8px}.progress span{height:4px;background:#3d4965;border-radius:99px;flex:1}.progress .done{background:#7be6c9}.progress .current{background:#ffcb82;box-shadow:0 0 8px #ffcb8260}
+.metarow{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:11px;margin-bottom:6px}.health{display:flex;gap:2px;align-items:center}.heart{color:var(--rose);font-size:13px}.heart.lost{color:#3c5264}.objective{font-size:12px;line-height:1.45;color:#daeafb;min-height:18px}.objective b{color:var(--cyan)}
+.frame{position:relative;border-radius:14px;overflow:hidden;border:2px solid #45657e;box-shadow:0 8px 35px #0006,0 0 20px #4a91b016;background:#091424}.frame::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 34px #0009}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;touch-action:none;cursor:crosshair}
+.mapkey{display:flex;justify-content:space-between;gap:8px;margin:6px 2px 8px;color:#9fb5c8;font-size:10px;line-height:1.35}.mapkey #near{color:#ffdfa3;font-weight:600;text-align:right}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:11px;align-items:center}.dpad{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,48px);gap:5px}.ctl{border:1px solid #485b78;border-radius:12px;background:linear-gradient(#253551,#19263d);color:#e7f4ff;font-size:21px;font-weight:900;touch-action:none;user-select:none;box-shadow:inset 0 1px #819cb52b,0 3px 0 #0b1424}.ctl:active,.ctl.active{transform:translateY(2px);box-shadow:inset 0 1px 8px #0007;background:#3a5372}.ctl.up{grid-column:2;grid-row:1}.ctl.left{grid-column:1;grid-row:2}.ctl.down{grid-column:2;grid-row:2}.ctl.right{grid-column:3;grid-row:2}.dpad .cap{grid-column:1;grid-row:1;display:grid;align-items:center;color:#607b92;font-size:10px;text-align:center}.dpad .hint{grid-column:3;grid-row:1;display:grid;place-items:center;color:#8097ad;font-size:10px;text-align:center}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.primary{grid-column:1/3;min-height:49px;border:1px solid #a8f8e6;border-radius:12px;color:#102b38;font-size:17px;font-weight:900;background:linear-gradient(#b4fff1,#70d8cc);box-shadow:0 3px 0 #1b6171}.secondary{border:1px solid #556788;color:#e8effc;background:#21304a;border-radius:11px;min-height:45px;font-weight:800;font-size:12px}.primary:active,.secondary:active{transform:translateY(1px)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:10px;color:#748aa5;margin:12px 2px 0}.foot button{color:#b4c9dc;background:none;border:0;text-decoration:underline;font-size:11px;padding:4px}
+.toast{position:fixed;bottom:calc(165px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(8px);background:#122d3aeb;border:1px solid #70cbb1;color:#e5fff8;border-radius:12px;padding:11px 15px;min-width:min(350px,90vw);max-width:90vw;font-size:13px;line-height:1.4;text-align:center;z-index:20;box-shadow:0 14px 30px #0008;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.overlay{position:fixed;inset:0;z-index:30;background:#030a19dd;display:flex;justify-content:center;align-items:center;padding:14px;backdrop-filter:blur(5px)}.overlay.hidden{display:none}.modal{background:linear-gradient(165deg,#202c47,#101c30 65%,#111729);border:1px solid #7184a1;border-radius:20px;width:min(425px,100%);max-height:min(91vh,850px);overflow:auto;padding:22px 19px 18px;box-shadow:0 22px 80px #000b,0 0 35px #6787b015;position:relative}.modal:before{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--cyan),var(--amber),transparent);border-radius:99px;margin-bottom:13px}.modal h2{font-size:21px;margin:0 0 10px;line-height:1.4;letter-spacing:.02em}.modal p{font-size:13px;line-height:1.85;margin:9px 0;color:#d0dfef}.modal .eyebrow{color:var(--amber);font-size:10px;font-weight:900;letter-spacing:.14em;margin-bottom:8px}.modal strong{color:#e4fff4}.modal .muted{color:#9facc2;font-size:12px}.modal .speech{margin:13px 0 20px;border-left:3px solid #72dbc7;padding:6px 0 6px 12px;color:#e5edf7;min-height:90px;font-size:15px;line-height:1.9;white-space:pre-line}.modal .speaker{color:var(--amber);font-size:12px;font-weight:900;letter-spacing:.06em}.modal .modalbuttons{display:flex;flex-direction:column;gap:9px;margin-top:16px}.modal button.opt{width:100%;min-height:45px;padding:11px 14px;border-radius:12px;color:#102836;background:linear-gradient(#bdfff1,#83dcd5);border:1px solid #d6fff5;font-size:13px;font-weight:900;text-align:center}.modal button.opt.alt{background:#1b2d43;border:1px solid #677f99;color:#e5f5ff}.modal button.opt.warn{background:#472635;border:1px solid #a7717d;color:#ffe7e8}.modal button.opt:disabled{opacity:.38}.modal .choice-desc{font-size:11px;color:#aac0d5;line-height:1.6;text-align:left;margin-top:4px}.modal .tag{font-size:10px;color:#9be8ce;background:#163b40;border:1px solid #4c9999;padding:4px 7px;border-radius:99px;display:inline-block}.modal .separator{height:1px;background:#52607c55;margin:15px 0}
+.circuit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;max-width:270px;margin:15px auto 12px}.wire{aspect-ratio:1;border:1px solid #546681;background:#14283c;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:2px;touch-action:manipulation}.wire.on{background:#19484c;border-color:#87f8df;box-shadow:0 0 13px #31d0bc3a}.wire svg{width:100%;height:100%;max-width:75px}.wire:active{background:#2c6871}.puzzleCaption{font-size:11px;color:#b4c7d9;text-align:center;margin-top:5px}.sequence{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.sequence button{background:#233751;border:1px solid #6c86a0;border-radius:10px;padding:11px 4px;color:#effaff;font-size:12px}.sequence button span{display:block;font-size:24px;margin-bottom:6px}.sequence button.selected{background:#26776d;border-color:#b3ffe9}.feedback{color:#f9cf8b;min-height:24px;font-size:12px;text-align:center}
+.journal{max-height:42vh;overflow:auto;padding-right:3px}.journalentry{margin:10px 0;border-left:2px solid #618da4;padding:6px 9px;background:#16253b88}.journalentry h3{margin:0 0 5px;font-size:13px;color:#b4f6e5}.journalentry p{margin:0;font-size:12px;line-height:1.6}
+.title-logo{text-align:center;font-size:30px;letter-spacing:.1em;font-weight:1000;line-height:1.1;color:#d8fff4;text-shadow:0 0 24px #7af9d644;margin:10px 0 8px}.title-sub{text-align:center;font-size:13px;color:#e6c991;letter-spacing:.11em}.title-hero{height:136px;margin:16px 0;background:radial-gradient(ellipse at 50% 80%,#fbbe8050,transparent 55%),linear-gradient(#142641,#101c2a 55%,#101925);border-radius:12px;overflow:hidden;position:relative;border:1px solid #6a778a60}.title-hero:before{content:"";position:absolute;bottom:0;left:0;right:0;height:55%;background:repeating-linear-gradient(90deg,#0b1826 0 25px,#12283a 25px 38px,#061424 38px 73px);clip-path:polygon(0 45%,7% 35%,7% 10%,15% 10%,15% 54%,28% 54%,28% 28%,33% 28%,33% 62%,46% 62%,46% 22%,51% 22%,51% 69%,62% 69%,62% 35%,68% 35%,68% 80%,79% 80%,79% 28%,86% 28%,86% 57%,100% 57%,100% 100%,0 100%)}.title-hero .light{position:absolute;left:77%;bottom:22px;background:#ffeab5;border-radius:50%;width:9px;height:9px;box-shadow:0 0 20px 11px #f6c26c66}.title-hero .clock{position:absolute;top:15px;left:18px;color:#ffda9a;border:1px solid #e8be81;padding:4px 9px;border-radius:6px;font-family:monospace;font-weight:900;letter-spacing:.1em;font-size:15px}.title-hero .hero-text{position:absolute;bottom:12px;left:17px;font-size:11px;color:#c8d6e6}
+@media(max-width:355px){.shell{padding-left:7px;padding-right:7px}.brand h1{font-size:16px}.brand small{font-size:9px}.modal{padding:15px}.dpad{grid-template-rows:repeat(2,44px)}}
+@media(min-width:700px){.shell{padding-top:22px}.toast{bottom:40px}}
+@media(prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header><div class="brand"><div class="logo">⚙</div><div><h1>CP QUEST</h1><small>あしたをつなぐ修理屋｜第1章</small></div></div><div class="top-actions"><button id="sound" aria-label="効果音の切り替え">♪</button><button id="journal" aria-label="調査手帳を開く">▤</button><button id="menu" aria-label="メニューを開く">☰</button></div></header>
+<section class="status" aria-live="polite"><div class="stagehead"><strong id="stageTitle">消えた港の灯</strong><span id="stageNum">STAGE 1 / 5</span></div><div class="progress" id="progress" aria-label="ステージ進捗"></div><div class="metarow"><div class="health" id="health" aria-label="体力"></div><span id="parts">技術部品 0</span></div><div class="objective"><b>任務：</b><span id="objective">工房の異変を調べる</span></div></section>
+<div class="frame"><canvas id="game" width="960" height="800" aria-label="探索ゲーム画面。十字キーとアクションボタンで操作します"></canvas></div>
+<div class="mapkey"><span>十字キーで移動／Aで調べる・攻撃<br>マップの場所をタップして移動もできる</span><span id="near">⚙ 修理屋の工房</span></div>
+<div class="controls"><div class="dpad"><div class="cap">MOVE</div><button class="ctl up" data-move="0,-1" aria-label="上へ移動">▲</button><button class="ctl left" data-move="-1,0" aria-label="左へ移動">◀</button><button class="ctl down" data-move="0,1" aria-label="下へ移動">▼</button><button class="ctl right" data-move="1,0" aria-label="右へ移動">▶</button><div class="hint">HOLD<br>OK</div></div><div class="actions"><button class="primary" id="action">A　調べる / 攻撃</button><button class="secondary" id="scan">◉ スキャン</button><button class="secondary" id="help">？ 遊び方</button></div></div>
+<div class="foot"><span>© CP ARCADE ・ オリジナル物語RPG</span><button id="arcade">ゲームセンターに戻る ↗</button></div>
+</main>
+<div id="toast" class="toast" role="status"></div><div id="overlay" class="overlay hidden" aria-hidden="true"><div id="modal" class="modal" role="dialog" aria-modal="true"></div></div>
+<script>
+(()=>{'use strict';
+const SAVE='CP_QUEST_CH1_V1', C=40, GW=12, GH=10, MAXHP=10;
+const $=(id)=>document.getElementById(id), canvas=$('game'), ctx=canvas.getContext('2d');ctx.scale(2,2);
+const STAGES=[
+ {name:'17:43の工房',area:'修理屋の工房',zone:'workshop',start:[2,8],map:[
+  '############','#..........#','#..#.......#','#..........#','#.......#..#','#..........#','#....##....#','#..........#','#..........#','############'],
+  objects:[{id:'s1note',x:4,y:7,kind:'doc',name:'古い設計図'},{id:'s1clock',x:2,y:2,kind:'npc',name:'時計を見つめる老人'},{id:'s1gen',x:9,y:3,kind:'machine',name:'工房の発電盤'},{id:'exit',x:10,y:1,kind:'exit',name:'港への出口'}],enemies:[]},
+ {name:'錆びた声',area:'廃材置き場',zone:'harbor',start:[2,8],map:[
+  '############','#..........#','#..##......#','#..........#','#...##.....#','#..........#','#......#...#','#..........#','#..........#','############'],
+  objects:[{id:'s2gear',x:2,y:3,kind:'item',name:'交換用の軸受'},{id:'s2wire',x:9,y:7,kind:'item',name:'銅の導線'},{id:'s2pol',x:8,y:2,kind:'robot',name:'壊れたポル'},{id:'exit',x:10,y:1,kind:'exit',name:'旧港へ'}],enemies:[{id:'drone21',x:6,y:5,hp:2,kind:'drone'}]},
+ {name:'潮騒の帳簿',area:'旧港の倉庫',zone:'warehouse',start:[2,8],map:[
+  '############','#..........#','#....##....#','#..........#','#.#........#','#..........#','#......##..#','#..........#','#..........#','############'],
+  objects:[{id:'s3book',x:3,y:3,kind:'doc',name:'住民の記録帳'},{id:'s3record',x:9,y:7,kind:'doc',name:'設備運転記録'},{id:'s3nagi',x:5,y:6,kind:'npc',name:'記録係ナギ'},{id:'s3pump',x:8,y:3,kind:'machine',name:'港の排水ポンプ'},{id:'exit',x:10,y:1,kind:'exit',name:'防波堤へ'}],enemies:[{id:'drone31',x:6,y:5,hp:2,kind:'drone'}]},
+ {name:'防波堤の選択',area:'潮風の配電所',zone:'breakwater',start:[2,8],map:[
+  '############','#..........#','#...##.....#','#..........#','#..........#','#.#....#...#','#..........#','#..........#','#..........#','############'],
+  objects:[{id:'s4relay',x:4,y:3,kind:'doc',name:'封印された配電記録'},{id:'s4panel',x:9,y:6,kind:'machine',name:'分岐配電盤'},{id:'s4radio',x:2,y:3,kind:'npc',name:'古い無線機'},{id:'exit',x:10,y:1,kind:'exit',name:'灯台へ'}],enemies:[{id:'drone41',x:6,y:5,hp:2,kind:'drone'}]},
+ {name:'灯台守護機',area:'岬の灯台',zone:'lighthouse',start:[2,8],map:[
+  '############','#..........#','#..........#','#...#......#','#..........#','#..........#','#......#...#','#..........#','#..........#','############'],
+  objects:[{id:'s5sw1',x:2,y:3,kind:'switch',name:'北側の安全遮断器'},{id:'s5sw2',x:9,y:6,kind:'switch',name:'南側の磁気ロック'},{id:'s5med',x:2,y:7,kind:'med',name:'応急修理キット'},{id:'s5core',x:6,y:3,kind:'core',name:'灯台の中央制御核'}],enemies:[{id:'guardian',x:6,y:3,hp:4,kind:'boss'}]}
+];
+const CLUES={
+ s1note:['無署名の設計図','封筒に入っていた図面。裏には「世界は、まだ直せる。」。紙は古いが、配線の直し方だけは奇妙に新しい。'],
+ s1clock:['止まる時刻「17:43」','老人の工房時計も港の時計も同じ時刻で止まっている。偶然ではないのかもしれない。'],
+ s1gen:['工房の残留ログ','発電盤は正常。しかし再起動の直後に「REF/17:43」という未知の信号を吐いた。'],
+ s2pol:['ポルの封印データ','修理ロボの識別記録に「R-04」。音声メモには「次は必ず、誰が困るのか確かめて」。'],
+ s3book:['ナギの住民記録','街の設備が復旧した直後、大切な人の名前を忘れたという記録が何件もある。年月日が隠されている。'],
+ s3record:['倉庫の運転記録','旧港の時計は13年前の事故から「17:43」を示す。大量の電力はどこへ送られているのか。'],
+ s3hidden:['かすれた署名','故障端末の深部に「R-04 / 設計責任者の署名」という断片。苗字は読めない。'],
+ s3pump:['ポンプ復旧時の異常','排水ポンプが動き出した瞬間、近くの住人が娘の名前を思い出せなくなった。記録の因果関係は未解明。'],
+ s4relay:['分岐盤の設計異常','主系統は他の町の制御機構へ負荷を押し出す構造。古い迂回回路は効率が悪いが、負荷の移転を避けられそうだ。'],
+ s4route:['防波堤の判断','配電方法の選択は港の復旧速度と、誰かが負担するリスクを変える。リクはまだ真実を知らない。'],
+ s5boss:['守護機の保護記録','守護機は破壊のためでなく制御核を保護するために動いていた。停止記録に「R-04」の署名がある。'],
+ s5final:['灯台の最後のログ','再点灯の瞬間、端末に「天蓋中枢 / 旧設計者 RIKU / 4年前の認証」という文字が出た。リクはその設計を知らない。']
+};
+let g=null, mode='menu', prevMode='play', soundOn=false, audio=null, autopilot=null, toastTimeout=null, fx=[], lastTick=0, time=0, dialogIndex=0, dialogLines=[], dialogDone=()=>{};
+const overlay=$('overlay'), modal=$('modal');
+function initState(){return {version:1,stage:0,x:2,y:8,hp:MAXHP,parts:0,flags:{},clues:[],enemies:[],turns:0,completed:[],branch:null,lighting:null,finished:false,steps:0,started:Date.now()};}
+function persist(){if(!g)return;try{localStorage.setItem(SAVE,JSON.stringify(g));}catch(e){}}
+function readSave(){try{let x=JSON.parse(localStorage.getItem(SAVE)||'null');if(x&&x.version===1&&Number.isInteger(x.stage)&&x.stage>=0&&x.stage<5&&Array.isArray(x.enemies))return x;}catch(e){}return null}
+function playSound(f=440,t=.075,type='sine',vol=.065){if(!soundOn)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;if(!audio)audio=new AC();if(audio.state==='suspended')audio.resume();let osc=audio.createOscillator(),gain=audio.createGain();osc.type=type;osc.frequency.setValueAtTime(f,audio.currentTime);gain.gain.setValueAtTime(vol,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+t);osc.connect(gain);gain.connect(audio.destination);osc.start();osc.stop(audio.currentTime+t);}catch(e){}}
+function soundSeq(){playSound(620,.08);setTimeout(()=>playSound(790,.09),75);setTimeout(()=>playSound(1030,.17),140)}
+function clearOverlay(){overlay.classList.add('hidden');overlay.setAttribute('aria-hidden','true');modal.replaceChildren();mode='play';updateHUD();}
+function openModal(){stopAuto();overlay.classList.remove('hidden');overlay.setAttribute('aria-hidden','false');modal.replaceChildren()}
+function mk(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e}
+function addBtn(box,label,fn,variant=''){let b=mk('button','opt '+variant,label);b.type='button';b.addEventListener('click',fn);box.appendChild(b);return b}
+function buttons(...data){let div=mk('div','modalbuttons');for(let [label,fn,v] of data)addBtn(div,label,fn,v||'');modal.appendChild(div);return div}
+function textblock(tag,cls,txt){let e=mk(tag,cls,txt);modal.appendChild(e);return e}
+function toast(msg){let e=$('toast');e.textContent=msg;e.classList.add('show');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>e.classList.remove('show'),2050)}
+function addClue(id){if(!CLUES[id]||g.clues.includes(id))return;g.clues.push(id);g.parts+=2;toast('調査手帳に記録：'+CLUES[id][0]);persist();}
+function flag(id){g.flags[id]=true;persist();updateHUD()}
+function scene(lines,onDone=()=>{}){mode='dialog';dialogLines=lines;dialogIndex=0;dialogDone=onDone;drawDialog()}
+function drawDialog(){openModal();mode='dialog';let [who,speech]=dialogLines[dialogIndex];textblock('div','eyebrow','RECORD / '+String(dialogIndex+1).padStart(2,'0')+' — '+String(dialogLines.length).padStart(2,'0'));textblock('div','speaker',who);textblock('div','speech',speech);buttons([dialogIndex===dialogLines.length-1?'続ける':'次へ ▸',()=>{if(dialogIndex+1<dialogLines.length){dialogIndex++;playSound(540,.045);drawDialog()}else{clearOverlay();dialogDone();}}]);}
+function simple(title,paragraphs,actions){openModal();mode='choice';textblock('div','eyebrow','CP QUEST / MESSAGE');textblock('h2','',title);for(const p of paragraphs)textblock('p','',p);buttons(...actions)}
+function startStage(i,showIntro=true){stopAuto();g.stage=i;g.x=STAGES[i].start[0];g.y=STAGES[i].start[1];g.hp=Math.min(MAXHP,g.hp+2);g.enemies=STAGES[i].enemies.map(e=>({...e}));g.turns=0;persist();clearOverlay();if(showIntro){scene(stageIntroductions[i],()=>{if(i===0)toast('まずは工房の設計図を探そう');else toast('調べる対象は光っているで')})}}
+function newGame(){g=initState();startStage(0,true)}
+function resumeGame(){g=readSave();if(!g)return newGame();if(g.finished)return endScreen();clearOverlay();updateHUD();toast('続きから再開したで！')}
+const PROLOGUE=[
+ ['記録：港町アトリ','13年前から、空は夕暮れの色を変えない。人々はそれを「長い夕方」と呼ぶようになった。'],
+ ['リク','……また17時43分で止まった。これで何個目の時計や。'],
+ ['工房の扉','コン、コン。扉の外に人影はない。足元には濡れた機械箱と、一枚の設計図。'],
+ ['設計図の裏側','「世界は、まだ直せる。」'],
+ ['リク','誰がこんなものを……。ともかく、壊れたものは放っとけん。']
+];
+const stageIntroductions=[
+ PROLOGUE,
+ [['港の夜道','工房を出たリクは廃材置き場で奇妙な信号を受信する。'],['不明な音声','……キ、こえ……ますか。修理、は……しな、いで……。'],['リク','ロボットか？ ここらは巡回機も暴走しとる。気をつけな。']],
+ [['ポル','やあ、相棒！ 旧港の倉庫には、最近だれも近づかないんだ。'],['リク','港の排水ポンプが止まってる。動かさな街が浸水するぞ。'],['ポル','……修理のあと、誰が困るかも調べてみない？']],
+ [['ナギ','防波堤の配電所には二本の回路がある。どちらに電気を流すかで、守るものが変わる。'],['リク','機械の回路くらい、設計図を見れば分かる。'],['ナギ','本当に？ ……その設計図を描いた人のことも？']],
+ [['灯台の警報','認証されていない整備員を検知。守護機を起動します。'],['ポル','二つの安全装置を切らないと、守護機の装甲は外れないみたい！'],['リク','守りたいなら、壊すんやなく止めて直す。それが俺の仕事や。']]
+];
+function visible(o){switch(o.id){case 's1note':case 's2gear':case 's2wire':case 's3book':case 's3record':case 's4relay':case 's5med':return !g.flags[o.id];case 's5core':return !!g.flags.s5boss;case 's2pol':return true;default:return true}}
+function objHere(x,y){return STAGES[g.stage].objects.filter(o=>visible(o)&&o.x===x&&o.y===y)}
+function mapOk(x,y){return x>=0&&x<GW&&y>=0&&y<GH&&STAGES[g.stage].map[y]?.[x]!== '#'}
+function creatureAt(x,y){return g.enemies.find(e=>e.hp>0&&e.x===x&&e.y===y)}
+function dist(a,b){return Math.abs(a.x-b.x)+Math.abs(a.y-b.y)}
+function nearbyThings(){let a=STAGES[g.stage].objects.filter(o=>visible(o)&&dist(o,g)<=1);a.sort((o,p)=>dist(o,g)-dist(p,g));return a}
+function getObjective(){let f=g.flags;switch(g.stage){case 0:return !f.s1note?'工房内の設計図を調べる':!f.s1gen?'工房の発電盤を修理する':'港へ向かう';case 1:return !f.s2gear||!f.s2wire?'壊れたロボの修理部品を2つ集める':!f.s2pol?'ポルを修理して起動する':'旧港の倉庫へ向かう';case 2:return !f.s3book||!f.s3record?'倉庫で2つの記録を調べる':!f.s3pump?'排水ポンプを修理する':'防波堤へ進む';case 3:return !f.s4relay?'封印された配電記録を読む':!f.s4done?'主回路か迂回回路かを選ぶ':'灯台に向かう';case 4:return !f.s5sw1||!f.s5sw2?'2つの安全装置を解除する':!f.s5boss?'守護機を停止させる':'灯台の中央制御核を調べる';default:return ''}}
+function updateHUD(){if(!g)return;let s=STAGES[g.stage];$('stageTitle').textContent=s.name;$('stageNum').textContent='STAGE '+(g.stage+1)+' / 5';$('parts').textContent='技術部品 '+g.parts;let h=$('health');h.replaceChildren();for(let i=0;i<MAXHP;i++){let a=mk('span','heart'+(i<g.hp?'':' lost'),'♥');h.appendChild(a)}$('objective').textContent=getObjective();let prog=$('progress');prog.replaceChildren();for(let i=0;i<5;i++)prog.appendChild(mk('span',i<g.stage||g.completed.includes(i)?'done':i===g.stage?'current':''));let near=nearbyThings();$('near').textContent=near.length?'◉ '+near[0].name:'⌁ '+s.area;$('scan').disabled=(!g.flags.s2pol||mode==='menu');}
+function stopAuto(){if(autopilot){clearInterval(autopilot);autopilot=null;}}
+function addFx(x,y,c,n=8){for(let i=0;i<n;i++){let a=Math.random()*Math.PI*2,v=.5+Math.random()*2;fx.push({x:x*C+C/2,y:y*C+C/2,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:40,color:c})}}
+function advanceTurn(){g.turns++;if(g.stage!==4){for(const e of g.enemies){if(e.hp<=0||e.kind==='boss')continue;let d=dist(e,g);if(d<=1){if(g.turns%2===0)damage(1,'巡回機の攻撃！');continue}if(d<5&&g.turns%2===0){let dx=Math.sign(g.x-e.x),dy=Math.sign(g.y-e.y),list=(Math.abs(g.x-e.x)>Math.abs(g.y-e.y))?[[dx,0],[0,dy]]:[[0,dy],[dx,0]];for(const [mx,my] of list){let xx=e.x+mx,yy=e.y+my;if((mx||my)&&mapOk(xx,yy)&&!creatureAt(xx,yy)&&!(xx===g.x&&yy===g.y)){e.x=xx;e.y=yy;break}}}}}else if(!g.flags.s5boss){if(g.turns%4===0&&(g.y===3||dist(g,{x:6,y:3})<=1)){damage(1,'守護機の放電！ 横方向に逃げよう');addFx(g.x,g.y,'#f6c36e',15)}}
+ if(g.hp<=0){gameOver();return}persist();}
+function damage(n,msg){g.hp=Math.max(0,g.hp-n);addFx(g.x,g.y,'#ff7e96',8);playSound(165,.12,'sawtooth');toast(msg);updateHUD()}
+function move(dx,dy){if(mode!=='play'||!g||g.finished)return false;let nx=g.x+dx,ny=g.y+dy;if(!mapOk(nx,ny)){playSound(150,.025);return false}if(creatureAt(nx,ny)){attack(creatureAt(nx,ny));return false}g.x=nx;g.y=ny;g.steps++;if(g.steps%2===0)playSound(200,.017,'triangle',.02);advanceTurn();updateHUD();return true}
+function attack(e){if(mode!=='play'||!e||e.hp<=0)return;if(e.kind==='boss'&&!(g.flags.s5sw1&&g.flags.s5sw2)){toast('装甲が帯電している！ 安全装置を2つ解除しよう');playSound(170,.15,'sawtooth');return}e.hp--;addFx(e.x,e.y,e.kind==='boss'?'#f2ba71':'#7fe6d8',12);playSound(440,.10,'square',.032);if(e.hp>0){toast(e.kind==='boss'?'守護機の制御を少しずつ止めている！':'暴走巡回機を鎮静中！');advanceTurn()}else if(e.kind==='boss'){flag('s5boss');addClue('s5boss');soundSeq();scene([['守護機','……停止信号、受理。整備担当……「R-04」……。'],['ポル','これ、守護機の登録者の名前……？ リク、制御核を調べて！']],()=>toast('中央制御核を調べよう'))}else{g.parts+=4;toast('暴走機を停止！ 技術部品 +4');soundSeq();persist();updateHUD()}}
+function act(){if(mode!=='play'||!g)return;stopAuto();let enemies=g.enemies.filter(e=>e.hp>0&&dist(e,g)<=1);if(enemies.length){attack(enemies[0]);return}let near=nearbyThings();if(near.length){interact(near[0]);return}toast('近くに調べるものがない。光る設備を探そう')}
+function interact(o){if(mode!=='play')return;stopAuto();playSound(690,.06,'triangle');switch(o.id){
+ case 's1note':flag('s1note');addClue('s1note');scene([['リク','文字の癖が、どこかで見たものに似ている……。'],['設計図','交換するのは部品ではない。「負荷の行き先」を見直せ。'],['リク','工房の発電盤も同じ型か。まずは回路をつなぎ直すぞ。']]);break;
+ case 's1clock':addClue('s1clock');scene([['老人','港の時計は、もう何年も同じ時間で止まるのさ。'],['リク','そんなわけ……。'],['老人','時計屋は皆、腕が悪くなったんかねえ。']]);break;
+ case 's1gen':if(!g.flags.s1note){toast('回路図がないと配線を直せない');break}if(g.flags.s1gen){toast('発電盤は正常。時計だけが動かない');break}wirePuzzle('工房の発電盤',0,()=>{flag('s1gen');addClue('s1gen');scene([['発電盤','……運転再開。ログ：REF / 17:43。'],['リク','電気は戻った。なのに、壁の時計だけは17時43分で止まったままや。'],['ポルのような声','……直す、まえに……。']],()=>toast('港への出口を調べよう'))});break;
+ case 's2gear':flag('s2gear');g.parts+=3;toast('交換用の軸受を回収した');persist();break;
+ case 's2wire':flag('s2wire');g.parts+=3;toast('銅の導線を回収した');persist();break;
+ case 's2pol':if(g.flags.s2pol){scene([['ポル','僕の「見る」機能で、見えない信号も探せるよ。スキャンを試して！']]);break}if(!g.flags.s2gear||!g.flags.s2wire){toast('ポルを直すには軸受と導線の両方が必要');break}orderPuzzle(()=>{flag('s2pol');addClue('s2pol');g.hp=Math.min(MAXHP,g.hp+2);scene([['ポル','……起動、しました。記憶領域……あれ？'],['リク','お前、誰や？'],['ポル','ポル！ 君の修理助手だよ。……ねえ、修理する前に、誰が困るか考えた？'],['リク','お前まで変なこと言うな。港へ行くぞ。']]);});break;
+ case 's3book':flag('s3book');addClue('s3book');scene([['住民の記録帳','「排水施設復旧の夜、妻が息子の名前を忘れた」——同じ訴えが何ページも続く。'],['リク','……修理と同じ日に？ 偶然やろ。']]);break;
+ case 's3record':flag('s3record');addClue('s3record');scene([['古い運転記録','最終更新：13年前、17:43。起動元：環境保全網「TENGAI」。'],['ポル','「テンガイ」……この単語、僕の奥の記憶にある気がする。']]);break;
+ case 's3nagi':scene([['ナギ','うちは忘れたことを、紙に書いて残してる。データだと消されるから。'],['リク','誰が消すんや？'],['ナギ','誰やろね。街は、便利になるたびに何かをなくしてる。']]);break;
+ case 's3pump':if(g.flags.s3pump){toast('排水ポンプ稼働中。運転負荷は安定');break}if(!g.flags.s3book||!g.flags.s3record){toast('先に二つの設備記録を確認して原因を調べよう');break}wirePuzzle('排水ポンプの回路',1,()=>{flag('s3pump');addClue('s3pump');scene([['排水ポンプ','給水路を開放。排水正常。'],['ナギ','……あの人、さっきまで娘の名前を呼んでたのに。今は思い出せないんやって。'],['リク','いや、俺はただポンプを直しただけや……。'],['ポル','……本当に、それだけだったのかな。']]);});break;
+ case 's4relay':if(!g.flags.s4relay){flag('s4relay');addClue('s4relay');scene([['配電記録','主回路：高効率／外部負荷転送あり。旧迂回回路：低効率／外部転送なし。'],['リク','どっちを選んでも何かを失う……。設計した人間は、どうしてこんな回路を？']]);}else toast('主回路と旧迂回回路の記録が残っている');break;
+ case 's4radio':scene([['古い無線機','ザーッ……「旧設計主任、R……」ザーッ……。'],['ポル','発信元を辿れない。四年前の記録みたい。']]);break;
+ case 's4panel':if(g.flags.s4done){toast('配電方式は設定済み。灯台に進もう');break}if(!g.flags.s4relay){toast('選択の前に、封印された配電記録を確認しよう');break}routeChoice();break;
+ case 's5sw1':if(!g.flags.s5sw1){flag('s5sw1');addFx(o.x,o.y,'#8af0d7',14);toast('北側の安全遮断器：解除');}else toast('北側の安全遮断器：解除済み');break;
+ case 's5sw2':if(!g.flags.s5sw2){flag('s5sw2');addFx(o.x,o.y,'#8af0d7',14);toast('南側の磁気ロック：解除');}else toast('南側の磁気ロック：解除済み');break;
+ case 's5med':flag('s5med');g.hp=Math.min(MAXHP,g.hp+5);soundSeq();toast('応急修理キット使用：体力回復');persist();break;
+ case 's5core':if(!g.flags.s5boss){toast('守護機が制御核を守っている');break}finalChoice();break;
+ case 'exit':if(g.stage===0&&!g.flags.s1gen||g.stage===1&&!g.flags.s2pol||g.stage===2&&!g.flags.s3pump||g.stage===3&&!g.flags.s4done){toast('まだこの場所でやることが残っている');break}finishStage();break;
+ }updateHUD();persist();}
+function finishStage(){let s=g.stage;if(g.completed.includes(s))return;g.completed.push(s);g.parts+=10;g.hp=Math.min(MAXHP,g.hp+3);persist();let ends=[
+ [['リク','港へ出よう。止まった時計の理由は、まだ分からへん。'],['記録','第1節 完了：灯は戻った。しかし「時刻」は戻らない。']],
+ [['ポル','やっと歩ける！ ……リク、僕の記録には、君の名前があったよ。'],['リク','初対面やろ？ なんでや。'],['記録','第2節 完了：壊れた機械に、失われた記憶。']],
+ [['ナギ','街は救われた。でも、だれかの名前は戻らん。'],['リク','……次の配電所で何か分かるはずや。'],['記録','第3節 完了：修理の代償が、姿を現し始める。']],
+ [['ポル',g.branch==='bypass'?'迂回回路がつながった。暗い家は少し残るけど、誰かの負荷を減らせたかもしれない。':'主回路がつながった。港の灯は早く戻る……けど、この信号はどこへ送られてるんだろう。'],['リク','答えは灯台の上や。'],['記録','第4節 完了：正しさは、選ぶ前よりも曖昧になった。']]
+ ];soundSeq();scene(ends[s],()=>{if(s<4)startStage(s+1,true)})}
+function routeChoice(){simple('誰のための修理か',["二つの回路がある。主回路なら早く港を明るくできる。ただし、見知らぬ場所に負荷を転送する。","旧迂回回路なら負荷転送を避けられるが、電力は不足し、暗い家が残る。"],[
+ ['主回路を再稼働する',()=>{g.branch='main';flag('s4done');addClue('s4route');scene([['配電盤','主回路、稼働。外部転送量……増加。'],['リク','この「外部」って、どこのことや……？']]);}],
+ ['旧迂回回路を組み直す',()=>{wirePuzzle('旧迂回回路を再構築',2,()=>{g.branch='bypass';flag('s4done');addClue('s4route');scene([['配電盤','迂回回路、稼働。出力低下、転送信号なし。'],['ポル','全部は照らせない。でも、何かを守れた気がする。']]);})},'alt']]);}
+function finalChoice(){let intro=g.branch==='bypass'?'迂回回路を使ったため出力は低い。しかし灯台はまだ起動できる。':'主回路から十分な電力が来ている。しかし不明な転送信号も増加している。';simple('17時43分の灯台',[intro,'中央制御核には二つの点灯方式が残されている。選ぶとこの章の結末が変わる。'],[
+ ['街全体を照らす（標準点灯）',()=>endChapter('full')],
+ ['港だけ照らす（低負荷点灯）',()=>endChapter('partial'),'alt']]);}
+function endChapter(light){g.lighting=light;g.finished=true;addClue('s5final');if(!g.completed.includes(4))g.completed.push(4);persist();soundSeq();scene(light==='full'?
+ [['灯台','標準点灯。街全域への光の供給を開始。'],['ポル','やった！ ほら、街じゅうが明るく……'],['ナギ','……あの子のお母さん、自分の子の名前が分からないんやって。'],['リク','……俺が、今やったことで？'],['不明な通信','修理を続けるな。あなたは四年前と同じ過ちを繰り返している。']]:
+ [['灯台','低負荷点灯。港湾部の明かりを限定的に回復。'],['ポル','街じゅうじゃない。でも、今夜はこれで港へ帰れる。'],['ナギ','……救われた人も、暗いままの家もある。忘れた名前は戻らない。'],['リク','全部を直すことより、何を守るかを選ぶことが必要なんやな。'],['不明な通信','……ようやく、少し違う選択をしたのね。']]
+ ,()=>scene([['中央制御核','認証済み：R-04。最終整備担当：RIKU。登録日：四年前。'],['リク','……俺の名前？ なんで、俺がこの装置を設計したことになってる？'],['ポル','リク……僕、思い出したことがある。でも、今はまだ……。'],['不明な通信','私はセラ。あなたが忘れたことを知っている。次は鉄橋で待つ。'],['第1章 完','消えた港の灯——朝は、まだ来ない。']],()=>endScreen()));}
+function endScreen(){openModal();mode='ending';textblock('div','eyebrow','CHAPTER 01 / CLEAR');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','消えた港の灯 — 完');const hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">夜明けはまだ、遠い。</span>';modal.appendChild(hero);textblock('p','',g.lighting==='partial'?'港の一部に灯が戻った。負荷を抑えた選択は、果たして正しかったのか。':'街全域に灯が戻った。その裏で、新たな記憶が失われた。');textblock('p','muted','調査記録 '+g.clues.length+'件 / 技術部品 '+g.parts+' / 選択 '+(g.branch==='bypass'?'旧迂回回路':'主回路'));textblock('h2','','第2章「風の止まった鉄橋」へ続く');buttons(['調査手帳を読む',()=>showJournal()],['タイトルに戻る',()=>showTitle() ,'alt']);}
+function gameOver(){openModal();mode='gameover';textblock('div','eyebrow','SYSTEM / RECOVERY');textblock('h2','','修理屋、倒れる');textblock('p','','ポル「リク、まだ諦めないで。ここからやり直せる。」');buttons(['このステージから再挑戦',()=>retryStage()],['タイトルへ',()=>showTitle(),'alt']);}
+function retryStage(){let i=g.stage;for(const o of STAGES[i].objects)delete g.flags[o.id];if(i===0){delete g.flags.s1gen}else if(i===1){delete g.flags.s2pol}else if(i===2){delete g.flags.s3pump}else if(i===3){delete g.flags.s4done;g.branch=null}else if(i===4){delete g.flags.s5boss;}g.hp=MAXHP;startStage(i,true)}
+function showTitle(){openModal();mode='menu';textblock('div','eyebrow','A CP ARCADE ORIGINAL');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','― あしたをつなぐ修理屋 ―');const hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">壊れていたのは、世界か。それとも記憶か。</span>';modal.appendChild(hero);textblock('p','','第1章「消えた港の灯」 全5ステージ。探索・修理・戦闘・選択の物語。');let acts=[];if(readSave()){acts.push(['続きから再開',()=>resumeGame()]);}acts.push(['第1章をはじめる',()=>{if(readSave()){confirmNew()}else newGame()},readSave()?'alt':'']);acts.push(['遊び方を確認',()=>showHelp('menu'),'alt']);buttons(...acts);}
+function confirmNew(){simple('本当に最初から？',['保存されている第1章の進行状況を初期化するで。'],[['新しい冒険を始める',()=>newGame(),'warn'],['キャンセル',()=>showTitle(),'alt']]);}
+function showHelp(from){const back=from==='menu'?showTitle:()=>clearOverlay();simple('遊び方',['十字キーで上下左右に移動。Aボタンで近くの物を調べたり、敵を攻撃できる。','光る装置や記録を探そう。マップ上の場所をタップすると、そこへ向かって自動移動する（危険な場所では注意）。','ポルを修理すると「スキャン」が使える。各ステージの出口を調べると次へ進む。進行状況はこのブラウザに自動保存される。','PCなら矢印キー・WASDで移動、スペースでアクション、Eでスキャン。'],[['ゲームに戻る',back]]);}
+function showMenu(){if(mode!=='play')return;simple('一時停止',['現在のステージ '+(g.stage+1)+' / 5。進行状況は自動保存されている。'],[['冒険を続ける',()=>clearOverlay()],['調査手帳を開く',()=>showJournal(),'alt'],['タイトルに戻る',()=>showTitle(),'alt']]);}
+function showJournal(){if(!g){showTitle();return}let back=g.finished?endScreen:()=>clearOverlay();openModal();mode='journal';textblock('div','eyebrow','EVIDENCE / 調査資料');textblock('h2','','リクの調査手帳');textblock('p','muted','拾い集めた記録。修理したあとの出来事も、忘れないために書いておく。');let wrap=mk('div','journal');if(!g.clues.length){wrap.appendChild(mk('p','muted','まだ記録はない。工房の設計図や時計を調べよう。'));}for(const id of g.clues){let data=CLUES[id];if(!data)continue;let item=mk('div','journalentry');item.appendChild(mk('h3','',data[0]));item.appendChild(mk('p','',data[1]));wrap.appendChild(item);}modal.appendChild(wrap);buttons(['閉じる',back]);}
+function getWireRoute(k){return [ [[0,1],[0,0],[1,0],[2,0],[2,1]],[[0,1],[0,2],[1,2],[2,2],[2,1]],[[0,1],[0,0],[1,0],[1,1],[1,2],[2,2],[2,1]] ][k];}
+const DIRS=[[0,-1,1,4],[1,0,2,8],[0,1,4,1],[-1,0,8,2]];
+function makeTiles(k){let tiles=[6,10,12,3,5,6,9,10,12],route=getWireRoute(k);for(const [x,y] of route)tiles[y*3+x]=0;for(let j=0;j<route.length;j++){let [x,y]=route[j],prev=route[j-1]||[-1,1],next=route[j+1]||[3,1],m=0;for(let [dx,dy,bit] of DIRS)if((x+dx===prev[0]&&y+dy===prev[1])||(x+dx===next[0]&&y+dy===next[1]))m|=bit;tiles[y*3+x]=m;}
+ return tiles.map((m,i)=>{let r=(i*3+k*2+1)%4;for(let v=0;v<r;v++)m=((m<<1)&15)|((m&8)?1:0);return m})}
+function connected(tiles){let visited=new Set(),stack=[[0,1]],active=new Set();if(!(tiles[3]&8))return {solved:false,active};while(stack.length){let [x,y]=stack.pop(),key=y*3+x;if(visited.has(key))continue;visited.add(key);active.add(key);let m=tiles[key];if(x===2&&y===1&&(m&2))return {solved:true,active};for(let [dx,dy,bit,back] of DIRS){let nx=x+dx,ny=y+dy;if(nx<0||nx>=3||ny<0||ny>=3)continue;if((m&bit)&&(tiles[ny*3+nx]&back))stack.push([nx,ny])}}return {solved:false,active}}
+function wireSvg(m){let L=[];if(m&1)L.push('M 50 50 L 50 5');if(m&2)L.push('M 50 50 L 95 50');if(m&4)L.push('M 50 50 L 50 95');if(m&8)L.push('M 50 50 L 5 50');return '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="'+L.join(' ')+'" fill="none" stroke="#7bd8ce" stroke-width="14" stroke-linecap="round"/><circle cx="50" cy="50" r="10" fill="#e1fff9"/></svg>'}
+function wirePuzzle(title,k,onSuccess){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / CIRCUIT');textblock('h2','',title);textblock('p','','端子をタップして90°回転。左の電源から右の出力まで、回路を接続しよう。');let tiles=makeTiles(k),board=mk('div','circuit'),feedback=mk('div','feedback','● 左が入力　 →　 右が出力');modal.appendChild(board);modal.appendChild(feedback);
+ function redraw(){let {solved,active}=connected(tiles);board.replaceChildren();tiles.forEach((m,i)=>{let b=mk('button','wire'+(active.has(i)?' on':''));b.type='button';b.setAttribute('aria-label','回路端子'+(i+1)+'を回転');b.innerHTML=wireSvg(m);b.addEventListener('click',()=>{tiles[i]=((tiles[i]<<1)&15)|((tiles[i]&8)?1:0);playSound(500,.035,'square',.02);redraw();});board.appendChild(b)});if(solved){feedback.textContent='接続成功！ 電流が流れた。';feedback.style.color='#93efca';playSound(860,.18);setTimeout(()=>{if(mode!=='puzzle')return;clearOverlay();onSuccess()},550)}else feedback.textContent='端子をタップで回転して電流をつなごう';}
+ redraw();let footer=mk('div','modalbuttons');addBtn(footer,'いったん戻る',()=>clearOverlay(),'alt');modal.appendChild(footer);}
+function orderPuzzle(onSuccess){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / SEQUENCE');textblock('h2','','ポルの修復手順');textblock('p','','整備メモ：「まず摩耗を除く。次に電気を通し、最後に思考を起動する」');let seq=mk('div','sequence'),fb=mk('div','feedback','整備する順番に部品をタップしよう');let done=[];modal.appendChild(seq);modal.appendChild(fb);let items=[['🧠','制御板',2],['⚙️','軸受',0],['🔌','導線',1]];
+ function refresh(){seq.replaceChildren();items.forEach(([sym,name,id])=>{let b=mk('button',done.includes(id)?'selected':'');b.innerHTML='<span>'+sym+'</span>'+name;b.disabled=done.includes(id);b.addEventListener('click',()=>{if(id!==done.length){done=[];fb.textContent='順序が違う。整備メモを見直そう';fb.style.color='#f6a8a8';playSound(170,.12);refresh();return}done.push(id);fb.textContent=['軸受交換：可動部が回復','導線接続：電力供給が回復','制御板起動：記憶回路が応答'][id];fb.style.color='#a8efdf';playSound(680,.08);if(done.length===3){soundSeq();setTimeout(()=>{if(mode!=='puzzle')return;clearOverlay();onSuccess()},600)}else refresh()});seq.appendChild(b)})}refresh();buttons(['いったん戻る',()=>clearOverlay(),'alt']);}
+function doScan(){if(mode!=='play')return;if(!g.flags.s2pol){toast('スキャン装置はポルの修理後に使える');return}addFx(g.x,g.y,'#8af0d7',22);playSound(780,.15);if(g.stage===2&&dist(g,{x:6,y:6})<=3&&!g.clues.includes('s3hidden')){addClue('s3hidden');scene([['ポル','隠れた認証文字が浮かんだ……「R-04 / 設計責任者」。'],['リク','R-04……俺には何も覚えがない。']]);return}if(g.stage===4&&!g.flags.s5boss){toast('走査結果：守護機の電源安全装置は北と南に1つずつ');return}if(g.stage===3){toast('走査結果：主回路の転送先が不明。旧回路には転送信号がない');return}toast('周辺を走査した。今のところ新しい異常信号はない')}
+function findPath(goals){const q=[[g.x,g.y]],came=new Map([[(g.y*GW+g.x),null]]);let ix=0,found=null;while(ix<q.length){let [x,y]=q[ix++],kk=y*GW+x;if(goals.some(v=>v.x===x&&v.y===y)){found=kk;break}for(const [dx,dy] of [[0,-1],[1,0],[0,1],[-1,0]]){let nx=x+dx,ny=y+dy,key=ny*GW+nx;if(!mapOk(nx,ny)||creatureAt(nx,ny)||came.has(key))continue;came.set(key,kk);q.push([nx,ny])}}if(found===null)return null;let path=[];while(came.get(found)!==null){path.push([found%GW,Math.floor(found/GW)]);found=came.get(found)}return path.reverse()}
+function routeTap(tx,ty){
+ if(mode!=='play')return;stopAuto();
+ let enemy=creatureAt(tx,ty),o=objHere(tx,ty)[0],goals=null,after=null;
+ if(enemy){if(dist(enemy,g)<=1){attack(enemy);return}goals=[{x:tx-1,y:ty},{x:tx+1,y:ty},{x:tx,y:ty-1},{x:tx,y:ty+1}].filter(a=>mapOk(a.x,a.y));after=()=>{if(enemy.hp>0&&dist(enemy,g)<=1)attack(enemy)}}
+ else if(o){if(dist(o,g)<=1){interact(o);return}goals=[{x:tx,y:ty},{x:tx-1,y:ty},{x:tx+1,y:ty},{x:tx,y:ty-1},{x:tx,y:ty+1}].filter(a=>mapOk(a.x,a.y));after=()=>{if(dist(o,g)<=1&&visible(o))interact(o)}}
+ else goals=[{x:tx,y:ty}];
+ if(!findPath(goals)){toast('そこまでの道が見つからない');return}
+ let steps=0,blocked=0;
+ function advance(){
+  if(mode!=='play'){stopAuto();return}
+  if(after&&dist(g,{x:tx,y:ty})<=1){stopAuto();after();return}
+  const path=findPath(goals);
+  if(!path){stopAuto();toast('巡回機が道を塞いだ。近づいてAで鎮静しよう');return}
+  if(!path.length){stopAuto();if(after)after();return}
+  const [x,y]=path[0],oldX=g.x,oldY=g.y;
+  move(x-oldX,y-oldY);
+  if(g.x===oldX&&g.y===oldY){
+   blocked++;
+   if(blocked>4){stopAuto();toast('ここは手動で進もう');return}
+  }else blocked=0;
+  if(++steps>70){stopAuto();toast('移動を中断した。別の経路を試してな');return}
+  if(after&&dist(g,{x:tx,y:ty})<=1&&mode==='play'){stopAuto();after();return}
+  if(!after&&g.x===tx&&g.y===ty)stopAuto();
+ }
+ advance();if(mode==='play'&&steps<=70&&(!after||dist(g,{x:tx,y:ty})>1))autopilot=setInterval(advance,165);
+}
+canvas.addEventListener('pointerup',e=>{if(mode!=='play')return;const r=canvas.getBoundingClientRect();let x=Math.floor((e.clientX-r.left)*GW/r.width),y=Math.floor((e.clientY-r.top)*GH/r.height);if(x>=0&&y>=0&&x<GW&&y<GH)routeTap(x,y)});
+for(const btn of document.querySelectorAll('[data-move]')){let [dx,dy]=btn.dataset.move.split(',').map(Number),timer=null;function cancel(){clearInterval(timer);timer=null;btn.classList.remove('active')};btn.addEventListener('pointerdown',e=>{if(e.cancelable)e.preventDefault();stopAuto();btn.setPointerCapture?.(e.pointerId);btn.classList.add('active');move(dx,dy);clearInterval(timer);timer=setInterval(()=>move(dx,dy),190)});for(let ev of ['pointerup','pointercancel','lostpointercapture','pointerleave'])btn.addEventListener(ev,cancel)}
+$('action').addEventListener('click',act);$('scan').addEventListener('click',doScan);$('journal').addEventListener('click',()=>{if(g)showJournal()});$('menu').addEventListener('click',()=>{if(mode==='play')showMenu();else if(mode==='menu')return;else if(g?.finished)endScreen();else showTitle()});$('help').addEventListener('click',()=>showHelp('play'));$('arcade').addEventListener('click',()=>{window.location.href='./index.html'});$('sound').addEventListener('click',()=>{soundOn=!soundOn;$('sound').textContent=soundOn?'♫':'♪';$('sound').setAttribute('aria-label',soundOn?'効果音を切る':'効果音をつける');if(soundOn)playSound(730,.15)});
+const keys={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};window.addEventListener('keydown',e=>{if(keys[e.key]){e.preventDefault();if(!e.repeat){stopAuto();move(...keys[e.key])}}else if((e.key===' '||e.key==='Enter')&&mode==='play'){e.preventDefault();act()}else if((e.key==='e'||e.key==='E')&&mode==='play'){e.preventDefault();doScan()}else if(e.key==='Escape'){e.preventDefault();if(mode==='play')showMenu();else if(mode==='journal')clearOverlay()}});
+function roundRect(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
+function drawTile(x,y,zone,t){let px=x*C,py=y*C,hash=(x*139+y*73+17)%13; if(t==='#'){ctx.fillStyle='#0a1426';ctx.fillRect(px,py,C,C);ctx.fillStyle=zone==='lighthouse'?'#35495a':'#24384e';ctx.fillRect(px+1,py+1,C-2,C-3);ctx.fillStyle='#52647a';ctx.fillRect(px+3,py+3,C-6,3);ctx.fillStyle='#101b2e';ctx.fillRect(px+4,py+10,C-8,4);ctx.fillStyle='#1a2b41';ctx.fillRect(px+3,py+22,C-6,14);return}
+ let col={workshop:'#233449',harbor:'#244052',warehouse:'#2a3c4d',breakwater:'#203f51',lighthouse:'#284252'}[zone]||'#28384d';ctx.fillStyle=col;ctx.fillRect(px,py,C,C);ctx.fillStyle='#aec4cb12';ctx.fillRect(px,py,C,1);ctx.fillRect(px,py,1,C);if(hash===0||hash===6){ctx.fillStyle='#7392a426';ctx.fillRect(px+6,py+27,14,2)}if(hash===2){ctx.fillStyle='#0c14249a';ctx.fillRect(px+29,py+6,3,4)}
+ if(zone==='harbor'||zone==='breakwater'){if((x+y)%4===0){ctx.strokeStyle='#78cbd71a';ctx.beginPath();ctx.moveTo(px+3,py+33);ctx.lineTo(px+20,py+31);ctx.stroke()}}if(zone==='lighthouse'){if((x+y)%5===0){ctx.fillStyle='#e3aa6d12';ctx.fillRect(px+7,py+4,9,3)}}}
+function glow(x,y,color,amount=.5){let cx=x*C+C/2,cy=y*C+C/2,g0=ctx.createRadialGradient(cx,cy,3,cx,cy,31);g0.addColorStop(0,color+Math.round(amount*140).toString(16).padStart(2,'0'));g0.addColorStop(1,color+'00');ctx.fillStyle=g0;ctx.fillRect(x*C-12,y*C-12,64,64)}
+function objIcon(o){let icons={doc:'▤',npc:'◉',machine:'⚙',item:'◆',robot:'◈',exit:'⇥',switch:'⚡',med:'✚',core:'◉'};return icons[o.kind]||'◆'}
+function drawObject(o,t){let px=o.x*C+C/2,py=o.y*C+C/2,bob=Math.sin(t*.002+o.x)*1.6;if(o.id==='s1gen'&&g.flags.s1gen||o.id==='s3pump'&&g.flags.s3pump||o.id==='s4panel'&&g.flags.s4done){glow(o.x,o.y,'#64d4ba',.3)}else glow(o.x,o.y,o.kind==='exit'?'#f6c87d':'#76cde4',.52);
+ const color={doc:'#ffe3a1',npc:'#f5bf88',machine:'#95e7c8',item:'#edd6aa',robot:'#a7baff',exit:'#ffd58f',switch:'#e9ce7e',med:'#e7a6b1',core:'#ffbf88'}[o.kind];ctx.fillStyle='#0b1725bb';roundRect(px-15,py-16+bob,30,30,8);ctx.fill();ctx.strokeStyle=color;ctx.lineWidth=1.4;ctx.stroke();ctx.fillStyle=color;ctx.font='bold 22px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(objIcon(o),px,py+bob);if(o.kind==='exit'&&getObjective().includes('向かう')||o.id==='s5core'){ctx.strokeStyle='#ffd78c';ctx.lineWidth=2;ctx.strokeRect(o.x*C+4,o.y*C+4,32,32)}if((o.id==='s5sw1'||o.id==='s5sw2')&&g.flags[o.id]){ctx.font='bold 15px system-ui';ctx.fillStyle='#afffd6';ctx.fillText('✓',px+14,py-12);}}
+function drawEnemy(e,t){let cx=e.x*C+20,cy=e.y*C+20;if(e.kind==='boss'){glow(e.x,e.y,'#ed975b',.7);ctx.save();ctx.translate(cx,cy);ctx.rotate(Math.sin(t*.001)*.05);ctx.fillStyle='#152d42';ctx.strokeStyle=g.flags.s5sw1&&g.flags.s5sw2?'#ffb06e':'#71aef2';ctx.lineWidth=4;ctx.beginPath();ctx.arc(0,0,18,0,Math.PI*2);ctx.fill();ctx.stroke();for(let k=0;k<8;k++){let a=k*Math.PI/4+t*.0004;ctx.fillStyle='#486e7e';ctx.fillRect(Math.cos(a)*18-3,Math.sin(a)*18-3,6,6)}ctx.fillStyle='#f7a96e';ctx.fillRect(-9,-4,6,5);ctx.fillRect(3,-4,6,5);ctx.fillStyle='#d96861';ctx.fillRect(-5,9,10,2);ctx.restore();ctx.fillStyle='#071321';ctx.fillRect(cx-18,cy-27,36,5);ctx.fillStyle='#f5aa6f';ctx.fillRect(cx-18,cy-27,36*Math.max(0,e.hp/4),5);if(!(g.flags.s5sw1&&g.flags.s5sw2)){ctx.strokeStyle='#70cbffaa';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,22+Math.sin(t*.006)*2,0,Math.PI*2);ctx.stroke()}return}
+ ctx.fillStyle='#bd6a70';ctx.beginPath();ctx.arc(cx,cy+2,13,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ffb79b';ctx.fillRect(cx-9,cy-5,6,5);ctx.fillRect(cx+3,cy-5,6,5);ctx.strokeStyle='#f09e8a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-18,cy+8);ctx.lineTo(cx+18,cy+8);ctx.stroke();ctx.fillStyle='#f2d9b3';ctx.font='bold 9px system-ui';ctx.textAlign='center';ctx.fillText('⚠',cx,cy-15)}
+function drawPlayer(t){let x=g.x*C+C/2,y=g.y*C+C/2,bob=Math.sin(t*.006)*.6;ctx.save();ctx.translate(x,y+bob);ctx.fillStyle='#07132066';ctx.beginPath();ctx.ellipse(0,14,13,5,0,0,2*Math.PI);ctx.fill();ctx.fillStyle='#66909d';roundRect(-10,-1,20,18,4);ctx.fill();ctx.fillStyle='#354f69';ctx.fillRect(-12,4,4,11);ctx.fillRect(8,4,4,11);ctx.fillStyle='#ddba93';roundRect(-8,-14,16,16,5);ctx.fill();ctx.fillStyle='#e9c570';roundRect(-11,-20,22,10,4);ctx.fill();ctx.fillStyle='#f4dc8e';ctx.fillRect(-13,-13,26,4);ctx.fillStyle='#2a3849';ctx.fillRect(-5,-8,3,3);ctx.fillRect(4,-8,3,3);ctx.fillStyle='#d5a579';ctx.fillRect(-3,0,6,2);ctx.fillStyle='#d8c09d';ctx.fillRect(-10,17,7,3);ctx.fillRect(3,17,7,3);ctx.fillStyle='#e0ba73';ctx.fillRect(8,3,5,9);ctx.restore();if(g.flags.s2pol){let px=x-17+Math.sin(t*.002)*2,py=y-17+Math.cos(t*.002)*2;ctx.fillStyle='#c1c7ff';ctx.strokeStyle='#5d9bb7';ctx.lineWidth=2;ctx.beginPath();ctx.arc(px,py,7,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#30546b';ctx.fillRect(px-3,py-1,2,2);ctx.fillRect(px+2,py-1,2,2)}}
+function draw(ts){requestAnimationFrame(draw);if(ts-lastTick<34)return;lastTick=ts;time=ts;ctx.fillStyle='#071121';ctx.fillRect(0,0,480,400);if(g){const s=STAGES[g.stage];for(let y=0;y<GH;y++)for(let x=0;x<GW;x++)drawTile(x,y,s.zone,s.map[y][x]);if(s.zone==='harbor'||s.zone==='breakwater'){for(let i=0;i<4;i++){let a=(i*137+ts*.008)%480;ctx.fillStyle='#78b9cc10';ctx.fillRect(a,12+i*110,42,2)}}for(const o of s.objects)if(visible(o))drawObject(o,ts);for(const e of g.enemies)if(e.hp>0)drawEnemy(e,ts);if(g.stage===4&&!g.flags.s5boss&&g.turns%4===3){ctx.fillStyle='#e5ad6344';ctx.fillRect(C,3*C,(GW-2)*C,C)}drawPlayer(ts);for(let i=fx.length-1;i>=0;i--){let p=fx[i];ctx.globalAlpha=Math.max(0,p.life/40);ctx.fillStyle=p.color;ctx.fillRect(p.x,p.y,3,3);p.x+=p.vx;p.y+=p.vy;p.vy+=.03;p.life-=1;if(p.life<=0)fx.splice(i,1)}ctx.globalAlpha=1;}else{for(let i=0;i<16;i++){ctx.fillStyle=i%2?'#142f41':'#24495a';ctx.fillRect(i*30,220+(i%4)*10,28,180)}ctx.fillStyle='#ebbf80';ctx.beginPath();ctx.arc(360,90,28,0,2*Math.PI);ctx.fill()}}
+requestAnimationFrame(draw);
+const sv=readSave();g=sv||initState();if(!sv){g.enemies=STAGES[0].enemies.map(e=>({...e}))}updateHUD();showTitle();
+})();
+</script>
+</body>
+</html>

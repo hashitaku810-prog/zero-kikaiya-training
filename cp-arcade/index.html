@@ -36,7 +36,7 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
 .content{padding:17px 17px 18px;display:flex;flex-direction:column;gap:8px;flex:1}.category{font-size:10px;letter-spacing:1.2px;font-weight:900;color:#78e6d5}.game.chain .category{color:#c399ff}.game.fruits .category{color:#ffca83}.game.quest .category{color:#9debd4}.titleline{display:flex;align-items:center;justify-content:space-between;gap:8px}.titleline h3{font-size:25px;letter-spacing:.7px;margin:0;font-weight:1000}.score{font-size:10px;font-weight:800;color:#a3a9c7;white-space:nowrap}.score b{display:block;color:#ffdb94;font-size:12px;text-align:right;margin-top:3px;font-variant-numeric:tabular-nums}
 .explain{color:#adb8d3;font-size:12px;margin:1px 0 7px;line-height:1.7;min-height:41px}
 .play{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:50px;border-radius:13px;padding:12px 16px;text-decoration:none;font-size:14px;font-weight:950;background:linear-gradient(135deg,#74efd6,#3fc3cc);color:#0e2834;box-shadow:0 6px 22px #4bd8ca1a}
-.chain .play{background:linear-gradient(135deg,#c7a3ff,#b383fc);color:#291d45;box-shadow:0 6px 22px #b383fc19}.fruits .play{background:linear-gradient(135deg,#ffe19a,#ffab66);color:#3e2536;box-shadow:0 6px 22px #ffa64b22}.quest .play{background:linear-gradient(135deg,#b5ffde,#68c5cd);color:#112d35;box-shadow:0 6px 22px #68c5cd22}.quest .play.chapter2{background:linear-gradient(135deg,#ffdfb1,#e49f88);color:#3c2427;box-shadow:0 6px 22px #e49f8822}.play:active{transform:scale(.982)}.arrow{font-size:19px}
+.chain .play{background:linear-gradient(135deg,#c7a3ff,#b383fc);color:#291d45;box-shadow:0 6px 22px #b383fc19}.fruits .play{background:linear-gradient(135deg,#ffe19a,#ffab66);color:#3e2536;box-shadow:0 6px 22px #ffa64b22}.quest .play{background:linear-gradient(135deg,#b5ffde,#68c5cd);color:#112d35;box-shadow:0 6px 22px #68c5cd22}.quest .play.chapter2{background:linear-gradient(135deg,#ffdfb1,#e49f88);color:#3c2427;box-shadow:0 6px 22px #e49f8822}.quest .play.chapter3{background:linear-gradient(135deg,#d4baff,#a0a8f6);color:#222044;box-shadow:0 6px 22px #9f91f633}.play:active{transform:scale(.982)}.arrow{font-size:19px}
 .foot{padding:24px 5px 0;text-align:center;color:#7b86aa;font-size:11px;line-height:1.8}
 .toast{position:fixed;z-index:10;bottom:calc(env(safe-area-inset-bottom,0px) + 23px);left:50%;transform:translate(-50%,15px);min-width:220px;padding:12px 17px;background:#ede9ff;color:#252044;border-radius:13px;text-align:center;font-weight:850;font-size:12px;box-shadow:0 15px 35px #0007;opacity:0;pointer-events:none;transition:.2s}.toast.show{transform:translate(-50%,0);opacity:1}
 @media(min-width:820px){.games{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.game.quest{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr}.game.quest .visual{aspect-ratio:auto;min-height:225px}.game.quest .content{justify-content:center}.content{padding:16px 16px 18px}.titleline h3{font-size:22px}}
@@ -121,7 +121,7 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
       </div>
     </article>
     <article class="game quest">
-      <div class="visual"><span class="number">GAME 04 · CHAPTER 01</span>
+      <div class="visual"><span class="number">GAME 04 · CHAPTER 01–03</span>
         <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="夕暮れの港、17時43分を示す時計、灯台、修理屋を描いたCP QUESTのイメージ">
           <defs>
             <linearGradient id="qsky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#192b51"/><stop offset=".55" stop-color="#655374"/><stop offset=".85" stop-color="#d18b72"/><stop offset="1" stop-color="#244053"/></linearGradient>
@@ -142,10 +142,11 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
           <text x="24" y="100" font-family="system-ui" font-size="15" font-weight="900" letter-spacing="3" fill="#f3d6b7">REPAIR THE WORLD</text>
         </svg>
       </div>
-      <div class="content"><div class="category">STORY RPG · 2 CHAPTERS / 10 STAGES</div><div class="titleline"><h3>CP QUEST</h3><div class="score">STAGE<b id="quest-stage">1 / 5</b></div></div>
-        <p class="explain">17時43分に止まった時計。修理するほど失われる記憶。<br>第1章「消えた港の灯」から第2章「風の止まった鉄橋」へ。</p>
+      <div class="content"><div class="category">STORY RPG · 3 CHAPTERS / 15 STAGES</div><div class="titleline"><h3>CP QUEST</h3><div class="score">STAGE<b id="quest-stage">1 / 15</b></div></div>
+        <p class="explain">17時43分に止まった時計。修理するほど失われる記憶。<br>第1〜3章公開中。神経衰弱と8パズルで消された記憶の謎を追え。</p>
         <a class="play" href="./cp_quest.html" aria-label="CP QUEST 第1章をプレイする"><span id="quest-cta">第1章の冒険を始める</span><span class="arrow" aria-hidden="true">↗</span></a>
         <a class="play chapter2" href="./cp_quest_ch2.html" aria-label="CP QUEST 第2章をプレイする"><span id="quest2-cta">第2章「風の止まった鉄橋」へ</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <a class="play chapter3" href="./cp_quest_ch3.html" aria-label="CP QUEST 第3章をプレイする"><span id="quest3-cta">第3章「忘れものの街」へ</span><span class="arrow" aria-hidden="true">↗</span></a>
       </div>
     </article>
   </section>
@@ -155,8 +156,11 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
 (()=>{
  const $=s=>document.querySelector(s);
  for(const [id,key] of [['#best-drop','cpdrop-best-v1'],['#best-chain','cp-chain-best-v1'],['#best-fruits','cp-fruits-best-v1']]){try{let score=Number(localStorage.getItem(key))||0;if(score>0)$(id).textContent=score.toLocaleString('ja-JP')}catch(_){}}
- try{let q=JSON.parse(localStorage.getItem('CP_QUEST_CH1_V1')||'null');if(q&&q.version===1){$('#quest-stage').textContent=q.finished?'CLEAR':(q.stage+1)+' / 5';$('#quest-cta').textContent=q.finished?'第1章クリア記録を見る':'続きから冒険する'}}catch(_){}
- try{let q2=JSON.parse(localStorage.getItem('CP_QUEST_CH2_V1')||'null');if(q2&&q2.version===2){$('#quest2-cta').textContent=q2.finished?'第2章クリア記録を見る':'第2章の続きから冒険する'}}catch(_){}
+ let questStage=1,questCleared=false;
+ try{let q=JSON.parse(localStorage.getItem('CP_QUEST_CH1_V1')||'null');if(q&&q.version===1){questStage=Math.max(questStage,q.finished?5:(q.stage+1));$('#quest-cta').textContent=q.finished?'第1章クリア記録を見る':'続きから冒険する'}}catch(_){}
+ try{let q2=JSON.parse(localStorage.getItem('CP_QUEST_CH2_V1')||'null');if(q2&&q2.version===2){questStage=Math.max(questStage,q2.finished?10:(q2.stage+6));$('#quest2-cta').textContent=q2.finished?'第2章クリア記録を見る':'第2章の続きから冒険する'}}catch(_){}
+ try{let q3=JSON.parse(localStorage.getItem('CP_QUEST_CH3_V1')||'null');if(q3&&q3.version===3){questStage=Math.max(questStage,q3.finished?15:(q3.stage+11));questCleared=!!q3.finished;$('#quest3-cta').textContent=q3.finished?'第3章クリア記録を見る':'第3章の続きから冒険する'}}catch(_){}
+ $('#quest-stage').textContent=questCleared?'CLEAR':questStage+' / 15';
  const toast=$('#toast');let timer;
  function show(message){toast.textContent=message;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),2600)}
  async function share(){

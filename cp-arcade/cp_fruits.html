@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0b1022">
+<meta name="description" content="CP FRUITS：フルーツを落として同じ種類を合体！スマホで遊べる無料のフルーツパズル。">
+<title>CP FRUITS｜ぽとっと！フルーツ合体</title>
+<style>
+:root {font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#090d1c}body{min-height:100dvh;margin:0;color:#f7f8ff;background:radial-gradient(ellipse 76% 38% at 4% 0%,#4c467950,transparent),radial-gradient(ellipse 60% 35% at 100% 10%,#9c5b4230,transparent),linear-gradient(#121a30,#0a0f22);overflow-x:hidden}
+button,a{font:inherit}button{cursor:pointer;touch-action:manipulation}
+main{width:min(100%,520px);margin:auto;padding:calc(env(safe-area-inset-top,0px) + 12px) 13px calc(env(safe-area-inset-bottom,0px) + 22px)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.back{display:inline-flex;align-items:center;gap:7px;color:#d6ddff;text-decoration:none;font-size:12px;font-weight:800;padding:10px 12px;background:#1a2343;border:1px solid #374363;border-radius:13px;min-height:41px}
+.brand{text-align:center}.brand h1{margin:0;font-size:24px;line-height:1.04;letter-spacing:.7px;font-weight:1000;color:#fff}.brand h1 span{color:#ffb866}.brand p{margin:4px 0 0;color:#9aaace;font-size:10px;font-weight:800;letter-spacing:.7px}
+.sound{display:flex;align-items:center;justify-content:center;width:41px;height:41px;border:1px solid #374363;background:#1b2644;border-radius:13px;font-size:20px;color:#e2ebff}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.stat{min-width:0;padding:8px 7px 9px;border:1px solid #323d5e;border-radius:13px;background:#18233de0;text-align:center;box-shadow:0 5px 17px #0002}
+.stat small{display:block;color:#96a5cf;font-size:9px;font-weight:900;letter-spacing:1px}.stat strong{display:block;margin-top:3px;font-size:22px;line-height:1.1;font-variant-numeric:tabular-nums;font-weight:950;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stat.next strong{font-size:25px;line-height:.95}
+.tips{color:#aebdda;font-size:11px;text-align:center;margin:7px auto 11px;line-height:1.5}.tips b{color:#ffe2a3}
+.arena{position:relative;width:min(100%,390px);margin:auto;isolation:isolate;border:3px solid #3d4a6d;border-radius:18px;overflow:hidden;background:#101c36;box-shadow:0 20px 55px #0008,0 0 0 1px #9badf418;aspect-ratio:360/540}
+#board{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.arena::after{content:"";position:absolute;pointer-events:none;inset:0;border-radius:14px;box-shadow:inset 0 0 0 2px #ffffff0c,inset 0 24px 24px #0002}
+.overlay{position:absolute;inset:0;z-index:4;display:grid;place-content:center;justify-items:center;gap:13px;text-align:center;padding:20px;background:linear-gradient(160deg,#081225e8,#172047e8);backdrop-filter:blur(5px)}
+.overlay[hidden]{display:none}.overlay-emoji{font-size:61px;filter:drop-shadow(0 8px 12px #0006);line-height:1}.overlay h2{font-size:27px;line-height:1.18;font-weight:950;margin:0;color:#fff}.overlay p{max-width:265px;font-size:13px;line-height:1.8;color:#d4ddf4;margin:0}.overlay .banner{font-size:10px;color:#a2b4d9;letter-spacing:2.5px;font-weight:900}.overlay .bigscore{font-size:32px;font-weight:950;color:#ffce7e}
+.primary{min-width:220px;min-height:54px;background:linear-gradient(135deg,#ffd879,#f7a65f);border:none;color:#372035;font-size:17px;font-weight:950;border-radius:15px;box-shadow:0 8px 30px #eb925e3d}.primary:active{transform:scale(.97)}
+.guide{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;max-width:390px;margin:10px auto 9px;min-height:27px;color:#a3b2d7;font-size:10px;font-weight:700}.guide span{padding:5px 9px;border-radius:999px;background:#1c2747;border:1px solid #303d66}
+.controls{display:grid;grid-template-columns:1fr 1fr 1.8fr;gap:9px;width:min(100%,390px);margin:0 auto}.control{border-radius:15px;min-height:58px;border:1px solid #435277;background:linear-gradient(#273557,#1c2848);color:#e1e9ff;font-size:24px;font-weight:900;box-shadow:0 5px 0 #0b1328}.control:active{transform:translateY(3px);box-shadow:0 2px 0 #0b1328}.control.drop{background:linear-gradient(130deg,#ffdd87,#f8ae6a);color:#402943;border-color:#f8d68f;font-size:16px;box-shadow:0 5px 0 #9c5938}.control:disabled{opacity:.52;filter:grayscale(.5)}
+.actions{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px auto 0;font-size:11px;color:#94a7ce}.mini{border:1px solid #3d4866;border-radius:999px;background:#202b49;color:#e0e7ff;padding:9px 16px;font-size:11px;font-weight:800;min-height:37px}.foot{text-align:center;color:#697ca7;margin:14px 0 0;font-size:10px}
+@media(max-width:359px){main{padding-left:8px;padding-right:8px}.brand h1{font-size:21px}.back{font-size:10px;padding:8px 9px}.stat strong{font-size:20px}.arena{border-width:2px}.controls{gap:7px}.control{min-height:52px}}
+@media(min-width:650px){main{padding-top:28px}.arena{max-width:390px}}
+@media(prefers-reduced-motion:reduce){.primary,.control{transition:none}}
+</style>
+</head>
+<body>
+<main>
+ <header class="top">
+  <a class="back" href="./index.html" aria-label="CP ARCADEに戻る">‹ &nbsp;ARCADE</a>
+  <div class="brand"><h1>CP <span>FRUITS</span> 🍉</h1><p>ぽとっと！フルーツ合体</p></div>
+  <button class="sound" id="sound" aria-label="効果音を切り替える" aria-pressed="true">🔊</button>
+ </header>
+ <section class="stats" aria-label="スコア情報">
+  <div class="stat"><small>SCORE</small><strong id="score">0</strong></div>
+  <div class="stat"><small>MY BEST</small><strong id="best">0</strong></div>
+  <div class="stat next"><small>NEXT</small><strong id="next" aria-label="次のフルーツ">🍓</strong></div>
+ </section>
+ <p class="tips"><b>同じフルーツ</b>をくっつけて進化！ 🍒 → 🍓 → 🍇 → 🍊 → 🍎 → 🍉</p>
+ <div class="arena" id="arena">
+  <canvas id="board" width="360" height="540" aria-label="フルーツを落とすゲーム盤。タッチして狙い、指を離すと落下します。"></canvas>
+  <div class="overlay" id="overlay" role="dialog" aria-label="ゲームメニュー">
+   <div class="overlay-emoji" id="overlayIcon">🍒 🍓 🍉</div>
+   <div class="banner" id="overlayBanner">CP ARCADE ORIGINAL</div>
+   <h2 id="overlayTitle">フルーツ合体！</h2>
+   <p id="overlayText">同じフルーツがぶつかると、ひとつ大きくなるで！<br>指で狙って、離したらポトン！</p>
+   <div class="bigscore" id="overlayScore" hidden></div>
+   <button class="primary" id="overlayButton">ゲームスタート！</button>
+  </div>
+ </div>
+ <div class="guide" aria-label="操作のコツ"><span>👆 ドラッグでねらう</span><span>👇 指を離すと落下</span><span>⚠ 上まで積むと終了</span></div>
+ <div class="controls"><button class="control" id="left" aria-label="左へ移動">◀</button><button class="control" id="right" aria-label="右へ移動">▶</button><button class="control drop" id="drop">🍓 落とす！</button></div>
+ <div class="actions"><button class="mini" id="pause">Ⅱ 一時停止</button><button class="mini" id="restart">↻ 最初から</button></div>
+ <p class="foot">ベストスコアはこの端末に保存されるで 🏆 · CP ARCADE 2026</p>
+</main>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d',{alpha:false});
+const W=360,H=540,DANGER=94,GRAVITY=.285,MAX=9;
+const FRUITS=[
+ {name:'さくらんぼ',emoji:'🍒',r:16,c:'#ff5d77',points:2},
+ {name:'いちご',emoji:'🍓',r:20,c:'#f9555f',points:4},
+ {name:'ぶどう',emoji:'🍇',r:25,c:'#a777ef',points:8},
+ {name:'みかん',emoji:'🍊',r:30,c:'#ffae45',points:16},
+ {name:'りんご',emoji:'🍎',r:37,c:'#f04e5b',points:32},
+ {name:'なし',emoji:'🍐',r:44,c:'#cbde70',points:64},
+ {name:'もも',emoji:'🍑',r:52,c:'#ff9c97',points:128},
+ {name:'パイナップル',emoji:'🍍',r:61,c:'#f4c34e',points:256},
+ {name:'メロン',emoji:'🍈',r:72,c:'#a5e38f',points:512},
+ {name:'すいか',emoji:'🍉',r:84,c:'#6ecf8b',points:1024}
+];
+let fruits=[],particles=[],floaters=[],aimX=W/2,current=0,next=1,score=0,best=0,id=0,started=false,paused=false,ended=false,canDrop=true,cooldown=0,overflowTimer=0,combo=0,lastMerge=0,clock=0,rafPrev=0,acc=0,activePointer=false,muted=false,audio;
+try{best=Number(localStorage.getItem('cp-fruits-best-v1'))||0;muted=localStorage.getItem('cp-fruits-muted-v1')==='1'}catch(e){}
+$('best').textContent=best.toLocaleString('ja-JP');$('sound').textContent=muted?'🔇':'🔊';$('sound').setAttribute('aria-pressed',String(!muted));
+function randType(){const a=Math.random();return a<.34?0:a<.62?1:a<.84?2:3}
+function clamp(v,min,max){return Math.min(max,Math.max(min,v))}
+function make(x,y,t,vx=0,vy=0){const r=FRUITS[t].r;return {id:++id,x:clamp(x,r+3,W-r-3),y,r,t,vx,vy,age:0,merging:false}}
+function scoreUpdate(){ $('score').textContent=score.toLocaleString('ja-JP');if(score>best){best=score;$('best').textContent=best.toLocaleString('ja-JP');try{localStorage.setItem('cp-fruits-best-v1',String(best))}catch(e){}} }
+function updateNext(){$('next').textContent=FRUITS[next].emoji;$('next').setAttribute('aria-label',FRUITS[next].name)}
+function setOverlay(icon,banner,title,msg,button,points){$('overlayIcon').textContent=icon;$('overlayBanner').textContent=banner;$('overlayTitle').textContent=title;$('overlayText').innerHTML=msg;$('overlayButton').textContent=button;$('overlayScore').hidden=points==null;if(points!=null)$('overlayScore').textContent=points.toLocaleString('ja-JP')+' 点';$('overlay').hidden=false}
+function setControls(on){for(const name of ['left','right','drop'])$(name).disabled=!on}
+function newGame(){fruits=[];particles=[];floaters=[];aimX=W/2;current=randType();next=randType();score=0;scoreUpdate();id=0;started=true;paused=false;ended=false;canDrop=true;cooldown=0;overflowTimer=0;combo=0;lastMerge=0;clock=0;acc=0;activePointer=false;updateNext();$('overlay').hidden=true;$('pause').textContent='Ⅱ 一時停止';setControls(true);beep(540,0.08,'triangle',.035)}
+function drop(){if(!started||paused||ended||!canDrop)return;let r=FRUITS[current].r;aimX=clamp(aimX,r+3,W-r-3);fruits.push(make(aimX,44,current,0,.6));canDrop=false;cooldown=.54;current=next;next=randType();updateNext();beep(270,.07,'sine',.08)}
+function finish(){if(ended)return;ended=true;setControls(false);beep(190,.19,'sawtooth',.06);setOverlay('🍉 💦','GAME OVER','おつかれさま！','もういっちょ挑戦してな！','もう一回遊ぶ',score)}
+function togglePause(){if(!started||ended)return;paused=!paused;if(paused){setOverlay('🍐 🍊','PAUSE','休憩中やで','続きから、いつでも再開できるで！','ゲームに戻る',null);setControls(false);$('pause').textContent='▶ 再開'}else{$('overlay').hidden=true;setControls(true);$('pause').textContent='Ⅱ 一時停止'}}
+function toggleSound(){muted=!muted;$('sound').textContent=muted?'🔇':'🔊';$('sound').setAttribute('aria-pressed',String(!muted));try{localStorage.setItem('cp-fruits-muted-v1',muted?'1':'0')}catch(e){}if(!muted)beep(760,.07,'sine',.035)}
+function beep(freq,duration=.08,type='sine',volume=.07){if(muted)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;if(!audio)audio=new AC();if(audio.state==='suspended')audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(70,freq*.75),audio.currentTime+duration);g.gain.setValueAtTime(volume,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+duration+.01)}catch(e){}}
+function mergePairs(){const used=new Set(),merged=[];
+ for(let i=0;i<fruits.length;i++){
+  const a=fruits[i];if(used.has(a.id))continue;
+  for(let j=i+1;j<fruits.length;j++){
+   const b=fruits[j];if(used.has(b.id)||a.t!==b.t)continue;
+   const dx=a.x-b.x,dy=a.y-b.y,rr=a.r+b.r;
+   if(dx*dx+dy*dy<rr*rr*1.025){used.add(a.id);used.add(b.id);merged.push([a,b]);break}
+  }
+ }
+ if(!merged.length)return;
+ fruits=fruits.filter(f=>!used.has(f.id));
+ for(const [a,b] of merged){
+  const t=a.t;const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
+  clock-lastMerge<1.6?combo++:combo=1;lastMerge=clock;score+=FRUITS[t].points*Math.min(combo,8);
+  if(t<MAX){let n=make(mx,my,Math.min(MAX,t+1),(a.vx+b.vx)*.27,-2.4);n.y=clamp(n.y,FRUITS[t+1].r+1,H-n.r);fruits.push(n)}
+  else {score+=1200;floater(mx,my-10,'🍉 すいか大成功！','#ffe39c',1.65)}
+  burst(mx,my,FRUITS[t].c,Math.min(17,9+t));
+  if(t<MAX){floater(mx,my-5,'+'+(FRUITS[t].points*Math.min(combo,8))+(combo>=2?'  '+combo+' COMBO!':''),'#fff0b5',1.1)}
+  beep(440+Math.min(740,t*85+combo*100),.12,'triangle',.054);
+  if(navigator.vibrate)try{navigator.vibrate(12)}catch(e){}
+ }
+ scoreUpdate();
+ }
+function burst(x,y,color,num){for(let i=0;i<num;i++){const a=Math.random()*Math.PI*2,v=1.2+Math.random()*3;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-1.2,life:.55+Math.random()*.3,max:.8,c:color,s:2+Math.random()*4})}}
+function floater(x,y,text,color,life){floaters.push({x,y,text,color,life,max:life})}
+function simulate(){clock+=1/60;
+ if(!canDrop){cooldown-=1/60;if(cooldown<=0){canDrop=true;cooldown=0}}
+ for(const p of fruits){p.age+=1/60;p.vy=Math.min(p.vy+GRAVITY,11);p.vx*=.996;p.x+=p.vx;p.y+=p.vy;bounds(p)}
+ // Detect matching-fruit contacts before collision separation; this also enables chain reactions.
+ mergePairs();
+ for(let k=0;k<5;k++){
+  for(let i=0;i<fruits.length;i++){
+   const a=fruits[i];for(let j=i+1;j<fruits.length;j++){
+    const b=fruits[j];let dx=b.x-a.x,dy=b.y-a.y,distSq=dx*dx+dy*dy,rr=a.r+b.r;
+    if(distSq>=rr*rr)continue;
+    let d=Math.sqrt(distSq);if(d<.0001){dx=(Math.random()-.5)*.02;dy=-.02;d=Math.hypot(dx,dy)}
+    const nx=dx/d,ny=dy/d,overlap=rr-d;
+    const ma=a.r*a.r,mb=b.r*b.r,total=ma+mb;
+    const wa=mb/total,wb=ma/total;
+    const push=overlap*.86;
+    a.x-=nx*push*wa;a.y-=ny*push*wa;b.x+=nx*push*wb;b.y+=ny*push*wb;
+    const rvx=b.vx-a.vx,rvy=b.vy-a.vy,closing=rvx*nx+rvy*ny;
+    if(closing<0){const impulse=-(1.07)*closing/(1/ma+1/mb);a.vx-=impulse*nx/ma;a.vy-=impulse*ny/ma;b.vx+=impulse*nx/mb;b.vy+=impulse*ny/mb}
+   }
+  }
+  for(const p of fruits)bounds(p);
+ }
+ for(const p of particles){p.x+=p.vx;p.y+=p.vy;p.vy+=.09;p.life-=1/60}
+ particles=particles.filter(p=>p.life>0);
+ for(const p of floaters){p.y-=.48;p.life-=1/60}
+ floaters=floaters.filter(p=>p.life>0);
+ let overflow=false;
+ for(const p of fruits){if(p.age>1.6 && (p.y-p.r)<DANGER && (Math.abs(p.vx)+Math.abs(p.vy))<4.5){overflow=true;break}}
+ if(overflow)overflowTimer+=1/60;else overflowTimer=Math.max(0,overflowTimer-.035);
+ if(overflowTimer>2)finish();
+ }
+function bounds(p){
+ if(p.x<p.r+2){p.x=p.r+2;if(p.vx<0)p.vx*=-.18}
+ if(p.x>W-p.r-2){p.x=W-p.r-2;if(p.vx>0)p.vx*=-.18}
+ if(p.y>H-p.r-3){p.y=H-p.r-3;if(p.vy>0)p.vy*=-.10;p.vx*=.89;if(Math.abs(p.vy)<.22)p.vy=0}
+ }
+function prepareCanvas(){const dpr=Math.min(3,window.devicePixelRatio||1);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+prepareCanvas();window.addEventListener('resize',prepareCanvas,{passive:true});
+function drawFruit(p,ghost=false){const f=FRUITS[p.t],r=f.r,x=p.x,y=p.y;
+ ctx.save();if(ghost)ctx.globalAlpha=.65;
+ ctx.shadowColor=f.c+'90';ctx.shadowBlur=8;ctx.shadowOffsetY=3;
+ const grd=ctx.createRadialGradient(x-r*.4,y-r*.5,r*.10,x+r*.2,y+r*.3,r*1.35);
+ grd.addColorStop(0,'#ffffff');grd.addColorStop(.18,f.c);grd.addColorStop(.78,f.c);grd.addColorStop(1,'#2d2443');
+ ctx.fillStyle=grd;ctx.strokeStyle='#ffffff8c';ctx.lineWidth=Math.max(1.4,r*.055);ctx.beginPath();ctx.arc(x,y,r,0,2*Math.PI);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+ ctx.beginPath();ctx.ellipse(x-r*.33,y-r*.52,r*.21,r*.11,-.5,0,Math.PI*2);ctx.fillStyle='#ffffff8a';ctx.fill();
+ ctx.font=`${Math.round(r*1.33)}px "Apple Color Emoji","Noto Color Emoji","Segoe UI Emoji",sans-serif`;
+ ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(f.emoji,x,y+r*.055);
+ ctx.restore();
+ }
+function draw(){
+ const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#192645');bg.addColorStop(.65,'#101c36');bg.addColorStop(1,'#16243d');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ ctx.fillStyle='#8fa8d30a';for(let y=14;y<H;y+=27)for(let x=13;x<W;x+=27){ctx.beginPath();ctx.arc(x,y,.8,0,Math.PI*2);ctx.fill()}
+ const glow=ctx.createRadialGradient(W/2,H*.92,10,W/2,H*.92,W*.7);glow.addColorStop(0,'#e5c5680d');glow.addColorStop(1,'#e5c56800');ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
+ ctx.save();ctx.setLineDash([9,7]);ctx.strokeStyle=overflowTimer>0?'#ff7a8d':'#ff97aa70';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,DANGER);ctx.lineTo(W,DANGER);ctx.stroke();ctx.restore();
+ ctx.font='bold 10px system-ui,sans-serif';ctx.fillStyle=overflowTimer>0?'#ffc3c9':'#b597ae';ctx.fillText('OVER LINE',10,DANGER-9);
+ ctx.fillStyle='#57719d30';ctx.fillRect(0,H-8,W,8);
+ for(const p of fruits)drawFruit(p);
+ if(started&&!paused&&!ended){const r=FRUITS[current].r;aimX=clamp(aimX,r+3,W-r-3);ctx.save();ctx.strokeStyle=canDrop?'#ffd1a887':'#ffffff37';ctx.setLineDash([3,9]);ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(aimX,44+r+8);ctx.lineTo(aimX,H-11);ctx.stroke();ctx.restore();drawFruit({x:aimX,y:44,t:current},!canDrop);}
+ for(const p of particles){ctx.globalAlpha=clamp(p.life/p.max,0,1);ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;
+ for(const f of floaters){ctx.save();ctx.globalAlpha=clamp(f.life/Math.min(f.max,.45),0,1);ctx.fillStyle='#16243d';ctx.font='900 15px system-ui,sans-serif';ctx.textAlign='center';ctx.lineWidth=4;ctx.strokeStyle='#0c183b';ctx.strokeText(f.text,f.x,f.y);ctx.fillStyle=f.color;ctx.fillText(f.text,f.x,f.y);ctx.restore()}
+ if(started&&overflowTimer>0&&!ended){ctx.fillStyle='#ff557b55';ctx.fillRect(0,0,W,6);ctx.font='bold 13px system-ui';ctx.fillStyle='#ffb8c9';ctx.textAlign='right';ctx.fillText('⚠ ピンチ！',W-12,23)}
+ }
+function frame(time){if(!rafPrev)rafPrev=time;let dt=Math.min((time-rafPrev)/1000,.055);rafPrev=time;
+ if(started&&!paused&&!ended){acc+=dt;let steps=0;while(acc>=1/60&&steps<4){simulate();acc-=1/60;steps++}}else acc=0;
+ draw();requestAnimationFrame(frame)}requestAnimationFrame(frame);
+function xFromEvent(ev){const rect=canvas.getBoundingClientRect();return clamp((ev.clientX-rect.left)/rect.width*W,17,W-17)}
+canvas.addEventListener('pointerdown',ev=>{if(!started||ended||paused)return;ev.preventDefault();activePointer=true;aimX=xFromEvent(ev);try{canvas.setPointerCapture(ev.pointerId)}catch(e){}},{passive:false});
+canvas.addEventListener('pointermove',ev=>{if(!started||ended||paused)return;if(activePointer){ev.preventDefault();aimX=xFromEvent(ev)}},{passive:false});
+canvas.addEventListener('pointerup',ev=>{if(!activePointer)return;ev.preventDefault();activePointer=false;aimX=xFromEvent(ev);drop()},{passive:false});
+canvas.addEventListener('pointercancel',()=>activePointer=false);
+function move(n){if(!started||paused||ended)return;aimX=clamp(aimX+n,FRUITS[current].r+3,W-FRUITS[current].r-3)}
+$('left').addEventListener('click',()=>move(-22));$('right').addEventListener('click',()=>move(22));$('drop').addEventListener('click',drop);
+$('pause').addEventListener('click',togglePause);$('sound').addEventListener('click',toggleSound);
+$('restart').addEventListener('click',()=>{if(started&&!ended&&!window.confirm('最初からやり直す？ 今のスコアはリセットされるで。'))return;newGame()});
+$('overlayButton').addEventListener('click',()=>{if(paused)togglePause();else newGame()});
+window.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','ArrowDown',' ','Escape'].includes(e.key))e.preventDefault();if(e.key==='ArrowLeft')move(-18);else if(e.key==='ArrowRight')move(18);else if(e.key==='ArrowDown'||e.key===' ')drop();else if(e.key==='Escape')togglePause()});
+setControls(false);current=0;next=1;updateNext();draw();
+})();
+</script>
+</body>
+</html>

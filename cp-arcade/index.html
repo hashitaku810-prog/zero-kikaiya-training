@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0e20">
-<meta name="description" content="CP ARCADEで気軽に遊ぼう！スマホのブラウザで遊べる無料の落ちモノゲーム2本。登録もアプリも不要。">
+<meta name="description" content="CP ARCADEで気軽に遊ぼう！スマホのブラウザで遊べる無料のミニゲーム3本。登録もアプリも不要。">
 <meta property="og:title" content="CP ARCADE｜スマホで遊べるミニゲーム">
-<meta property="og:description" content="ちょっと暇？ブロック落とし＆ころころ連鎖！2本のミニゲームをタップで遊べるで🎮">
+<meta property="og:description" content="ちょっと暇？ブロック落とし・ころころ連鎖・フルーツ合体！3本のミニゲームをタップで遊べるで🎮">
 <meta property="og:type" content="website">
 <title>CP ARCADE｜スマホで遊べるミニゲーム</title>
 <style>
@@ -33,13 +33,15 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
 .visual{position:relative;overflow:hidden;background:#121a30;aspect-ratio:340/215;border-bottom:1px solid #343a5a}.visual svg{width:100%;height:100%;display:block}
 .visual::after{content:"";position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(transparent,#11152877);pointer-events:none}
 .number{position:absolute;left:13px;top:12px;z-index:1;display:block;color:#d6edff;background:#07101ca8;backdrop-filter:blur(6px);border:1px solid #ffffff2c;border-radius:8px;padding:7px 9px;font-size:10px;font-weight:850;letter-spacing:1px}
-.content{padding:17px 17px 18px;display:flex;flex-direction:column;gap:8px;flex:1}.category{font-size:10px;letter-spacing:1.2px;font-weight:900;color:#78e6d5}.game.chain .category{color:#c399ff}.titleline{display:flex;align-items:center;justify-content:space-between;gap:8px}.titleline h3{font-size:25px;letter-spacing:.7px;margin:0;font-weight:1000}.score{font-size:10px;font-weight:800;color:#a3a9c7;white-space:nowrap}.score b{display:block;color:#ffdb94;font-size:12px;text-align:right;margin-top:3px;font-variant-numeric:tabular-nums}
+.content{padding:17px 17px 18px;display:flex;flex-direction:column;gap:8px;flex:1}.category{font-size:10px;letter-spacing:1.2px;font-weight:900;color:#78e6d5}.game.chain .category{color:#c399ff}.game.fruits .category{color:#ffca83}.titleline{display:flex;align-items:center;justify-content:space-between;gap:8px}.titleline h3{font-size:25px;letter-spacing:.7px;margin:0;font-weight:1000}.score{font-size:10px;font-weight:800;color:#a3a9c7;white-space:nowrap}.score b{display:block;color:#ffdb94;font-size:12px;text-align:right;margin-top:3px;font-variant-numeric:tabular-nums}
 .explain{color:#adb8d3;font-size:12px;margin:1px 0 7px;line-height:1.7;min-height:41px}
 .play{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:50px;border-radius:13px;padding:12px 16px;text-decoration:none;font-size:14px;font-weight:950;background:linear-gradient(135deg,#74efd6,#3fc3cc);color:#0e2834;box-shadow:0 6px 22px #4bd8ca1a}
-.chain .play{background:linear-gradient(135deg,#c7a3ff,#b383fc);color:#291d45;box-shadow:0 6px 22px #b383fc19}.play:active{transform:scale(.982)}.arrow{font-size:19px}
+.chain .play{background:linear-gradient(135deg,#c7a3ff,#b383fc);color:#291d45;box-shadow:0 6px 22px #b383fc19}.fruits .play{background:linear-gradient(135deg,#ffe19a,#ffab66);color:#3e2536;box-shadow:0 6px 22px #ffa64b22}.play:active{transform:scale(.982)}.arrow{font-size:19px}
 .foot{padding:24px 5px 0;text-align:center;color:#7b86aa;font-size:11px;line-height:1.8}
 .toast{position:fixed;z-index:10;bottom:calc(env(safe-area-inset-bottom,0px) + 23px);left:50%;transform:translate(-50%,15px);min-width:220px;padding:12px 17px;background:#ede9ff;color:#252044;border-radius:13px;text-align:center;font-weight:850;font-size:12px;box-shadow:0 15px 35px #0007;opacity:0;pointer-events:none;transition:.2s}.toast.show{transform:translate(-50%,0);opacity:1}
+@media(min-width:820px){.games{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.content{padding:16px 16px 18px}.titleline h3{font-size:22px}}
 @media(min-width:700px){.hero{padding:60px 4px 39px}.wrap{padding-left:30px;padding-right:30px}.lead{font-size:15px}.sectiontop h2{font-size:18px}.content{padding:19px 23px 22px}.explain{font-size:13px}}
+@media(min-width:641px) and (max-width:819px){.game.fruits{grid-column:1/-1;max-width:430px;margin:auto;width:100%}}
 @media(max-width:359px){.wrap{padding-left:12px;padding-right:12px}.hero{padding-top:30px}.titleline h3{font-size:22px}.logo-name{font-size:15px}.share{padding:9px 11px}}
 @media(max-width:640px){.games{grid-template-columns:1fr;gap:16px}.visual{aspect-ratio:340/178}.game{border-radius:18px}.content{gap:6px}.explain{min-height:auto;margin-bottom:5px}.hero{padding-bottom:21px}}
 @media(prefers-reduced-motion:reduce){.game,.toast{transition:none}}
@@ -51,7 +53,7 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
     <button type="button" id="share" class="share" aria-label="このゲームセンターのリンクを共有する"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4m-6.6 7.2 6.6 4.3"/></svg>シェア</button>
   </header>
   <section class="hero">
-    <span class="tag">✦ &nbsp;NOW PLAYING : 02 GAMES</span>
+    <span class="tag">✦ &nbsp;NOW PLAYING : 03 GAMES</span>
     <h1>ちょっと暇？<em>1ゲームどう？</em></h1>
     <p class="lead">落とすだけ。でも、やめられへん。<br>スマホですぐ遊べる、CPのミニゲームセンターやで！</p>
     <div class="features"><span class="feature">📱 スマホ対応</span><span class="feature">⚡ インストール不要</span><span class="feature">🎮 無料・登録なし</span></div>
@@ -78,19 +80,59 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
         <a class="play" href="./cp_chain.html" aria-label="CP CHAINをプレイする"><span>プレイする</span><span class="arrow" aria-hidden="true">↗</span></a>
       </div>
     </article>
+    <article class="game fruits">
+      <div class="visual"><span class="number">GAME 03</span>
+        <svg viewBox="0 0 340 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="カラフルなフルーツが転がりながら合体するゲームのイメージ">
+          <defs>
+           <linearGradient id="frbg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3a2d57"/><stop offset="1" stop-color="#152640"/></linearGradient>
+           <radialGradient id="frshine" cx="35%" cy="25%" r="85%"><stop stop-color="#ffffff" stop-opacity=".42"/><stop offset=".35" stop-color="#ffffff" stop-opacity=".05"/><stop offset="1" stop-color="#000000" stop-opacity=".25"/></radialGradient>
+           <filter id="frglow"><feGaussianBlur stdDeviation="12"/></filter>
+          </defs>
+          <rect width="340" height="215" fill="url(#frbg)"/>
+          <circle cx="284" cy="56" r="90" fill="#f8a35c" opacity=".19" filter="url(#frglow)"/>
+          <rect x="52" y="9" width="237" height="198" rx="9" fill="#0f1e39" stroke="#5e628e" stroke-width="2"/>
+          <path d="M54 56 H287" stroke="#ff98a6" stroke-width="1.5" stroke-dasharray="6 5" opacity=".7"/>
+          <path d="M171 30 V193" stroke="#ffe1a1" stroke-width="1.8" stroke-dasharray="3 8" opacity=".62"/>
+          <g>
+            <circle cx="112" cy="174" r="31" fill="#ffa943" stroke="#ffe6a9" stroke-width="2"/>
+            <circle cx="164" cy="171" r="37" fill="#f45162" stroke="#ffadb2" stroke-width="2"/>
+            <circle cx="230" cy="182" r="23" fill="#ae70e9" stroke="#dac0ff" stroke-width="2"/>
+            <circle cx="224" cy="135" r="22" fill="#f45866" stroke="#ffb9c4" stroke-width="2"/>
+            <circle cx="265" cy="163" r="19" fill="#ffb14c" stroke="#ffe1a5" stroke-width="2"/>
+            <circle cx="177" cy="110" r="20" fill="#ff5968" stroke="#ffb4b9" stroke-width="2"/>
+          </g>
+          <g fill="url(#frshine)">
+            <circle cx="112" cy="174" r="31"/><circle cx="164" cy="171" r="37"/><circle cx="230" cy="182" r="23"/><circle cx="224" cy="135" r="22"/><circle cx="265" cy="163" r="19"/><circle cx="177" cy="110" r="20"/>
+          </g>
+          <g font-family="'Apple Color Emoji','Noto Color Emoji','Segoe UI Emoji',sans-serif" text-anchor="middle" dominant-baseline="central">
+            <text x="112" y="174" font-size="35">🍊</text>
+            <text x="164" y="171" font-size="43">🍎</text>
+            <text x="230" y="182" font-size="29">🍇</text>
+            <text x="224" y="135" font-size="29">🍓</text>
+            <text x="265" y="163" font-size="25">🍊</text>
+            <text x="177" y="110" font-size="25">🍒</text>
+          </g>
+          <text x="28" y="42" fill="#ffe19d" font-weight="900" font-size="11" transform="rotate(-12 28 42)">MERGE!</text>
+        </svg>
+      </div>
+      <div class="content"><div class="category">FRUIT MERGE PUZZLE</div><div class="titleline"><h3>CP FRUITS</h3><div class="score">MY BEST<b id="best-fruits">―</b></div></div>
+        <p class="explain">同じフルーツをぶつけて合体！<br>大きく育ててスイカを目指そう！</p>
+        <a class="play" href="./cp_fruits.html" aria-label="CP FRUITSをプレイする"><span>プレイする</span><span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </article>
   </section>
   <footer class="foot">好きなゲームを選んで、タップするだけ。<br>スコアはそれぞれのスマホ内に保存されるで 🏆<br>CP ARCADE · 2026</footer>
 </main><div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script>
 (()=>{
  const $=s=>document.querySelector(s);
- for(const [id,key] of [['#best-drop','cpdrop-best-v1'],['#best-chain','cp-chain-best-v1']]){try{let score=Number(localStorage.getItem(key))||0;if(score>0)$(id).textContent=score.toLocaleString('ja-JP')}catch(_){}}
+ for(const [id,key] of [['#best-drop','cpdrop-best-v1'],['#best-chain','cp-chain-best-v1'],['#best-fruits','cp-fruits-best-v1']]){try{let score=Number(localStorage.getItem(key))||0;if(score>0)$(id).textContent=score.toLocaleString('ja-JP')}catch(_){}}
  const toast=$('#toast');let timer;
  function show(message){toast.textContent=message;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),2600)}
  async function share(){
   if(location.protocol==='file:'){show('Web公開したURLからシェアしてな！');return}
   const url=location.href;
-  if(navigator.share){try{await navigator.share({title:'CP ARCADE',text:'スマホで遊べるミニゲーム2本！一緒に遊ぼう🎮',url});return}catch(e){if(e?.name==='AbortError')return}}
+  if(navigator.share){try{await navigator.share({title:'CP ARCADE',text:'スマホで遊べるミニゲーム3本！フルーツ合体も追加したで🎮',url});return}catch(e){if(e?.name==='AbortError')return}}
   try{await navigator.clipboard.writeText(url);show('リンクをコピーしたで！LINEに貼ってな')}catch(e){
     const t=document.createElement('textarea');t.value=url;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();const ok=document.execCommand('copy');t.remove();show(ok?'リンクをコピーしたで！LINEに貼ってな':'このページのURLをLINEに送ってな')
   }

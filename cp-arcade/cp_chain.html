@@ -113,6 +113,7 @@ h1 span{color:#ff92c7}
   </div>
   <p class="help">盤面<strong><b>タップで回転</b></strong> ／ 横スワイプで移動 ／ 下スワイプで一気落とし<br>スマホだけで遊べる・ベストスコア保存・オフライン対応</p>
 </main>
+<script src="./ranking.js" defer></script>
 <script>
 (()=>{
 'use strict';
@@ -142,9 +143,9 @@ function update(){saveBest();$('#score').textContent=String(score).padStart(6,'0
 }
 function showOverlay(title,desc,btn){$('#overlay-title').textContent=title;$('#overlay-desc').innerHTML=desc;$('#overlay-btn').textContent=btn;$('#overlay').classList.remove('hidden')}
 function hideOverlay(){$('#overlay').classList.add('hidden')}
-function newGame(){board=blank();active=null;queue=[pair(),pair()];score=0;level=1;cleared=0;maxChain=0;dropCount=0;lastChain=0;chain=0;flashCells=[];fallItems=[];particles=[];floating=[];fallClock=0;mode='playing';phase='';lastFrame=performance.now();spawn();hideOverlay();update();drawPreviews();render(lastFrame)}
+function newGame(){window.CPLeaderboard?.start('chain');board=blank();active=null;queue=[pair(),pair()];score=0;level=1;cleared=0;maxChain=0;dropCount=0;lastChain=0;chain=0;flashCells=[];fallItems=[];particles=[];floating=[];fallClock=0;mode='playing';phase='';lastFrame=performance.now();spawn();hideOverlay();update();drawPreviews();render(lastFrame)}
 function spawn(){active={...queue.shift(),x:2,y:1,rot:0};queue.push(pair());drawPreviews();if(!canPlace(active,active.x,active.y,active.rot)){active=null;gameOver()}}
-function gameOver(){mode='over';phase='';flashCells=[];fallItems=[];saveBest();update();playSfx('end');showOverlay('ゲームオーバー',`スコア <strong>${score.toLocaleString('ja-JP')} 点</strong><br>最高連鎖 ${maxChain} れんさ！<br>もう一回いっとく？`,'もう一回 ▶')}
+function gameOver(){window.CPLeaderboard?.finish('chain',score);mode='over';phase='';flashCells=[];fallItems=[];saveBest();update();playSfx('end');showOverlay('ゲームオーバー',`スコア <strong>${score.toLocaleString('ja-JP')} 点</strong><br>最高連鎖 ${maxChain} れんさ！<br>もう一回いっとく？`,'もう一回 ▶')}
 function playSfx(kind,n=1){if(!audioOn)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();let t=audioCtx.currentTime;
   const tones=kind==='clear'?[330*Math.pow(1.26,Math.min(n-1,4)),495*Math.pow(1.23,Math.min(n-1,4))]:kind==='drop'?[135]:kind==='rotate'?[440]:kind==='end'?[280,210]:[360];
   tones.forEach((f,i)=>{const o=audioCtx.createOscillator(),v=audioCtx.createGain();o.type=kind==='drop'?'triangle':'sine';o.frequency.setValueAtTime(f,t+i*.07);v.gain.setValueAtTime(.0001,t+i*.07);v.gain.exponentialRampToValueAtTime(kind==='clear'?.10:.045,t+i*.07+.012);v.gain.exponentialRampToValueAtTime(.0001,t+i*.07+(kind==='end'?.18:.1));o.connect(v).connect(audioCtx.destination);o.start(t+i*.07);o.stop(t+i*.07+.21)})}catch(_){}}

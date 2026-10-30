@@ -63,7 +63,7 @@ main{width:min(100%,520px);margin:auto;padding:calc(env(safe-area-inset-top,0px)
  <div class="actions"><button class="mini" id="pause">Ⅱ 一時停止</button><button class="mini" id="restart">↻ 最初から</button></div>
  <p class="foot">ベストスコアはこの端末に保存されるで 🏆 · CP ARCADE 2026</p>
 </main>
-<script src="./ranking.js"></script>
+<script src="./ranking.js?v=2"></script>
 <script>
 (()=>{
 'use strict';
@@ -82,7 +82,7 @@ const FRUITS=[
  {name:'すいか',emoji:'🍉',r:84,c:'#6ecf8b',points:1024}
 ];
 let fruits=[],particles=[],floaters=[],aimX=W/2,current=0,next=1,score=0,best=0,id=0,started=false,paused=false,ended=false,canDrop=true,cooldown=0,overflowTimer=0,combo=0,lastMerge=0,clock=0,rafPrev=0,acc=0,activePointer=false,muted=false,audio;
-try{best=Number(localStorage.getItem('cp-fruits-best-v1'))||0;muted=localStorage.getItem('cp-fruits-muted-v1')==='1'}catch(e){}
+try{best=Number(localStorage.getItem('cp-fruits-best-v1'))||0;muted=!(window.CPArcadeSFX?.isEnabled()??(localStorage.getItem('cp-fruits-muted-v1')!=='1'))}catch(e){}
 $('best').textContent=best.toLocaleString('ja-JP');$('sound').textContent=muted?'🔇':'🔊';$('sound').setAttribute('aria-pressed',String(!muted));
 function randType(){const a=Math.random();return a<.34?0:a<.62?1:a<.84?2:3}
 function clamp(v,min,max){return Math.min(max,Math.max(min,v))}
@@ -95,8 +95,8 @@ function newGame(){window.CPLeaderboard?.start('fruits');fruits=[];particles=[];
 function drop(){if(!started||paused||ended||!canDrop)return;let r=FRUITS[current].r;aimX=clamp(aimX,r+3,W-r-3);fruits.push(make(aimX,44,current,0,.6));canDrop=false;cooldown=.54;current=next;next=randType();updateNext();beep(270,.07,'sine',.08)}
 function finish(){if(ended)return;ended=true;window.CPLeaderboard?.finish('fruits',score);setControls(false);beep(190,.19,'sawtooth',.06);setOverlay('🍉 💦','GAME OVER','おつかれさま！','もういっちょ挑戦してな！','もう一回遊ぶ',score)}
 function togglePause(){if(!started||ended)return;paused=!paused;if(paused){setOverlay('🍐 🍊','PAUSE','休憩中やで','続きから、いつでも再開できるで！','ゲームに戻る',null);setControls(false);$('pause').textContent='▶ 再開'}else{$('overlay').hidden=true;setControls(true);$('pause').textContent='Ⅱ 一時停止'}}
-function toggleSound(){muted=!muted;$('sound').textContent=muted?'🔇':'🔊';$('sound').setAttribute('aria-pressed',String(!muted));try{localStorage.setItem('cp-fruits-muted-v1',muted?'1':'0')}catch(e){}if(!muted)beep(760,.07,'sine',.035)}
-function beep(freq,duration=.08,type='sine',volume=.07){if(muted)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;if(!audio)audio=new AC();if(audio.state==='suspended')audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(70,freq*.75),audio.currentTime+duration);g.gain.setValueAtTime(volume,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+duration+.01)}catch(e){}}
+function toggleSound(){muted=!muted;window.CPArcadeSFX?.setEnabled(!muted);$('sound').textContent=muted?'🔇':'🔊';$('sound').setAttribute('aria-pressed',String(!muted));try{localStorage.setItem('cp-fruits-muted-v1',muted?'1':'0')}catch(e){}if(!muted)beep(760,.07,'sine',.035)}
+function beep(freq,duration=.08,type='sine',volume=.07){if(muted)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;if(!audio)audio=new AC();if(audio.state==='suspended')audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(70,freq*.75),audio.currentTime+duration);g.gain.setValueAtTime(volume*.65,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+duration+.01)}catch(e){}}
 function mergePairs(){const used=new Set(),merged=[];
  for(let i=0;i<fruits.length;i++){
   const a=fruits[i];if(used.has(a.id))continue;
@@ -192,7 +192,7 @@ canvas.addEventListener('pointerdown',ev=>{if(!started||ended||paused)return;ev.
 canvas.addEventListener('pointermove',ev=>{if(!started||ended||paused)return;if(activePointer){ev.preventDefault();aimX=xFromEvent(ev)}},{passive:false});
 canvas.addEventListener('pointerup',ev=>{if(!activePointer)return;ev.preventDefault();activePointer=false;aimX=xFromEvent(ev);drop()},{passive:false});
 canvas.addEventListener('pointercancel',()=>activePointer=false);
-function move(n){if(!started||paused||ended)return;aimX=clamp(aimX+n,FRUITS[current].r+3,W-FRUITS[current].r-3)}
+function move(n){if(!started||paused||ended)return;const prev=aimX;aimX=clamp(aimX+n,FRUITS[current].r+3,W-FRUITS[current].r-3);if(aimX!==prev)beep(505,.028,'sine',.018)}
 $('left').addEventListener('click',()=>move(-22));$('right').addEventListener('click',()=>move(22));$('drop').addEventListener('click',drop);
 $('pause').addEventListener('click',togglePause);$('sound').addEventListener('click',toggleSound);
 $('restart').addEventListener('click',()=>{if(started&&!ended&&!window.confirm('最初からやり直す？ 今のスコアはリセットされるで。'))return;newGame()});

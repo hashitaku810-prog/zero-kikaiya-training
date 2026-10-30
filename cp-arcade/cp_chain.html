@@ -113,7 +113,7 @@ h1 span{color:#ff92c7}
   </div>
   <p class="help">盤面<strong><b>タップで回転</b></strong> ／ 横スワイプで移動 ／ 下スワイプで一気落とし<br>スマホだけで遊べる・ベストスコア保存・オフライン対応</p>
 </main>
-<script src="./ranking.js"></script>
+<script src="./ranking.js?v=2"></script>
 <script>
 (()=>{
 'use strict';
@@ -127,7 +127,7 @@ const COLORS={P:{fill:'#ff789e',light:'#ffb5cb',dark:'#bc3f73'},Y:{fill:'#ffce70
 const KEYS=Object.keys(COLORS),DIRECTIONS=[[0,-1],[1,0],[0,1],[-1,0]];
 let board,active,queue,score=0,best=0,level=1,cleared=0,maxChain=0,dropCount=0,lastChain=0;
 let mode='ready',modeBeforePause='playing',pausedAt=0,phase='',stageEnd=0,chain=0,flashCells=[],fallItems=[],fallDuration=0,fallStart=0;
-let lastFrame=performance.now(),fallClock=0,particles=[],floating=[],audioOn=false,audioCtx=null,gesture=null;
+let lastFrame=performance.now(),fallClock=0,particles=[],floating=[],audioOn=(window.CPArcadeSFX?.isEnabled()??true),audioCtx=null,gesture=null;
 try{best=Number(localStorage.getItem('cp-chain-best-v1'))||0}catch(_){}
 const blank=()=>Array.from({length:ROWS},()=>Array(COLS).fill(null));
 const pick=()=>KEYS[Math.floor(Math.random()*KEYS.length)];
@@ -148,7 +148,7 @@ function spawn(){active={...queue.shift(),x:2,y:1,rot:0};queue.push(pair());draw
 function gameOver(){window.CPLeaderboard?.finish('chain',score);mode='over';phase='';flashCells=[];fallItems=[];saveBest();update();playSfx('end');showOverlay('ゲームオーバー',`スコア <strong>${score.toLocaleString('ja-JP')} 点</strong><br>最高連鎖 ${maxChain} れんさ！<br>もう一回いっとく？`,'もう一回 ▶')}
 function playSfx(kind,n=1){if(!audioOn)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();let t=audioCtx.currentTime;
   const tones=kind==='clear'?[330*Math.pow(1.26,Math.min(n-1,4)),495*Math.pow(1.23,Math.min(n-1,4))]:kind==='drop'?[135]:kind==='rotate'?[440]:kind==='end'?[280,210]:[360];
-  tones.forEach((f,i)=>{const o=audioCtx.createOscillator(),v=audioCtx.createGain();o.type=kind==='drop'?'triangle':'sine';o.frequency.setValueAtTime(f,t+i*.07);v.gain.setValueAtTime(.0001,t+i*.07);v.gain.exponentialRampToValueAtTime(kind==='clear'?.10:.045,t+i*.07+.012);v.gain.exponentialRampToValueAtTime(.0001,t+i*.07+(kind==='end'?.18:.1));o.connect(v).connect(audioCtx.destination);o.start(t+i*.07);o.stop(t+i*.07+.21)})}catch(_){}}
+  tones.forEach((f,i)=>{const o=audioCtx.createOscillator(),v=audioCtx.createGain();o.type=kind==='drop'?'triangle':'sine';o.frequency.setValueAtTime(f,t+i*.07);v.gain.setValueAtTime(.0001,t+i*.07);v.gain.exponentialRampToValueAtTime(kind==='clear'?.041:.020,t+i*.07+.012);v.gain.exponentialRampToValueAtTime(.0001,t+i*.07+(kind==='end'?.18:.1));o.connect(v).connect(audioCtx.destination);o.start(t+i*.07);o.stop(t+i*.07+.21)})}catch(_){}}
 function move(dx){if(mode!=='playing'||!active)return;const x=active.x+dx;if(canPlace(active,x,active.y,active.rot)){active.x=x;playSfx('move')}render(performance.now())}
 function rotate(){if(mode!=='playing'||!active)return;const nr=(active.rot+1)%4;for(const[dx,dy]of[[0,0],[-1,0],[1,0],[0,-1],[-2,0],[2,0],[0,1]]){if(canPlace(active,active.x+dx,active.y+dy,nr)){active.x+=dx;active.y+=dy;active.rot=nr;playSfx('rotate');break}}render(performance.now())}
 function down(addPoints=false){if(mode!=='playing'||!active)return;const ny=active.y+1;if(canPlace(active,active.x,ny,active.rot)){active.y=ny;if(addPoints){score++;update()}}else lock();fallClock=0;render(performance.now())}
@@ -208,7 +208,8 @@ canvas.addEventListener('pointerup',e=>{if(!gesture)return;const dx=e.clientX-ge
 canvas.addEventListener('pointercancel',()=>gesture=null);
 $('#overlay-btn').addEventListener('click',()=>mode==='paused'?pause():newGame());
 $('#pause').addEventListener('click',()=>{if(mode==='over'||mode==='ready')newGame();else pause()});
-$('#sound').addEventListener('click',()=>{audioOn=!audioOn;$('#sound').textContent=audioOn?'🔊':'🔇';$('#sound').setAttribute('aria-label',audioOn?'効果音オン':'効果音オフ');if(audioOn)playSfx('rotate')});
+function updateSoundButton(){$('#sound').textContent=audioOn?'🔊':'🔇';$('#sound').setAttribute('aria-pressed',String(audioOn));$('#sound').setAttribute('aria-label',audioOn?'効果音オン。押すと消音':'効果音オフ。押すと有効')}
+$('#sound').addEventListener('click',()=>{audioOn=!audioOn;window.CPArcadeSFX?.setEnabled(audioOn);updateSoundButton()});updateSoundButton();
 document.addEventListener('keydown',e=>{const k=e.key;if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' ','p','P','Escape','z','Z','x','X'].includes(k))return;if(['INPUT','TEXTAREA','SELECT'].includes(e.target?.tagName))return;e.preventDefault();if(['p','P','Escape'].includes(k)){pause();return}if(mode!=='playing')return;if(k==='ArrowLeft')move(-1);else if(k==='ArrowRight')move(1);else if(k==='ArrowUp'||k==='z'||k==='Z'||k==='x'||k==='X')rotate();else if(k==='ArrowDown')down(true);else if(k===' ')drop()});
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&(mode==='playing'||mode==='resolving'))pause()});
 // テスト用の読み取り専用スナップショット (遊びには影響なし)

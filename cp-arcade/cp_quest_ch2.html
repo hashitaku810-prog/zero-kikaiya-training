@@ -124,7 +124,7 @@ const CLUES={
  s7cal:['三系統の再校正','3つのメーターの数字を正しく戻した。橋は故障したのではなく、誰かの命令で止められたようだ。'],
  s8notice:['駅の避難案内','「橋の停止後に、避難列車が連絡駅へ入った」。当時の掲示を写した紙。'],
  s8file:['駅務記録の消えた順序','最初に機械へ大きな負担がかかり、次に橋を止める命令が出た。人々を避難させたあと、風速の数字が「0」に書き換えられていた。'],
- s8truth:['公式報告を覆す時系列','橋は風が止まったから閉じたのではない。誰かが橋を止めてから、風速の記録を変えていた。'],
+ s8truth:['公式報告を覆す時系列','橋は風のせいで閉じたのではない。誰かが橋を止めてから、風速の記録を変えていた。'],
  s9draft:['旧設計の隔離機構','2つの出口へ電気をつなげば、橋を開く準備ができる。ただし、開き方によって人の移動と別の街への負担が変わる。'],
  s9route:['鉄橋の通行判断','橋を全部開くか、必要な人だけ通すか。どちらも誰かの暮らしに影響する。リクが選んだ方法を記録した。'],
  s10note:['セラの短波通信','「橋を止めたのは、最初から私だけじゃない」。録音には名前を呼ぶ前の長い沈黙がある。'],
@@ -167,7 +167,7 @@ function scene(lines,done=()=>{}){dialog=lines;dialogIndex=0;afterDialog=done;dr
 function drawDialog(){openModal();mode='dialog';const [speaker,message]=dialog[dialogIndex];textblock('div','eyebrow','LOG / '+String(dialogIndex+1).padStart(2,'0')+' — '+String(dialog.length).padStart(2,'0'));textblock('div','speaker',speaker);textblock('div','speech',message);buttons([dialogIndex===dialog.length-1?'続ける':'次へ ▸',()=>{audioNote(590);if(dialogIndex+1<dialog.length){dialogIndex++;drawDialog()}else{closeModal();afterDialog()}}])}
 function promptBox(title,body,actions){openModal();mode='choice';textblock('div','eyebrow','CP QUEST / CHAPTER 02');textblock('h2','',title);for(const item of body)textblock('p','',item);buttons(...actions)}
 function intro(i){switch(i){
- case 0:return [['第2章　風の止まった鉄橋','灯台を後にしたリクとポルは、交通路を断たれた鉄橋へ向かう。'],['ポル','ねえ、リク。風がなくなったから橋を閉じたって、本当なのかな？'],['リク','おかしいな。旗は揺れているのに、記録だけ「風速0」なんだ。'],['老保線員',g.lighting==='full'?'港の明かりは見えたよ。でも、あの夜から妻が二人の思い出の歌を忘れてしまったんだ。':'港の明かりは一部だけだったね。それでも、失った記憶が戻った人はいないんだ。'],['ポル','まず現場の風速計と、中央に残った記録を比べてみよう。']];
+ case 0:return [['第2章　風の止まった鉄橋','灯台を後にしたリクとポルは、交通路を断たれた鉄橋へ向かう。'],['ポル','ねえ、リク。橋は強い風で閉じたと聞いたのに、中央の記録には「風速0」とある。どうして？'],['リク','おかしいな。旗は揺れているのに、記録だけ「風速0」なんだ。'],['老保線員',g.lighting==='full'?'港の明かりは見えたよ。でも、あの夜から妻が二人の思い出の歌を忘れてしまったんだ。':'港の明かりは一部だけだったね。それでも、失った記憶が戻った人はいないんだ。'],['ポル','まず現場の風速計と、中央に残った記録を比べてみよう。']];
  case 1:return [['ポル','橋の安全装置は直った。でも、風の数字を誰かが書き換えた跡があった。'],['リク','整備基地の機械には、元の数字が残っているかもしれない。'],['機械音','ギギ……。二体の警備機が修理屋に向かってくる。']];
  case 2:return [['ナギ','連絡駅にいた人たちは、橋がいつ閉じたかを覚えていない。'],['リク','紙の記録は残っている。出来事の順番を並べれば、本当のことが分かるはずだ。'],['ポル','今度は修理じゃなくて、記録をつなぐ仕事だね。']];
  case 3:return [['避難待ちの人々','この先が開かないと、病院まで薬が届かない……。'],['ポル','でも、電気を全部戻すと、ほかの街の機械に大きな負担がかかるみたい。'],['リク','まずは2つの回路に電気を通そう。橋の開き方は、そのあとで決めよう。']];
@@ -253,7 +253,7 @@ function startCombat(e){let focus=0,round=0,last=null;
 function action(){if(mode!=='play')return;stopAuto();let enemies=g.enemies.filter(e=>e.hp>0&&dist(e,g)<=1);if(enemies.length){attack(enemies[0]);return}let n=nearby();if(n.length){interact(n[0]);return}toast('調べられるものが近くにない。光る設備を探そう')}
 function interact(o){if(mode!=='play'||!visible(o))return;stopAuto();audioNote(690,.06);const f=g.flags;
  switch(o.id){
- case 's6meter':flag(o.id);addClue(o.id);scene([['風速計','現場の風速は7.0m/s。風速計は今も動いている。'],['リク','風は吹いている。誰が「風が止まった」と言い出したんだ？']]);break;
+ case 's6meter':flag(o.id);addClue(o.id);scene([['風速計','現場の風速は7.0m/s。風速計は今も動いている。'],['リク','風は吹いている。誰が風速を「0」と書いたんだ？']]);break;
  case 's6log':flag(o.id);addClue(o.id);scene([['中央観測端末','公式記録：風速0.0m/s。判定：異常なし。'],['ポル','現場は風速7なのに、中央の記録だけ0なんだ。記録を変えた人がいるのかな？']]);break;
  case 's6guard':scene([['老保線員',g.branch==='main'?'港が明るくなったあと、遠くの街の機械までおかしくなったんだ。':'港の明かりは少なかったけれど、こちらの街の機械には大きな負担がかからなかった。'],['リク','港の電気と、この鉄橋の装置はつながっているのか……？']]);break;
  case 's6panel':if(f.s6panel){toast('橋の安全装置は修理済みです。');break}if(!(f.s6meter&&f.s6log)){toast('現場の数字と、中央の記録を先に調べてください。');break}circuitPuzzle('検問制動回路：単系統',false,()=>{flag('s6panel');addClue('s6panel');scene([['制動盤','修理が終わりました。風速の数字は、誰かによって「0」に固定されていました。'],['リク','故障じゃない。誰かが「0」と表示させたんだ……。']])});break;
@@ -264,7 +264,7 @@ function interact(o){if(mode!=='play'||!visible(o))return;stopAuto();audioNote(6
  case 's8notice':flag(o.id);addClue(o.id);scene([['駅の掲示','「橋の停止後に、避難列車が到着」。手書きで記されている。'],['リク','公式の記録では、強風で列車が止まったことになっているのに……。']]);break;
  case 's8file':flag(o.id);addClue(o.id);scene([['破れた駅務帳','「機械に異常 → 橋を止める命令 → 避難の知らせ → 風速を0に変更」。最後の2行だけ字が違う。'],['ナギ','順序を間違えたら、本当に止めた理由まで消えてしまう。']]);break;
  case 's8nagi':scene([['ナギ','人は記憶を失うと、書き残した紙を信じるしかなくなる。'],['ナギ','でも、紙でも書いた人が嘘をついていたら、信じられない。'],['リク','なら、別々の記録を組み合わせる。']]);break;
- case 's8board':if(f.s8board){toast('時系列の照合は完了した');break}if(!(f.s8notice&&f.s8file)){toast('紙の記録が二種類必要');break}evidencePuzzle(()=>{flag('s8board');addClue('s8truth');scene([['照合端末','本当の順番：機械の異常 → 橋を止める命令 → 避難 → 風速を0に変更。'],['リク','風が止まったから橋を閉じたんじゃない。橋を閉じてから、風速の記録を変えたんだ。'],['ポル','つまり、この封鎖は誰かを守るため……？']])});break;
+ case 's8board':if(f.s8board){toast('時系列の照合は完了した');break}if(!(f.s8notice&&f.s8file)){toast('紙の記録が二種類必要');break}evidencePuzzle(()=>{flag('s8board');addClue('s8truth');scene([['照合端末','本当の順番：機械の異常 → 橋を止める命令 → 避難 → 風速を0に変更。'],['リク','風のせいで橋を閉じたんじゃない。橋を閉じてから、風速の記録を変えたんだ。'],['ポル','つまり、この封鎖は誰かを守るため……？']])});break;
  case 's9draft':flag(o.id);addClue(o.id);scene([['旧設計書','1つの入口から、2つの出口へ電気をつなぐ。橋の開き方は、そのあとで決める。'],['リク','電気をつなぐだけでは終わらない。開き方も考えなきゃいけないんだな。']]);break;
  case 's9worker':scene([['保線員','橋を全部開いてくれたら助かる。薬も人も運べるから。'],['保線員','でも、そのせいで別の街の機械に無理をさせるんだろう……？'],['ポル','どっちを選んでも、誰かの明日が変わる。']]);break;
  case 's9panel':if(f.s9done){toast('橋を開く方法が決まりました。中央へ進もう。');break}if(!f.s9draft){toast('旧設計書を先に確認しよう');break}if(f.s9ready){bridgeChoice();break}circuitPuzzle('鉄橋配電：二系統同時接続',true,()=>{flag('s9ready');scene([['配電盤','二系統復旧。最終判断を求めます。'],['リク','電気をつなぐことと、どんな使い方をするかは別の問題だな。']],bridgeChoice)});break;

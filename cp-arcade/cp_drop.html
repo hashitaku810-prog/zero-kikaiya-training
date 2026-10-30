@@ -96,6 +96,7 @@ h1{font-size:22px;margin:-2px 0 0;letter-spacing:1px;line-height:1.2}
   </div>
   <p class="help">タッチ操作対応 <b>・</b> キーボードもOK（← → ↓ ↑ / Space / P）<br>ベストスコアは端末内に保存されるで</p>
 </div>
+<script src="./ranking.js" defer></script>
 <script>
 (()=>{
   'use strict';
@@ -116,8 +117,8 @@ h1{font-size:22px;margin:-2px 0 0;letter-spacing:1px;line-height:1.2}
   function pick(){if(!state.bag.length){state.bag=Object.keys(SHAPES);for(let i=state.bag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[state.bag[i],state.bag[j]]=[state.bag[j],state.bag[i]]}}return state.bag.pop()}
   function collides(matrix,px,py){for(let y=0;y<matrix.length;y++)for(let x=0;x<matrix[y].length;x++){if(!matrix[y][x])continue;const X=px+x,Y=py+y;if(X<0||X>=W||Y>=H||(Y>=0&&state.board[Y][X]))return true}return false}
   function spawn(){const t=state.next??pick();state.next=pick();const m=SHAPES[t].map(r=>r.slice());state.piece={t,m,x:Math.floor((W-m[0].length)/2),y:0};if(collides(m,state.piece.x,state.piece.y))end();drawNext()}
-  function newGame(){state.board=empty();state.bag=[];state.next=pick();state.score=0;state.lines=0;state.level=1;state.started=true;state.paused=false;state.over=false;state.fall=0;state.last=performance.now();spawn();hideOverlay();update();draw()}
-  function end(){state.over=true;state.started=false;updateBest();showOverlay('GAME OVER','スコア '+state.score.toLocaleString('ja-JP')+' 点！<br>もう一回チャレンジする？','もう一度 ▶','✦');update()}
+  function newGame(){window.CPLeaderboard?.start('drop');state.board=empty();state.bag=[];state.next=pick();state.score=0;state.lines=0;state.level=1;state.started=true;state.paused=false;state.over=false;state.fall=0;state.last=performance.now();spawn();hideOverlay();update();draw()}
+  function end(){state.over=true;state.started=false;window.CPLeaderboard?.finish('drop',state.score);updateBest();showOverlay('GAME OVER','スコア '+state.score.toLocaleString('ja-JP')+' 点！<br>もう一回チャレンジする？','もう一度 ▶','✦');update()}
   function updateBest(){if(state.score>state.best){state.best=state.score;try{localStorage.setItem('cpdrop-best-v1',String(state.best))}catch(e){}}}
   function update(){updateBest();$('#cp-score').textContent=String(state.score).padStart(6,'0');$('#cp-lines').textContent=state.lines;$('#cp-best').textContent=state.best.toLocaleString('ja-JP');$('#cp-level').textContent=String(state.level).padStart(2,'0');$('#cp-state').textContent=state.over?'END':state.paused?'PAUSE':state.started?'PLAY':'READY';$('#cp-pause').textContent=state.paused?'▶':'Ⅱ'}
   function showOverlay(title,desc,button,icon){$('#cp-overlay-title').textContent=title;$('#cp-overlay-desc').innerHTML=desc;$('#cp-overlay-btn').textContent=button;$('#cp-overlay-icon').textContent=icon;$('#cp-overlay').classList.remove('hidden')}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CP パズル画像 読込み検査30件</title>
+<style>
+:root{font-family:system-ui,Meiryo,sans-serif;color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0c1528;color:#eaf3fe}
+main{max-width:980px;margin:auto;padding:16px 10px 36px}
+h1{font-size:clamp(18px,4vw,27px)}p{line-height:1.7;font-size:13px;color:#bacee1}a{color:#b0e2ff}
+button{background:#294a71;color:white;border:1px solid #7290ac;border-radius:10px;padding:11px 14px;min-height:40px;font-weight:700;margin:2px}
+button:disabled{opacity:.45}button.primary{background:#edc77a;color:#1d2b3f}
+.panel{padding:14px;margin-bottom:14px;border-radius:14px;background:#182a43;border:1px solid #47617f}
+.stats{display:flex;gap:12px;flex-wrap:wrap;font-weight:bold;margin:12px 0}
+.stats>div{background:#0b1a31;border-radius:8px;padding:7px 12px}
+#cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(222px,1fr));gap:9px}
+.card{background:#1d2f4b;border:1px solid #496689;border-radius:12px;overflow:hidden}
+.photos{display:grid;grid-template-columns:1fr 1fr;height:112px}
+.photos img{width:100%;height:112px;object-fit:contain;background:#111b2a}
+.photos img:last-child{object-fit:cover}
+.body{padding:9px}.name{font-size:14px;font-weight:800}.status{font-size:12px;margin:6px 0;min-height:30px}
+.ok{color:#90f2ba}.bad{color:#ff9da4}.doing{color:#ffdb94}
+.note{font-size:11px;color:#acbfd5}
+</style></head>
+<body><main><a href="./cp_picture_puzzle.html">‹ パズルに戻る</a>
+<h1>🧩 追加画像30件の読み込みチェック</h1>
+<div class="panel">
+<p>ゲームに追加する名画15件・建物15件を、このブラウザで画像として実際に表示できるかチェックする。<strong>ゲーム本体とセーブデータは変更しません。</strong></p>
+<button id="run" class="primary">▶ 30件をチェック</button>
+<button id="retry" disabled>失敗した画像を再チェック</button>
+<button id="export" disabled>結果をJSON保存</button>
+<div class="stats"><div id="total">0 / 30</div><div id="good">成功 0</div><div id="bad">失敗 0</div></div>
+<p id="progress" aria-live="polite">未実行</p>
+<p class="note">画像URL取得＋軽量版1024px程度の実表示を判定。右側はゲーム想定の正方形トリミング表示。著作権やファイル保存の合否とは別です。通信失敗時は再チェックできます。</p>
+</div><div id="cards"></div></main>
+<script>
+'use strict';
+const items=[{"n":31,"title":"モナ・リザ","file":"Leonardo_da_Vinci_-_Mona_Lisa_(Louvre,_Paris).jpg"},{"n":32,"title":"最後の晩餐","file":"Last_Supper_by_Leonardo_da_Vinci.jpg"},{"n":33,"title":"星月夜","file":"Vincent_Van_Gogh_Starry_Night.jpg"},{"n":34,"title":"ひまわり","file":"Sunflowers_National_Gallery.jpg"},{"n":35,"title":"真珠の耳飾りの少女","file":"1665_Girl_with_a_Pearl_Earring.jpg"},{"n":36,"title":"睡蓮","file":"Claude_Monet_-_Waterlilies_-_Google_Art_Project.jpg"},{"n":37,"title":"印象・日の出","file":"Monet_-_Impression,_Sunrise.jpg"},{"n":38,"title":"叫び","file":"The_Scream.jpg"},{"n":39,"title":"夜のカフェテラス","file":"Van_Gogh_-_Terrace_of_a_Café_at_Night_(Place_du_Forum)_1888.jpg"},{"n":40,"title":"牛乳を注ぐ女","file":"Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg"},{"n":41,"title":"落穂拾い","file":"Jean-François_Millet_-_Des_glaneuses.jpg"},{"n":42,"title":"ムーラン・ド・ラ・ギャレット","file":"Pierre-Auguste_Renoir_-_Bal_du_moulin_de_la_Galette.jpeg"},{"n":43,"title":"ヴィーナスの誕生","file":"La_naissance_de_Vénus,_Boticelli.jpg"},{"n":44,"title":"接吻","file":"Klimt_-_The_Kiss.jpg"},{"n":45,"title":"白貂を抱く貴婦人","file":"Lady_with_the_ermine.jpg"},{"n":46,"title":"エッフェル塔","file":"Eiffel_Tower_during_day_01.jpg"},{"n":47,"title":"ビッグ・ベン","file":"BigBenLondon.jpg"},{"n":48,"title":"タージ・マハル","file":"Taj_Mahal_frontal.jpg"},{"n":49,"title":"ピサの斜塔","file":"Leaning_tower_of_Pisa.jpg"},{"n":50,"title":"サグラダ・ファミリア","file":"Facade_of_the_Sagrada_Familia,_Barcelona,_Spain.jpg"},{"n":51,"title":"コロッセオ","file":"Exterior_of_Roman_Colosseum.jpg"},{"n":52,"title":"オペラハウス","file":"Sydney_Opera_House.jpg"},{"n":53,"title":"自由の女神","file":"Statue_of_Liberty_-_New_York_City.jpg"},{"n":54,"title":"ブルジュ・ハリファ","file":"Burj_Khalifa_-_Dubai.jpg"},{"n":55,"title":"凱旋門","file":"Arc_de_Triomphe_-_Front.jpg"},{"n":56,"title":"ノイシュヴァンシュタイン城","file":"Neuschwanstein_Castle_in_Germany.jpg"},{"n":57,"title":"モン・サン＝ミシェル","file":"Mont-Saint-Michel_from_distance.JPG"},{"n":58,"title":"ペトラ遺跡","file":"Petra_-_Al_Khazneh.jpg"},{"n":59,"title":"富士山と忠霊塔","file":"Chureito_Pagoda_and_Mount_Fuji.jpg"},{"n":60,"title":"姫路城","file":"Himeji_castle.jpg"}];
+const $=id=>document.getElementById(id);const results=new Map();let busy=false;
+function source(it){return 'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(it.file)}
+function render(){const root=$('cards');root.replaceChildren();for(const it of items){
+ const c=document.createElement('div');c.className='card';c.id='item-'+it.n;
+ const p=document.createElement('div');p.className='photos';for(let j=0;j<2;j++){const img=document.createElement('img');img.alt='';p.append(img)}
+ const b=document.createElement('div');b.className='body';const t=document.createElement('div');t.className='name';t.textContent=it.n+'. '+it.title;
+ const s=document.createElement('div');s.className='status';s.textContent='未確認';const a=document.createElement('a');a.textContent='出典を見る';a.href=source(it);a.target='_blank';a.rel='noopener';
+ b.append(t,s,a);c.append(p,b);root.append(c);
+}}
+function mark(it,msg,cls,url){const card=$('item-'+it.n),status=card.querySelector('.status');status.textContent=msg;status.className='status '+cls;
+ if(url)for(const img of card.querySelectorAll('img'))img.src=url;
+}
+async function lookup(it){const api=new URL('https://commons.wikimedia.org/w/api.php');const q=api.searchParams;
+ for(const [k,v] of Object.entries({action:'query',format:'json',origin:'*',redirects:'1',prop:'imageinfo',iiprop:'url|size|mime',iiurlwidth:'1024',titles:'File:'+it.file}))q.set(k,v);
+ const ac=new AbortController(),timer=setTimeout(()=>ac.abort(),16000);
+ let r;try{r=await fetch(api.toString(),{signal:ac.signal,cache:'no-store'})}finally{clearTimeout(timer)}
+ if(!r.ok)throw Error('画像情報HTTP '+r.status);const data=await r.json();
+ if(data.error)throw Error(data.error.info||'API error');
+ const info=Object.values(data.query?.pages||{})[0]?.imageinfo?.[0];
+ if(!info)throw Error('Commonsに画像情報なし');if(info.mime&&!info.mime.startsWith('image/'))throw Error('画像形式ではない');
+ return {url:info.thumburl||info.url,original:info.url,bytes:info.size,mime:info.mime};
+}
+function load(url){return new Promise((resolve,reject)=>{const img=new Image();let done=false;
+ const timer=setTimeout(()=>{if(done)return;done=true;img.onload=img.onerror=null;img.src='';reject(Error('画像表示タイムアウト'))},18000);
+ img.onload=()=>{if(done)return;done=true;clearTimeout(timer);resolve({w:img.naturalWidth,h:img.naturalHeight})};
+ img.onerror=()=>{if(done)return;done=true;clearTimeout(timer);reject(Error('画像表示失敗'))};img.src=url;
+})}
+function stats(){const xs=[...results.values()];$('total').textContent=xs.length+' / 30';$('good').textContent='成功 '+xs.filter(x=>x.ok).length;$('bad').textContent='失敗 '+xs.filter(x=>!x.ok).length}
+async function run(mode){if(busy)return;busy=true;$('run').disabled=true;$('retry').disabled=true;$('export').disabled=true;
+ if(mode==='all'){results.clear();render()}
+ const queue=items.filter(it=>mode==='all'||!results.get(it.n)?.ok);let idx=0,done=0;
+ async function worker(){while(idx<queue.length){const it=queue[idx++];mark(it,'通信・画像確認中…','doing');
+ const record={number:it.n,title:it.title,commons_file:it.file,source_url:source(it),date:new Date().toISOString(),ok:false};
+ try{const m=await lookup(it),d=await load(m.url);if(d.w<500||d.h<500)throw Error('解像度不足 '+d.w+'×'+d.h);
+ Object.assign(record,{ok:true,url:m.url,original:m.original,original_bytes:m.bytes,mime:m.mime,width:d.w,height:d.h});mark(it,'表示OK '+d.w+'×'+d.h,'ok',m.url);
+ }catch(e){record.error=String(e?.message||e);mark(it,'失敗：'+record.error,'bad')}
+ results.set(it.n,record);done++;stats();$('progress').textContent='テスト中 '+done+'/'+queue.length+'件';
+ }}
+ try{await Promise.all([worker(),worker()])}
+ finally{busy=false;stats();$('run').disabled=false;$('retry').disabled=![...results.values()].some(x=>!x.ok);
+ $('export').disabled=results.size===0;$('progress').textContent='検査終了。失敗があれば再チェック、結果はJSONで保存できるで！';}}
+function exportJSON(){if(!results.size)return;const doc={project:'CP PICTURE PUZZLE',type:'browser_loading_test',tested_at:new Date().toISOString(),results:[...results.values()].sort((a,b)=>a.number-b.number)};
+ const blob=new Blob([JSON.stringify(doc,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='CP_PICTURE_PUZZLE_IMAGE_TEST_RESULT.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000)}
+$('run').onclick=()=>run('all');$('retry').onclick=()=>run('retry');$('export').onclick=exportJSON;render();
+</script></body></html>

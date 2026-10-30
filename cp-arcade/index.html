@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0e20">
-<meta name="description" content="CP ARCADEで気軽に遊ぼう！スマホのブラウザで遊べる無料のミニゲーム3本。登録もアプリも不要。">
+<meta name="description" content="CP ARCADEで気軽に遊ぼう！スマホのブラウザで遊べる無料のミニゲーム4本。登録もアプリも不要。">
 <meta property="og:title" content="CP ARCADE｜スマホで遊べるミニゲーム">
-<meta property="og:description" content="スマホで遊べる3本のオリジナルパズルゲーム🎮">
+<meta property="og:description" content="スマホで遊べる4本のオリジナルパズルゲーム🎮">
 <meta property="og:type" content="website">
 <title>CP ARCADE｜スマホで遊べるミニゲーム</title>
 <style>
@@ -33,17 +33,17 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
 .visual{position:relative;overflow:hidden;background:#121a30;aspect-ratio:340/215;border-bottom:1px solid #343a5a}.visual svg{width:100%;height:100%;display:block}
 .visual::after{content:"";position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(transparent,#11152877);pointer-events:none}
 .number{position:absolute;left:13px;top:12px;z-index:1;display:block;color:#d6edff;background:#07101ca8;backdrop-filter:blur(6px);border:1px solid #ffffff2c;border-radius:8px;padding:7px 9px;font-size:10px;font-weight:850;letter-spacing:1px}
-.content{padding:17px 17px 18px;display:flex;flex-direction:column;gap:8px;flex:1}.category{font-size:10px;letter-spacing:1.2px;font-weight:900;color:#78e6d5}.game.chain .category{color:#c399ff}.game.fruits .category{color:#ffca83}.game.titleline{display:flex;align-items:center;justify-content:space-between;gap:8px}.titleline h3{font-size:25px;letter-spacing:.7px;margin:0;font-weight:1000}.score{font-size:10px;font-weight:800;color:#a3a9c7;white-space:nowrap}.score b{display:block;color:#ffdb94;font-size:12px;text-align:right;margin-top:3px;font-variant-numeric:tabular-nums}
+.content{padding:17px 17px 18px;display:flex;flex-direction:column;gap:8px;flex:1}.category{font-size:10px;letter-spacing:1.2px;font-weight:900;color:#78e6d5}.game.chain .category{color:#c399ff}.game.fruits .category{color:#ffca83}.game.picture .category{color:#f6d493}.game.titleline{display:flex;align-items:center;justify-content:space-between;gap:8px}.titleline h3{font-size:25px;letter-spacing:.7px;margin:0;font-weight:1000}.score{font-size:10px;font-weight:800;color:#a3a9c7;white-space:nowrap}.score b{display:block;color:#ffdb94;font-size:12px;text-align:right;margin-top:3px;font-variant-numeric:tabular-nums}
 .explain{color:#adb8d3;font-size:12px;margin:1px 0 7px;line-height:1.7;min-height:41px}
 .play{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:50px;border-radius:13px;padding:12px 16px;text-decoration:none;font-size:14px;font-weight:950;background:linear-gradient(135deg,#74efd6,#3fc3cc);color:#0e2834;box-shadow:0 6px 22px #4bd8ca1a}
-.chain .play{background:linear-gradient(135deg,#c7a3ff,#b383fc);color:#291d45;box-shadow:0 6px 22px #b383fc19}.fruits .play{background:linear-gradient(135deg,#ffe19a,#ffab66);color:#3e2536;box-shadow:0 6px 22px #ffa64b22}.play:active{transform:scale(.982)}.arrow{font-size:19px}
+.chain .play{background:linear-gradient(135deg,#c7a3ff,#b383fc);color:#291d45;box-shadow:0 6px 22px #b383fc19}.fruits .play{background:linear-gradient(135deg,#ffe19a,#ffab66);color:#3e2536;box-shadow:0 6px 22px #ffa64b22}.picture .play{background:linear-gradient(135deg,#f5dfa9,#edba78);color:#322947;box-shadow:0 6px 22px #dfa87321}.play:active{transform:scale(.982)}.picture{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr}.picture .visual{aspect-ratio:auto;min-height:225px}.picture .content{justify-content:center}.arrow{font-size:19px}
 .foot{padding:24px 5px 0;text-align:center;color:#7b86aa;font-size:11px;line-height:1.8}
 .toast{position:fixed;z-index:10;bottom:calc(env(safe-area-inset-bottom,0px) + 23px);left:50%;transform:translate(-50%,15px);min-width:220px;padding:12px 17px;background:#ede9ff;color:#252044;border-radius:13px;text-align:center;font-weight:850;font-size:12px;box-shadow:0 15px 35px #0007;opacity:0;pointer-events:none;transition:.2s}.toast.show{transform:translate(-50%,0);opacity:1}
 @media(min-width:820px){.games{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.game.game.game.content{padding:16px 16px 18px}.titleline h3{font-size:22px}}
 @media(min-width:700px){.hero{padding:60px 4px 39px}.wrap{padding-left:30px;padding-right:30px}.lead{font-size:15px}.sectiontop h2{font-size:18px}.content{padding:19px 23px 22px}.explain{font-size:13px}}
 @media(min-width:641px) and (max-width:819px){.game.fruits{grid-column:1/-1;max-width:430px;margin:auto;width:100%}}
 @media(max-width:359px){.wrap{padding-left:12px;padding-right:12px}.hero{padding-top:30px}.titleline h3{font-size:22px}.logo-name{font-size:15px}.share{padding:9px 11px}}
-@media(max-width:640px){.games{grid-template-columns:1fr;gap:16px}.visual{aspect-ratio:340/178}.game{border-radius:18px}.content{gap:6px}.explain{min-height:auto;margin-bottom:5px}.hero{padding-bottom:21px}}
+@media(max-width:640px){.games{grid-template-columns:1fr;gap:16px}.visual{aspect-ratio:340/178}.game{border-radius:18px}.content{gap:6px}.explain{min-height:auto;margin-bottom:5px}.hero{padding-bottom:21px}.picture{display:flex}.picture .visual{aspect-ratio:340/178;min-height:unset}}
 @media(prefers-reduced-motion:reduce){.game,.toast{transition:none}}
 </style>
 </head>
@@ -53,9 +53,9 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
     <button type="button" id="share" class="share" aria-label="このゲームセンターのリンクを共有する"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4m-6.6 7.2 6.6 4.3"/></svg>シェア</button>
   </header>
   <section class="hero">
-    <span class="tag">✦ &nbsp;NOW PLAYING : 03 GAMES</span>
+    <span class="tag">✦ &nbsp;NOW PLAYING : 04 GAMES</span>
     <h1>ちょっと暇？<em>1ゲームどう？</em></h1>
-    <p class="lead">パズルも冒険も、好きなだけ。<br>スマホですぐ遊べる、CPのゲームセンターやで！</p>
+    <p class="lead">落ち物も、絵合わせパズルも、好きなだけ。<br>スマホですぐ遊べる、CPのゲームセンターやで！</p>
     <div class="features"><span class="feature">📱 スマホ対応</span><span class="feature">⚡ インストール不要</span><span class="feature">🎮 無料・登録なし</span></div>
   </section>
   <div class="sectiontop"><h2>遊びたいゲームを選んでな</h2><span class="small">SELECT GAME ↓</span></div>
@@ -120,9 +120,48 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
         <a class="play" href="./cp_fruits.html" aria-label="CP FRUITSをプレイする"><span>プレイする</span><span class="arrow" aria-hidden="true">↗</span></a>
       </div>
     </article>
-    
+    <article class="game picture">
+      <div class="visual">
+        <span class="number">GAME 04 · NEW</span>
+        <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="夕焼けの湖と山を絵合わせパズルにしたイメージ">
+          <defs>
+            <linearGradient id="ppsky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#283f77"/><stop offset=".55" stop-color="#cf7796"/><stop offset="1" stop-color="#f8c384"/>
+            </linearGradient>
+            <linearGradient id="pplake" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#9b7aa8"/><stop offset="1" stop-color="#273f69"/>
+            </linearGradient>
+            <clipPath id="ppframe"><rect x="58" y="22" width="484" height="316" rx="16"/></clipPath>
+          </defs>
+          <rect width="600" height="360" fill="#121a32"/>
+          <g clip-path="url(#ppframe)">
+            <rect x="58" y="22" width="484" height="316" fill="url(#ppsky)"/>
+            <circle cx="408" cy="121" r="48" fill="#ffe0a0" opacity=".93"/>
+            <path d="M40 226 137 104 222 198 319 90 417 223 504 142 577 238v115H40z" fill="#293c69"/>
+            <path d="M40 239 148 151 211 222 322 129 415 240 511 191 585 252v100H40z" fill="#46648a"/>
+            <rect x="56" y="237" width="490" height="108" fill="url(#pplake)"/>
+            <path d="M40 247q100 25 200 6t181 0q65 16 142 6v7H40zM40 299q130-18 256-8t270-4" stroke="#fff1bd" stroke-width="3" opacity=".55" fill="none"/>
+            <path d="M90 333q40-95 65-126l6 101 16-51 24 76M479 333l-24-102-10 82-22-38-15 58" fill="#193c45" opacity=".92"/>
+            <g fill="none" stroke="#f6f1dc" stroke-width="3" opacity=".65">
+              <path d="M127 22v316M196 22v316M265 22v316M334 22v316M403 22v316M472 22v316"/>
+              <path d="M58 67h484M58 112h484M58 157h484M58 202h484M58 247h484M58 292h484"/>
+            </g>
+            <path d="M266 156h68v45h-68z" fill="#fff4c8" opacity=".27" stroke="#fff4c8" stroke-width="3"/>
+          </g>
+          <rect x="58" y="22" width="484" height="316" rx="16" fill="none" stroke="#ddd2b4" stroke-width="4"/>
+          <rect x="353" y="25" rx="10" width="171" height="36" fill="#0e203acf"/>
+          <text x="439" y="48" fill="#ffe7b2" font-family="system-ui" font-weight="900" font-size="16" text-anchor="middle">7×7 / 9×9</text>
+        </svg>
+      </div>
+      <div class="content">
+        <div class="category">PICTURE SWAP PUZZLE · 12 STAGES</div>
+        <div class="titleline"><h3>CP PICTURE PUZZLE</h3><div class="score">NEW<b>全12ステージ</b></div></div>
+        <p class="explain">世界の名画・絶景・動物・料理を絵合わせパズルに！<br>同じ形のピースを交換して、初級から上級へ進もう。</p>
+        <a class="play" href="./cp_picture_puzzle.html" aria-label="CP ピクチャーパズルをプレイする"><span>絵合わせパズルを始める</span><span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </article>
   </section>
-  <footer class="foot">好きなゲームを選んで、タップするだけ。<br>スコアもRPGの進行状況もスマホ内に保存されるで 🏆<br>CP ARCADE · 2026</footer>
+  <footer class="foot">好きなゲームを選んで、タップするだけ。<br>自己ベストもピクチャーパズルの進行状況も保存できるで 🏆<br>CP ARCADE · 2026</footer>
 </main><div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script>
 (()=>{
@@ -134,7 +173,7 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
  async function share(){
   if(location.protocol==='file:'){show('Web公開したURLからシェアしてな！');return}
   const url=location.href;
-  if(navigator.share){try{await navigator.share({title:'CP ARCADE',text:'パズルゲーム3本で遊べるで🎮',url});return}catch(e){if(e?.name==='AbortError')return}}
+  if(navigator.share){try{await navigator.share({title:'CP ARCADE',text:'4本のミニゲームで遊べるで🎮',url});return}catch(e){if(e?.name==='AbortError')return}}
   try{await navigator.clipboard.writeText(url);show('リンクをコピーしたで！LINEに貼ってな')}catch(e){
     const t=document.createElement('textarea');t.value=url;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();const ok=document.execCommand('copy');t.remove();show(ok?'リンクをコピーしたで！LINEに貼ってな':'このページのURLをLINEに送ってな')
   }

@@ -63,6 +63,7 @@ main{width:min(100%,520px);margin:auto;padding:calc(env(safe-area-inset-top,0px)
  <div class="actions"><button class="mini" id="pause">Ⅱ 一時停止</button><button class="mini" id="restart">↻ 最初から</button></div>
  <p class="foot">ベストスコアはこの端末に保存されるで 🏆 · CP ARCADE 2026</p>
 </main>
+<script src="./ranking.js" defer></script>
 <script>
 (()=>{
 'use strict';
@@ -90,9 +91,9 @@ function scoreUpdate(){ $('score').textContent=score.toLocaleString('ja-JP');if(
 function updateNext(){$('next').textContent=FRUITS[next].emoji;$('next').setAttribute('aria-label',FRUITS[next].name)}
 function setOverlay(icon,banner,title,msg,button,points){$('overlayIcon').textContent=icon;$('overlayBanner').textContent=banner;$('overlayTitle').textContent=title;$('overlayText').innerHTML=msg;$('overlayButton').textContent=button;$('overlayScore').hidden=points==null;if(points!=null)$('overlayScore').textContent=points.toLocaleString('ja-JP')+' 点';$('overlay').hidden=false}
 function setControls(on){for(const name of ['left','right','drop'])$(name).disabled=!on}
-function newGame(){fruits=[];particles=[];floaters=[];aimX=W/2;current=randType();next=randType();score=0;scoreUpdate();id=0;started=true;paused=false;ended=false;canDrop=true;cooldown=0;overflowTimer=0;combo=0;lastMerge=0;clock=0;acc=0;activePointer=false;updateNext();$('overlay').hidden=true;$('pause').textContent='Ⅱ 一時停止';setControls(true);beep(540,0.08,'triangle',.035)}
+function newGame(){window.CPLeaderboard?.start('fruits');fruits=[];particles=[];floaters=[];aimX=W/2;current=randType();next=randType();score=0;scoreUpdate();id=0;started=true;paused=false;ended=false;canDrop=true;cooldown=0;overflowTimer=0;combo=0;lastMerge=0;clock=0;acc=0;activePointer=false;updateNext();$('overlay').hidden=true;$('pause').textContent='Ⅱ 一時停止';setControls(true);beep(540,0.08,'triangle',.035)}
 function drop(){if(!started||paused||ended||!canDrop)return;let r=FRUITS[current].r;aimX=clamp(aimX,r+3,W-r-3);fruits.push(make(aimX,44,current,0,.6));canDrop=false;cooldown=.54;current=next;next=randType();updateNext();beep(270,.07,'sine',.08)}
-function finish(){if(ended)return;ended=true;setControls(false);beep(190,.19,'sawtooth',.06);setOverlay('🍉 💦','GAME OVER','おつかれさま！','もういっちょ挑戦してな！','もう一回遊ぶ',score)}
+function finish(){if(ended)return;ended=true;window.CPLeaderboard?.finish('fruits',score);setControls(false);beep(190,.19,'sawtooth',.06);setOverlay('🍉 💦','GAME OVER','おつかれさま！','もういっちょ挑戦してな！','もう一回遊ぶ',score)}
 function togglePause(){if(!started||ended)return;paused=!paused;if(paused){setOverlay('🍐 🍊','PAUSE','休憩中やで','続きから、いつでも再開できるで！','ゲームに戻る',null);setControls(false);$('pause').textContent='▶ 再開'}else{$('overlay').hidden=true;setControls(true);$('pause').textContent='Ⅱ 一時停止'}}
 function toggleSound(){muted=!muted;$('sound').textContent=muted?'🔇':'🔊';$('sound').setAttribute('aria-pressed',String(!muted));try{localStorage.setItem('cp-fruits-muted-v1',muted?'1':'0')}catch(e){}if(!muted)beep(760,.07,'sine',.035)}
 function beep(freq,duration=.08,type='sine',volume=.07){if(muted)return;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;if(!audio)audio=new AC();if(audio.state==='suspended')audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(70,freq*.75),audio.currentTime+duration);g.gain.setValueAtTime(volume,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+duration+.01)}catch(e){}}

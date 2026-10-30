@@ -90,16 +90,16 @@ const STAGES=[
 const CLUES={
  s1note:['無署名の設計図','封筒に入っていた図面。裏には「世界は、まだ直せる。」。紙は古いが、配線の直し方だけは奇妙に新しい。'],
  s1clock:['止まる時刻「17:43」','老人の工房時計も港の時計も同じ時刻で止まっている。偶然ではないのかもしれない。'],
- s1gen:['工房の残留ログ','発電盤は正常。しかし再起動の直後に「REF/17:43」という未知の信号を吐いた。'],
- s2pol:['ポルの封印データ','修理ロボの識別記録に「R-04」。音声メモには「次は必ず、誰が困るのか確かめて」。'],
- s3book:['ナギの住民記録','街の設備が復旧した直後、大切な人の名前を忘れたという記録が何件もある。年月日が隠されている。'],
- s3record:['倉庫の運転記録','旧港の時計は13年前の事故から「17:43」を示す。大量の電力はどこへ送られているのか。'],
- s3hidden:['かすれた署名','故障端末の深部に「R-04 / 設計責任者の署名」という断片。苗字は読めない。'],
- s3pump:['ポンプ復旧時の異常','排水ポンプが動き出した瞬間、近くの住人が娘の名前を思い出せなくなった。記録の因果関係は未解明。'],
- s4relay:['分岐盤の設計異常','主系統は他の町の制御機構へ負荷を押し出す構造。古い迂回回路は効率が悪いが、負荷の移転を避けられそうだ。'],
- s4route:['防波堤の判断','配電方法の選択は港の復旧速度と、誰かが負担するリスクを変える。リクはまだ真実を知らない。'],
- s5boss:['守護機の保護記録','守護機は破壊のためでなく制御核を保護するために動いていた。停止記録に「R-04」の署名がある。'],
- s5final:['灯台の最後のログ','再点灯の瞬間、端末に「天蓋中枢 / 旧設計者 RIKU / 4年前の認証」という文字が出た。リクはその設計を知らない。']
+ s1gen:['工房に残された記録','工房の電源は正常に戻った。しかし直後に、意味の分からない「REF/17:43」という記録が残った。'],
+ s2pol:['ポルに残された秘密の記録','ポルの古い記録に「R-04」の文字があった。さらに「修理する前に、困る人がいないか確かめて」という声が残されていた。'],
+ s3book:['ナギの住民記録','機械が動き始めた直後、家族の名前を忘れた人が何人もいた。記録の日付だけが消されている。'],
+ s3record:['倉庫の運転記録','港の時計も、13年前から「17:43」で止まっている。使われた電気がどこへ流れたのかは分からない。'],
+ s3hidden:['かすれた署名','壊れた機械から「R-04 / 設計責任者」という文字が見つかった。名前の一部は消えている。'],
+ s3pump:['ポンプ復旧時の異常','水をくみ出すポンプが動いた直後、娘の名前を忘れた人がいた。二つの出来事に関係があるのだろうか。'],
+ s4relay:['分岐盤の設計異常','新しい回路なら港に多くの電気を送れるが、別の街に負担がかかる。古い回路なら電気は少なくなるが、ほかの街への負担を抑えられる。'],
+ s4route:['防波堤の判断','港を早く明るくするか、ほかの街への負担を減らすか。リクは、どちらが正しいかまだ分からない。'],
+ s5boss:['守護機の保護記録','灯台の見張りロボットは、中央の装置を守るために動いていた。停止した記録には「R-04」の文字がある。'],
+ s5final:['灯台の最後のログ','灯台に明かりが戻ったとき、「天蓋 / RIKU / 4年前」という記録が現れた。リクには、そこに来た覚えがない。']
 };
 let g=null, mode='menu', prevMode='play', soundOn=false, audio=null, autopilot=null, toastTimeout=null, fx=[], lastTick=0, time=0, dialogIndex=0, dialogLines=[], dialogDone=()=>{};
 const overlay=$('overlay'), modal=$('modal');
@@ -120,22 +120,22 @@ function flag(id){g.flags[id]=true;persist();updateHUD()}
 function scene(lines,onDone=()=>{}){mode='dialog';dialogLines=lines;dialogIndex=0;dialogDone=onDone;drawDialog()}
 function drawDialog(){openModal();mode='dialog';let [who,speech]=dialogLines[dialogIndex];textblock('div','eyebrow','RECORD / '+String(dialogIndex+1).padStart(2,'0')+' — '+String(dialogLines.length).padStart(2,'0'));textblock('div','speaker',who);textblock('div','speech',speech);buttons([dialogIndex===dialogLines.length-1?'続ける':'次へ ▸',()=>{if(dialogIndex+1<dialogLines.length){dialogIndex++;playSound(540,.045);drawDialog()}else{clearOverlay();dialogDone();}}]);}
 function simple(title,paragraphs,actions){openModal();mode='choice';textblock('div','eyebrow','CP QUEST / MESSAGE');textblock('h2','',title);for(const p of paragraphs)textblock('p','',p);buttons(...actions)}
-function startStage(i,showIntro=true){stopAuto();g.stage=i;g.x=STAGES[i].start[0];g.y=STAGES[i].start[1];g.hp=Math.min(MAXHP,g.hp+2);g.enemies=STAGES[i].enemies.map(e=>({...e}));g.turns=0;persist();clearOverlay();if(showIntro){scene(stageIntroductions[i],()=>{if(i===0)toast('まずは工房の設計図を探そう');else toast('調べる対象は光っているで')})}}
+function startStage(i,showIntro=true){stopAuto();g.stage=i;g.x=STAGES[i].start[0];g.y=STAGES[i].start[1];g.hp=Math.min(MAXHP,g.hp+2);g.enemies=STAGES[i].enemies.map(e=>({...e}));g.turns=0;persist();clearOverlay();if(showIntro){scene(stageIntroductions[i],()=>{if(i===0)toast('まずは工房の設計図を探そう');else toast('調べられる場所は光っているよ。近づいてみよう。')})}}
 function newGame(){g=initState();startStage(0,true)}
-function resumeGame(){g=readSave();if(!g)return newGame();if(g.finished)return endScreen();clearOverlay();updateHUD();toast('続きから再開したで！')}
+function resumeGame(){g=readSave();if(!g)return newGame();if(g.finished)return endScreen();clearOverlay();updateHUD();toast('前回の続きから再開しました。')}
 const PROLOGUE=[
  ['記録：港町アトリ','13年前から、空は夕暮れの色を変えない。人々はそれを「長い夕方」と呼ぶようになった。'],
- ['リク','……また17時43分で止まった。これで何個目の時計や。'],
+ ['リク','……また17時43分で止まった。いったい何個目だろう。'],
  ['工房の扉','コン、コン。扉の外に人影はない。足元には濡れた機械箱と、一枚の設計図。'],
  ['設計図の裏側','「世界は、まだ直せる。」'],
- ['リク','誰がこんなものを……。ともかく、壊れたものは放っとけん。']
+ ['リク','誰がこんなものを……。まずは、設計図を確かめてみよう。']
 ];
 const stageIntroductions=[
  PROLOGUE,
- [['港の夜道','工房を出たリクは廃材置き場で奇妙な信号を受信する。'],['不明な音声','……キ、こえ……ますか。修理、は……しな、いで……。'],['リク','ロボットか？ ここらは巡回機も暴走しとる。気をつけな。']],
- [['ポル','やあ、相棒！ 旧港の倉庫には、最近だれも近づかないんだ。'],['リク','港の排水ポンプが止まってる。動かさな街が浸水するぞ。'],['ポル','……修理のあと、誰が困るかも調べてみない？']],
- [['ナギ','防波堤の配電所には二本の回路がある。どちらに電気を流すかで、守るものが変わる。'],['リク','機械の回路くらい、設計図を見れば分かる。'],['ナギ','本当に？ ……その設計図を描いた人のことも？']],
- [['灯台の警報','認証されていない整備員を検知。守護機を起動します。'],['ポル','二つの安全装置を切らないと、守護機の装甲は外れないみたい！'],['リク','守りたいなら、壊すんやなく止めて直す。それが俺の仕事や。']]
+ [['港の夜道','工房を出たリクは廃材置き場で奇妙な信号を受信する。'],['不明な音声','……キ、こえ……ますか。修理、は……しな、いで……。'],['リク','ロボットの声か？ この辺りには危険な見回りロボットもいる。慎重に進もう。']],
+ [['ポル','やあ、相棒！ 旧港の倉庫には、最近だれも近づかないんだ。'],['リク','港の水をくみ出すポンプが止まっている。このままだと街が水浸しになる。急ごう。'],['ポル','……修理のあと、誰が困るかも調べてみない？']],
+ [['ナギ','防波堤の配電所には二本の回路がある。どちらに電気を流すかで、守るものが変わる。'],['リク','設計図を見れば、直し方はきっと分かるはずだ。'],['ナギ','本当に？ ……その設計図を描いた人のことも？']],
+ [['灯台の警報','認証されていない整備員を検知。守護機を起動します。'],['ポル','二つの安全装置を切らないと、守護機の装甲は外れないみたい！'],['リク','壊すんじゃない。安全に止めて、直す。それが俺の仕事だ。']]
 ];
 function visible(o){switch(o.id){case 's1note':case 's2gear':case 's2wire':case 's3book':case 's3record':case 's4relay':case 's5med':return !g.flags[o.id];case 's5core':return !!g.flags.s5boss;case 's2pol':return true;default:return true}}
 function objHere(x,y){return STAGES[g.stage].objects.filter(o=>visible(o)&&o.x===x&&o.y===y)}
@@ -190,17 +190,17 @@ function startCombat(e){let focus=0,round=0,last=null;
 function act(){if(mode!=='play'||!g)return;stopAuto();let enemies=g.enemies.filter(e=>e.hp>0&&dist(e,g)<=1);if(enemies.length){attack(enemies[0]);return}let near=nearbyThings();if(near.length){interact(near[0]);return}toast('近くに調べるものがない。光る設備を探そう')}
 function interact(o){if(mode!=='play')return;stopAuto();playSound(690,.06,'triangle');switch(o.id){
  case 's1note':flag('s1note');addClue('s1note');scene([['リク','文字の癖が、どこかで見たものに似ている……。'],['設計図','交換するのは部品ではない。「負荷の行き先」を見直せ。'],['リク','工房の発電盤も同じ型か。まずは回路をつなぎ直すぞ。']]);break;
- case 's1clock':addClue('s1clock');scene([['老人','港の時計は、もう何年も同じ時間で止まるのさ。'],['リク','そんなわけ……。'],['老人','時計屋は皆、腕が悪くなったんかねえ。']]);break;
- case 's1gen':if(!g.flags.s1note){toast('回路図がないと配線を直せない');break}if(g.flags.s1gen){toast('発電盤は正常。時計だけが動かない');break}wirePuzzle('工房の発電盤',0,()=>{flag('s1gen');addClue('s1gen');scene([['発電盤','……運転再開。ログ：REF / 17:43。'],['リク','電気は戻った。なのに、壁の時計だけは17時43分で止まったままや。'],['ポルのような声','……直す、まえに……。']],()=>toast('港への出口を調べよう'))});break;
+ case 's1clock':addClue('s1clock');scene([['老人','港の時計は、もう何年も同じ時間で止まるのさ。'],['リク','でも、どうしてみんな同じ時刻に……？'],['老人','時計屋がみんな下手になったとは思えないのにね。']]);break;
+ case 's1gen':if(!g.flags.s1note){toast('回路図がないと配線を直せない');break}if(g.flags.s1gen){toast('発電盤は正常。時計だけが動かない');break}wirePuzzle('工房の発電盤',0,()=>{flag('s1gen');addClue('s1gen');scene([['発電盤','……運転再開。ログ：REF / 17:43。'],['リク','電気は戻った。それなのに、壁の時計だけは17時43分で止まったままだ。'],['ポルのような声','……直す、まえに……。']],()=>toast('港への出口を調べよう'))});break;
  case 's2gear':flag('s2gear');g.parts+=3;toast('交換用の軸受を回収した');persist();break;
  case 's2wire':flag('s2wire');g.parts+=3;toast('銅の導線を回収した');persist();break;
- case 's2pol':if(g.flags.s2pol){scene([['ポル','僕の「見る」機能で、見えない信号も探せるよ。スキャンを試して！']]);break}if(!g.flags.s2gear||!g.flags.s2wire){toast('ポルを直すには軸受と導線の両方が必要');break}orderPuzzle(()=>{flag('s2pol');addClue('s2pol');g.hp=Math.min(MAXHP,g.hp+2);scene([['ポル','……起動、しました。記憶領域……あれ？'],['リク','お前、誰や？'],['ポル','ポル！ 君の修理助手だよ。……ねえ、修理する前に、誰が困るか考えた？'],['リク','お前まで変なこと言うな。港へ行くぞ。']]);});break;
- case 's3book':flag('s3book');addClue('s3book');scene([['住民の記録帳','「排水施設復旧の夜、妻が息子の名前を忘れた」——同じ訴えが何ページも続く。'],['リク','……修理と同じ日に？ 偶然やろ。']]);break;
+ case 's2pol':if(g.flags.s2pol){scene([['ポル','僕の「見る」機能で、見えない信号も探せるよ。スキャンを試して！']]);break}if(!g.flags.s2gear||!g.flags.s2wire){toast('ポルを直すには軸受と導線の両方が必要');break}orderPuzzle(()=>{flag('s2pol');addClue('s2pol');g.hp=Math.min(MAXHP,g.hp+2);scene([['ポル','……起動、しました。記憶領域……あれ？'],['リク','君は……誰？'],['ポル','ポル！ 君の修理助手だよ。……ねえ、修理する前に、誰が困るか考えた？'],['リク','どうしてそんなことを言うんだ？ ……まずは港へ行こう。']]);});break;
+ case 's3book':flag('s3book');addClue('s3book');scene([['住民の記録帳','「排水施設復旧の夜、妻が息子の名前を忘れた」——同じ訴えが何ページも続く。'],['リク','……修理した日と同じだ。偶然なのか？']]);break;
  case 's3record':flag('s3record');addClue('s3record');scene([['古い運転記録','最終更新：13年前、17:43。起動元：環境保全網「TENGAI」。'],['ポル','「テンガイ」……この単語、僕の奥の記憶にある気がする。']]);break;
- case 's3nagi':scene([['ナギ','うちは忘れたことを、紙に書いて残してる。データだと消されるから。'],['リク','誰が消すんや？'],['ナギ','誰やろね。街は、便利になるたびに何かをなくしてる。']]);break;
- case 's3pump':if(g.flags.s3pump){toast('排水ポンプ稼働中。運転負荷は安定');break}if(!g.flags.s3book||!g.flags.s3record){toast('先に二つの設備記録を確認して原因を調べよう');break}wirePuzzle('排水ポンプの回路',1,()=>{flag('s3pump');addClue('s3pump');scene([['排水ポンプ','給水路を開放。排水正常。'],['ナギ','……あの人、さっきまで娘の名前を呼んでたのに。今は思い出せないんやって。'],['リク','いや、俺はただポンプを直しただけや……。'],['ポル','……本当に、それだけだったのかな。']]);});break;
- case 's4relay':if(!g.flags.s4relay){flag('s4relay');addClue('s4relay');scene([['配電記録','主回路：高効率／外部負荷転送あり。旧迂回回路：低効率／外部転送なし。'],['リク','どっちを選んでも何かを失う……。設計した人間は、どうしてこんな回路を？']]);}else toast('主回路と旧迂回回路の記録が残っている');break;
- case 's4radio':scene([['古い無線機','ザーッ……「旧設計主任、R……」ザーッ……。'],['ポル','発信元を辿れない。四年前の記録みたい。']]);break;
+ case 's3nagi':scene([['ナギ','私は、みんなが忘れたことを紙に書いて残しているの。機械の記録は消されてしまうから。'],['リク','誰が記録を消すんだ？'],['ナギ','それはまだ分からない。でも、この街では機械が便利になるたびに、誰かが大切なことを忘れているの。']]);break;
+ case 's3pump':if(g.flags.s3pump){toast('水をくみ出すポンプは正常に動いています。');break}if(!g.flags.s3book||!g.flags.s3record){toast('先に、倉庫にある二つの記録を調べよう。');break}wirePuzzle('排水ポンプの回路',1,()=>{flag('s3pump');addClue('s3pump');scene([['排水ポンプ','ポンプが動き、水が流れ始めました。'],['ナギ','……あの人、さっきまで娘の名前を呼んでいたのに。今は思い出せないそうなの。'],['リク','でも、俺はポンプを直しただけなのに……。'],['ポル','……本当に、それだけだったのかな。']]);});break;
+ case 's4relay':if(!g.flags.s4relay){flag('s4relay');addClue('s4relay');scene([['配電記録','新しい回路：港を早く明るくできるが、別の街に負担がかかる。古い回路：港の明かりは少なくなるが、ほかの街への負担を抑えられる。'],['リク','どちらを選んでも、困る人がいる……。なぜ、こんな仕組みにしたんだ？']]);}else toast('主回路と旧迂回回路の記録が残っている');break;
+ case 's4radio':scene([['古い無線機','ザーッ……「旧設計主任、R……」ザーッ……。'],['ポル','どこから届いたのか分からない。4年前の声みたいだ。']]);break;
  case 's4panel':if(g.flags.s4done){toast('配電方式は設定済み。灯台に進もう');break}if(!g.flags.s4relay){toast('選択の前に、封印された配電記録を確認しよう');break}routeChoice();break;
  case 's5sw1':if(!g.flags.s5sw1){flag('s5sw1');addFx(o.x,o.y,'#8af0d7',14);toast('北側の安全遮断器：解除');}else toast('北側の安全遮断器：解除済み');break;
  case 's5sw2':if(!g.flags.s5sw2){flag('s5sw2');addFx(o.x,o.y,'#8af0d7',14);toast('南側の磁気ロック：解除');}else toast('南側の磁気ロック：解除済み');break;
@@ -209,26 +209,26 @@ function interact(o){if(mode!=='play')return;stopAuto();playSound(690,.06,'trian
  case 'exit':if(g.stage===0&&!g.flags.s1gen||g.stage===1&&!g.flags.s2pol||g.stage===2&&!g.flags.s3pump||g.stage===3&&!g.flags.s4done){toast('まだこの場所でやることが残っている');break}finishStage();break;
  }updateHUD();persist();}
 function finishStage(){let s=g.stage;if(g.completed.includes(s))return;g.completed.push(s);g.parts+=10;g.hp=Math.min(MAXHP,g.hp+3);persist();let ends=[
- [['リク','港へ出よう。止まった時計の理由は、まだ分からへん。'],['記録','第1節 完了：灯は戻った。しかし「時刻」は戻らない。']],
- [['ポル','やっと歩ける！ ……リク、僕の記録には、君の名前があったよ。'],['リク','初対面やろ？ なんでや。'],['記録','第2節 完了：壊れた機械に、失われた記憶。']],
- [['ナギ','街は救われた。でも、だれかの名前は戻らん。'],['リク','……次の配電所で何か分かるはずや。'],['記録','第3節 完了：修理の代償が、姿を現し始める。']],
+ [['リク','港へ出よう。時計が止まる理由は、まだ分からない。'],['記録','第1節 完了：灯は戻った。しかし「時刻」は戻らない。']],
+ [['ポル','やっと歩ける！ ……リク、僕の記録には、君の名前があったよ。'],['リク','今日初めて会ったはずなのに……なぜ俺の名前を知っているんだ？'],['記録','第2節 完了：壊れた機械に、失われた記憶。']],
+ [['ナギ','街の機械は動き始めた。でも、忘れた名前は戻っていない。'],['リク','……次の電気設備を調べれば、何か分かるかもしれない。'],['記録','第3節 完了：修理の代償が、姿を現し始める。']],
  [['ポル',g.branch==='bypass'?'迂回回路がつながった。暗い家は少し残るけど、誰かの負荷を減らせたかもしれない。':'主回路がつながった。港の灯は早く戻る……けど、この信号はどこへ送られてるんだろう。'],['リク','答えは灯台の上や。'],['記録','第4節 完了：正しさは、選ぶ前よりも曖昧になった。']]
  ];soundSeq();scene(ends[s],()=>{if(s<4)startStage(s+1,true)})}
-function routeChoice(){simple('誰のための修理か',["二つの回路がある。主回路なら早く港を明るくできる。ただし、見知らぬ場所に負荷を転送する。","旧迂回回路なら負荷転送を避けられるが、電力は不足し、暗い家が残る。"],[
- ['主回路を再稼働する',()=>{g.branch='main';flag('s4done');addClue('s4route');scene([['配電盤','主回路、稼働。外部転送量……増加。'],['リク','この「外部」って、どこのことや……？']]);}],
- ['旧迂回回路を組み直す',()=>{wirePuzzle('旧迂回回路を再構築',2,()=>{g.branch='bypass';flag('s4done');addClue('s4route');scene([['配電盤','迂回回路、稼働。出力低下、転送信号なし。'],['ポル','全部は照らせない。でも、何かを守れた気がする。']]);})},'alt']]);}
-function finalChoice(){let intro=g.branch==='bypass'?'迂回回路を使ったため出力は低い。しかし灯台はまだ起動できる。':'主回路から十分な電力が来ている。しかし不明な転送信号も増加している。';simple('17時43分の灯台',[intro,'中央制御核には二つの点灯方式が残されている。選ぶとこの章の結末が変わる。'],[
+function routeChoice(){simple('誰のための修理か',["新しい回路なら、港をすぐに明るくできる。でも、その分、別の街に負担がかかる。","古い回路なら、ほかの街を守れる。ただし港に送れる電気が少なく、暗い家が残ってしまう。"],[
+ ['新しい回路を使う（港を明るくする）',()=>{g.branch='main';flag('s4done');addClue('s4route');scene([['配電盤','新しい回路が動きました。ほかの街への負担が増えています。'],['リク','負担がかかるのは、いったいどこの街なんだ……？']]);}],
+ ['古い回路を使う（ほかの街の負担を減らす）',()=>{wirePuzzle('旧迂回回路を再構築',2,()=>{g.branch='bypass';flag('s4done');addClue('s4route');scene([['配電盤','古い回路が動きました。港への電気は少なめですが、別の街への負担は抑えられています。'],['ポル','全部は照らせない。でも、何かを守れた気がする。']]);})},'alt']]);}
+function finalChoice(){let intro=g.branch==='bypass'?'古い回路を選んだため、使える電気は少ない。それでも灯台を点けることはできる。':'新しい回路から十分な電気が来ている。でも、別の街に負担がかかっているようだ。';simple('17時43分の灯台',[intro,'灯台には二つの点灯方法がある。街全体を照らすか、港だけに明かりを残すか、選んでください。'],[
  ['街全体を照らす（標準点灯）',()=>endChapter('full')],
  ['港だけ照らす（低負荷点灯）',()=>endChapter('partial'),'alt']]);}
 function endChapter(light){g.lighting=light;g.finished=true;addClue('s5final');if(!g.completed.includes(4))g.completed.push(4);persist();soundSeq();scene(light==='full'?
- [['灯台','標準点灯。街全域への光の供給を開始。'],['ポル','やった！ ほら、街じゅうが明るく……'],['ナギ','……あの子のお母さん、自分の子の名前が分からないんやって。'],['リク','……俺が、今やったことで？'],['不明な通信','修理を続けるな。あなたは四年前と同じ過ちを繰り返している。']]:
- [['灯台','低負荷点灯。港湾部の明かりを限定的に回復。'],['ポル','街じゅうじゃない。でも、今夜はこれで港へ帰れる。'],['ナギ','……救われた人も、暗いままの家もある。忘れた名前は戻らない。'],['リク','全部を直すことより、何を守るかを選ぶことが必要なんやな。'],['不明な通信','……ようやく、少し違う選択をしたのね。']]
- ,()=>scene([['中央制御核','認証済み：R-04。最終整備担当：RIKU。登録日：四年前。'],['リク','……俺の名前？ なんで、俺がこの装置を設計したことになってる？'],['ポル','リク……僕、思い出したことがある。でも、今はまだ……。'],['不明な通信','私はセラ。あなたが忘れたことを知っている。次は鉄橋で待つ。'],['第1章 完','消えた港の灯——朝は、まだ来ない。']],()=>endScreen()));}
+ [['灯台','標準点灯。街全域への光の供給を開始。'],['ポル','見て！ 街じゅうに明かりが戻ったよ！'],['ナギ','……あの子のお母さん、自分の子どもの名前を思い出せなくなったそうなの。'],['リク','……もしかして、俺が灯台を点けたせいなのか？'],['不明な通信','修理を続けるな。あなたは四年前と同じ過ちを繰り返している。']]:
+ [['灯台','低負荷点灯。港湾部の明かりを限定的に回復。'],['ポル','街じゅうじゃない。でも、今夜はこれで港へ帰れる。'],['ナギ','……救われた人も、暗いままの家もある。忘れた名前は戻らない。'],['リク','ただ直すだけじゃ駄目なんだ。誰を守るかも考えなきゃいけない。'],['不明な通信','……ようやく、少し違う選択をしたのね。']]
+ ,()=>scene([['中央制御核','認証済み：R-04。最終整備担当：RIKU。登録日：四年前。'],['リク','……俺の名前？ 4年前にここを修理した記録があるのか？ 何も覚えていないのに……。'],['ポル','リク……僕、思い出したことがある。でも、今はまだ……。'],['不明な通信','私はセラ。あなたが忘れたことを知っている。次は鉄橋で待つ。'],['第1章 完','消えた港の灯——朝は、まだ来ない。']],()=>endScreen()));}
 function endScreen(){openModal();mode='ending';textblock('div','eyebrow','CHAPTER 01 / CLEAR');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','消えた港の灯 — 完');const hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">夜明けはまだ、遠い。</span>';modal.appendChild(hero);textblock('p','',g.lighting==='partial'?'港の一部に灯が戻った。負荷を抑えた選択は、果たして正しかったのか。':'街全域に灯が戻った。その裏で、新たな記憶が失われた。');textblock('p','muted','調査記録 '+g.clues.length+'件 / 技術部品 '+g.parts+' / 選択 '+(g.branch==='bypass'?'旧迂回回路':'主回路'));textblock('h2','','第2章「風の止まった鉄橋」へ続く');buttons(['▶ 第2章へ進む',()=>{location.href='./cp_quest_ch2.html'}],['調査手帳を読む',()=>showJournal(),'alt'],['タイトルに戻る',()=>showTitle(),'alt']);}
 function gameOver(reason=''){openModal();mode='gameover';textblock('div','eyebrow','SYSTEM / RECOVERY');textblock('h2','','修理屋、倒れる');if(reason)textblock('div','combat-report',reason);textblock('p','','ポル「リク、まだ諦めないで。ここからやり直せる。」');buttons(['このステージから再挑戦',()=>retryStage()],['タイトルへ',()=>showTitle(),'alt']);}
 function retryStage(){let i=g.stage;for(const o of STAGES[i].objects)delete g.flags[o.id];if(i===0){delete g.flags.s1gen}else if(i===1){delete g.flags.s2pol}else if(i===2){delete g.flags.s3pump}else if(i===3){delete g.flags.s4done;g.branch=null}else if(i===4){delete g.flags.s5boss;}g.hp=MAXHP;startStage(i,true)}
 function showTitle(){openModal();mode='menu';textblock('div','eyebrow','A CP ARCADE ORIGINAL');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','― あしたをつなぐ修理屋 ―');const hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">壊れていたのは、世界か。それとも記憶か。</span>';modal.appendChild(hero);textblock('p','','第1章「消えた港の灯」 全5ステージ。探索・修理・戦闘・選択の物語。');let acts=[];if(readSave()){acts.push([readSave().finished?'第1章のクリア記録を見る':'続きから再開',()=>resumeGame()]);if(readSave().finished)acts.push(['▶ 第2章へ進む',()=>{location.href='./cp_quest_ch2.html'}]);}acts.push(['第1章をはじめる',()=>{if(readSave()){confirmNew()}else newGame()},readSave()?'alt':'']);acts.push(['遊び方を確認',()=>showHelp('menu'),'alt']);buttons(...acts);}
-function confirmNew(){simple('本当に最初から？',['保存されている第1章の進行状況を初期化するで。'],[['新しい冒険を始める',()=>newGame(),'warn'],['キャンセル',()=>showTitle(),'alt']]);}
+function confirmNew(){simple('本当に最初から？',['第1章のセーブデータを消して、最初から始めます。'],[['新しい冒険を始める',()=>newGame(),'warn'],['キャンセル',()=>showTitle(),'alt']]);}
 function showHelp(from){const back=from==='menu'?showTitle:()=>clearOverlay();simple('遊び方',['十字キーで上下左右に移動。Aボタンで近くの物を調べたり、敵とのダイス戦闘を始められる。','光る装置や記録を探そう。マップ上の場所をタップすると、そこへ向かって自動移動する（危険な場所では注意）。','配線盤は青いIN ▶がスタート、オレンジのOUT →がゴール。敵と自分がダイスを振り、攻撃・防御・応急修理・撤退を選べる。','ポルを修理すると「スキャン」が使える。各ステージの出口を調べると次へ進む。進行状況はこのブラウザに自動保存される。','PCなら矢印キー・WASDで移動、スペースでアクション、Eでスキャン。'],[['ゲームに戻る',back]]);}
 function showMenu(){if(mode!=='play')return;simple('一時停止',['現在のステージ '+(g.stage+1)+' / 5。進行状況は自動保存されている。'],[['冒険を続ける',()=>clearOverlay()],['調査手帳を開く',()=>showJournal(),'alt'],['タイトルに戻る',()=>showTitle(),'alt']]);}
 function showJournal(){if(!g){showTitle();return}let back=g.finished?endScreen:()=>clearOverlay();openModal();mode='journal';textblock('div','eyebrow','EVIDENCE / 調査資料');textblock('h2','','リクの調査手帳');textblock('p','muted','拾い集めた記録。修理したあとの出来事も、忘れないために書いておく。');let wrap=mk('div','journal');if(!g.clues.length){wrap.appendChild(mk('p','muted','まだ記録はない。工房の設計図や時計を調べよう。'));}for(const id of g.clues){let data=CLUES[id];if(!data)continue;let item=mk('div','journalentry');item.appendChild(mk('h3','',data[0]));item.appendChild(mk('p','',data[1]));wrap.appendChild(item);}modal.appendChild(wrap);buttons(['閉じる',back]);}
@@ -238,12 +238,12 @@ function makeTiles(k){let tiles=[6,10,12,3,5,6,9,10,12],route=getWireRoute(k);fo
  return tiles.map((m,i)=>{let r=(i*3+k*2+1)%4;for(let v=0;v<r;v++)m=((m<<1)&15)|((m&8)?1:0);return m})}
 function connected(tiles){let visited=new Set(),stack=[[0,1]],active=new Set();if(!(tiles[3]&8))return {solved:false,active};while(stack.length){let [x,y]=stack.pop(),key=y*3+x;if(visited.has(key))continue;visited.add(key);active.add(key);let m=tiles[key];if(x===2&&y===1&&(m&2))return {solved:true,active};for(let [dx,dy,bit,back] of DIRS){let nx=x+dx,ny=y+dy;if(nx<0||nx>=3||ny<0||ny>=3)continue;if((m&bit)&&(tiles[ny*3+nx]&back))stack.push([nx,ny])}}return {solved:false,active}}
 function wireSvg(m){let L=[];if(m&1)L.push('M 50 50 L 50 5');if(m&2)L.push('M 50 50 L 95 50');if(m&4)L.push('M 50 50 L 50 95');if(m&8)L.push('M 50 50 L 5 50');return '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="'+L.join(' ')+'" fill="none" stroke="#7bd8ce" stroke-width="14" stroke-linecap="round"/><circle cx="50" cy="50" r="10" fill="#e1fff9"/></svg>'}
-function wirePuzzle(title,k,onSuccess){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / CIRCUIT');textblock('h2','',title);textblock('p','','端子をタップして90°回転。青いIN（左の2段目）からオレンジのOUT（右の2段目）まで配線しよう。');let guide=mk('div','circuit-port-guide');guide.innerHTML='<span class="in">🔵 IN ▶：左端の2段目（電源）</span><span class="out">🟠 OUT →：右端の2段目（出口）</span>';modal.appendChild(guide);let tiles=makeTiles(k),board=mk('div','circuit'),feedback=mk('div','feedback','IN ▶ から OUT → に通電させよう');modal.appendChild(board);modal.appendChild(feedback);
+function wirePuzzle(title,k,onSuccess){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / CIRCUIT');textblock('h2','',title);textblock('p','','タイルをタップして向きを変えよう。青いINからオレンジのOUTまで、線がつながれば成功です。');let guide=mk('div','circuit-port-guide');guide.innerHTML='<span class="in">🔵 IN ▶：左端の2段目（電源）</span><span class="out">🟠 OUT →：右端の2段目（出口）</span>';modal.appendChild(guide);let tiles=makeTiles(k),board=mk('div','circuit'),feedback=mk('div','feedback','IN ▶ から OUT → に通電させよう');modal.appendChild(board);modal.appendChild(feedback);
  function redraw(){let {solved,active}=connected(tiles);board.replaceChildren();tiles.forEach((m,i)=>{let inPin=i===3,outPin=i===5,b=mk('button','wire'+(active.has(i)?' on':'')+(inPin?' port-in':'')+(outPin?' port-out':''));b.type='button';b.setAttribute('aria-label','回路端子'+(i+1)+(inPin?' IN 電源':outPin?' OUT 出口':'')+'を回転');b.innerHTML=wireSvg(m);if(inPin||outPin)b.appendChild(mk('span','port-tag'+(outPin?' out':''),inPin?'IN ▶':'OUT →'));b.addEventListener('click',()=>{tiles[i]=((tiles[i]<<1)&15)|((tiles[i]&8)?1:0);playSound(500,.035,'square',.02);redraw();});board.appendChild(b)});if(solved){feedback.textContent='接続成功！ 電流が流れた。';feedback.style.color='#93efca';playSound(860,.18);setTimeout(()=>{if(mode!=='puzzle')return;clearOverlay();onSuccess()},550)}else feedback.textContent='端子をタップで回転して電流をつなごう';}
  redraw();let footer=mk('div','modalbuttons');addBtn(footer,'いったん戻る',()=>clearOverlay(),'alt');modal.appendChild(footer);}
-function orderPuzzle(onSuccess){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / SEQUENCE');textblock('h2','','ポルの修復手順');textblock('p','','整備メモ：「まず摩耗を除く。次に電気を通し、最後に思考を起動する」');let seq=mk('div','sequence'),fb=mk('div','feedback','整備する順番に部品をタップしよう');let done=[];modal.appendChild(seq);modal.appendChild(fb);let items=[['🧠','制御板',2],['⚙️','軸受',0],['🔌','導線',1]];
- function refresh(){seq.replaceChildren();items.forEach(([sym,name,id])=>{let b=mk('button',done.includes(id)?'selected':'');b.innerHTML='<span>'+sym+'</span>'+name;b.disabled=done.includes(id);b.addEventListener('click',()=>{if(id!==done.length){done=[];fb.textContent='順序が違う。整備メモを見直そう';fb.style.color='#f6a8a8';playSound(170,.12);refresh();return}done.push(id);fb.textContent=['軸受交換：可動部が回復','導線接続：電力供給が回復','制御板起動：記憶回路が応答'][id];fb.style.color='#a8efdf';playSound(680,.08);if(done.length===3){soundSeq();setTimeout(()=>{if(mode!=='puzzle')return;clearOverlay();onSuccess()},600)}else refresh()});seq.appendChild(b)})}refresh();buttons(['いったん戻る',()=>clearOverlay(),'alt']);}
-function doScan(){if(mode!=='play')return;if(!g.flags.s2pol){toast('スキャン装置はポルの修理後に使える');return}addFx(g.x,g.y,'#8af0d7',22);playSound(780,.15);if(g.stage===2&&dist(g,{x:6,y:6})<=3&&!g.clues.includes('s3hidden')){addClue('s3hidden');scene([['ポル','隠れた認証文字が浮かんだ……「R-04 / 設計責任者」。'],['リク','R-04……俺には何も覚えがない。']]);return}if(g.stage===4&&!g.flags.s5boss){toast('走査結果：守護機の電源安全装置は北と南に1つずつ');return}if(g.stage===3){toast('走査結果：主回路の転送先が不明。旧回路には転送信号がない');return}toast('周辺を走査した。今のところ新しい異常信号はない')}
+function orderPuzzle(onSuccess){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / SEQUENCE');textblock('h2','','ポルの修復手順');textblock('p','','修理メモ：「①動く部分を直す → ②電線をつなぐ → ③頭脳の装置を起動する」');let seq=mk('div','sequence'),fb=mk('div','feedback','整備する順番に部品をタップしよう');let done=[];modal.appendChild(seq);modal.appendChild(fb);let items=[['🧠','頭脳の部品',2],['⚙️','軸受',0],['🔌','導線',1]];
+ function refresh(){seq.replaceChildren();items.forEach(([sym,name,id])=>{let b=mk('button',done.includes(id)?'selected':'');b.innerHTML='<span>'+sym+'</span>'+name;b.disabled=done.includes(id);b.addEventListener('click',()=>{if(id!==done.length){done=[];fb.textContent='順序が違う。整備メモを見直そう';fb.style.color='#f6a8a8';playSound(170,.12);refresh();return}done.push(id);fb.textContent=['動く部品の交換ができました。','電線がつながりました。','頭脳の装置が動き始めました。'][id];fb.style.color='#a8efdf';playSound(680,.08);if(done.length===3){soundSeq();setTimeout(()=>{if(mode!=='puzzle')return;clearOverlay();onSuccess()},600)}else refresh()});seq.appendChild(b)})}refresh();buttons(['いったん戻る',()=>clearOverlay(),'alt']);}
+function doScan(){if(mode!=='play')return;if(!g.flags.s2pol){toast('スキャン装置はポルの修理後に使える');return}addFx(g.x,g.y,'#8af0d7',22);playSound(780,.15);if(g.stage===2&&dist(g,{x:6,y:6})<=3&&!g.clues.includes('s3hidden')){addClue('s3hidden');scene([['ポル','隠れた認証文字が浮かんだ……「R-04 / 設計責任者」。'],['リク','R-04……俺には何も覚えがない。']]);return}if(g.stage===4&&!g.flags.s5boss){toast('スキャン結果：北と南に安全スイッチが1つずつあるよ。');return}if(g.stage===3){toast('スキャン結果：新しい回路は別の街に負担をかける。古い回路は負担を抑えられそう。');return}toast('周囲を調べたけれど、今は特別な反応が見つからなかった。')}
 function findPath(goals){const q=[[g.x,g.y]],came=new Map([[(g.y*GW+g.x),null]]);let ix=0,found=null;while(ix<q.length){let [x,y]=q[ix++],kk=y*GW+x;if(goals.some(v=>v.x===x&&v.y===y)){found=kk;break}for(const [dx,dy] of [[0,-1],[1,0],[0,1],[-1,0]]){let nx=x+dx,ny=y+dy,key=ny*GW+nx;if(!mapOk(nx,ny)||creatureAt(nx,ny)||came.has(key))continue;came.set(key,kk);q.push([nx,ny])}}if(found===null)return null;let path=[];while(came.get(found)!==null){path.push([found%GW,Math.floor(found/GW)]);found=came.get(found)}return path.reverse()}
 function routeTap(tx,ty){
  if(mode!=='play')return;stopAuto();

@@ -188,7 +188,7 @@ function openMemory(stage){if(g.flags['p'+stage]){if(stage===14&&!g.policy)choos
  let feedback=$t('div','feedback','カードを2枚めくってみよう。');MODAL.appendChild(feedback);
  let tools=$t('div','puzzle-tools');const hint=$t('button','','💡 ペアを一瞬表示（2部品）'),leave=$t('button','','✖ 街へ戻る');tools.append(hint,leave);MODAL.appendChild(tools);
  leave.onclick=()=>{memoInstance++;closeModal()};
- function render(){if(instance!==memoInstance||mode!=='memory')return;status.replaceChildren($t('span','',`照合 ${data.matched.length}/${stage===12?6:8}組`),$t('strong','',`めくり ${data.attempts}回`));board.replaceChildren();
+ function render(){if(instance!==memoInstance||mode!=='memory')return;status.replaceChildren($t('span','',`ペア ${data.matched.length}/${stage===12?6:8}組`),$t('strong','',`めくり ${data.attempts}回`));board.replaceChildren();
  data.cards.forEach((card,i)=>{const isMatched=data.matched.includes(card.id),shown=isMatched||flips.includes(i)||peek.includes(i);const b=$t('button','memo-card '+(isMatched?'matched':shown?'revealed':'back'));b.type='button';b.setAttribute('aria-label',shown?`${card.label}：${isMatched?'照合済み':'表'}`:`裏向きカード ${i+1}`);
  if(shown){b.append($t('span','kind',advanced?card.side==='a'?'PHOTO':'LOG':'MEMORY'),$t('span','icon',card.emoji),$t('span','label',card.label))}
  b.disabled=isMatched;b.addEventListener('click',()=>flip(i));board.appendChild(b)})}
@@ -261,7 +261,7 @@ function combatAction(kind){if(!battle||mode!=='battle')return;if(kind==='flee')
  if(g.parts<4){battle.log='技術部品が4個必要です。街の画面でも4個使ってHPを4回復できます。';showBattle();return}g.parts-=4;const before=g.hp;g.hp=Math.min(MAXHP,g.hp+4);const hit=def>p+2?boss?2:1:0;g.hp=Math.max(0,g.hp-hit);result=`応急修理でHP＋${MAXHP-before<4?MAXHP-before:4}。${hit?'反撃を受けHP－'+hit+'。':'防御姿勢で反撃を回避。'}`;battle.crit=!!hit;beep(650,.12);
  }
  battle.rollP=p;battle.rollE=e;battle.log=result;g.foeHP[battle.id]=battle.hp;save();updateHud();
- if(battle.hp<=0){const id=battle.id;g.defeated[id]=true;delete g.foeHP[id];g.parts+=boss?6:3;save();battle=null;closeModal();addClue(id==='boss'?'boss':'ledger');if(boss)scene([['記憶の番人','消去命令……実行不能。記録矛盾……保存。'],['ポル','やった！ 見張りロボットが止まったよ。これで最後の記録を調べられる。']]);else scene([['リク','巡回機は停止した。道が開いたな。'],['ポル','敵を倒したら部品を拾えたで。でも無理は禁物や。']]);return}
+ if(battle.hp<=0){const id=battle.id;g.defeated[id]=true;delete g.foeHP[id];g.parts+=boss?6:3;save();battle=null;closeModal();addClue(id==='boss'?'boss':'ledger');if(boss)scene([['記憶の番人','消去命令……実行不能。記録矛盾……保存。'],['ポル','やった！ 見張りロボットが止まったよ。これで最後の記録を調べられる。']]);else scene([['リク','巡回機は停止した。道が開いたな。'],['ポル','敵が止まって、修理用の部品が手に入ったよ。でも無理はしないでね。']]);return}
  if(g.hp<=0){battle=null;gameOver();return}showBattle();}
 function gameOver(){prompt('GAME OVER — 記憶が途切れる',['HPが0になった。記録が消える前に、このステージの最初からやり直そう。前の章と以前のステージの記録はそのまま。'],[['チェックポイントから再挑戦',retryStage],['タイトルへ',showTitle,'alt']]);}
 function retryStage(){g.stats.retries++;const cp=g.checkpoint;if(cp){g.flags={...cp.flags};g.clues=[...cp.clues];g.parts=cp.parts;g.memory=JSON.parse(JSON.stringify(cp.memory));g.slides=JSON.parse(JSON.stringify(cp.slides));g.defeated={...cp.defeated};g.foeHP={...cp.foeHP};g.policy=cp.policy}g.hp=MAXHP;g.x=1;g.y=6;g.moves=0;save();closeModal();scene([['ポル','無理はしないで。今度はダイスの出目だけじゃなく、守るタイミングも考えよう。'],['リク','失敗した記録も、次の修理に使える。']]);}

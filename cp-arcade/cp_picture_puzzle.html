@@ -159,39 +159,68 @@ function saveCampaign(){saveJSON(STORAGE,campaign)}
 function paintBg(el,url){el.style.backgroundImage='url('+JSON.stringify(url)+')'}
 function showScreen(id){document.querySelectorAll('.screen').forEach(e=>e.classList.toggle('on',e.id===id));scrollTo(0,0)}
 function message(s){$('feedback').textContent=s}
-function phase(stage=campaign.stage){if(stage>=12)return null;const tier=Math.floor(stage/4),cat=categories[stage%4];return {stage,tier,cat,level:levels[tier],levelName:names[tier],size:GRID[tier]}}
+function phase(stage=campaign.stage){if(stage>=STAGE_COUNT)return null;const tier=Math.floor(stage/5),cat=categories[stage%5];return {stage,tier,cat,level:levels[tier],levelName:names[tier],size:GRID[tier]}}
+function eligibleForPhase(item,p){return !Number.isInteger(item.minTier)||p.tier>=item.minTier}
+function nextIncomplete(records,from=0){for(let i=from;i<STAGE_COUNT;i++)if(!records[i])return i;return STAGE_COUNT}
 function stopClock(){if(timer){clearInterval(timer);timer=null}}
 function countElapsed(){return playing?seconds+Math.floor((Date.now()-started)/1000):seconds}
 function tick(){if(playing)$('timer').textContent=tm(countElapsed())}
+function fromLegacy(old){
+ if(!old||!Number.isInteger(old.stage)||old.stage<0||old.stage>12||!old.selected||!Array.isArray(old.records))return null;
+ const map=i=>Math.floor(i/4)*5+(i%4);
+ const records=Array(STAGE_COUNT).fill(null),selected={},parkedRuns={};
+ for(let i=0;i<12;i++)if(old.records[i])records[map(i)]=old.records[i];
+ for(const [key,id] of Object.entries(old.selected)){
+  const i=Number(key);if(Number.isInteger(i)&&i>=0&&i<12&&byId[id])selected[map(i)]=id;
+ }
+ if(old.run&&!old.run.solved&&old.stage<12){
+  const k=map(old.stage);if(!records[k])parkedRuns[k]={...old.run,stage:k};
+ }
+ const stage=nextIncomplete(records);
+ const run=parkedRuns[stage]||null;delete parkedRuns[stage];
+ return {stage,selected,records,run,parkedRuns};
+}
 function init(){
  lastShown=getJSON(LAST_SHOWN,null);
- const preset=getJSON(SELECTED,null);
+ const preset=getJSON(SELECTED,null),oldPreset=getJSON(LEGACY_SELECTED,null);
  const v04=getJSON('CP_PICTURE_V04_SELECTION',null);
  const review=getJSON('cp_picture_40_reviews_v1',null);
+ const newcomers=catalog.filter(i=>i.newRelease&&i.recommended&&i.rights_ok).map(i=>i.id);
  if(Array.isArray(preset)&&preset.length)selectedIds=preset.filter(id=>byId[id]&&byId[id].rights_ok);
- else if(v04&&Array.isArray(v04.picked))selectedIds=v04.picked.filter(id=>byId[id]&&byId[id].rights_ok);
- else if(review&&typeof review==='object')selectedIds=catalog.filter(i=>i.rights_ok&&(review[i.id]?.recommended??i.recommended)).map(i=>i.id);
- else selectedIds=catalog.filter(i=>i.recommended&&i.rights_ok).map(i=>i.id);
- // Do not carry records from earlier incompatible prototype versions.
+ else {
+  let originalIds;
+  if(Array.isArray(oldPreset)&&oldPreset.length)originalIds=oldPreset.filter(id=>byId[id]&&byId[id].rights_ok);
+  else if(v04&&Array.isArray(v04.picked))originalIds=v04.picked.filter(id=>byId[id]&&byId[id].rights_ok);
+  else if(review&&typeof review==='object')originalIds=catalog.filter(i=>!i.newRelease&&i.rights_ok&&(review[i.id]?.recommended??i.recommended)).map(i=>i.id);
+  else originalIds=catalog.filter(i=>!i.newRelease&&i.recommended&&i.rights_ok).map(i=>i.id);
+  selectedIds=[...new Set([...originalIds,...newcomers])];saveJSON(SELECTED,selectedIds);
+ }
  const saved=getJSON(STORAGE,null);
- if(saved&&Number.isInteger(saved.stage)&&saved.stage>=0&&saved.stage<=12&&saved.selected&&Array.isArray(saved.records))campaign=saved;
+ if(saved&&Number.isInteger(saved.stage)&&saved.stage>=0&&saved.stage<=STAGE_COUNT&&saved.selected&&Array.isArray(saved.records))
+  campaign={...saved,parkedRuns:saved.parkedRuns||{}};
+ else {
+  const migrated=fromLegacy(getJSON(LEGACY_CAMPAIGN,null));
+  if(migrated){campaign=migrated;saveCampaign()}
+ }
  blockMap=getJSON(BLOCKED,{})||{};verified=getJSON(VERIFIED,{})||{};
  renderHome();updateCheckSummary();
 }
 function renderHome(){
- const stage=campaign.stage;
- $('overallProgress').textContent=stage+' / 12 完了';$('progressFill').style.width=(stage/12*100)+'%';
- $('startCampaign').textContent=stage===12?'🏆 全ステージ完了':stage===0?'▶ 第1ステージを始める':'▶ '+(stage+1)+'ステージ目へ';
- $('startCampaign').disabled=stage===12;
+ const stage=campaign.stage,complete=campaign.records.filter(Boolean).length;
+ $('overallProgress').textContent=complete+' / '+STAGE_COUNT+' 完了';
+ $('progressFill').style.width=(complete/STAGE_COUNT*100)+'%';
+ $('startCampaign').textContent=stage===STAGE_COUNT?'🏆 全ステージ完了':stage===0?'▶ 第1ステージを始める':'▶ '+(stage+1)+'ステージ目へ';
+ $('startCampaign').disabled=stage===STAGE_COUNT;
  const root=$('steps');root.replaceChildren();
  for(let tier=0;tier<3;tier++){
   const h=document.createElement('div');h.className='levelHeader';h.textContent=['🌱 初級 — 7×7','🌿 中級 — 7×7','🏆 上級 — 9×9'][tier];root.append(h);
   const grid=document.createElement('div');grid.className='stepGrid';
-  for(let cat=0;cat<4;cat++){
-   const i=tier*4+cat;const box=document.createElement('div');box.className='stepCard '+(i<stage?'done':i===stage?'active':'future');
-   const mark=document.createElement('div');mark.className='mark';mark.textContent=i<stage?'✅':emoji[categories[cat]];
-   const title=document.createElement('strong');title.textContent=['名画','絶景','動物','料理'][cat];
-   const small=document.createElement('small');small.textContent=i<stage?'クリア':i===stage?'挑戦中':'未開放';box.append(mark,title,small);grid.append(box);
+  for(let cat=0;cat<5;cat++){
+   const i=tier*5+cat,done=!!campaign.records[i];
+   const box=document.createElement('div');box.className='stepCard '+(done?'done':i===stage?'active':'future');
+   const mark=document.createElement('div');mark.className='mark';mark.textContent=done?'✅':emoji[categories[cat]];
+   const title=document.createElement('strong');title.textContent=['名画','絶景','動物','料理','建物'][cat];
+   const small=document.createElement('small');small.textContent=done?'クリア':i===stage?'挑戦中':'未開放';box.append(mark,title,small);grid.append(box);
   }root.append(grid);
  }
  const categoryCount=Object.fromEntries(categories.map(cat=>[cat,selectedIds.filter(id=>byId[id]?.category===cat&&!blockMap[id]).length]));

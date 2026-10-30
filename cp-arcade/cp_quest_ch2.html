@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#090e1d">
-<meta name="description" content="CP QUEST — あしたをつなぐ修理屋。探索・謎解き・修理・選択で進むオリジナル物語RPG。第2章全5ステージ・開発中。">
+<meta name="description" content="CP QUEST — あしたをつなぐ修理屋。探索・謎解き・修理・選択で進む物語RPG。第2章は全5ステージ公開中。">
 <title>CP QUEST｜あしたをつなぐ修理屋</title>
 <style>
 :root{--bg:#080c19;--panel:#111a2d;--panel2:#17233a;--edge:#32425d;--ink:#eef5fc;--muted:#a4b5cb;--cyan:#87ecd8;--amber:#f5c578;--rose:#f1889b;--blue:#81b2ef}
@@ -98,50 +98,50 @@ const STAGES=[
  '############','#..........#','#...##.....#','#..........#','#..#.......#','#..........#','#.......#..#','#..........#','#..........#','############'],
  objects:[{id:'s6meter',x:2,y:3,kind:'doc',name:'現場の風速計'},{id:'s6log',x:8,y:7,kind:'doc',name:'中央観測ログ'},{id:'s6guard',x:4,y:7,kind:'npc',name:'老保線員'},{id:'s6panel',x:9,y:2,kind:'machine',name:'検問制動回路'},{id:'exit',x:10,y:1,kind:'exit',name:'保線区へ'}],
  enemies:[{id:'d61',x:6,y:5,hp:2,maxhp:2,kind:'drone'}]},
- {name:'無音の保線区',area:'旧保線基地',zone:'depot',start:[2,8],map:[
+ {name:'静かな整備基地',area:'古い線路整備基地',zone:'depot',start:[2,8],map:[
  '############','#..........#','#...#......#','#..........#','#......#...#','#..........#','#..#.......#','#..........#','#..........#','############'],
- objects:[{id:'s7memo',x:3,y:2,kind:'doc',name:'校正作業票'},{id:'s7sensor',x:8,y:6,kind:'machine',name:'中継センサー'},{id:'s7cal',x:9,y:3,kind:'machine',name:'三系統校正盤'},{id:'s7med',x:2,y:7,kind:'med',name:'修理キット'},{id:'exit',x:10,y:1,kind:'exit',name:'無人駅へ'}],
+ objects:[{id:'s7memo',x:3,y:2,kind:'doc',name:'メーター調整メモ'},{id:'s7sensor',x:8,y:6,kind:'machine',name:'中継センサー'},{id:'s7cal',x:9,y:3,kind:'machine',name:'3つのメーターを直す装置'},{id:'s7med',x:2,y:7,kind:'med',name:'修理キット'},{id:'exit',x:10,y:1,kind:'exit',name:'無人駅へ'}],
  enemies:[{id:'d71',x:6,y:5,hp:3,maxhp:3,kind:'drone'},{id:'d72',x:7,y:7,hp:2,maxhp:2,kind:'drone'}]},
  {name:'名札のない乗客',area:'立入禁止の連絡駅',zone:'station',start:[2,8],map:[
  '############','#..........#','#.....#....#','#..........#','#...#......#','#..........#','#......#...#','#..........#','#..........#','############'],
- objects:[{id:'s8notice',x:3,y:2,kind:'doc',name:'避難案内'},{id:'s8file',x:8,y:7,kind:'doc',name:'破れた駅務記録'},{id:'s8nagi',x:5,y:6,kind:'npc',name:'記録係ナギ'},{id:'s8board',x:9,y:3,kind:'machine',name:'運行時系列端末'},{id:'exit',x:10,y:1,kind:'exit',name:'橋の配電室へ'}],
+ objects:[{id:'s8notice',x:3,y:2,kind:'doc',name:'避難案内'},{id:'s8file',x:8,y:7,kind:'doc',name:'破れた駅務記録'},{id:'s8nagi',x:5,y:6,kind:'npc',name:'記録係ナギ'},{id:'s8board',x:9,y:3,kind:'machine',name:'列車の記録を並べる装置'},{id:'exit',x:10,y:1,kind:'exit',name:'橋の配電室へ'}],
  enemies:[{id:'d81',x:6,y:4,hp:3,maxhp:3,kind:'drone'},{id:'d82',x:8,y:6,hp:3,maxhp:3,kind:'drone'}]},
  {name:'二つの通電路',area:'鉄橋東端配電室',zone:'bridge',start:[2,8],map:[
  '############','#..........#','#...##.....#','#..........#','#..........#','#....#.....#','#..........#','#..........#','#..........#','############'],
- objects:[{id:'s9draft',x:2,y:3,kind:'doc',name:'隔離回路の設計書'},{id:'s9worker',x:4,y:7,kind:'npc',name:'避難待ちの保線員'},{id:'s9panel',x:9,y:3,kind:'machine',name:'二重通電盤'},{id:'s9med',x:2,y:7,kind:'med',name:'予備修理キット'},{id:'exit',x:10,y:1,kind:'exit',name:'中央橋脚へ'}],
+ objects:[{id:'s9draft',x:2,y:3,kind:'doc',name:'橋を守る回路の設計図'},{id:'s9worker',x:4,y:7,kind:'npc',name:'避難待ちの保線員'},{id:'s9panel',x:9,y:3,kind:'machine',name:'2本の電気をつなぐ装置'},{id:'s9med',x:2,y:7,kind:'med',name:'予備修理キット'},{id:'exit',x:10,y:1,kind:'exit',name:'中央橋脚へ'}],
  enemies:[{id:'d91',x:6,y:5,hp:3,maxhp:3,kind:'drone'},{id:'d92',x:8,y:7,hp:3,maxhp:3,kind:'drone'}]},
  {name:'鉄橋の監視者',area:'中央橋脚・封鎖機構',zone:'tower',start:[2,8],map:[
  '############','#..........#','#..........#','#...#......#','#..........#','#..........#','#......#...#','#..........#','#..........#','############'],
- objects:[{id:'s10sw1',x:2,y:2,kind:'switch',name:'第一保安遮断器'},{id:'s10sw2',x:9,y:6,kind:'switch',name:'記憶認証ロック'},{id:'s10note',x:8,y:2,kind:'doc',name:'セラの残留通信'},{id:'s10med',x:2,y:7,kind:'med',name:'応急修理キット'},{id:'s10core',x:6,y:3,kind:'core',name:'橋の制御核'}],
+ objects:[{id:'s10sw1',x:2,y:2,kind:'switch',name:'1つ目の安全スイッチ'},{id:'s10sw2',x:9,y:6,kind:'switch',name:'記憶の順番で開く鍵'},{id:'s10note',x:8,y:2,kind:'doc',name:'セラの残留通信'},{id:'s10med',x:2,y:7,kind:'med',name:'応急修理キット'},{id:'s10core',x:6,y:3,kind:'core',name:'橋の制御核'}],
  enemies:[{id:'keeper10',x:6,y:3,hp:6,maxhp:6,kind:'boss'}]}
 ];
 const CLUES={
- s6meter:['西検問所・実測風速','現場の風杯は回っている。独立計器の数値は毎秒7m。空気が止まったわけではない。'],
- s6log:['中央観測値の矛盾','中央系統だけ「風速0」。観測装置は正常と記され、最後の更新時刻は17:43。'],
- s6panel:['検問遮断を解除','制動回路に電力が戻った。記録には「風速信号を保護値で固定」という操作痕がある。'],
- s7memo:['三系統校正作業票','停止前の校正条件「A=Bではない／A=C+2／B=2×C／A+B=11」。数値は信号の比率を表す。'],
- s7scan:['中継センサーの二重波形','機器故障と思われたノイズの内側に、外部から送られた遮断命令の波形が残る。'],
- s7cal:['三系統の再校正','三系統の比率を復元。橋の故障に偽装された指令が人為的なものだと判明。'],
+ s6meter:['西検問所・実測風速','現場の風速計は今も回っている。風は毎秒7メートルも吹いている。止まってはいない。'],
+ s6log:['中央観測値の矛盾','中央の記録だけ、風速が「0」になっている。機械は正常と書かれていて、最後の時刻は17:43。'],
+ s6panel:['検問遮断を解除','橋の安全装置に電気が戻った。調べると、風速の数字を誰かが「0」に固定した跡があった。'],
+ s7memo:['三系統メーター調整メモ','3つのメーターを正しい数字に戻すためのメモ。「A=C+2、B=2×C、A+B=11」。数字は0〜9。'],
+ s7scan:['中継センサーの二重波形','故障に見えた乱れの中から、外の誰かが橋を止める命令を送った跡が見つかった。'],
+ s7cal:['三系統の再校正','3つのメーターの数字を正しく戻した。橋は故障したのではなく、誰かの命令で止められたようだ。'],
  s8notice:['駅の避難案内','「橋の停止後に、避難列車が連絡駅へ入った」。当時の掲示を写した紙。'],
- s8file:['駅務記録の消えた順序','「負荷異常が最初、次に封鎖指示。退避通知のあと、風速ゼロの表示に上書き」——四つの事象が逆の因果として報告されていた。'],
- s8truth:['公式報告を覆す時系列','橋が止まった原因は無風ではない。誰かが意図して橋を止め、そのあと計測値を書き換えた。'],
- s9draft:['旧設計の隔離機構','二つの出力路を同時につなげば安全回路を復旧できる。ただし開通方法は人の移動と外部負荷に影響する。'],
- s9route:['鉄橋の通行判断','全面通行と制限通行。どちらも街に影響を残す。選んだ方式は記録として保存された。'],
+ s8file:['駅務記録の消えた順序','最初に機械へ大きな負担がかかり、次に橋を止める命令が出た。人々を避難させたあと、風速の数字が「0」に書き換えられていた。'],
+ s8truth:['公式報告を覆す時系列','橋は風が止まったから閉じたのではない。誰かが橋を止めてから、風速の記録を変えていた。'],
+ s9draft:['旧設計の隔離機構','2つの出口へ電気をつなげば、橋を開く準備ができる。ただし、開き方によって人の移動と別の街への負担が変わる。'],
+ s9route:['鉄橋の通行判断','橋を全部開くか、必要な人だけ通すか。どちらも誰かの暮らしに影響する。リクが選んだ方法を記録した。'],
  s10note:['セラの短波通信','「橋を止めたのは、最初から私だけじゃない」。録音には名前を呼ぶ前の長い沈黙がある。'],
- s10final:['R-04の四年前の命令','封鎖機構の運転記録には、四年前の整備承認として「R-04 / RIKU」が刻まれていた。セラはその理由を話さない。']
+ s10final:['R-04の四年前の命令','4年前、橋を閉じる命令を出した記録に「R-04 / RIKU」とあった。セラは、その理由をまだ話してくれない。']
 };
 // Chapter 1 clue labels are read-only in Chapter 2, preserving investigation continuity.
 Object.assign(CLUES,{
  s1note:['無署名の設計図','「世界は、まだ直せる。」と書かれた古い図面。'],
  s1clock:['止まる時刻 17:43','港中の時計が同じ時刻で止まっている。'],
- s1gen:['工房の残留ログ','発電盤の記録：REF / 17:43。'],
- s2pol:['ポルの封印データ','識別記録 R-04 と、リクへ宛てた修理前の注意。'],
+ s1gen:['工房に残された記録','発電盤の記録：REF / 17:43。'],
+ s2pol:['ポルに残された秘密の記録','識別記録 R-04 と、リクへ宛てた修理前の注意。'],
  s3book:['ナギの住民記録','設備復旧の夜、大切な人の名前を忘れた住人がいた。'],
  s3record:['旧港の運転記録','TENGAI 起動の記録は13年前の17:43。'],
  s3hidden:['かすれた署名','R-04 / 設計責任者という断片。'],
  s3pump:['ポンプ復旧の異常','稼働直後、近くの住人が家族の名を忘れた。'],
- s4relay:['防波堤の分岐記録','主回路と旧迂回回路。負荷の行き先が異なる。'],
- s4route:['防波堤の選択','復旧速度と第三者の負荷を天秤にかけた。'],
+ s4relay:['港の電気の記録','港を明るくする新しい回路と、ほかの街への負担を抑える古い回路。'],
+ s4route:['防波堤の選択','港を早く明るくするか、ほかの街への負担を減らすか、悩んで選んだ。'],
  s5boss:['灯台守護機の記録','R-04 の署名が残されている。'],
  s5final:['灯台の認証記録','R-04 / RIKU。四年前の整備担当として登録されていた。']
 });
@@ -167,15 +167,15 @@ function scene(lines,done=()=>{}){dialog=lines;dialogIndex=0;afterDialog=done;dr
 function drawDialog(){openModal();mode='dialog';const [speaker,message]=dialog[dialogIndex];textblock('div','eyebrow','LOG / '+String(dialogIndex+1).padStart(2,'0')+' — '+String(dialog.length).padStart(2,'0'));textblock('div','speaker',speaker);textblock('div','speech',message);buttons([dialogIndex===dialog.length-1?'続ける':'次へ ▸',()=>{audioNote(590);if(dialogIndex+1<dialog.length){dialogIndex++;drawDialog()}else{closeModal();afterDialog()}}])}
 function promptBox(title,body,actions){openModal();mode='choice';textblock('div','eyebrow','CP QUEST / CHAPTER 02');textblock('h2','',title);for(const item of body)textblock('p','',item);buttons(...actions)}
 function intro(i){switch(i){
- case 0:return [['第2章　風の止まった鉄橋','灯台を後にしたリクとポルは、交通路を断たれた鉄橋へ向かう。'],['ポル','ねえ、リク。風が止まったから橋を閉鎖したって、本当かな？'],['リク','おかしいな。旗は揺れてるのに、観測値だけゼロや。'],['老保線員',g.lighting==='full'?'港の灯りは見えたよ。けど、あの夜から妻が同じ歌を忘れた。':'港の灯りは半分だけだったね。だけど、忘れた名前が戻ったとは聞かない。'],['ポル','まず現場の風速計と中央ログを比べてみよう。']];
- case 1:return [['ポル','検問の制動回路は直った。でも、風の数字を書き換えた痕跡があった。'],['リク','基地の計器には、まだ元の数値が残ってるかもしれん。'],['機械音','ギギ……。二体の警備機が修理屋に向かってくる。']];
- case 2:return [['ナギ','連絡駅にいた人たちは、橋がいつ閉じたかを覚えていない。'],['リク','紙の記録なら残る。順序が分かれば、嘘を見抜けるはずや。'],['ポル','今度は修理じゃなくて、記録をつなぐ仕事だね。']];
- case 3:return [['避難待ちの人々','この先が開かないと、病院まで薬が届かない……。'],['ポル','でも全部の電力を戻すと、別の地区へ負荷が転送されるみたい。'],['リク','まずは二系統を生かす。通し方は、それから決める。']];
- case 4:return [['鉄橋中央・警報','封鎖を解除するには、二重保安ロックの解除が必要です。'],['リク','保安機構を残したまま、運転記録を取り出そう。'],['ポル','……リク。ここの封鎖命令、誰が出したか分かるといいね。']]
+ case 0:return [['第2章　風の止まった鉄橋','灯台を後にしたリクとポルは、交通路を断たれた鉄橋へ向かう。'],['ポル','ねえ、リク。風がなくなったから橋を閉じたって、本当なのかな？'],['リク','おかしいな。旗は揺れているのに、記録だけ「風速0」なんだ。'],['老保線員',g.lighting==='full'?'港の明かりは見えたよ。でも、あの夜から妻が二人の思い出の歌を忘れてしまったんだ。':'港の明かりは一部だけだったね。それでも、失った記憶が戻った人はいないんだ。'],['ポル','まず現場の風速計と、中央に残った記録を比べてみよう。']];
+ case 1:return [['ポル','橋の安全装置は直った。でも、風の数字を誰かが書き換えた跡があった。'],['リク','整備基地の機械には、元の数字が残っているかもしれない。'],['機械音','ギギ……。二体の警備機が修理屋に向かってくる。']];
+ case 2:return [['ナギ','連絡駅にいた人たちは、橋がいつ閉じたかを覚えていない。'],['リク','紙の記録は残っている。出来事の順番を並べれば、本当のことが分かるはずだ。'],['ポル','今度は修理じゃなくて、記録をつなぐ仕事だね。']];
+ case 3:return [['避難待ちの人々','この先が開かないと、病院まで薬が届かない……。'],['ポル','でも、電気を全部戻すと、ほかの街の機械に大きな負担がかかるみたい。'],['リク','まずは2つの回路に電気を通そう。橋の開き方は、そのあとで決めよう。']];
+ case 4:return [['鉄橋中央・警報','橋を開くには、2つの安全装置を解除してください。'],['リク','安全を確かめながら、橋を止めたときの記録を取り出そう。'],['ポル','……リク。ここの封鎖命令、誰が出したか分かるといいね。']]
  }}
-function startStage(i,withIntro=true){stopAuto();g.stage=i;g.x=STAGES[i].start[0];g.y=STAGES[i].start[1];g.hp=Math.min(MAXHP,g.hp+2);g.enemies=STAGES[i].enemies.map(x=>({...x}));g.turns=0;g.finished=false;g.checkpoint={flags:{...g.flags},clues:[...g.clues],parts:g.parts,bridgePolicy:g.bridgePolicy,upgraded:g.upgraded};persist();closeModal();if(withIntro)scene(intro(i),()=>toast('光る設備はタップでも調べられるで'))}
+function startStage(i,withIntro=true){stopAuto();g.stage=i;g.x=STAGES[i].start[0];g.y=STAGES[i].start[1];g.hp=Math.min(MAXHP,g.hp+2);g.enemies=STAGES[i].enemies.map(x=>({...x}));g.turns=0;g.finished=false;g.checkpoint={flags:{...g.flags},clues:[...g.clues],parts:g.parts,bridgePolicy:g.bridgePolicy,upgraded:g.upgraded};persist();closeModal();if(withIntro)scene(intro(i),()=>toast('光る設備は、タップすると調べられます。'))}
 function begin(from){g=initState(from);startStage(0,true)}
-function resume(){g=getSaved();if(!g)return showTitle();if(g.finished)return endScreen();closeModal();updateHUD();toast('続きから再開したで！')}
+function resume(){g=getSaved();if(!g)return showTitle();if(g.finished)return endScreen();closeModal();updateHUD();toast('前回の続きから再開しました。')}
 function showTitle(){openModal();mode='menu';textblock('div','eyebrow','CP ARCADE ORIGINAL / CHAPTER 02');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','第2章　風の止まった鉄橋');const hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">止められたのは、風か。それとも真実か。</span>';$modal.appendChild(hero);textblock('p','','第6〜10ステージ。修理・推理・選択・ボス戦が難しくなった続編。セーブは第1章と別に保存される。');
  let actions=[],saved=getSaved(),old=getOldSave();
  if(saved)actions.push([saved.finished?'第2章クリア記録を確認':'続きから再開',()=>resume()]);
@@ -187,7 +187,7 @@ function showTitle(){openModal();mode='menu';textblock('div','eyebrow','CP ARCAD
 function confirmStart(from){if(getSaved()&&!getSaved().finished){promptBox('第2章を最初から？',['第2章の進行状況はリセットされる。第1章のセーブは変更しない。'],[['新しく第2章を始める',()=>begin(from),'warn'],['やめる',showTitle,'alt']]);return}begin(from)}
 function showHelp(menu=false){promptBox('遊び方 / 難易度アップ',['移動は十字キー長押し、またはマップをタップ。Aボタンで設備を調べたり、敵とのダイス戦闘を開始したりできる。','配線パズルは青の「IN ▶」が電源、オレンジの「OUT →」が出口。ラベルが付いたマスもタップで回転できる。INからすべてのOUTへつなごう。','戦闘は自分と敵が6面ダイスで勝負する。攻撃に失敗すると敵の反撃が来ることもある。防御で次の攻撃を強化、部品5個で応急修理、撤退も可能。','第2章では4×4回路、計器校正、証拠の順序推理が登場。ステージ開始時にはチェックポイントが保存される。','セーブは自動。第1章のデータとは別扱い。第1章のクリアデータを同じブラウザから引き継げる。第3章は公開中。同じブラウザで第2章をクリアすると、選択を引き継げる。'],[[menu?'タイトルに戻る':'冒険に戻る',menu?showTitle:closeModal]])}
 function showMenu(){if(mode!=='play')return;promptBox('一時停止',['第'+(g.stage+6)+'ステージ / 10。途中経過は自動保存中。'],[['冒険を続ける',closeModal],['技術部品で工具を強化する',upgradeTool,'alt'],['調査手帳',showJournal,'alt'],['セーブ内容を控える',showSaveInfo,'alt'],['タイトルに戻る',showTitle,'alt']])}
-function showSaveInfo(){promptBox('セーブの保存先',['第2章の進行状況は、このページを開いたブラウザに保存する。第1章のセーブは書き換えない。','別の端末・別のブラウザへ自動同期はされない。プライベートモードやデータ削除でセーブが消えることがある。'],[['戻る',closeModal]])}
+function showSaveInfo(){promptBox('セーブの保存先',['第2章の記録は、このブラウザに自動で保存されます。第1章の記録は消えません。','別の端末・別のブラウザへ自動同期はされない。プライベートモードやデータ削除でセーブが消えることがある。'],[['戻る',closeModal]])}
 function upgradeTool(){if(g.upgraded){toast('工具は既に強化済み');closeModal();return}if(g.parts<18){promptBox('部品不足',['強化には技術部品が18個必要。現在は'+g.parts+'個。調査とステージクリアで集めよう。'],[['戻る',closeModal]]);return}g.parts-=18;g.upgraded=true;persist();closeModal();fanfare();toast('絶縁工具を強化！ 巡回機への攻撃力 +1')}
 function showJournal(){if(!g){showTitle();return}const back=()=>g.finished?endScreen():closeModal();openModal();mode='journal';textblock('div','eyebrow','EVIDENCE / 調査記録');textblock('h2','','リクの調査手帳');textblock('p','muted','第1章から引き継いだ記録と、第2章で見つけた証拠。');const box=mk('div','journal');if(!g.clues.length)box.appendChild(mk('p','muted','まだ記録なし。検問所の観測値を探そう。'));for(const id of g.clues){if(!CLUES[id])continue;let entry=mk('div','journalentry');entry.appendChild(mk('h3','',CLUES[id][0]));entry.appendChild(mk('p','',CLUES[id][1]));box.appendChild(entry)}$modal.appendChild(box);buttons(['戻る',back])}
 function visible(o){if(['s6meter','s6log','s7memo','s7med','s8notice','s8file','s9draft','s9med','s10note','s10med'].includes(o.id))return !g.flags[o.id];if(o.id==='s10core')return !!g.flags.s10boss;return true}
@@ -198,7 +198,7 @@ function objectAt(x,y){return STAGES[g.stage].objects.find(o=>visible(o)&&o.x===
 function nearby(){return STAGES[g.stage].objects.filter(o=>visible(o)&&dist(o,g)<=1).sort((a,b)=>dist(a,g)-dist(b,g))}
 function objective(){let f=g.flags;switch(g.stage){
  case 0:return !f.s6meter||!f.s6log?'現場計測と中央ログを比較する':!f.s6panel?'4×4の検問回路を復旧する':'保線区へ向かう';
- case 1:return !f.s7memo?'校正作業票を読む':!f.s7scan?'中継センサー周辺でスキャンする':!f.s7cal?'3系統の計器を校正する':'連絡駅へ向かう';
+ case 1:return !f.s7memo?'メーター調整メモを読む':!f.s7scan?'中継センサー周辺でスキャンする':!f.s7cal?'3系統の計器を校正する':'連絡駅へ向かう';
  case 2:return !f.s8notice||!f.s8file?'二つの紙記録を探す':!f.s8board?'記録の時系列を組み直す':'配電室に向かう';
  case 3:return !f.s9draft?'旧設計の隔離回路を調べる':!f.s9done?'二系統をつなぎ通行方式を選ぶ':'中央橋脚へ向かう';
  case 4:return !f.s10sw1||!f.s10sw2?'二つの保安ロックを解除する':!f.s10boss?'監視機を停止する':'中央制御核を調べる';}}
@@ -253,41 +253,41 @@ function startCombat(e){let focus=0,round=0,last=null;
 function action(){if(mode!=='play')return;stopAuto();let enemies=g.enemies.filter(e=>e.hp>0&&dist(e,g)<=1);if(enemies.length){attack(enemies[0]);return}let n=nearby();if(n.length){interact(n[0]);return}toast('調べられるものが近くにない。光る設備を探そう')}
 function interact(o){if(mode!=='play'||!visible(o))return;stopAuto();audioNote(690,.06);const f=g.flags;
  switch(o.id){
- case 's6meter':flag(o.id);addClue(o.id);scene([['風速計','西検問の実測値：7.0m/s。風杯は今も回っている。'],['リク','風が止まったなんて、誰が言い出したんや。']]);break;
- case 's6log':flag(o.id);addClue(o.id);scene([['中央観測端末','公式記録：風速0.0m/s。判定：異常なし。'],['ポル','現場は7メートル。中央だけゼロ。どっちかが嘘をついてる。']]);break;
- case 's6guard':scene([['老保線員',g.branch==='main'?'港が明るくなった直後、遠くの町の観測値まで乱れ始めたんだ。':'港の電力は弱いままだった。でもここへ押し付けられる信号は少なかったよ。'],['リク','港の配電と鉄橋がつながってる……？']]);break;
- case 's6panel':if(f.s6panel){toast('検問回路は復旧済み');break}if(!(f.s6meter&&f.s6log)){toast('実測値と中央ログの比較が必要や');break}circuitPuzzle('検問制動回路：単系統',false,()=>{flag('s6panel');addClue('s6panel');scene([['制動盤','復旧完了。記録：風速信号は「保護値」に固定。'],['リク','故障やない。誰かがゼロと表示させた……。']])});break;
- case 's7memo':flag(o.id);addClue(o.id);scene([['校正作業票','A＝C＋2／B＝2×C／A＋B＝11。入力値は0〜9。'],['ポル','一見ただの計器校正だけど、これが正しい信号を戻す鍵みたい。']]);break;
- case 's7sensor':if(f.s7scan){toast('波形は記録済み。校正盤で修復しよう');break}scene([['ポル','ここでスキャンして！ 二重波形の内側に、何か隠れてる。'],['リク','センサーのそばで◉スキャン、やな。']]);break;
- case 's7cal':if(f.s7cal){toast('三系統校正は完了している');break}if(!f.s7memo||!f.s7scan){toast('作業票の確認とセンサーのスキャンが必要');break}calibrationPuzzle(()=>{flag('s7cal');addClue('s7cal');scene([['校正盤','A=5 B=6 C=3。外部遮断指令を検出。'],['ポル','やっぱり壊れたんじゃない。外から止められたんだ。']])});break;
+ case 's6meter':flag(o.id);addClue(o.id);scene([['風速計','現場の風速は7.0m/s。風速計は今も動いている。'],['リク','風は吹いている。誰が「風が止まった」と言い出したんだ？']]);break;
+ case 's6log':flag(o.id);addClue(o.id);scene([['中央観測端末','公式記録：風速0.0m/s。判定：異常なし。'],['ポル','現場は風速7なのに、中央の記録だけ0なんだ。記録を変えた人がいるのかな？']]);break;
+ case 's6guard':scene([['老保線員',g.branch==='main'?'港が明るくなったあと、遠くの街の機械までおかしくなったんだ。':'港の明かりは少なかったけれど、こちらの街の機械には大きな負担がかからなかった。'],['リク','港の電気と、この鉄橋の装置はつながっているのか……？']]);break;
+ case 's6panel':if(f.s6panel){toast('橋の安全装置は修理済みです。');break}if(!(f.s6meter&&f.s6log)){toast('現場の数字と、中央の記録を先に調べてください。');break}circuitPuzzle('検問制動回路：単系統',false,()=>{flag('s6panel');addClue('s6panel');scene([['制動盤','修理が終わりました。風速の数字は、誰かによって「0」に固定されていました。'],['リク','故障じゃない。誰かが「0」と表示させたんだ……。']])});break;
+ case 's7memo':flag(o.id);addClue(o.id);scene([['メーター調整メモ','A＝C＋2／B＝2×C／A＋B＝11。入力値は0〜9。'],['ポル','3つのメーターの数字を正しく合わせれば、元の記録が見られるかもしれない。']]);break;
+ case 's7sensor':if(f.s7scan){toast('波形は記録済み。校正盤で修復しよう');break}scene([['ポル','ここでスキャンしてみて！ いつもの反応の奥に、別の信号が隠れているよ。'],['リク','センサーに近づいて、スキャンしてみよう。']]);break;
+ case 's7cal':if(f.s7cal){toast('3つのメーターの調整は終わっています。');break}if(!f.s7memo||!f.s7scan){toast('作業票の確認とセンサーのスキャンが必要');break}calibrationPuzzle(()=>{flag('s7cal');addClue('s7cal');scene([['校正盤','A=5、B=6、C=3。外から橋を止める命令が出ていたことが分かった。'],['ポル','やっぱり故障じゃない。外の誰かが止めたんだ。']])});break;
  case 's7med':case 's9med':case 's10med':flag(o.id);g.hp=Math.min(MAXHP,g.hp+5);toast('応急修理キットで体力回復');fanfare();break;
- case 's8notice':flag(o.id);addClue(o.id);scene([['駅の掲示','「橋の停止後に、避難列車が到着」。手書きで記されている。'],['リク','公式記録じゃ、強風のせいで列車が止まったはずやのに。']]);break;
- case 's8file':flag(o.id);addClue(o.id);scene([['破れた駅務帳','「異常負荷→封鎖命令→退避通知→風速ゼロ書換」。最後の二行だけ筆跡が違う。'],['ナギ','順序を間違えたら、本当に止めた理由まで消えてしまう。']]);break;
- case 's8nagi':scene([['ナギ','人は記憶を失うと、書き残した紙を信じるしかなくなる。'],['ナギ','でも紙だって、書く人が嘘をつけば同じことや。'],['リク','なら、別々の記録を組み合わせる。']]);break;
- case 's8board':if(f.s8board){toast('時系列の照合は完了した');break}if(!(f.s8notice&&f.s8file)){toast('紙の記録が二種類必要');break}evidencePuzzle(()=>{flag('s8board');addClue('s8truth');scene([['照合端末','実際の順序：負荷異常 → 遮断指令 → 退避 → 風速ゼロ書換。'],['リク','風が止まったから橋が閉じたんやない。橋を止めてから、風速を書き換えたんや。'],['ポル','つまり、この封鎖は誰かを守るため……？']])});break;
- case 's9draft':flag(o.id);addClue(o.id);scene([['旧設計書','主電源から二つの出力へ通電せよ。ただし配電方式の決定は別途必要。'],['リク','回路を二本つなぐだけじゃ済まへん、ちゅうことか。']]);break;
- case 's9worker':scene([['保線員','全面開通してくれたら助かる。薬も人も運べる。'],['保線員','けど、負荷が転送される先の町にも人がいるんやろ……？'],['ポル','どっちを選んでも、誰かの明日が変わる。']]);break;
- case 's9panel':if(f.s9done){toast('通電方式は確定した。中央橋脚へ進もう');break}if(!f.s9draft){toast('旧設計書を先に確認しよう');break}if(f.s9ready){bridgeChoice();break}circuitPuzzle('鉄橋配電：二系統同時接続',true,()=>{flag('s9ready');scene([['配電盤','二系統復旧。最終判断を求めます。'],['リク','繋げることと、通してええかは別問題やな。']],bridgeChoice)});break;
- case 's10sw1':if(f.s10sw1){toast('第一保安遮断器は安全状態');break}safetyPuzzle(()=>{flag('s10sw1');toast('第一保安遮断器を解除！')});break;
- case 's10sw2':if(f.s10sw2){toast('記憶認証ロックは解除済み');break}memoryPuzzle(()=>{flag('s10sw2');toast('記憶認証ロックを解除！')});break;
+ case 's8notice':flag(o.id);addClue(o.id);scene([['駅の掲示','「橋の停止後に、避難列車が到着」。手書きで記されている。'],['リク','公式の記録では、強風で列車が止まったことになっているのに……。']]);break;
+ case 's8file':flag(o.id);addClue(o.id);scene([['破れた駅務帳','「機械に異常 → 橋を止める命令 → 避難の知らせ → 風速を0に変更」。最後の2行だけ字が違う。'],['ナギ','順序を間違えたら、本当に止めた理由まで消えてしまう。']]);break;
+ case 's8nagi':scene([['ナギ','人は記憶を失うと、書き残した紙を信じるしかなくなる。'],['ナギ','でも、紙でも書いた人が嘘をついていたら、信じられない。'],['リク','なら、別々の記録を組み合わせる。']]);break;
+ case 's8board':if(f.s8board){toast('時系列の照合は完了した');break}if(!(f.s8notice&&f.s8file)){toast('紙の記録が二種類必要');break}evidencePuzzle(()=>{flag('s8board');addClue('s8truth');scene([['照合端末','本当の順番：機械の異常 → 橋を止める命令 → 避難 → 風速を0に変更。'],['リク','風が止まったから橋を閉じたんじゃない。橋を閉じてから、風速の記録を変えたんだ。'],['ポル','つまり、この封鎖は誰かを守るため……？']])});break;
+ case 's9draft':flag(o.id);addClue(o.id);scene([['旧設計書','1つの入口から、2つの出口へ電気をつなぐ。橋の開き方は、そのあとで決める。'],['リク','電気をつなぐだけでは終わらない。開き方も考えなきゃいけないんだな。']]);break;
+ case 's9worker':scene([['保線員','橋を全部開いてくれたら助かる。薬も人も運べるから。'],['保線員','でも、そのせいで別の街の機械に無理をさせるんだろう……？'],['ポル','どっちを選んでも、誰かの明日が変わる。']]);break;
+ case 's9panel':if(f.s9done){toast('橋を開く方法が決まりました。中央へ進もう。');break}if(!f.s9draft){toast('旧設計書を先に確認しよう');break}if(f.s9ready){bridgeChoice();break}circuitPuzzle('鉄橋配電：二系統同時接続',true,()=>{flag('s9ready');scene([['配電盤','二系統復旧。最終判断を求めます。'],['リク','電気をつなぐことと、どんな使い方をするかは別の問題だな。']],bridgeChoice)});break;
+ case 's10sw1':if(f.s10sw1){toast('1つ目の安全スイッチは安全状態');break}safetyPuzzle(()=>{flag('s10sw1');toast('1つ目の安全スイッチを解除！')});break;
+ case 's10sw2':if(f.s10sw2){toast('記憶の順番で開く鍵は解除済み');break}memoryPuzzle(()=>{flag('s10sw2');toast('記憶の順番で開く鍵を解除！')});break;
  case 's10note':flag(o.id);addClue(o.id);scene([['セラの通信','「あの夜、橋を止めたのは私だけじゃない」'],['ポル','この言葉の後、長い沈黙がある。名前を呼びかけて……やめたみたい。']]);break;
  case 's10core':if(!f.s10boss){toast('まだ監視機が動いている');break}chapterEnd();break;
  case 'exit':if(!(f[['s6panel','s7cal','s8board','s9done'][g.stage]])){toast('まだ、この場所で調べることが残っている');break}finishStage();break;
  }
  updateHUD();persist();}
 function finishStage(){if(g.completed.includes(g.stage))return;let i=g.stage;g.completed.push(i);g.parts+=10;g.hp=Math.min(MAXHP,g.hp+3);persist();fanfare();const ends=[
- [['ポル','風速計は動いてる。数字の方を止めた人がいた。'],['リク','次は保線基地や。誰が改ざんしたのか調べよう。']],
- [['リク','三系統の比率を直しても、封鎖命令の発信元は伏せられたままや。'],['ポル','情報を隠すことにも、目的があるのかもしれない。']],
- [['ナギ','公式報告は順番を入れ替えてた。人が忘れたことを、紙の嘘で上書きした。'],['リク','それでも橋を通す方法は探さなあかん。']],
- [['ポル',g.bridgePolicy==='restricted'?'制限通行。助けられない人もいるけど、負荷転送は抑えられた。':'全面開通。早く助けられる人が増えた。でも負荷は遠くまで流れた。'],['リク','セラが待ってる。俺が選んだ結果を、本人の前で見よう。']]
+ [['ポル','風速計は動いてる。数字の方を止めた人がいた。'],['リク','次は整備基地だ。誰が記録を書き換えたのか調べよう。']],
+ [['リク','メーターを直しても、橋を止めた命令を誰が出したのかは分からないままだ。'],['ポル','情報を隠すことにも、目的があるのかもしれない。']],
+ [['ナギ','公式の報告は、出来事の順番を変えていた。人々が忘れたことを利用したのかもしれない。'],['リク','それでも、橋を通れるようにする方法を探そう。']],
+ [['ポル',g.bridgePolicy==='restricted'?'制限通行。助けられない人もいるけど、負荷転送は抑えられた。':'全面開通。早く助けられる人が増えた。でも負荷は遠くまで流れた。'],['リク','セラが待っている。自分が選んだ結果から目をそらさずに会おう。']]
  ];scene(ends[i],()=>startStage(i+1,true))}
-function bridgeChoice(){promptBox('通す命と、守る命',['配電回路は復旧した。通行方式は自分で選べる。','全面開通：救援輸送が速まる。ただし別地区へ負荷を転送。','制限通行：人と医薬品だけを優先。転送は抑えられるが、物流が遅れる。'],[
- ['全面開通を選ぶ',()=>{g.bridgePolicy='full';flag('s9done');addClue('s9route');scene([['配電盤','全面開通。外部負荷転送を開始。'],['リク','これで病院の搬送は間に合う。でも、遠くの町は……。']])}],
- ['制限通行を選ぶ',()=>{g.bridgePolicy='restricted';flag('s9done');addClue('s9route');scene([['配電盤','制限通行。外部負荷を抑制。'],['ポル','橋は半分しか通れない。でも、誰かの負担は確かに減らせた。']])},'alt'],
+function bridgeChoice(){promptBox('通す命と、守る命',['橋を動かす準備ができました。どのように開くか、選んでください。','全部開く：人や薬を早く運べる。ただし別の街の機械に大きな負担がかかる。','一部だけ開く：人と薬を優先して運ぶ。ほかの街への負担は減るが、運べる物は少なくなる。'],[
+ ['全面開通を選ぶ',()=>{g.bridgePolicy='full';flag('s9done');addClue('s9route');scene([['配電盤','橋を全面開通しました。ほかの街への負担が増えています。'],['リク','これで病院の搬送は間に合う。でも、遠くの町は……。']])}],
+ ['制限通行を選ぶ',()=>{g.bridgePolicy='restricted';flag('s9done');addClue('s9route');scene([['配電盤','橋を一部だけ開きました。ほかの街への負担は抑えられています。'],['ポル','橋は半分しか通れない。でも、誰かの負担は確かに減らせた。']])},'alt'],
  ['いったん戻って考える',closeModal,'alt']])}
 function chapterEnd(){g.finished=true;if(!g.completed.includes(4))g.completed.push(4);persist();const pre=g.lighting==='full'?'港を全部照らしたのね。あの明かりの代償がどこへ行ったか、考えた？':'港を半分暗くしてでも、負担を抑えようとしたのね。';
- scene([['制御核','監視機構、停止。封鎖履歴：四年前 / R-04 / RIKU。'],['リク','俺の名前がある……。四年前、俺は何をした？'],['セラ',pre],['リク','なら、どうして橋を止めた？ 故障と偽ったのは、あんたか？'],['セラ','橋の停止は、記憶の負荷をあの町へ送らせないための隔離だった。'] ,['セラ','ただし、最初の封鎖命令を出したのは私ではない。'],['リク','……誰や。'],['セラ','あなたよ。四年前、ここに来て、同じ判断をした。'],['ポル',g.bridgePolicy==='full'?'今回は全面開通を選んだ。でも、前と同じ結末になるとは限らない。':'今回は制限通行を選んだ。その意味を、僕らはまだ全部知らない。'],['セラ','次は「忘れものの街」で、記録を残した人々に会って。あなたが忘れたことを、彼らは忘れられずにいる。'],['第2章・完','風の止まった鉄橋――風は、止まっていなかった。']],endScreen)}
-function endScreen(){openModal();mode='ending';textblock('div','eyebrow','CHAPTER 02 / CLEAR');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','風の止まった鉄橋 — 完');let hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">真実は、直すたびに姿を変える。</span>';$modal.appendChild(hero);textblock('p','',g.bridgePolicy==='restricted'?'制限通行で橋は開いた。救える人と、待ち続ける人がいる。':'全面開通で橋は開いた。救援は進んだが、外部に負荷が残った。');textblock('p','muted','獲得証拠 '+g.clues.length+'件 / 技術部品 '+g.parts+' / ヒント '+g.stats.hints+'回');textblock('h2','','第3章「忘れものの街」へ続く');textblock('p','muted','第3章公開中！神経衰弱と8パズルで、消された記録の謎を追おう。');buttons(['第3章「忘れものの街」へ',()=>{location.href='./cp_quest_ch3.html'}],['調査手帳を読む',showJournal,'alt'],['第1章を見る',()=>{location.href='./cp_quest.html'},'alt'],['タイトルへ',showTitle,'alt'])}
+ scene([['制御核','見張り装置が止まりました。4年前に橋を閉じた記録：R-04 / RIKU。'],['リク','俺の名前がある……。四年前、俺は何をした？'],['セラ',pre],['リク','それなら、なぜ橋を止めたんだ？ 故障だと説明したのは、あなたなのか？'],['セラ','橋を止めたのは、あの街の人々がこれ以上記憶を失わないようにするためだったの。'] ,['セラ','でも、最初に橋を止める命令を出したのは私じゃない。'],['リク','……いったい誰が？'],['セラ','あなたよ、リク。4年前、あなた自身が橋を止めると決めたの。'],['ポル',g.bridgePolicy==='full'?'今回は全面開通を選んだ。でも、前と同じ結末になるとは限らない。':'今回は制限通行を選んだ。その意味を、僕らはまだ全部知らない。'],['セラ','次は「忘れものの街」で、記録を残した人々に会って。あなたが忘れたことを、彼らは忘れられずにいる。'],['第2章・完','風の止まった鉄橋――風は、止まっていなかった。']],endScreen)}
+function endScreen(){openModal();mode='ending';textblock('div','eyebrow','CHAPTER 02 / CLEAR');textblock('div','title-logo','CP QUEST');textblock('div','title-sub','風の止まった鉄橋 — 完');let hero=mk('div','title-hero');hero.innerHTML='<span class="clock">17:43</span><span class="light"></span><span class="hero-text">真実は、直すたびに姿を変える。</span>';$modal.appendChild(hero);textblock('p','',g.bridgePolicy==='restricted'?'制限通行で橋は開いた。救える人と、待ち続ける人がいる。':'橋を全部開き、救援は進んだ。でも、その分ほかの街に負担がかかった。');textblock('p','muted','獲得証拠 '+g.clues.length+'件 / 技術部品 '+g.parts+' / ヒント '+g.stats.hints+'回');textblock('h2','','第3章「忘れものの街」へ続く');textblock('p','muted','第3章では、記憶を合わせるカードゲームとスライドパズルで、消された記録の謎を追います。');buttons(['第3章「忘れものの街」へ',()=>{location.href='./cp_quest_ch3.html'}],['調査手帳を読む',showJournal,'alt'],['第1章を見る',()=>{location.href='./cp_quest.html'},'alt'],['タイトルへ',showTitle,'alt'])}
 function gameOver(reason=''){openModal();mode='gameover';textblock('div','eyebrow','SYSTEM / RECOVERY');textblock('h2','','修理屋、倒れる');if(reason)textblock('div','combat-report',reason);textblock('p','','ポル「無理に進まなくてもいい。チェックポイントからやり直せるよ。」');buttons(['このステージをやり直す',retryStage],['タイトルへ',showTitle,'alt'])}
 function retryStage(){let cp=g.checkpoint;g.stats.retries++;if(cp){g.flags={...cp.flags};g.clues=[...cp.clues];g.parts=cp.parts;g.bridgePolicy=cp.bridgePolicy;g.upgraded=cp.upgraded}g.hp=MAXHP;startStage(g.stage,true)}
 function scan(){if(mode!=='play')return;if(g.stage===1 && dist(g,{x:8,y:6})<=2 && !g.flags.s7scan){flag('s7scan');addClue('s7scan');scene([['ポル','見つけた。表面のノイズの下に、人為的な封鎖命令の波形。'],['リク','故障を装った制御信号か……。']]);return}if(g.stage===4&&!g.flags.s10boss){toast('走査：保安ロックが2つ。放電は4ターン周期、縦横に広がる');return}if(g.stage===0){toast('風速計と中央ログの数値に矛盾がある');return}if(g.stage===2){toast('紙記録の出来事を時系列に並べよう');return}toast('ポル「今は新しい信号を検出できないみたい」')}
@@ -317,13 +317,13 @@ function circuitPuzzle(title,dual,cb){openModal();mode='puzzle';textblock('div',
  if(solved&&!lock){lock=true;info.textContent='接続成功！ 全てのOUTに通電！';info.style.color='#a5f6d7';fanfare();setTimeout(()=>{if(mode!=='puzzle')return;closeModal();cb()},650)}else if(!lock){info.textContent=dual?'OUT 1とOUT 2の両方が緑になると成功':'緑色はIN電源とつながった範囲やで'} }
  draw();let footer=mk('div','modalbuttons');addBtn(footer,'配線経路ヒント（技術部品 −3）',()=>{if(lock)return;if(g.parts<3){info.textContent='ヒントには部品が3個必要';return}g.parts-=3;g.stats.hints++;hint=true;persist();draw();info.textContent='破線のマスが本来の通電ルート。向きを揃えよう。'},'alt');addBtn(footer,'いったん戻る',closeModal,'alt');$modal.appendChild(footer);
 }
-function calibrationPuzzle(cb){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / INSTRUMENT CALIBRATION');textblock('h2','','三系統を再校正');textblock('p','','作業票：A=C+2／B=2×C／A+B=11。各ダイヤルは0〜9。すべての条件を満たす数値を入れて送信。');let vals=[2,4,1],body=mk('div','dials'),feedback=mk('div','feedback','3つの関係式を同時に満たそう');$modal.appendChild(body);$modal.appendChild(feedback);
- function render(){body.replaceChildren();['A 制動系','B 誘導系','C 記録系'].forEach((label,i)=>{let row=mk('div','dialrow');row.appendChild(mk('label','',label));let minus=mk('button','minus','−');minus.setAttribute('aria-label',label+'を減らす');minus.onclick=()=>{vals[i]=Math.max(0,vals[i]-1);audioNote(430);render()};row.appendChild(minus);row.appendChild(mk('strong','',String(vals[i])));let plus=mk('button','plus','＋');plus.setAttribute('aria-label',label+'を増やす');plus.onclick=()=>{vals[i]=Math.min(9,vals[i]+1);audioNote(550);render()};row.appendChild(plus);body.appendChild(row)})}render();buttons(['校正値を送信',()=>{const [a,b,c]=vals;if(a===c+2&&b===2*c&&a+b===11){feedback.textContent='全条件一致。計器校正完了！';feedback.style.color='#a7eed0';fanfare();setTimeout(()=>{if(mode!=='puzzle')return;closeModal();cb()},600)}else{feedback.textContent='条件が一致しない。A+B='+(a+b)+' / B-2C='+(b-2*c)+' / A-C='+(a-c);audioNote(170,.15,'sawtooth')}}],['ヒント（技術部品 −3）',()=>{if(g.parts<3){feedback.textContent='部品が足りない';return}g.parts-=3;g.stats.hints++;feedback.textContent='ヒント：Cは3。AとBは計算できるはず';persist()},'alt'],['いったん戻る',closeModal,'alt'])}
+function calibrationPuzzle(cb){openModal();mode='puzzle';textblock('div','eyebrow','REPAIR / INSTRUMENT CALIBRATION');textblock('h2','','3つのメーターを合わせる');textblock('p','','3つの数字A・B・Cを合わせよう。メモの式は A=C+2、B=2×C、A+B=11。0〜9から選んで「決定」を押してください。');let vals=[2,4,1],body=mk('div','dials'),feedback=mk('div','feedback','メモの3つの式に合う数字を探そう。');$modal.appendChild(body);$modal.appendChild(feedback);
+ function render(){body.replaceChildren();['A 制動系','B 誘導系','C 記録系'].forEach((label,i)=>{let row=mk('div','dialrow');row.appendChild(mk('label','',label));let minus=mk('button','minus','−');minus.setAttribute('aria-label',label+'を減らす');minus.onclick=()=>{vals[i]=Math.max(0,vals[i]-1);audioNote(430);render()};row.appendChild(minus);row.appendChild(mk('strong','',String(vals[i])));let plus=mk('button','plus','＋');plus.setAttribute('aria-label',label+'を増やす');plus.onclick=()=>{vals[i]=Math.min(9,vals[i]+1);audioNote(550);render()};row.appendChild(plus);body.appendChild(row)})}render();buttons(['この数字で決定する',()=>{const [a,b,c]=vals;if(a===c+2&&b===2*c&&a+b===11){feedback.textContent='正解！ 3つのメーターが元に戻りました。';feedback.style.color='#a7eed0';fanfare();setTimeout(()=>{if(mode!=='puzzle')return;closeModal();cb()},600)}else{feedback.textContent='条件が一致しない。A+B='+(a+b)+' / B-2C='+(b-2*c)+' / A-C='+(a-c);audioNote(170,.15,'sawtooth')}}],['ヒント（技術部品 −3）',()=>{if(g.parts<3){feedback.textContent='部品が足りない';return}g.parts-=3;g.stats.hints++;feedback.textContent='ヒント：Cは3。AとBは計算できるはず';persist()},'alt'],['いったん戻る',closeModal,'alt'])}
 function orderPuzzle(title,body,choices,correct,cb){openModal();mode='puzzle';textblock('div','eyebrow','REASONING / SEQUENCE');textblock('h2','',title);for(const b of body)textblock('p','',b);let out=mk('div','track','ここに選んだ順序が表示される'),grid=mk('div','evidences'),feedback=mk('div','feedback','正しい順番で4つ選んでみよう');$modal.appendChild(out);$modal.appendChild(grid);$modal.appendChild(feedback);let picked=[],locked=false,errs=0;
  function render(){out.textContent=picked.length?picked.map(i=>choices[i]).join(' → '):'まだ選んでいない';grid.replaceChildren();choices.forEach((c,i)=>{let b=mk('button','',c);b.disabled=locked||picked.includes(i);b.onclick=()=>{if(locked)return;audioNote(480);if(i!==correct[picked.length]){errs++;picked=[];feedback.textContent='時系列が矛盾した。記録の手掛かりを読み直そう。失敗 '+errs+'回';feedback.style.color='#f3a8a8';audioNote(180,.10,'sawtooth');render();return}picked.push(i);feedback.textContent='確定 '+picked.length+' / 4';feedback.style.color='#a6e9d5';render();if(picked.length===4){locked=true;feedback.textContent='順序確定！ 記録の矛盾が解けた';fanfare();setTimeout(()=>{if(mode!=='puzzle')return;closeModal();cb()},650)}};grid.appendChild(b)})}render();buttons(['やり直す',()=>{picked=[];feedback.textContent='最初から順番を組み立てよう';render()},'alt'],['ヒント（技術部品 −3）',()=>{if(g.parts<3){feedback.textContent='部品不足';return}g.parts-=3;g.stats.hints++;feedback.textContent='次の正解は「'+choices[correct[picked.length]]+'」';persist()},'alt'],['いったん戻る',closeModal,'alt'])}
-function evidencePuzzle(cb){orderPuzzle('消された時系列',['駅の記録を復元し、四つの出来事が発生した順番を確定しよう。','手掛かり：「異常負荷が先」「封鎖命令は退避通知より前」「風速ゼロへの書換は最後」'],['退避通知','風速ゼロへ書換','異常負荷検知','鉄橋の封鎖命令'],[2,3,0,1],cb)}
-function safetyPuzzle(cb){orderPuzzle('第一保安遮断器',['保安手順の順番を確認。電源を切っただけでは残留エネルギーは残る。','補助メモ：「退避確認 → 給電の遮断 → 残留エネルギー処理 → ロック状態の確認」'],['残留電荷の放電','作業区域の退避確認','機械ロックの確認','主給電の遮断'],[1,3,0,2],cb)}
-function memoryPuzzle(cb){openModal();mode='puzzle';textblock('div','eyebrow','AUTHENTICATION / MEMORY SEQUENCE');textblock('h2','','記憶認証ロック');textblock('p','','点滅する四つの記号を覚えて、同じ順にタップ。何度でも再表示できる。音は不要。');let board=mk('div','beat','準備中…'),feedback=mk('div','feedback','記憶を照合する'),grid=mk('div','evidences');$modal.appendChild(board);$modal.appendChild(grid);$modal.appendChild(feedback);const symbols=['◈','⚙','✦','◉'],correct=[2,0,3,1];let attempt=0,idx=0,lock=true,seq=[],currentTimer=null;
+function evidencePuzzle(cb){orderPuzzle('消された時系列',['駅の記録を読んで、4つの出来事を古い順に並べよう。','手掛かり：「機械の異常が最初」「橋を止めたのは避難の前」「風速を0にしたのは最後」'],['退避通知','風速ゼロへ書換','異常負荷検知','鉄橋の封鎖命令'],[2,3,0,1],cb)}
+function safetyPuzzle(cb){orderPuzzle('1つ目の安全スイッチ',['安全に装置を止めるため、4つの手順を正しい順番に並べよう。','ヒント：「人が離れたか確認 → 電気を止める → 残った電気を逃がす → 鍵を確認」'],['残留電荷の放電','作業区域の退避確認','機械ロックの確認','主給電の遮断'],[1,3,0,2],cb)}
+function memoryPuzzle(cb){openModal();mode='puzzle';textblock('div','eyebrow','AUTHENTICATION / MEMORY SEQUENCE');textblock('h2','','記憶の順番で開く鍵');textblock('p','','4つの記号が順番に光ります。よく見て、同じ順番でタップしてください。何度でも見直せます。');let board=mk('div','beat','準備中…'),feedback=mk('div','feedback','記憶を照合する'),grid=mk('div','evidences');$modal.appendChild(board);$modal.appendChild(grid);$modal.appendChild(feedback);const symbols=['◈','⚙','✦','◉'],correct=[2,0,3,1];let attempt=0,idx=0,lock=true,seq=[],currentTimer=null;
  function clearTimers(){for(let t of seq)clearTimeout(t);seq=[]}
  function present(){clearTimers();lock=true;idx=0;board.textContent='表示をよく見て…';feedback.textContent='順番を記憶しよう';draw();correct.forEach((v,i)=>seq.push(setTimeout(()=>{if(mode!=='puzzle')return;board.textContent=symbols[v]},500+i*850)));seq.push(setTimeout(()=>{if(mode!=='puzzle')return;board.textContent='？ → ？ → ？ → ？';feedback.textContent='覚えた順にタップしよう';lock=false;draw()},500+correct.length*850));}
  function draw(){grid.replaceChildren();symbols.forEach((s,i)=>{let b=mk('button','',s);b.style.fontSize='27px';b.disabled=lock;b.setAttribute('aria-label','記号 '+s);b.onclick=()=>{if(lock)return;if(i!==correct[idx]){attempt++;feedback.textContent='違う順番や。再表示するで（'+attempt+'回目）';audioNote(160,.12,'sawtooth');present();return}idx++;board.textContent=Array(idx).fill('●').join(' ')+' '+Array(4-idx).fill('○').join(' ');audioNote(500+idx*90,.07);if(idx===4){lock=true;clearTimers();fanfare();feedback.textContent='認証成功。封印された記録を保護した';setTimeout(()=>{if(mode!=='puzzle')return;closeModal();cb()},650)}};grid.appendChild(b)})}draw();buttons(['もう一度、記号を表示する',present,'alt'],['いったん戻る',()=>{clearTimers();closeModal()},'alt']);present()}

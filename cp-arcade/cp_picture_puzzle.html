@@ -267,10 +267,12 @@ async function sourceUrl(item){
 function showPhotoCredit(item){
  const credit=item._credit;
  if(item.type==='commons'&&credit){
-  $('photoInfo').textContent='作者・撮影者：'+credit.artist+' ／ '+credit.license+' ／ '+credit.note;
+  $('photoInfo').textContent='作者・撮影者：'+credit.artist+' ／ '+credit.license;
+  $('creditDetail').textContent=credit.note;
   $('licenseTerms').hidden=false;$('licenseTerms').href=credit.licenseUrl;
  }else{
   $('photoInfo').textContent=(item.type==='met'?'The Met Open Access':'Pexels')+(item.creator?' / '+item.creator:'');
+  $('creditDetail').textContent='';
   $('licenseTerms').hidden=true;$('licenseTerms').removeAttribute('href');
  }
  $('origin').href=item.source_url||'#';$('origin').hidden=!item.source_url;
@@ -291,7 +293,7 @@ async function checkItem(item){
 }
 function markBad(item,reason){blockMap[item.id]={reason:String(reason).slice(0,130),checked_at:new Date().toISOString()};delete verified[item.id];saveJSON(BLOCKED,blockMap);saveJSON(VERIFIED,verified)}
 function chooseCandidate(p,excluded=new Set()){
- const pool=selectedIds.map(id=>byId[id]).filter(i=>i&&i.rights_ok&&i.category===p.cat&&!blockMap[i.id]&&!excluded.has(i.id));
+ const pool=selectedIds.map(id=>byId[id]).filter(i=>i&&i.rights_ok&&i.category===p.cat&&eligibleForPhase(i,p)&&!blockMap[i.id]&&!excluded.has(i.id));
  if(!pool.length)return null;
  const notLast=pool.filter(i=>i.id!==lastShown);
  const available=notLast.length?notLast:pool;
@@ -309,7 +311,7 @@ function loadSavedRun(){const run=campaign.run;if(!run||run.stage!==campaign.sta
  slots=run.slots;order=run.order;selected=-1;moves=run.moves||0;hints=run.hints||0;seconds=run.seconds||0;playing=run.playing===true;
  if(playing){started=Date.now();stopClock();timer=setInterval(tick,1000)}return true;
 }
-function saveRun(){if(!current||campaign.stage>=12)return;campaign.run={stage:campaign.stage,itemId:current.id,slots,order,moves,hints,seconds:countElapsed(),playing};saveCampaign()}
+function saveRun(){if(!current||campaign.stage>=STAGE_COUNT)return;campaign.run={stage:campaign.stage,itemId:current.id,slots,order,moves,hints,seconds:countElapsed(),playing};saveCampaign()}
 function updateStats(){
  $('pieceCount').textContent=slots.length||'—';$('moves').textContent=moves+'回';$('correct').textContent=order.reduce((n,v,i)=>n+(v===i),0)+' / '+slots.length;$('timer').textContent=tm(countElapsed());
 }
@@ -365,21 +367,21 @@ function finishStage(){
  const p=phase();campaign.run={...campaign.run,stage:campaign.stage,itemId:current.id,slots,order,moves,hints,seconds,playing:false,solved:true};
  campaign.records[campaign.stage]={id:current.id,category:p.cat,level:p.level,seconds,moves,hints,date:new Date().toISOString()};saveCampaign();updateStats();
  $('clearTitle').textContent='🎉 STAGE '+(campaign.stage+1)+' クリア！';
- $('clearDetail').textContent=`${current.title}\n${p.levelName} ${p.size}×${p.size}\n${tm(t)} / 入れ替え${moves}回 / おたすけ${hints}回\n${campaign.stage===11?'🏆 全12ステージ達成！':'次のシリーズへ進もう！'}`;
- $('nextStage').textContent=campaign.stage===11?'🏆 完走結果を見る':'次のステージへ ▶';
+ $('clearDetail').textContent=`${current.title}\n${p.levelName} ${p.size}×${p.size}\n${tm(t)} / 入れ替え${moves}回 / おたすけ${hints}回\n${campaign.records.filter(Boolean).length===STAGE_COUNT?'🏆 全15ステージ達成！':'次のシリーズへ進もう！'}`;
+ $('nextStage').textContent=campaign.records.filter(Boolean).length===STAGE_COUNT?'🏆 完走結果を見る':'次のステージへ ▶';
  $('clearModal').classList.add('on');message('🎉 完成！ おめでとう！');
 }
 async function openStage(){
  const p=phase();if(!p){renderHome();showScreen('screenHome');return}
- const token=++serial;showScreen('screenGame');ready=false;playing=false;stopClock();$('shuffle').disabled=true;$('board').replaceChildren();
- $('stageLabel').textContent='STAGE '+(p.stage+1)+' / 12';$('stageLevel').textContent=p.levelName+' '+p.size+'×'+p.size;
+ const token=++serial;changingImage=false;$('changeImage').disabled=false;showScreen('screenGame');ready=false;playing=false;stopClock();$('shuffle').disabled=true;$('board').replaceChildren();
+ $('stageLabel').textContent='STAGE '+(p.stage+1)+' / '+STAGE_COUNT;$('stageLevel').textContent=p.levelName+' '+p.size+'×'+p.size;
  $('titleGame').textContent=p.cat;$('seriesEmoji').textContent=emoji[p.cat];$('descriptionGame').textContent='ランダムな絵を選んでいます…';
- $('imageState').textContent='読み込める画像を探しています…';$('imageState').className='imageStatus';
+ $('imageState').textContent='読み込める画像を探しています…';$('imageState').className='imageStatus';$('licenseTerms').hidden=true;
  $('preview').style.backgroundImage='none';current=null;ready=false;
  let attempted=0;
  for(let n=0;n<45;n++){
   const old=byId[campaign.selected[p.stage]];
-  const item=(n===0&&old&&!blockMap[old.id]&&old.category===p.cat)?old:chooseCandidate(p);
+  const item=(n===0&&old&&!blockMap[old.id]&&old.category===p.cat&&eligibleForPhase(old,p))?old:chooseCandidate(p);
   if(!item)break;
   attempted++;$('imageState').textContent=`画像を確認しています…（${attempted}枚目）`;
   try{
@@ -387,8 +389,7 @@ async function openStage(){
    current=item;imgSrc=url;ready=true;campaign.selected[p.stage]=item.id;saveCampaign();lastShown=item.id;saveJSON(LAST_SHOWN,lastShown);
    $('titleGame').textContent=emoji[p.cat]+' '+item.title;$('descriptionGame').textContent=`${p.levelName} / ${p.size}×${p.size} ／ ${p.cat}`;
    $('imageState').className='imageStatus ok';$('imageState').textContent='画像OK！ この絵で挑戦できます。';
-   $('photoInfo').textContent=(item.type==='met'?'The Met Open Access':'Pexels')+(item.creator?' / '+item.creator:'');
-   $('origin').href=item.source_url||'#';$('origin').hidden=!item.source_url;
+   showPhotoCredit(item);
    paintBg($('preview'),url);paintBg($('enlarged'),url);$('previewTitle').textContent=item.title;
    if(!loadSavedRun())setSolved();else{updateStats();renderBoard()}
    $('shuffle').disabled=false;
@@ -398,7 +399,7 @@ async function openStage(){
   }catch(e){if(token!==serial)return;markBad(item,e?.message||'画像の読み込みエラー');delete campaign.selected[p.stage];saveCampaign();}
  }
  $('imageState').className='imageStatus bad';$('imageState').textContent='このシリーズで利用可能な画像が見つかりませんでした。画像チェックで失敗した画像を確認してください。';
- message('ゲームを進められません。画像チェックや選定JSONの読み込みを試してください。');renderHome();
+ message('ゲームを進められません。画像チェンジや画像チェックから再度試してください。');renderHome();
 }
 async function changeImage(){
  const p=phase();if(!p||changingImage)return;
@@ -407,7 +408,7 @@ async function changeImage(){
  }
  if(playing&&!confirm('画像を変更すると、今のパズルの途中経過はリセットされます。別の絵に変更しますか？'))return;
  const previousId=current?.id||campaign.selected[p.stage]||null;
- const alternatives=selectedIds.map(id=>byId[id]).filter(i=>i&&i.rights_ok&&i.category===p.cat&&i.id!==previousId);
+ const alternatives=selectedIds.map(id=>byId[id]).filter(i=>i&&i.rights_ok&&i.category===p.cat&&eligibleForPhase(i,p)&&i.id!==previousId);
  if(!alternatives.length){
   $('imageState').className='imageStatus bad';
   $('imageState').textContent='このシリーズに別の採用画像がありません。';
@@ -439,8 +440,7 @@ async function changeImage(){
    lastShown=item.id;saveJSON(LAST_SHOWN,lastShown);
    $('titleGame').textContent=emoji[p.cat]+' '+item.title;
    $('descriptionGame').textContent=p.levelName+' / '+p.size+'×'+p.size+' ／ '+p.cat;
-   $('photoInfo').textContent=(item.type==='met'?'The Met Open Access':item.type==='pexels'?'Pexels':(item.license||'画像提供元'))+(item.creator?' / '+item.creator:'');
-   $('origin').href=item.source_url||'#';$('origin').hidden=!item.source_url;
+   showPhotoCredit(item);
    paintBg($('preview'),url);paintBg($('enlarged'),url);$('previewTitle').textContent=item.title;
    setSolved();
    $('imageState').className='imageStatus ok';
@@ -462,12 +462,15 @@ async function changeImage(){
 }
 function nextStage(){
  $('clearModal').classList.remove('on');if(!campaign.run?.solved)return;
- if(campaign.stage>=12)return;
- campaign.stage++;campaign.run=null;saveCampaign();
- if(campaign.stage===12){renderHome();$('statusHome').textContent='🏆 全12ステージクリア！ おめでとう！';showScreen('screenHome');return}
+ if(campaign.stage>=STAGE_COUNT)return;
+ campaign.stage=nextIncomplete(campaign.records,campaign.stage+1);
+ const parked=campaign.parkedRuns||{};
+ campaign.run=parked[campaign.stage]||null;delete parked[campaign.stage];campaign.parkedRuns=parked;
+ saveCampaign();
+ if(campaign.stage===STAGE_COUNT){renderHome();$('statusHome').textContent='🏆 全15ステージクリア！ おめでとう！';showScreen('screenHome');return}
  renderHome();openStage();
 }
-function leave(){serial++;stopClock();if(playing){saveRun();playing=false}showScreen('screenHome');renderHome()}
+function leave(){serial++;changingImage=false;$('changeImage').disabled=false;stopClock();if(playing){saveRun();playing=false}showScreen('screenHome');renderHome()}
 function updateCheckSummary(){
  const list=selectedIds.map(id=>byId[id]).filter(Boolean),valid=list.filter(i=>verified[i.id]&&!blockMap[i.id]),bad=list.filter(i=>blockMap[i.id]),unknown=list.filter(i=>!verified[i.id]&&!blockMap[i.id]);
  $('catalogStatus').innerHTML=`<div>候補<b>${list.length}</b></div><div>読込OK<b>${valid.length}</b></div><div>除外<b>${bad.length}</b></div><div>未確認<b>${unknown.length}</b></div>`;
@@ -491,19 +494,20 @@ function importSelection(ev){const file=ev.target.files?.[0];if(!file)return;if(
  else if(Array.isArray(value.picked))ids=value.picked.filter(id=>byId[id]?.rights_ok);
  else throw Error('対応する選定JSONではありません');
  if(ids.length<8)throw Error('採用画像が少なすぎます');
- if(!categories.every(c=>ids.some(id=>byId[id]?.category===c)))throw Error('4シリーズそれぞれに採用画像が必要です');
+ if(!ids.some(id=>byId[id]?.category==='世界の建物・名所'))ids.push(...catalog.filter(i=>i.newRelease&&i.category==='世界の建物・名所').map(i=>i.id));
+ if(!categories.every(c=>ids.some(id=>byId[id]?.category===c)))throw Error('5シリーズそれぞれに採用画像が必要です');
  if(campaign.stage>0&&!confirm('新しい問題集に切り替えるため、ステージの進み具合を最初からに戻しますか？'))return;
  selectedIds=[...new Set(ids)];saveJSON(SELECTED,selectedIds);blockMap={};verified={};saveJSON(BLOCKED,blockMap);saveJSON(VERIFIED,verified);
- campaign={stage:0,selected:{},records:[],run:null};saveCampaign();renderHome();updateCheckSummary();alert('採用画像 '+selectedIds.length+'枚を読み込みました。画像チェックを試してね。');
+ campaign={stage:0,selected:{},records:[],run:null,parkedRuns:{}};saveCampaign();renderHome();updateCheckSummary();alert('採用画像 '+selectedIds.length+'枚を読み込みました。画像チェックを試してね。');
  }).catch(e=>alert('読み込み失敗：'+e.message)).finally(()=>{ev.target.value=''})}
-$('startCampaign').onclick=()=>{if(campaign.stage===12)return;openStage()};
+$('startCampaign').onclick=()=>{if(campaign.stage===STAGE_COUNT)return;openStage()};
 $('openImageCheck').onclick=()=>{showScreen('screenCheck');updateCheckSummary()};
 $('checkBack').onclick=()=>{showScreen('screenHome');renderHome()};
 $('runImageCheck').onclick=checkAll;
 $('clearFailures').onclick=()=>{if(!confirm('除外した画像を再チェック可能に戻しますか？'))return;blockMap={};saveJSON(BLOCKED,blockMap);updateCheckSummary();renderHome();$('checkStatus').textContent='除外結果をリセットしました';};
 $('exportCheck').onclick=exportCheck;
 $('selectionFile').addEventListener('change',importSelection);
-$('restartAll').onclick=()=>{if(!confirm('ステージの進行と今回のクリア記録を最初からに戻しますか？（画像の採用・除外設定は維持します）'))return;serial++;stopClock();campaign={stage:0,selected:{},records:[],run:null};saveCampaign();renderHome()};
+$('restartAll').onclick=()=>{if(!confirm('ステージの進行と今回のクリア記録を最初からに戻しますか？（画像の採用・除外設定は維持します）'))return;serial++;stopClock();campaign={stage:0,selected:{},records:[],run:null,parkedRuns:{}};saveCampaign();renderHome()};
 $('backHome').onclick=leave;
 $('changeImage').onclick=changeImage;
 $('shuffle').onclick=()=>{if(playing&&!confirm('このステージをシャッフルし直しますか？'))return;startPuzzle()};

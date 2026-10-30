@@ -130,7 +130,7 @@ h1 small{font-size:11px;color:#ffe4ad;white-space:nowrap}
  <div class="detailsGrid"><div>
   <div id="board" class="board" aria-label="同じ形のピースを入れ替えるパズル"></div>
   <div id="feedback" class="feedback" role="status">画像を読み込み中です。</div>
-  <div class="toolbar" style="justify-content:center"><button id="shuffle" class="btn primary" disabled>🔀 シャッフルしてスタート</button><button id="showSolution" class="btn soft">🖼️ 完成図を見る</button></div>
+  <div class="toolbar" style="justify-content:center"><button id="shuffle" class="btn primary" disabled>🔀 シャッフルしてスタート</button><button id="showSolution" class="btn soft">🖼️ 完成図を見る</button><button id="changeImage" class="btn soft" type="button">🔄 画像チェンジ</button></div>
  </div><aside class="side"><div class="card"><h3>完成図</h3><div id="preview" class="bigPreview"></div><p class="tiny">お手本はいつでも見られます。</p></div><div class="card"><h3>困ったときは</h3><p class="hint">同じ形のピース同士をタップして交換。</p><div class="toolbar"><button id="numbers" class="btn">数字のヒント</button><button id="assist" class="btn">1組おたすけ</button></div><p id="photoInfo" class="tiny"></p><a id="origin" href="#" target="_blank" rel="noopener noreferrer">写真の出典</a></div></aside></div>
  </div></section>
 </main>
@@ -147,6 +147,7 @@ const categories=['世界の名画','世界の絶景','可愛い動物','美味�
 const emoji={'世界の名画':'🖼️','世界の絶景':'🏞️','可愛い動物':'🐶','美味しそうな料理':'🍜'};
 const levels=['easy','medium','hard'];const names=['初級','中級','上級'];const GRID=[7,7,9];
 const STORAGE='CP_PICTURE_V05_CAMPAIGN';const BLOCKED='CP_PICTURE_V05_FAILED';const VERIFIED='CP_PICTURE_V05_VERIFIED';const SELECTED='CP_PICTURE_V05_SELECTION';
+const LAST_SHOWN='CP_PICTURE_V05_LAST_SHOWN';let lastShown=null,changingImage=false;
 let selectedIds=[],blockMap={},verified={},campaign={stage:0,selected:{},records:[],run:null};
 let current=null,imgSrc='',ready=false,playing=false,selected=-1,slots=[],order=[],moves=0,hints=0,seconds=0,started=0,showNumbers=false,timer=null,serial=0,checking=false;
 const type=s=>s.w+'x'+s.h;
@@ -162,6 +163,7 @@ function stopClock(){if(timer){clearInterval(timer);timer=null}}
 function countElapsed(){return playing?seconds+Math.floor((Date.now()-started)/1000):seconds}
 function tick(){if(playing)$('timer').textContent=tm(countElapsed())}
 function init(){
+ lastShown=getJSON(LAST_SHOWN,null);
  const preset=getJSON(SELECTED,null);
  const v04=getJSON('CP_PICTURE_V04_SELECTION',null);
  const review=getJSON('cp_picture_40_reviews_v1',null);
@@ -221,11 +223,14 @@ async function checkItem(item){
  return url;
 }
 function markBad(item,reason){blockMap[item.id]={reason:String(reason).slice(0,130),checked_at:new Date().toISOString()};delete verified[item.id];saveJSON(BLOCKED,blockMap);saveJSON(VERIFIED,verified)}
-function chooseCandidate(p){
- const pool=selectedIds.map(id=>byId[id]).filter(i=>i&&i.rights_ok&&i.category===p.cat&&!blockMap[i.id]);
+function chooseCandidate(p,excluded=new Set()){
+ const pool=selectedIds.map(id=>byId[id]).filter(i=>i&&i.rights_ok&&i.category===p.cat&&!blockMap[i.id]&&!excluded.has(i.id));
+ if(!pool.length)return null;
+ const notLast=pool.filter(i=>i.id!==lastShown);
+ const available=notLast.length?notLast:pool;
  const used=new Set(Object.values(campaign.selected));
- const unused=pool.filter(i=>!used.has(i.id));
- const source=unused.length?unused:pool;
+ const unused=available.filter(i=>!used.has(i.id));
+ const source=unused.length?unused:available;
  return source[Math.floor(Math.random()*source.length)];
 }
 function loadSavedRun(){const run=campaign.run;if(!run||run.stage!==campaign.stage||!current||run.itemId!==current.id)return false;
@@ -261,6 +266,7 @@ function renderBoard(){
 function exchange(a,b){if(type(slots[a])!==type(slots[b]))throw Error('形の違うピースは交換不可');[order[a],order[b]]=[order[b],order[a]]}
 function completed(){return order.every((x,i)=>x===i)}
 function tap(i){
+ if(changingImage){message('画像を切り替え中です');return}
  if(!playing){message('シャッフル開始を押してね');return}
  if(selected<0){selected=i;renderBoard();message('点線で光る同じ形のピースを選んでね');return}
  if(selected===i){selected=-1;renderBoard();return}
@@ -269,6 +275,7 @@ function tap(i){
  if(completed())finishStage();else message('いい調子！ あと'+order.filter((x,i)=>x!==i).length+'ピース');
 }
 function startPuzzle(){
+ if(changingImage)return;
  if(!ready){message('画像を読み込み中です');return}
  setSolved();const groups=new Map();slots.forEach((s,i)=>{const k=type(s);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(i)});
  for(const group of groups.values()){
@@ -284,7 +291,7 @@ function startPuzzle(){
  if(completed()){const g=[...groups.values()][0];exchange(g[0],g[1])}
  playing=true;started=Date.now();seconds=0;stopClock();timer=setInterval(tick,1000);renderBoard();updateStats();saveRun();message('スタート！ 同じ形同士で入れ替えてね');
 }
-function assist(){if(!playing){message('シャッフルしてから使えるよ');return}const idx=order.findIndex((x,i)=>x!==i);if(idx<0)return;const from=order.indexOf(idx);
+function assist(){if(changingImage){message('画像を切り替え中です');return}if(!playing){message('シャッフルしてから使えるよ');return}const idx=order.findIndex((x,i)=>x!==i);if(idx<0)return;const from=order.indexOf(idx);
  exchange(idx,from);hints++;moves++;selected=-1;updateStats();renderBoard();saveRun();if(completed())finishStage();else message('1組を正しい場所に戻したよ');}
 function finishStage(){
  const t=countElapsed();seconds=t;playing=false;stopClock();
@@ -310,7 +317,7 @@ async function openStage(){
   attempted++;$('imageState').textContent=`画像を確認しています…（${attempted}枚目）`;
   try{
    const url=await checkItem(item);if(token!==serial)return;
-   current=item;imgSrc=url;ready=true;campaign.selected[p.stage]=item.id;saveCampaign();
+   current=item;imgSrc=url;ready=true;campaign.selected[p.stage]=item.id;saveCampaign();lastShown=item.id;saveJSON(LAST_SHOWN,lastShown);
    $('titleGame').textContent=emoji[p.cat]+' '+item.title;$('descriptionGame').textContent=`${p.levelName} / ${p.size}×${p.size} ／ ${p.cat}`;
    $('imageState').className='imageStatus ok';$('imageState').textContent='画像OK！ この絵で挑戦できます。';
    $('photoInfo').textContent=(item.type==='met'?'The Met Open Access':'Pexels')+(item.creator?' / '+item.creator:'');
@@ -325,6 +332,66 @@ async function openStage(){
  }
  $('imageState').className='imageStatus bad';$('imageState').textContent='このシリーズで利用可能な画像が見つかりませんでした。画像チェックで失敗した画像を確認してください。';
  message('ゲームを進められません。画像チェックや選定JSONの読み込みを試してください。');renderHome();
+}
+async function changeImage(){
+ const p=phase();if(!p||changingImage)return;
+ if(campaign.run?.solved&&campaign.run.stage===p.stage){
+  message('このステージはクリア済みです。次のステージへ進んでね。');return;
+ }
+ if(playing&&!confirm('画像を変更すると、今のパズルの途中経過はリセットされます。別の絵に変更しますか？'))return;
+ const previousId=current?.id||campaign.selected[p.stage]||null;
+ const alternatives=selectedIds.map(id=>byId[id]).filter(i=>i&&i.rights_ok&&i.category===p.cat&&i.id!==previousId);
+ if(!alternatives.length){
+  $('imageState').className='imageStatus bad';
+  $('imageState').textContent='このシリーズに別の採用画像がありません。';
+  message('画像チェックから別の絵を採用してね。');return;
+ }
+ // Explicit retry: previous temporary network errors may have blocked all alternatives.
+ if(!alternatives.some(i=>!blockMap[i.id])){
+  alternatives.forEach(i=>{delete blockMap[i.id]});
+  saveJSON(BLOCKED,blockMap);
+ }
+ const token=++serial,wasPlaying=playing;
+ if(wasPlaying){saveRun();seconds=campaign.run.seconds;stopClock();playing=false}
+ changingImage=true;
+ $('changeImage').disabled=true;$('shuffle').disabled=true;
+ $('imageState').className='imageStatus';$('imageState').textContent='別の画像を探しています…';
+ const tried=new Set(previousId?[previousId]:[]);
+ try{
+  for(let n=1;n<=alternatives.length;n++){
+   const item=chooseCandidate(p,tried);if(!item)break;
+   tried.add(item.id);
+   $('imageState').textContent='別の画像を確認中…（'+n+'枚目）';
+   let url;
+   try{url=await checkItem(item)}
+   catch(e){if(token!==serial)return;markBad(item,e?.message||'画像の読み込みエラー');continue}
+   if(token!==serial)return;
+   // Commit the switch only after the replacement image really loads.
+   current=item;imgSrc=url;ready=true;
+   campaign.selected[p.stage]=item.id;campaign.run=null;saveCampaign();
+   lastShown=item.id;saveJSON(LAST_SHOWN,lastShown);
+   $('titleGame').textContent=emoji[p.cat]+' '+item.title;
+   $('descriptionGame').textContent=p.levelName+' / '+p.size+'×'+p.size+' ／ '+p.cat;
+   $('photoInfo').textContent=(item.type==='met'?'The Met Open Access':item.type==='pexels'?'Pexels':(item.license||'画像提供元'))+(item.creator?' / '+item.creator:'');
+   $('origin').href=item.source_url||'#';$('origin').hidden=!item.source_url;
+   paintBg($('preview'),url);paintBg($('enlarged'),url);$('previewTitle').textContent=item.title;
+   setSolved();
+   $('imageState').className='imageStatus ok';
+   $('imageState').textContent='別の絵に切り替えました。シャッフルして遊んでね！';
+   message('🔄 画像チェンジ完了！ シャッフルしてスタートしてね。');
+   renderHome();return;
+  }
+  if(token!==serial)return;
+  // No replacement: keep the original image, tiles and progress untouched.
+  if(wasPlaying){playing=true;started=Date.now();timer=setInterval(tick,1000);saveRun();updateStats()}
+  $('imageState').className='imageStatus bad';
+  $('imageState').textContent=current?'別の画像を読み込めませんでした。元の絵で続けられます。':'画像を取得できませんでした。画像チェックで除外結果を確認してください。';
+  message(current?'元のパズルはそのまま残してあるよ。':'読み込みに失敗しました。あとで画像チェンジを再試行できます。');
+  renderHome();
+ }finally{
+  changingImage=false;
+  if(token===serial){$('changeImage').disabled=false;$('shuffle').disabled=!ready}
+ }
 }
 function nextStage(){
  $('clearModal').classList.remove('on');if(!campaign.run?.solved)return;
@@ -371,10 +438,11 @@ $('exportCheck').onclick=exportCheck;
 $('selectionFile').addEventListener('change',importSelection);
 $('restartAll').onclick=()=>{if(!confirm('ステージの進行と今回のクリア記録を最初からに戻しますか？（画像の採用・除外設定は維持します）'))return;serial++;stopClock();campaign={stage:0,selected:{},records:[],run:null};saveCampaign();renderHome()};
 $('backHome').onclick=leave;
+$('changeImage').onclick=changeImage;
 $('shuffle').onclick=()=>{if(playing&&!confirm('このステージをシャッフルし直しますか？'))return;startPuzzle()};
 $('showSolution').onclick=()=>{$('previewModal').classList.add('on')};$('preview').onclick=()=>{$('previewModal').classList.add('on')};
 $('closePreview').onclick=()=>{$('previewModal').classList.remove('on')};
-$('numbers').onclick=()=>{showNumbers=!showNumbers;$('numbers').textContent=showNumbers?'数字を隠す':'数字のヒント';if(playing&&showNumbers)hints++;renderBoard();saveRun()};
+$('numbers').onclick=()=>{if(changingImage)return;showNumbers=!showNumbers;$('numbers').textContent=showNumbers?'数字を隠す':'数字のヒント';if(playing&&showNumbers)hints++;renderBoard();saveRun()};
 $('assist').onclick=assist;
 $('nextStage').onclick=nextStage;
 $('closeClear').onclick=()=>$('clearModal').classList.remove('on');

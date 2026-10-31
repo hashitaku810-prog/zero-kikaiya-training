@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a32"><title>CP PICTURE DROP | CP ARCADE 公開版 Ver.1.0</title>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a32"><title>CP PICTURE DROP | 公開修正版 Ver.1.1</title>
 <style>
 :root{color-scheme:dark;--bg:#081429;--surface:#152641;--surface2:#1c3452;--line:#365170;--white:#f4f8ff;--soft:#bbcee1;--cyan:#8debdc;--orange:#ffce85}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse 90% 30% at 50% 0%,#29416d 0%,transparent 100%),linear-gradient(170deg,#0c1930,#090f24 78%);color:var(--white);font-family:system-ui,-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;font-weight:500}
@@ -28,15 +28,14 @@ button,select{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:tra
 .stage{border-radius:18px;border:1px solid #3b5576;padding:12px 10px 13px;background:linear-gradient(155deg,#132942,#0d1c33);box-shadow:0 10px 40px #0005}.board-top{display:flex;justify-content:space-between;align-items:center;margin:0 5px 8px;font-size:12px;font-weight:850}.board-top .piece-count{font-size:11px;color:#afc6da;font-weight:600}.board{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));width:min(100%,510px);aspect-ratio:1;margin:auto;background-color:#061329;border:6px solid #294661;border-radius:12px;box-shadow:inset 0 0 0 2px #59738a,0 12px 30px #0007;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;isolation:isolate}.cell{position:relative;min-width:0;min-height:0;background:#0b2035;padding:0;border:0;display:flex;align-items:stretch;justify-content:stretch;overflow:hidden}.cell.empty{background:radial-gradient(circle at 50% 50%,#182d49,#0c1b31);box-shadow:inset 0 0 0 1px #3f567436}.cell.target-hint{box-shadow:inset 0 0 0 3px #ffe1a1,inset 0 0 28px #ffc9608e;z-index:8;animation:glow 1s alternate infinite}.tile{flex:1;position:relative;min-height:0;min-width:0;background-repeat:no-repeat;background-size:200% 200%;background-color:#264e68;overflow:hidden;touch-action:none;transition:filter .15s,box-shadow .15s}.tile::after{content:'';position:absolute;inset:0;border-style:solid;border-color:#b5d9f4a8;border-width:var(--bt,2px) var(--br,2px) var(--bb,2px) var(--bl,2px);pointer-events:none}.cell.selected .tile{filter:brightness(1.23);z-index:5;box-shadow:inset 0 0 0 3px #fdd376,0 0 0 2px #fdd376}.cell.selected .tile::before{content:'';position:absolute;inset:0;background:#ffcf5d27;z-index:1;pointer-events:none}.cell.source-hint .tile{filter:brightness(1.45);z-index:8;box-shadow:inset 0 0 0 3px #e7da9a,0 0 0 2px #f3d88d;animation:glow 1s alternate infinite}.cell.fresh .tile{animation:fallin .46s cubic-bezier(.16,.8,.25,1.16) both}.cell.grav .tile{animation:softdrop .25s ease-out both}.cell.clearing{z-index:10}.cell.clearing .tile{animation:clearout .39s ease-in-out forwards}.label-id{position:absolute;right:1px;top:1px;display:none;background:#001324c4;color:#fff;border-radius:3px;padding:0 3px;font-size:9px;font-weight:800;pointer-events:none}.show-numbers .label-id{display:block}.status{margin:11px 2px 0;min-height:44px;display:flex;align-items:center;justify-content:center;padding:10px;border:1px solid #436589;background:#102c49;border-radius:12px;color:#d3e8f0;font-size:12px;font-weight:750;text-align:center;line-height:1.5}.status.celebrate{background:#294038;color:#eaf9d0;border-color:#68a991}
 .progress{margin:13px 2px 0}.progress-head{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:#bad0df;margin-bottom:6px}.progress-bar{background:#324964;border-radius:6px;height:8px;overflow:hidden}.progress-bar>div{height:100%;background:linear-gradient(90deg,#74c6ef,#85ddc5);width:0;transition:width .22s}.completed{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px;min-height:28px}.completed .sm{height:28px;width:28px;border-radius:6px;background-size:cover;border:2px solid #6dcdb8;box-shadow:0 2px 5px #0005}.completed .none{color:#99b7c9;font-size:11px;padding:5px}
 .panel{background:#142741a8;border:1px solid #35516c;border-radius:13px;margin:11px 2px 0;padding:11px 12px}.panel h2{font-size:13px;margin:0 0 6px;color:#e9f5fd}.panel p{font-size:11px;color:#bbcee3;line-height:1.8;margin:0}.panel b{color:#f6e2b2}.picture-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.panel .micro{font-size:10px;color:#a6bfcc}.gallery details{padding:0}.gallery summary{cursor:pointer;font-size:12px;color:#e9f8fd;font-weight:800}.gallery-items{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:11px}.gallery-item{border:1px solid #43637f;background:#0b2037;border-radius:9px;overflow:hidden}.gallery-art{width:100%;aspect-ratio:1;background-position:center;background-size:cover}.gallery-item small{font-size:9px;color:#cfdfed;text-align:center;display:block;padding:4px 1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.upload-buttons{display:flex;gap:6px;flex-wrap:wrap}.upload-buttons .btn{font-size:11px}.upload-input{display:none}.footer{text-align:center;margin-top:17px;color:#8ca8bb;font-size:10px;line-height:1.7}.toast{position:fixed;z-index:25;bottom:18px;left:50%;transform:translateX(-50%) translateY(40px);opacity:0;pointer-events:none;color:#0d263a;background:#b2f0e4;border-radius:100px;padding:10px 16px;font-size:12px;font-weight:850;white-space:nowrap;transition:all .2s}.toast.show{transform:translateX(-50%) translateY(0);opacity:1}.ghost{position:fixed;pointer-events:none;z-index:100;width:66px;height:66px;transform:translate(-50%,-50%);border:3px solid #f9d995;border-radius:8px;box-shadow:0 7px 28px #000c;overflow:visible;background-size:200% 200%;background-repeat:no-repeat;opacity:.94}.ghost::after{content:attr(data-count);position:absolute;top:-13px;right:-13px;border-radius:999px;padding:3px 7px;background:#fdd786;color:#152b3c;font-size:11px;font-weight:900}
+.upload-buttons{display:flex;gap:6px;flex-wrap:wrap}.upload-buttons .btn{font-size:11px}.upload-input{position:absolute;width:1px;height:1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);opacity:0}.upload-trigger{display:inline-flex;align-items:center;justify-content:center;cursor:pointer}.upload-trigger:focus-visible{outline:3px solid #ffce85;outline-offset:2px}.back-link{display:inline-block;color:#a7e3e6;font-size:11px;text-decoration:none;margin-top:7px}.credit-details{margin-top:10px}.credit-details li{font-size:11px;line-height:1.6;overflow-wrap:anywhere}.credit-details a{color:#96e2f6}.footer{text-align:center;margin-top:17px;color:#8ca8bb;font-size:10px;line-height:1.7}.toast{position:fixed;z-index:25;bottom:18px;left:50%;transform:translateX(-50%) translateY(40px);opacity:0;pointer-events:none;color:#0d263a;background:#b2f0e4;border-radius:100px;padding:10px 16px;font-size:12px;font-weight:850;white-space:nowrap;transition:all .2s}.toast.show{transform:translateX(-50%) translateY(0);opacity:1}.ghost{position:fixed;pointer-events:none;z-index:100;width:66px;height:66px;transform:translate(-50%,-50%);border:3px solid #f9d995;border-radius:8px;box-shadow:0 7px 28px #000c;overflow:visible;background-size:200% 200%;background-repeat:no-repeat;opacity:.94}.ghost::after{content:attr(data-count);position:absolute;top:-13px;right:-13px;border-radius:999px;padding:3px 7px;background:#fdd786;color:#152b3c;font-size:11px;font-weight:900}
 .overlay{position:fixed;z-index:30;inset:0;background:#020c1ee3;display:grid;place-items:center;padding:18px;backdrop-filter:blur(6px)}.overlay.hidden{display:none}.modal{text-align:center;width:min(100%,420px);border:1px solid #689aaf;border-radius:22px;padding:22px;background:linear-gradient(160deg,#264964,#13253f);box-shadow:0 20px 60px #0009}.modal .emoji{font-size:42px}.modal h2{font-size:23px;margin:3px 0 8px}.modal p{font-size:13px;color:#d6e3ed;line-height:1.7}.award{margin:10px auto;width:145px;aspect-ratio:1;background-size:cover;background-position:center;border:5px solid #b4eadb;border-radius:15px}.modal .btn{width:100%;min-height:44px;margin-top:9px;font-size:13px}
 @keyframes fallin{0%{opacity:0;transform:translateY(-160px) scale(.89)}64%{opacity:1}100%{opacity:1;transform:translateY(0) scale(1)}}@keyframes softdrop{0%{transform:translateY(-35px)}100%{transform:translateY(0)}}@keyframes clearout{0%{filter:brightness(1);opacity:1}42%{filter:brightness(1.8);transform:scale(.94);opacity:1}100%{filter:brightness(2.1);transform:scale(.48);opacity:0}}@keyframes glow{from{filter:brightness(1)}to{filter:brightness(1.4)}}
 @media(min-width:560px){.app{padding-top:25px}.stock{max-width:620px}.stage{padding:17px}.btn{font-size:12px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-.back-link{display:inline-block;color:#a7e3e6;font-size:11px;text-decoration:none;margin-top:7px}.credit-details{margin-top:10px;font-size:11px;color:#d0deed}.credit-details summary{cursor:pointer;font-weight:800}.credit-details ul{padding-left:17px;line-height:1.7;overflow-wrap:anywhere}.credit-details a{color:#98e1f1}.credit-note{margin:6px 0;color:#a8c6d8}.picture-head .upload-buttons{gap:5px}
 </style></head><body>
 <main class="app">
-<header class="hero"><div><div class="brand">CP QUEST · NEW PUZZLE</div><h1>PICTURE <span>DROP</span></h1><p class="desc">ピースを交換 → 絵がつながる → 4枚で完成！</p><a class="back-link" href="./index.html">← CP ARCADEに戻る</a></div><div class="version">Ver.1.0</div></header>
+<header class="hero"><div><div class="brand">CP QUEST · NEW PUZZLE</div><h1>PICTURE <span>DROP</span></h1><p class="desc">ピースを交換 → 絵がつながる → 4枚で完成！</p><a href="./index.html" class="back-link">← CP ARCADE に戻る</a></div><div class="version">Ver.1.1</div></header>
 <div class="stats"><div class="stat"><small>完成した絵</small><strong id="doneCount">0 <em>/ 12</em></strong></div><div class="stat"><small>移動回数</small><strong id="movesCount">0</strong></div><div class="stat"><small>盤面の空き</small><strong id="emptyCount">0</strong></div></div>
 <div class="toolbar"><div class="mode"><label for="difficulty">ゲームの長さ</label><select id="difficulty"><option value="9">短め・9作品</option><option value="12" selected>ふつう・12作品</option><option value="16">長め・16作品</option><option value="24">たっぷり・24作品</option><option value="30">たっぷり・30作品</option></select></div><div class="controls"><button class="btn" id="hintBtn" type="button">💡 ヒント</button><button class="btn" id="undoBtn" type="button">↶ 戻す</button><button class="btn" id="resetBtn" type="button">⟳ 最初から</button></div></div>
 <section class="stage"><div class="board-top"><span>🧩 6×6 パズルボード</span><span class="piece-count" id="boardCount">36 / 36枚</span></div>
@@ -45,12 +44,13 @@ button,select{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:tra
 <div class="stock-rack" id="stockRack" aria-label="6列の補充ストック"><div class="stock-lane" data-col="0"><div class="deck-card"></div></div><div class="stock-lane" data-col="1"><div class="deck-card"></div></div><div class="stock-lane" data-col="2"><div class="deck-card"></div></div><div class="stock-lane" data-col="3"><div class="deck-card"></div></div><div class="stock-lane" data-col="4"><div class="deck-card"></div></div><div class="stock-lane" data-col="5"><div class="deck-card"></div></div></div>
 <div class="stock-arrows" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span><span>↓</span><span>↓</span><span>↓</span></div><div class="board" id="board" role="grid" aria-label="タップで選択し別のマスへ交換。ドラッグもできます"></div><div class="status" id="status" role="status">好きなピースを選んで、別のマスと入れ替えよう！</div><div class="progress"><div class="progress-head"><span>完成した作品</span><span id="progressText">0 / 12</span></div><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div id="progressFill"></div></div><div id="completed" class="completed"><span class="none">完成した絵がここに並ぶで！</span></div></div></section>
 <section class="panel"><h2>🕹️ 遊び方</h2><p>① 最初から<b>36マス全部にカード</b>が並んでる。<br>② どのカードにも重ねられる！ <b>移動先のカードと入れ替わる</b>で。<br>③ 同じ絵が正しく隣り合うと<b>枠が消えて合体</b>。くっついた絵は<b>まとめて動く</b>。<br>④ 4枚で絵ができると消えて、<b>消えたマスの真上の列から4枚補充</b>される。上の残り枚数をチェック！<br>⑤ 山札がなくなったら、完成した分だけ<b>空きマス</b>が増えていく！</p></section>
-<section class="panel"><div class="picture-head"><div><h2>🖼️ 写真を変える</h2><div class="micro">昨日の名画・世界の建物など、採用画像60枚から自動選択</div></div><div class="upload-buttons"><button class="btn primary" id="imageChangeBtn" type="button">🔀 別の絵で遊ぶ</button><button class="btn" id="uploadBtn" type="button">写真を読み込む</button><button class="btn" id="builtinBtn" type="button">採用画像に戻す</button></div></div><input class="upload-input" type="file" id="fileInput" accept="image/*" multiple><p id="libraryState" role="status" style="margin-top:7px">採用画像を準備中…</p><p style="margin-top:6px">手持ち写真は9枚以上まとめて選べるで。手持ち写真は端末内だけで処理します。採用画像はインターネット接続が必要です。</p></section>
-<section class="panel gallery"><details><summary>今回の作品を見る <span class="micro">（完成図のヒント）</span></summary><div class="gallery-items" id="galleryItems"></div></details><details class="credit-details"><summary>画像の出典・ライセンス</summary><p class="credit-note">画像はゲーム用に中央部分を正方形に切り抜いて表示しています。元の画像・撮影者・利用条件は各リンクをご確認ください。</p><ul id="credits"></ul></details></section>
-<p class="footer">CP PICTURE DROP · 公開 Ver.1.0<br>広告なし・時間制限なし。採用画像の表示にはインターネット接続が必要です。</p>
+<section class="panel"><div class="picture-head"><div><h2>🖼️ 写真を変える</h2><div class="micro">昨日の採用画像60枚を内蔵。名画・建物などをランダム出題</div></div><div class="upload-buttons"><button class="btn primary" id="imageChangeBtn" type="button">🔀 別の絵で遊ぶ</button><label class="btn upload-trigger" id="uploadBtn" for="fileInput" role="button" tabindex="0">📷 写真を読み込む</label><button class="btn" id="builtinBtn" type="button">採用画像に戻す</button></div></div><input class="upload-input" type="file" id="fileInput" accept="image/*" multiple><p id="libraryState" role="status" aria-live="polite" style="margin-top:7px">採用画像を準備中…</p><p style="margin-top:6px">📷 写真1枚からOK！9枚未満なら見本画像を混ぜるで。端末の写真は外部へ送信しません。採用画像には通信が必要です。</p></section>
+<section class="panel gallery"><details><summary>今回の作品を見る <span class="micro">（完成図のヒント）</span></summary><div class="gallery-items" id="galleryItems"></div></details><details class="credit-details"><summary>採用画像の出典と利用条件</summary><p>写真はゲーム用に中央をトリミングして表示しています。</p><ul id="credits"></ul></details></section>
+<p class="footer">CP PICTURE DROP · 公開 Ver.1.1<br>広告なし・時間制限なし・画像ダウンロードにはネット接続が必要です。</p>
 </main>
 <div id="winOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="winTitle"><div class="modal"><div class="emoji">🏆</div><h2 id="winTitle">全作品クリア！</h2><div id="winArt" class="award"></div><p id="winDetail"></p><button class="btn primary" id="replayBtn" type="button">もう一回あそぶ！</button><button class="btn" id="closeBtn" type="button">盤面を見る</button></div></div>
 <div id="toast" class="toast" role="status"></div>
+<script id="dropCatalog" type="application/json">{"items":[{"id":"名画-01","category":"世界の名画","title":"神奈川沖浪裏","creator":"葛飾北斎","type":"met","object_id":45434,"image_url":null,"source_url":"https://www.metmuseum.org/art/collection/search/45434","license_url":"https://www.metmuseum.org/hubs/open-access","recommended":true,"rights_ok":true},{"id":"名画-02","category":"世界の名画","title":"舟遊び","creator":"エドゥアール・マネ","type":"met","object_id":436947,"image_url":null,"source_url":"https://www.metmuseum.org/art/collection/search/436947","license_url":"https://www.metmuseum.org/hubs/open-access","recommended":true,"rights_ok":true},{"id":"名画-03","category":"世界の名画","title":"糸杉のある麦畑","creator":"フィンセント・ファン・ゴッホ","type":"met","object_id":436535,"image_url":null,"source_url":"https://www.metmuseum.org/art/collection/search/436535","license_url":"https://www.metmuseum.org/hubs/open-access","recommended":true,"rights_ok":true},{"id":"名画-04","category":"世界の名画","title":"ダンス教室","creator":"エドガー・ドガ","type":"met","object_id":438817,"image_url":null,"source_url":"https://www.metmuseum.org/art/collection/search/438817","license_url":"https://www.metmuseum.org/hubs/open-access","recommended":true,"rights_ok":true},{"id":"名画-06","category":"世界の名画","title":"穀物の収穫","creator":"ピーテル・ブリューゲル（父）","type":"met","object_id":435809,"image_url":null,"source_url":"https://www.metmuseum.org/art/collection/search/435809","license_url":"https://www.metmuseum.org/hubs/open-access","recommended":true,"rights_ok":true},{"id":"名画-07","category":"世界の名画","title":"四本の木","creator":"クロード・モネ","type":"met","object_id":437121,"image_url":null,"source_url":"https://www.metmuseum.org/art/collection/search/437121","license_url":"https://www.metmuseum.org/hubs/open-access","recommended":true,"rights_ok":true},{"id":"名画-08","category":"世界の名画","title":"水差しを持つ女","creator":"ヨハネス・フェルメール","type":"met","object_id":437881,"image_url":null,"source_url":"https://www.metmuseum.org/art/collection/search/437881","license_url":"https://www.metmuseum.org/hubs/open-access","recommended":true,"rights_ok":true},{"id":"名画-09","category":"世界の名画","title":"花束","creator":"クララ・ペーテルス","type":"met","object_id":827660,"image_url":null,"source_url":"https://www.metmuseum.org/art/collection/search/827660","license_url":"https://www.metmuseum.org/hubs/open-access","recommended":true,"rights_ok":true},{"id":"絶景-01","category":"世界の絶景","title":"サントリーニ島の街並み","creator":"jimmy teoh","type":"pexels","image_url":"https://images.pexels.com/photos/1010656/pexels-photo-1010656.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/santorini-greece-1010656/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"絶景-02","category":"世界の絶景","title":"森の滝","creator":"Reinhard Bruckner","type":"pexels","image_url":"https://images.pexels.com/photos/8626636/pexels-photo-8626636.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/waterfall-in-a-forest-8626636/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"絶景-03","category":"世界の絶景","title":"桜と清水寺","creator":"Balazs Simon","type":"pexels","image_url":"https://images.pexels.com/photos/16226405/pexels-photo-16226405.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/kiyomizu-dera-temple-in-kyoto-japan-16226405/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"絶景-04","category":"世界の絶景","title":"山と湖の鏡面","creator":"Luke Miller","type":"pexels","image_url":"https://images.pexels.com/photos/17841930/pexels-photo-17841930.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/view-of-a-mountain-reflecting-in-the-lake-17841930/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"絶景-05","category":"世界の絶景","title":"オーロラの夜空","creator":"Tobias Bjørkli","type":"pexels","image_url":"https://images.pexels.com/photos/1938345/pexels-photo-1938345.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/northern-aurora-lights-on-sky-1938345/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"絶景-06","category":"世界の絶景","title":"ニューヨークの夜景","creator":"Benoit Dujardin","type":"pexels","image_url":"https://images.pexels.com/photos/8756803/pexels-photo-8756803.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/city-skyline-at-night-8756803/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"絶景-07","category":"世界の絶景","title":"マチュピチュの遺跡","creator":"Tom D'Arby","type":"pexels","image_url":"https://images.pexels.com/photos/6176147/pexels-photo-6176147.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/a-view-of-the-machu-picchu-in-peru-6176147/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"絶景-09","category":"世界の絶景","title":"ターコイズ色の海岸","creator":"Lukas Kloeppel","type":"pexels","image_url":"https://images.pexels.com/photos/7777601/pexels-photo-7777601.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/a-beautiful-beach-with-turquoise-water-7777601/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"動物-01","category":"可愛い動物","title":"ゴールデンレトリバーの子犬","creator":"Abner Velázquez","type":"pexels","image_url":"https://images.pexels.com/photos/34221896/pexels-photo-34221896.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/adorable-golden-retriever-puppy-on-concrete-surface-34221896/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"動物-02","category":"可愛い動物","title":"ふわふわの子猫","creator":"Anna Hinckel","type":"pexels","image_url":"https://images.pexels.com/photos/8538275/pexels-photo-8538275.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/close-up-view-of-a-cute-kitten-8538275/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"動物-03","category":"可愛い動物","title":"レッサーパンダ","creator":"Flickr / Pexels掲載","type":"pexels","image_url":"https://images.pexels.com/photos/146228/pexels-photo-146228.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/red-panda-146228/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"動物-04","category":"可愛い動物","title":"白うさぎと草原","creator":"Ed Nollan","type":"pexels","image_url":"https://images.pexels.com/photos/7121524/pexels-photo-7121524.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/a-rabbit-on-grass-field-7121524/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"動物-05","category":"可愛い動物","title":"泳ぐ子ガモたち","creator":"Petr Ganaj","type":"pexels","image_url":"https://images.pexels.com/photos/17914588/pexels-photo-17914588.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/close-up-of-ducklings-17914588/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"動物-06","category":"可愛い動物","title":"雪の中のペンギンたち","creator":"SHANWEI HSU","type":"pexels","image_url":"https://images.pexels.com/photos/11058418/pexels-photo-11058418.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/penguins-on-snow-covered-ground-11058418/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"動物-07","category":"可愛い動物","title":"赤いキツネ","creator":"Pixabay / Pexels掲載","type":"pexels","image_url":"https://images.pexels.com/photos/162291/pexels-photo-162291.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/close-up-photo-of-true-fox-animal-at-daytime-162291/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"料理-01","category":"美味しそうな料理","title":"具だくさんのラーメン","creator":"Miff Ibra","type":"pexels","image_url":"https://images.pexels.com/photos/33143858/pexels-photo-33143858.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/delicious-bowl-of-japanese-ramen-with-egg-and-noodles-33143858/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"料理-02","category":"美味しそうな料理","title":"焼きたてピザ","creator":"Engin Akyurt","type":"pexels","image_url":"https://images.pexels.com/photos/11653777/pexels-photo-11653777.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/overhead-shot-of-pizza-on-a-marble-surface-11653777/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"料理-03","category":"美味しそうな料理","title":"バーガーとポテト","creator":"Engin Akyurt","type":"pexels","image_url":"https://images.pexels.com/photos/3219547/pexels-photo-3219547.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/photo-of-burger-and-fries-3219547/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"料理-04","category":"美味しそうな料理","title":"ベリーのパンケーキ","creator":"Taryn Elliott","type":"pexels","image_url":"https://images.pexels.com/photos/6743251/pexels-photo-6743251.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/pancakes-with-berries-6743251/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"料理-05","category":"美味しそうな料理","title":"色とりどりの寿司","creator":"Maria Luiza Melo","type":"pexels","image_url":"https://images.pexels.com/photos/11470589/pexels-photo-11470589.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/a-sushi-platter-11470589/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"料理-06","category":"美味しそうな料理","title":"カラフルなサラダ","creator":"Dextar Vision","type":"pexels","image_url":"https://images.pexels.com/photos/15813479/pexels-photo-15813479.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/close-up-of-salad-15813479/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"料理-07","category":"美味しそうな料理","title":"ベリーのケーキ","creator":"Amar Preciado","type":"pexels","image_url":"https://images.pexels.com/photos/17172209/pexels-photo-17172209.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=720&h=720","source_url":"https://www.pexels.com/photo/cake-with-strawberries-17172209/","license_url":"https://www.pexels.com/license/","recommended":true,"rights_ok":true},{"id":"CP-PIC-31","category":"世界の名画","title":"モナ・リザ","type":"commons","commons_file":"Leonardo_da_Vinci_-_Mona_Lisa_(Louvre,_Paris).jpg","source_url":"https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_-_Mona_Lisa_(Louvre%2C_Paris).jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-32","category":"世界の名画","title":"最後の晩餐","type":"commons","commons_file":"Last_Supper_by_Leonardo_da_Vinci.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Last_Supper_by_Leonardo_da_Vinci.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-33","category":"世界の名画","title":"星月夜","type":"commons","commons_file":"Vincent_Van_Gogh_Starry_Night.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Vincent_Van_Gogh_Starry_Night.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-34","category":"世界の名画","title":"ひまわり","type":"commons","commons_file":"Sunflowers_National_Gallery.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Sunflowers_National_Gallery.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-35","category":"世界の名画","title":"真珠の耳飾りの少女","type":"commons","commons_file":"1665_Girl_with_a_Pearl_Earring.jpg","source_url":"https://commons.wikimedia.org/wiki/File:1665_Girl_with_a_Pearl_Earring.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-36","category":"世界の名画","title":"睡蓮（1906年の作品）","type":"commons","commons_file":"Claude_Monet_-_Waterlilies_-_Google_Art_Project.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Waterlilies_-_Google_Art_Project.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-37","category":"世界の名画","title":"印象・日の出","type":"commons","commons_file":"Monet_-_Impression,_Sunrise.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Monet_-_Impression%2C_Sunrise.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-38","category":"世界の名画","title":"叫び（1893年カラー絵画）","type":"commons","commons_file":"The_Scream.jpg","source_url":"https://commons.wikimedia.org/wiki/File:The_Scream.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-39","category":"世界の名画","title":"夜のカフェテラス","type":"commons","commons_file":"Van_Gogh_-_Terrace_of_a_Café_at_Night_(Place_du_Forum)_1888.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Terrace_of_a_Caf%C3%A9_at_Night_(Place_du_Forum)_1888.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-40","category":"世界の名画","title":"牛乳を注ぐ女","type":"commons","commons_file":"Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-41","category":"世界の名画","title":"落穂拾い","type":"commons","commons_file":"Jean-François_Millet_-_Des_glaneuses.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Jean-Fran%C3%A7ois_Millet_-_Des_glaneuses.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-42","category":"世界の名画","title":"ムーラン・ド・ラ・ギャレットの舞踏会","type":"commons","commons_file":"Pierre-Auguste_Renoir_-_Bal_du_moulin_de_la_Galette.jpeg","source_url":"https://commons.wikimedia.org/wiki/File:Pierre-Auguste_Renoir_-_Bal_du_moulin_de_la_Galette.jpeg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-43","category":"世界の名画","title":"ヴィーナスの誕生","type":"commons","commons_file":"La_naissance_de_Vénus,_Boticelli.jpg","source_url":"https://commons.wikimedia.org/wiki/File:La_naissance_de_V%C3%A9nus%2C_Boticelli.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-44","category":"世界の名画","title":"接吻","type":"commons","commons_file":"Klimt_-_The_Kiss.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Klimt_-_The_Kiss.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-45","category":"世界の名画","title":"白貂を抱く貴婦人","type":"commons","commons_file":"Lady_with_the_ermine.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Lady_with_the_ermine.jpg","license_expected":"PD-Art","recommended":true,"rights_ok":true},{"id":"CP-PIC-46","category":"世界の建物・名所","title":"エッフェル塔（昼景）","type":"commons","commons_file":"Eiffel_Tower_during_day_01.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Eiffel_Tower_during_day_01.jpg","license_expected":"CC BY-SA 4.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-47","category":"世界の建物・名所","title":"ビッグ・ベン","type":"commons","commons_file":"BigBenLondon.jpg","source_url":"https://commons.wikimedia.org/wiki/File:BigBenLondon.jpg","license_expected":"CC BY-SA 3.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-48","category":"世界の建物・名所","title":"タージ・マハル","type":"commons","commons_file":"Taj_Mahal_frontal.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Taj_Mahal_frontal.jpg","license_expected":"CC BY-SA 4.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-49","category":"世界の建物・名所","title":"ピサの斜塔","type":"commons","commons_file":"Leaning_tower_of_Pisa.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Leaning_tower_of_Pisa.jpg","license_expected":"CC BY 2.5","recommended":true,"rights_ok":true},{"id":"CP-PIC-50","category":"世界の建物・名所","title":"サグラダ・ファミリア","type":"commons","commons_file":"Facade_of_the_Sagrada_Familia,_Barcelona,_Spain.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Facade_of_the_Sagrada_Familia%2C_Barcelona%2C_Spain.jpg","license_expected":"CC BY-SA 4.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-51","category":"世界の建物・名所","title":"コロッセオ","type":"commons","commons_file":"Exterior_of_Roman_Colosseum.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Exterior_of_Roman_Colosseum.jpg","license_expected":"CC BY-SA 4.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-52","category":"世界の建物・名所","title":"シドニー・オペラハウス","type":"commons","commons_file":"Sydney_Opera_House.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Sydney_Opera_House.jpg","license_expected":"CC BY-SA 4.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-53","category":"世界の建物・名所","title":"自由の女神（白黒写真）","type":"commons","commons_file":"Statue_of_Liberty_-_New_York_City.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Statue_of_Liberty_-_New_York_City.jpg","license_expected":"CC0 1.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-54","category":"世界の建物・名所","title":"ブルジュ・ハリファ","type":"commons","commons_file":"Burj_Khalifa_-_Dubai.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Burj_Khalifa_-_Dubai.jpg","license_expected":"CC BY-SA 4.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-55","category":"世界の建物・名所","title":"エトワール凱旋門","type":"commons","commons_file":"Arc_de_Triomphe_-_Front.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Arc_de_Triomphe_-_Front.jpg","license_expected":"CC BY-SA 3.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-56","category":"世界の建物・名所","title":"ノイシュヴァンシュタイン城","type":"commons","commons_file":"Neuschwanstein_Castle_in_Germany.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Neuschwanstein_Castle_in_Germany.jpg","license_expected":"CC BY-SA 4.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-57","category":"世界の建物・名所","title":"モン・サン＝ミシェル","type":"commons","commons_file":"Mont-Saint-Michel_from_distance.JPG","source_url":"https://commons.wikimedia.org/wiki/File:Mont-Saint-Michel_from_distance.JPG","license_expected":"CC BY-SA 4.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-58","category":"世界の建物・名所","title":"ペトラ遺跡（エル・ハズネ）","type":"commons","commons_file":"Petra_-_Al_Khazneh.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Petra_-_Al_Khazneh.jpg","license_expected":"CC BY-SA 3.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-59","category":"世界の建物・名所","title":"富士山と忠霊塔","type":"commons","commons_file":"Chureito_Pagoda_and_Mount_Fuji.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Chureito_Pagoda_and_Mount_Fuji.jpg","license_expected":"CC BY-SA 4.0","recommended":true,"rights_ok":true},{"id":"CP-PIC-60","category":"世界の建物・名所","title":"姫路城","type":"commons","commons_file":"Himeji_castle.jpg","source_url":"https://commons.wikimedia.org/wiki/File:Himeji_castle.jpg","license_expected":"CC0 1.0","recommended":true,"rights_ok":true}]}</script>
 <script>
 (()=>{'use strict';
 const ROWS=6,COLS=6,AREA=36;
@@ -80,7 +80,7 @@ const EXTRA=[
  {name:'春の花畑',body:base('#a0dce3','#e2f4cf')+`<circle cx="440" cy="115" r="72" fill="#fff0b2"/><path d="M0 367Q160 300 329 382T600 330V600H0Z" fill="#8bc59a"/><path d="M0 444Q289 358 600 454V600H0Z" fill="#4d9e75"/><path d="M0 529Q250 472 600 535V600H0Z" fill="#257e67"/>`+dots(432,118,'#ffbed6',6,14)+dots(154,70,'#ffe3a6',5,13)+`<path d="M110 355Q170 300 220 335M370 380Q470 324 535 356" stroke="#366f60" stroke-width="12" fill="none"/>`}
 ];
 const DEMO=SVG.concat(EXTRA).map((a,i)=>({id:'demo-'+i,name:a.name,url:inlineSvg(a.body)}));
-let curatedCatalog=null,onlineMode=false,lastGameIds=new Set(),resolvedPictures=new Map();
+let curatedCatalog=null,onlineMode=false,lastGameIds=new Set(),resolvedPictures=new Map(),loadToken=0,loadingPictures=false,uploadToken=0;
 let gallery=DEMO.slice(),levelImages=[],stock=[],board=Array(AREA).fill(null),done=[],moves=0,selected=-1,undoStack=[],busy=false,runId=0,tooltip=null,drag=null,blockClickUntil=0,dropFx=new Set(),gravityFx=new Set(),toastTimer=null;
 const pos=i=>({r:Math.floor(i/COLS),c:i%COLS}),idx=(r,c)=>r*COLS+c;
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
@@ -159,7 +159,7 @@ function snapshot(){return {board:board.map(x=>x?{...x}:null),stock:stock.map(p=
 function restore(s){board=s.board.map(x=>x?{...x}:null);stock=s.stock.map(p=>({...p}));done=s.done.slice();moves=s.moves;selected=-1;tooltip=null;dropFx.clear();gravityFx.clear();paint()}
 function status(s,celebrate=false){statusEl.textContent=s;statusEl.classList.toggle('celebrate',celebrate)}
 function toast(s){const el=$('toast');el.textContent=s;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),1650)}
-function updateDifficulty(){const el=$('difficulty');let fallback=9;for(const op of el.options){op.disabled=Number(op.value)>(onlineMode?30:gallery.length);if(!op.disabled&&Number(op.value)<=Number(el.value))fallback=Number(op.value)}if(Number(el.value)>gallery.length)el.value=String(fallback)}
+function updateDifficulty(){const el=$('difficulty');let fallback=9;for(const op of el.options){op.disabled=Number(op.value)>(onlineMode?30:gallery.length);if(!op.disabled&&Number(op.value)<=Number(el.value))fallback=Number(op.value)}if(Number(el.value)>(onlineMode?30:gallery.length))el.value=String(fallback)}
 function paintStock(){
  const n=stock.length;
  $('stockCount').innerHTML=`残り <strong>${n}</strong> 枚 <small>(${Math.floor(n/4)}組)</small>`;
@@ -173,11 +173,7 @@ function paintStock(){
 function paint(){const chosen=selected>=0?getGroup(board,selected):[];boardEl.innerHTML=board.map((p,i)=>{if(!p)return `<div role="gridcell" class="cell empty ${tooltip?.target===i?'target-hint':''}" data-i="${i}" aria-label="空きマス"></div>`;const {r,c}=pos(i),neighbour=(dy,dx,q)=>{let y=r+dy,x=c+dx;if(y<0||y>=6||x<0||x>=6)return false;let n=board[idx(y,x)];return !!n&&n.id===p.id&&n.q===q};let t=(p.q>=2&&neighbour(-1,0,p.q-2))?0:2,rr=(p.q%2===0&&neighbour(0,1,p.q+1))?0:2,bb=(p.q<2&&neighbour(1,0,p.q+2))?0:2,l=(p.q%2===1&&neighbour(0,-1,p.q-1))?0:2;let im=photo(p.id);let name=im?.name||'絵';let extra=[chosen.includes(i)?'selected':'',tooltip?.source===i?'source-hint':'',tooltip?.target===i?'target-hint':'',dropFx.has(i)?'landed':'',gravityFx.has(i)?'grav':''].filter(Boolean).join(' ');return `<div class="cell ${extra}" role="gridcell" data-i="${i}" aria-label="${esc(name)}、${p.q+1}番ピース"><div class="tile" style="--bt:${t}px;--br:${rr}px;--bb:${bb}px;--bl:${l}px;${tileBackground(p)}"><span class="label-id">${p.q+1}</span></div></div>`}).join('');$('doneCount').innerHTML=`${done.length} <em>/ ${levelImages.length}</em>`;$('movesCount').textContent=moves;$('emptyCount').textContent=board.filter(x=>!x).length;$('boardCount').textContent=`${board.filter(Boolean).length} / 36枚`;paintStock();$('undoBtn').disabled=busy||!undoStack.length;$('hintBtn').disabled=busy;$('resetBtn').disabled=busy;$('difficulty').disabled=busy;const percent=levelImages.length?100*done.length/levelImages.length:0;$('progressFill').style.width=percent+'%';$('progressBar').setAttribute('aria-valuenow',String(Math.round(percent)));$('progressText').textContent=`${done.length} / ${levelImages.length}`;$('completed').innerHTML=done.length?done.map(id=>`<div class="sm" title="${esc(pname(id))}" style="background-image:url(&quot;${esc(photo(id)?.url)}&quot;)"></div>`).join(''):'<span class="none">完成した絵がここに並ぶで！</span>'}
 function paintGallery(){
   $('galleryItems').innerHTML=levelImages.map(a=>`<div class="gallery-item"><div class="gallery-art" style="background-image:url(&quot;${esc(a.url)}&quot;)"></div><small>${esc(a.name)}</small></div>`).join('');
-  const credits=levelImages.filter(x=>x.credit).map(a=>{
-    const c=a.credit;
-    return `<li><a href="${esc(c.source)}" target="_blank" rel="noopener noreferrer">${esc(a.name)}</a> — ${esc(c.author)}／${esc(c.license)}（<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener noreferrer">利用条件</a>）</li>`;
-  });
-  $('credits').innerHTML=credits.length?credits.join(''):'<li>見本またはご自身の写真を使用しています。</li>';
+  $('credits').innerHTML=levelImages.filter(a=>a.credit).map(a=>`<li><a href="${esc(a.credit.source)}" target="_blank" rel="noopener noreferrer">${esc(a.name)}</a> — ${esc(a.credit.author)}／${esc(a.credit.license)}（<a href="${esc(a.credit.licenseUrl)}" target="_blank" rel="noopener noreferrer">ライセンス</a>）</li>`).join('')||'<li>ご自身の写真、または同梱の見本画像です。</li>';
 }
 function start(){runId++;busy=false;const n=Math.min(gallery.length,Number($('difficulty').value));levelImages=shuffle(gallery.slice()).slice(0,n);const first=levelImages.slice(0,9),rest=levelImages.slice(9);stock=shuffle(rest.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))));let tries=0;do{board=shuffle(first.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))))}while(getMatches(board).length&&++tries<200);done=[];moves=0;selected=-1;tooltip=null;undoStack=[];dropFx.clear();gravityFx.clear();$('winOverlay').classList.add('hidden');paintGallery();paint();status('36マス全部埋まってるで！ 絵をつなぐと上の6列から補充される！')}
 function move(from,to){if(busy)return false;const action=validMove(board,from,to);if(!action){if(from!==to)toast('その形では盤面の外に出てしまうで！');return false}undoStack.push(snapshot());if(undoStack.length>80)undoStack.shift();board=swapped(board,action,true);moves++;selected=-1;tooltip=null;paint();const matches=getMatches(board);if(matches.length)settle(matches,runId);else status(action.group.length>1?`${action.group.length}枚つながった絵をまとめて移動！ 入れ替え成功。`:'ピースを交換したで！ 同じ絵を4枚つなげよう。');return true}
@@ -262,130 +258,204 @@ boardEl.addEventListener('pointerdown',e=>{if(busy)return;const el=e.target.clos
 window.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;drag.x=e.clientX;drag.y=e.clientY;if(!drag.active&&Math.hypot(drag.x-drag.startX,drag.y-drag.startY)>9){drag.active=true;const p=board[drag.from];let g=document.createElement('div');g.id='dragGhost';g.className='ghost';g.dataset.count=getGroup(board,drag.from).length+'枚';g.style.backgroundImage=`url("${photo(p.id)?.url||''}")`;g.style.backgroundPosition=tileCoordinates(p).position;g.style.backgroundSize=tileCoordinates(p).size;document.body.appendChild(g)}if(drag.active){let g=$('dragGhost');if(g){g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'}e.preventDefault()}});
 function finishDrag(e){if(!drag||drag.id!==e.pointerId)return;const d=drag;drag=null;$('dragGhost')?.remove();if(!d.active)return;blockClickUntil=performance.now()+400;const target=document.elementFromPoint(e.clientX,e.clientY)?.closest('#board .cell');if(target){const to=Number(target.dataset.i);if(!move(d.from,to)){selected=d.from;paint()}}else{selected=d.from;paint()}}
 window.addEventListener('pointerup',finishDrag);window.addEventListener('pointercancel',e=>{if(drag?.id===e.pointerId){drag=null;$('dragGhost')?.remove()}});
-$('hintBtn').addEventListener('click',hint);$('undoBtn').addEventListener('click',()=>{if(busy||!undoStack.length)return;restore(undoStack.pop());status('1手戻したで！')});$('resetBtn').addEventListener('click',()=>{if(!busy&&(!moves||confirm('今のステージを最初からやり直す？')))start()});$('difficulty').addEventListener('change',onNewDifficulty);$('replayBtn').addEventListener('click',()=>{if(onlineMode)publicBoot(true);else start()});$('closeBtn').addEventListener('click',()=>$('winOverlay').classList.add('hidden'));
-$('uploadBtn').addEventListener('click',()=>$('fileInput').click());$('builtinBtn').addEventListener('click',()=>{if(busy)return;if(moves&&!confirm('採用画像に戻して最初から遊び直す？'))return;publicBoot(true)});
-$('fileInput').addEventListener('change',async e=>{let fs=[...e.target.files].filter(f=>f.type.startsWith('image/')).slice(0,36);e.target.value='';if(fs.length<9){toast('写真は9枚以上選んでな！');return}if(busy){toast('完成演出が終わってから選んでな！');return}busy=true;status('写真を準備しているで…');let items=[];for(let k=0;k<fs.length;k++){let f=fs[k];if(f.size>24*1024*1024)continue;let url=URL.createObjectURL(f);try{const img=await new Promise((resolve,reject)=>{let im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=url});const side=Math.min(img.naturalWidth,img.naturalHeight);if(!side)continue;const max=600,sz=Math.min(side,max),c=document.createElement('canvas');c.width=c.height=sz;c.getContext('2d').drawImage(img,(img.naturalWidth-side)/2,(img.naturalHeight-side)/2,side,side,0,0,sz,sz);items.push({id:'my-'+k,name:f.name.replace(/\.[^.]+$/,'').slice(0,22)||`写真${k+1}`,url:c.toDataURL('image/jpeg',.84)})}catch(err){console.warn('画像をスキップ',f.name,err)}finally{URL.revokeObjectURL(url)}}busy=false;if(items.length<9){status('使えた写真が9枚より少ないので、今の作品を維持したで。');toast('読み込めた画像が少ないで');return}onlineMode=false;gallery=items;updateDifficulty();start();$('libraryState').textContent='📁 この端末の写真でプレイ中';toast(`${items.length}枚の写真が使えるで！`)});
+$('hintBtn').addEventListener('click',hint);$('undoBtn').addEventListener('click',()=>{if(busy||!undoStack.length)return;restore(undoStack.pop());status('1手戻したで！')});$('resetBtn').addEventListener('click',()=>{if(!busy&&(!moves||confirm('今のステージを最初からやり直す？')))start()});$('difficulty').addEventListener('change',()=>{if(onlineMode)publicBoot();else if(!busy)start()});$('replayBtn').addEventListener('click',()=>{if(onlineMode)publicBoot();else start()});$('closeBtn').addEventListener('click',()=>$('winOverlay').classList.add('hidden'));
+$('uploadBtn').addEventListener('keydown',e=>{
+ if(e.key==='Enter'||e.key===' '){e.preventDefault();$('fileInput').click()}
+});
+$('builtinBtn').addEventListener('click',()=>{
+ if(busy&&!loadingPictures)return;
+ if(moves&&!confirm('採用画像に戻して最初から遊び直す？'))return;
+ publicBoot();
+});
+$('fileInput').addEventListener('change',async e=>{
+ const source=[...(e.target.files||[])];
+ e.target.value='';
+ if(!source.length)return;
+ const fs=source.filter(f=>f.type.startsWith('image/')||/\.(jpe?g|png|webp|gif|bmp|heic|heif)$/i.test(f.name)).slice(0,36);
+ if(!fs.length){$('libraryState').textContent='⚠️ 画像ファイルを選んでな。JPEGやPNGがおすすめやで。';return}
+ if(loadingPictures)cancelPictureLoading();
+ if(busy){$('libraryState').textContent='⏳ 絵の消去演出が終わってから、もう一度写真を選んでな。';return}
+ busy=true;
+ const token=++uploadToken;
+ const items=[];let failed=0;
+ $('libraryState').textContent='📷 '+fs.length+'枚の写真を読み込み中…';
+ status('選んだ写真を準備しているで…');
+ for(let k=0;k<fs.length;k++){
+   if(token!==uploadToken)break;
+   const file=fs[k];
+   if(file.size>24*1024*1024){failed++;continue}
+   const url=URL.createObjectURL(file);
+   try{
+     const img=await new Promise((resolve,reject)=>{
+       const im=new Image(),timer=setTimeout(()=>reject(Error('写真読込み時間切れ')),12000);
+       im.onload=()=>{clearTimeout(timer);resolve(im)};
+       im.onerror=()=>{clearTimeout(timer);reject(Error('この写真形式は開けません'))};
+       im.src=url;
+     });
+     const side=Math.min(img.naturalWidth,img.naturalHeight);
+     if(!side)throw Error('画像の寸法が取得できません');
+     const size=Math.min(side,600),canvas=document.createElement('canvas');
+     canvas.width=canvas.height=size;
+     const ctx=canvas.getContext('2d');if(!ctx)throw Error('写真変換を利用できません');
+     ctx.drawImage(img,(img.naturalWidth-side)/2,(img.naturalHeight-side)/2,side,side,0,0,size,size);
+     items.push({id:'user-'+token+'-'+k,name:file.name.replace(/\.[^.]+$/,'').slice(0,26)||'写真'+(k+1),url:canvas.toDataURL('image/jpeg',.84),aspect:1});
+   }catch(err){failed++;console.warn('選択した写真が読めません',file.name,err)}
+   finally{URL.revokeObjectURL(url)}
+   $('libraryState').textContent='📷 写真を変換中… '+(k+1)+' / '+fs.length+'枚';
+ }
+ if(token!==uploadToken)return;
+ busy=false;
+ if(!items.length){$('libraryState').textContent='⚠️ 写真を読み込めませんでした。JPEG・PNGの写真を選んでみてな。';status($('libraryState').textContent);return}
+ const fillerCount=Math.max(0,9-items.length);
+ const fillers=fillerCount?DEMO.filter(x=>!items.some(y=>y.id===x.id)).slice(0,fillerCount):[];
+ onlineMode=false;
+ gallery=items.concat(fillers);
+ updateDifficulty();start();unlockPictureControls();
+ $('libraryState').textContent='✅ あなたの写真 '+items.length+'枚を使用中'+(fillerCount?'（不足分の'+fillerCount+'枚は見本を追加）':'')+(failed?' ／ '+failed+'枚は読み込めませんでした':'');
+ toast('写真 '+items.length+'枚をゲームに反映したで！');
+});
+
 function tileCoordinates(piece){
-  const aspect=Math.max(.12,Math.min(8,photo(piece.id)?.aspect||1));
-  const sw=2*Math.max(1,aspect),sh=2*Math.max(1,1/aspect);
-  const v=(size,second)=>size<=2.00001?(second?100:0):(second?size:size-2)*50/(size-1);
-  return {size:(sw*100).toFixed(3)+'% '+(sh*100).toFixed(3)+'%',position:v(sw,!!(piece.q%2)).toFixed(3)+'% '+v(sh,piece.q>=2).toFixed(3)+'%'};
+ const aspect=Math.max(.12,Math.min(8,photo(piece.id)?.aspect||1));
+ const sw=2*Math.max(1,aspect),sh=2*Math.max(1,1/aspect);
+ const v=(size,second)=>size<=2.00001?(second?100:0):(second?size:size-2)*50/(size-1);
+ return {size:(sw*100).toFixed(3)+'% '+(sh*100).toFixed(3)+'%',position:v(sw,!!(piece.q%2)).toFixed(3)+'% '+v(sh,piece.q>=2).toFixed(3)+'%'};
 }
 function tileBackground(piece){
-  const m=tileCoordinates(piece),art=photo(piece.id);
-  return 'background-image:url(&quot;'+esc(art?.url||'')+'&quot;);background-size:'+m.size+';background-position:'+m.position;
+ const m=tileCoordinates(piece),art=photo(piece.id);
+ return 'background-image:url(&quot;'+esc(art?.url||'')+'&quot;);background-size:'+m.size+';background-position:'+m.position;
 }
-async function publicBoot(refresh=false){
-  if(busy)return;
-  busy=true;
+
+function unlockPictureControls(){
+  for(const id of ['hintBtn','undoBtn','resetBtn','difficulty','imageChangeBtn','builtinBtn']){
+    const element=$(id);if(element)element.disabled=false;
+  }
+}
+function cancelPictureLoading(){
+  if(!loadingPictures)return;
+  ++loadToken;loadingPictures=false;busy=false;unlockPictureControls();
+}
+async function publicBoot(){
+  if(busy&&!loadingPictures)return;
+  const token=++loadToken;
+  loadingPictures=true;busy=true;
   const requested=Number($('difficulty').value)||12;
-  for(const id of ['hintBtn','undoBtn','resetBtn','difficulty','imageChangeBtn','builtinBtn']){const el=$(id);if(el)el.disabled=true}
   const label=$('libraryState');
-  function progress(msg){label.textContent=msg;status(msg)}
-  progress('🎨 昨日の採用画像を準備中…');
+  for(const id of ['hintBtn','undoBtn','resetBtn','difficulty','imageChangeBtn','builtinBtn']){
+    const control=$(id);if(control)control.disabled=true;
+  }
+  function progress(msg){if(token!==loadToken)return;label.textContent=msg;status(msg)}
+  progress('🎨 採用画像の準備中…（写真アップロードは使用可能）');
+  let failures=0,firstErrors=[];
   try{
     if(!curatedCatalog){
-      const response=await fetch('./cp_picture_puzzle.html',{cache:'no-cache'});
-      if(!response.ok)throw new Error('画像リストが取得できません (HTTP '+response.status+')');
-      const doc=new DOMParser().parseFromString(await response.text(),'text/html');
-      const embedded=doc.getElementById('puzzleCatalog');
-      if(!embedded)throw new Error('画像リストが見つかりません');
-      const items=JSON.parse(embedded.textContent).items;
-      curatedCatalog=items.filter(x=>x.recommended===true&&x.rights_ok===true);
-      if(curatedCatalog.length<9)throw new Error('利用可能な画像候補が不足しています');
+      const source=document.getElementById('dropCatalog');
+      if(!source)throw Error('内蔵画像カタログが見つかりません');
+      const json=JSON.parse(source.textContent);
+      curatedCatalog=json.items.filter(x=>x.recommended===true&&x.rights_ok===true);
+      if(curatedCatalog.length!==60)throw Error('採用画像の内蔵数が60枚ではありません');
     }
-    const striptags=v=>(new DOMParser().parseFromString(String(v||''),'text/html').body?.textContent||'').replace(/\s+/g,' ').trim().slice(0,250);
+    const strip=v=>(new DOMParser().parseFromString(String(v||''),'text/html').body?.textContent||'').replace(/\s+/g,' ').trim().slice(0,240);
     async function remoteJSON(url){
-      const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),12500);
-      try{const response=await fetch(url,{signal:ctrl.signal});if(!response.ok)throw new Error('HTTP '+response.status);return await response.json()}
-      finally{clearTimeout(timer)}
+      const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),8500);
+      try{
+        const response=await fetch(url,{signal:ctrl.signal});
+        if(!response.ok)throw Error('画像API HTTP '+response.status);
+        return await response.json();
+      }finally{clearTimeout(timer)}
     }
-    async function picture(item){
+    async function imageLoaded(url){
+      return await new Promise((resolve,reject)=>{
+        const im=new Image();let settled=false;
+        const timer=setTimeout(()=>{if(!settled){settled=true;im.onload=im.onerror=null;reject(Error('画像表示タイムアウト'))}},8500);
+        im.onload=()=>{if(!settled){settled=true;clearTimeout(timer);resolve(im)}};
+        im.onerror=()=>{if(!settled){settled=true;clearTimeout(timer);reject(Error('画像が表示できません'))}};
+        im.src=url;
+      });
+    }
+    async function resolvePicture(item){
       if(resolvedPictures.has(item.id))return resolvedPictures.get(item.id);
       let url='',license='',author=item.creator||'',licenseUrl=item.license_url||item.source_url;
       if(item.type==='pexels'){
-        url=item.image_url||'';license='Pexels License';licenseUrl=item.license_url||'https://www.pexels.com/license/';
+        url=item.image_url||'';license='Pexels License';
+        licenseUrl=item.license_url||'https://www.pexels.com/license/';
       }else if(item.type==='met'){
-        const data=await remoteJSON('https://collectionapi.metmuseum.org/public/collection/v1/objects/'+encodeURIComponent(item.object_id));
-        if(data.isPublicDomain!==true)throw new Error('Public Domain未確認');
-        url=data.primaryImageSmall||data.primaryImage||'';
-        license='The Met Open Access / CC0';author=data.artistDisplayName||author||'The Metropolitan Museum of Art';
+        const info=await remoteJSON('https://collectionapi.metmuseum.org/public/collection/v1/objects/'+encodeURIComponent(item.object_id));
+        if(info.isPublicDomain!==true)throw Error('パブリックドメイン未確認');
+        url=info.primaryImageSmall||info.primaryImage||'';
+        author=info.artistDisplayName||author||'The Metropolitan Museum of Art';
+        license='The Met Open Access / CC0';
         licenseUrl='https://www.metmuseum.org/hubs/open-access';
       }else if(item.type==='commons'){
-        const params=new URLSearchParams({action:'query',format:'json',origin:'*',redirects:'1',prop:'imageinfo',iiprop:'url|extmetadata',iiurlwidth:'1024',iiextmetadatafilter:'Artist|LicenseShortName|LicenseUrl',titles:'File:'+item.commons_file});
-        const data=await remoteJSON('https://commons.wikimedia.org/w/api.php?'+params);
+        const params=new URLSearchParams({action:'query',format:'json',origin:'*',redirects:'1',prop:'imageinfo',iiprop:'url|extmetadata',iiurlwidth:'800',iiextmetadatafilter:'Artist|LicenseShortName|LicenseUrl',titles:'File:'+item.commons_file});
+        const data=await remoteJSON('https://commons.wikimedia.org/w/api.php?'+params.toString());
         const info=Object.values(data.query?.pages||{})[0]?.imageinfo?.[0];
-        if(!info)throw new Error('画像情報なし');
-        const m=info.extmetadata||{};
-        license=striptags(m.LicenseShortName?.value);
-        if(!/^(CC0\b|CC BY(?:-SA)?\b|Public domain\b|PD(?:-|\b))/i.test(license))throw new Error('ライセンスを確認できません');
-        author=striptags(m.Artist?.value)||author;
-        if(/^CC BY/i.test(license)&&!author)throw new Error('作者情報を確認できません');
+        if(!info)throw Error('Commons画像メタデータ取得失敗');
+        const ext=info.extmetadata||{};
+        license=strip(ext.LicenseShortName?.value);
+        if(!/^(CC0\b|CC BY(?:-SA)?\b|Public domain\b|PD(?:-|\b))/i.test(license))throw Error('ライセンスを確認できません');
+        author=strip(ext.Artist?.value)||author;
+        if(/^CC BY/i.test(license)&&!author)throw Error('撮影者情報が取得できません');
         url=info.thumburl||info.url||'';
-        licenseUrl=m.LicenseUrl?.value?.startsWith('https://')?m.LicenseUrl.value:item.source_url;
-      }else throw new Error('未対応の画像配布元');
-      if(!/^https:\/\//i.test(url))throw new Error('画像URLが不正');
-      const image=await new Promise((resolve,reject)=>{
-        const img=new Image(),timer=setTimeout(()=>{img.onload=null;img.onerror=null;reject(new Error('画像読み込み時間切れ'))},12000);
-        img.onload=()=>{clearTimeout(timer);resolve(img)};
-        img.onerror=()=>{clearTimeout(timer);reject(new Error('画像表示できません'))};
-        img.src=url;
-      });
-      const art={
-        id:item.id,name:item.title,url,aspect:Math.max(.12,Math.min(8,image.naturalWidth/image.naturalHeight)),
-        category:item.category,
-        credit:{source:item.source_url,author:author||'作者情報は配布元を参照',license,licenseUrl}
-      };
-      resolvedPictures.set(item.id,art);return art;
+        licenseUrl=ext.LicenseUrl?.value?.startsWith('https://')?ext.LicenseUrl.value:item.source_url;
+      }else throw Error('未対応の画像提供元');
+      if(!/^https:\/\//i.test(url))throw Error('画像URLを確認できません');
+      const bitmap=await imageLoaded(url);
+      const entry={id:item.id,name:item.title,category:item.category,url,
+        aspect:Math.max(.12,Math.min(8,bitmap.naturalWidth/bitmap.naturalHeight)),
+        credit:{source:item.source_url,author:author||'作者情報は配布元を参照',license,licenseUrl}};
+      resolvedPictures.set(item.id,entry);
+      return entry;
     }
-    const cats=[...new Set(curatedCatalog.map(x=>x.category))];
-    const groups=new Map(cats.map(c=>[c,shuffle(curatedCatalog.filter(x=>x.category===c).slice())]));
+    const categories=[...new Set(curatedCatalog.map(x=>x.category))];
+    const groups=new Map(categories.map(cat=>[cat,shuffle(curatedCatalog.filter(x=>x.category===cat).slice())]));
     const candidates=[];
     while(candidates.length<curatedCatalog.length){
-      for(const cat of shuffle(cats.slice())){
-        const part=groups.get(cat);if(part.length)candidates.push(part.pop());
-      }
+      for(const cat of shuffle(categories.slice())){const arr=groups.get(cat);if(arr.length)candidates.push(arr.pop())}
     }
-    // Prefer new pictures rather than repeating the previous game.
-    const fresh=candidates.filter(x=>!lastGameIds.has(x.id)),used=candidates.filter(x=>lastGameIds.has(x.id));
-    const ordered=fresh.concat(used);
-    const loaded=[];
-    let cursor=0,failed=0;
-    const workers=Array.from({length:Math.min(6,ordered.length)},async()=>{
-      while(loaded.length<requested){
+    const first=candidates.filter(x=>!lastGameIds.has(x.id));
+    const repeated=candidates.filter(x=>lastGameIds.has(x.id));
+    const ordered=first.concat(repeated);
+    const loaded=[];let cursor=0;
+    const workers=Array.from({length:7},async()=>{
+      while(token===loadToken&&loaded.length<requested){
         const i=cursor++;if(i>=ordered.length)break;
         try{
-          const art=await picture(ordered[i]);
-          if(!loaded.some(x=>x.id===art.id)){
-            loaded.push(art);
-            progress('🖼️ 画像読み込み中 '+Math.min(loaded.length,requested)+' / '+requested+'作品');
+          const image=await resolvePicture(ordered[i]);
+          if(token!==loadToken)return;
+          if(!loaded.some(x=>x.id===image.id)){
+            loaded.push(image);
+            progress('🖼️ 採用画像 '+Math.min(loaded.length,requested)+' / '+requested+'枚 読込み中…');
           }
-        }catch(err){failed++;console.warn('CP PICTURE DROP 画像を除外',ordered[i].id,String(err))}
+        }catch(e){failures++;if(firstErrors.length<3)firstErrors.push(String(e.message||e))}
       }
     });
     await Promise.all(workers);
-    if(loaded.length<9)throw new Error('表示できる採用画像が9枚未満でした');
+    if(token!==loadToken)return;
+    if(loaded.length<9)throw Error('採用画像が'+loaded.length+'枚しか取得できませんでした（9枚必要）');
     gallery=loaded.slice(0,requested);
-    onlineMode=true;lastGameIds=new Set(gallery.map(x=>x.id));
-    if(gallery.length<requested){
-      const possible=[30,24,16,12,9].find(x=>x<=gallery.length);
-      if(possible)$('difficulty').value=String(possible);
-    }
+    onlineMode=true;
+    lastGameIds=new Set(gallery.map(a=>a.id));
     updateDifficulty();start();
-    label.textContent='🖼️ 昨日の採用画像60枚からランダム表示中（この回は'+levelImages.length+'作品）';
-    if(failed)toast('取得できない画像'+failed+'件は自動で飛ばしたで');
-    $('imageChangeBtn').disabled=false;$('builtinBtn').disabled=false;
-  }catch(err){
-    console.warn('CP PICTURE DROP 採用画像を準備できませんでした',err);
-    // Explicitly identified offline/demo fallback, never silently label it curated.
-    if(!onlineMode||gallery.length<9){gallery=DEMO.slice();onlineMode=false;}
+    label.textContent='✅ 昨日の採用画像60枚から '+gallery.length+'枚を選んだで！'+(failures?'（読込不可'+failures+'件は除外）':'');
+  }catch(e){
+    if(token!==loadToken)return;
+    const detail=firstErrors.length?' ／ 読込エラー: '+firstErrors.join('・'):'';
+    if(!onlineMode||gallery.length<9){gallery=DEMO.slice();onlineMode=false}
     updateDifficulty();start();
-    label.textContent='⚠️ 採用画像を読み込めなかったため、見本画像で表示中。通信を確認して「採用画像に戻す」を押してな。';
+    label.textContent='⚠️ 採用画像が表示できません。現在は見本画像です。理由: '+String(e.message||e)+detail+'。通信を確認して「採用画像に戻す」で再試行してな。';
     status(label.textContent);
-    $('imageChangeBtn').disabled=false;$('builtinBtn').disabled=false;
+    console.warn('CP PICTURE DROP 画像読み込み失敗',e,firstErrors);
+  }finally{
+    if(token===loadToken){loadingPictures=false;busy=false;unlockPictureControls()}
   }
 }
-$('imageChangeBtn').addEventListener('click',()=>{if(busy)return;if(moves&&!confirm('別の画像に変えると今のゲームを最初からやり直すで。続ける？'))return;publicBoot(true)});
+
+$('imageChangeBtn').addEventListener('click',()=>{
+ if(busy&&!loadingPictures)return;
+ if(moves&&!confirm('別の画像に変えて最初から遊び直す？'))return;
+ publicBoot();
+});
 updateDifficulty();publicBoot();
 // Read-only gameplay inspection plus isolated test helpers. Does not access files or network.
 window.__CP_DROP_TEST__={get:()=>({board:board.map(p=>p?{...p}:null),stock:stock.map(p=>({...p})),done:done.slice(),moves,busy,imageCount:levelImages.length,art:levelImages.map(a=>({id:a.id,name:a.name})),remainingStock:stock.length}),group:i=>getGroup(board,i),valid:(i,j)=>validMove(board,i,j),swap:(i,j)=>move(i,j),matches:()=>getMatches(board),trigger:()=>{const m=getMatches(board);if(m.length&&!busy)settle(m,runId)},setBoard:cards=>{if(!busy&&cards.length===36){board=cards.map(x=>x?{...x}:null);dropFx.clear();gravityFx.clear();paint()}},newGame:start,undo:()=>{if(!busy&&undoStack.length)restore(undoStack.pop())},gravity:()=>{rigidGravity();paint()}};

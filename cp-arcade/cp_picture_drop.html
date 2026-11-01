@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a32"><title>CP PICTURE DROP | 公開修正版 Ver.1.3</title>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a32"><title>CP PICTURE DROP | 公開修正版 Ver.1.4</title>
 <style>
 :root{color-scheme:dark;--bg:#081429;--surface:#152641;--surface2:#1c3452;--line:#365170;--white:#f4f8ff;--soft:#bbcee1;--cyan:#8debdc;--orange:#ffce85}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse 90% 30% at 50% 0%,#29416d 0%,transparent 100%),linear-gradient(170deg,#0c1930,#090f24 78%);color:var(--white);font-family:system-ui,-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;font-weight:500}
@@ -33,20 +33,46 @@ button,select{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:tra
 @keyframes fallin{0%{opacity:0;transform:translateY(-160px) scale(.89)}64%{opacity:1}100%{opacity:1;transform:translateY(0) scale(1)}}@keyframes softdrop{0%{transform:translateY(-35px)}100%{transform:translateY(0)}}@keyframes clearout{0%{filter:brightness(1);opacity:1}42%{filter:brightness(1.8);transform:scale(.94);opacity:1}100%{filter:brightness(2.1);transform:scale(.48);opacity:0}}@keyframes glow{from{filter:brightness(1)}to{filter:brightness(1.4)}}
 @media(min-width:560px){.app{padding-top:25px}.stock{max-width:620px}.stage{padding:17px}.btn{font-size:12px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* Focus mode is presentation-only: it never resets or mutates puzzle data. */
+.focus-strip{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin:0 3px 7px}
+.focus-mini{display:none;color:#d3edf1;font-size:12px;font-weight:850;font-variant-numeric:tabular-nums}
+.focus-toggle{background:#214b64;border-color:#67bbc6;white-space:nowrap}
+body.focus-mode{background:#07172b}
+body.focus-mode .app{max-width:720px;padding:3px max(2px,env(safe-area-inset-right)) 16px max(2px,env(safe-area-inset-left))}
+body.focus-mode .hero,body.focus-mode .stats,body.focus-mode .toolbar .mode,body.focus-mode .panel,body.focus-mode .footer,body.focus-mode .board-top,body.focus-mode .stock-help,body.focus-mode .progress{display:none!important}
+body.focus-mode .focus-strip{max-width:620px;margin:0 auto 4px;padding:2px 5px;justify-content:space-between}
+body.focus-mode .focus-mini{display:block}
+body.focus-mode .focus-toggle{min-height:35px;padding:6px 12px}
+body.focus-mode .toolbar{display:block;margin:0 auto 4px;padding:0 3px;max-width:620px}
+body.focus-mode .toolbar .controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;gap:4px}
+body.focus-mode .toolbar .btn{font-size:clamp(9px,2.7vw,12px);min-height:40px;padding:5px 2px;white-space:normal;line-height:1.25}
+body.focus-mode .stage{padding:0;border:0;border-radius:0;box-shadow:none;background:transparent}
+body.focus-mode .stock-heading,body.focus-mode .stock-rack,body.focus-mode .stock-arrows,body.focus-mode .board,body.focus-mode .status{width:min(100%,620px)}
+body.focus-mode .stock-heading{padding:0 5px;margin-bottom:2px}
+body.focus-mode .stock-heading b{font-size:11px}
+body.focus-mode .stock-remaining{font-size:13px}
+body.focus-mode .stock-remaining strong{font-size:17px}
+body.focus-mode .stock-rack{min-height:39px;padding:3px 4px 0;border-radius:7px 7px 0 0}
+body.focus-mode .stock-lane{min-height:35px;padding-bottom:1px}
+body.focus-mode .deck-card{height:31px;border-radius:5px}
+body.focus-mode .stock-arrows{padding:0 4px;line-height:11px;font-size:12px;margin-bottom:0}
+body.focus-mode .board{border:3px solid #294661;border-radius:6px;box-shadow:0 5px 20px #0008}
+body.focus-mode .status{font-size:11px;line-height:1.3;min-height:32px;margin:3px auto 0;padding:6px;border-radius:7px}
 </style></head><body>
 <main class="app">
-<header class="hero"><div><div class="brand">CP QUEST · NEW PUZZLE</div><h1>PICTURE <span>DROP</span></h1><p class="desc">ピースを交換 → 絵がつながる → 4枚で完成！</p><a href="./index.html" class="back-link">← CP ARCADE に戻る</a></div><div class="version">Ver.1.3</div></header>
+<header class="hero"><div><div class="brand">CP QUEST · NEW PUZZLE</div><h1>PICTURE <span>DROP</span></h1><p class="desc">ピースを交換 → 絵がつながる → 4枚で完成！</p><a href="./index.html" class="back-link">← CP ARCADE に戻る</a></div><div class="version">Ver.1.4</div></header>
 <div class="stats"><div class="stat"><small>完成した絵</small><strong id="doneCount">0 <em>/ 12</em></strong></div><div class="stat"><small>移動回数</small><strong id="movesCount">0</strong></div><div class="stat"><small>盤面の空き</small><strong id="emptyCount">0</strong></div></div>
+<div class="focus-strip"><span id="focusMini" class="focus-mini" aria-live="polite">完成 0/12 · 0手</span><button class="btn focus-toggle" type="button" id="focusToggle" aria-pressed="false" aria-controls="board">🔎 盤面集中</button></div>
 <div class="toolbar"><div class="mode"><label for="difficulty">ゲームの長さ</label><select id="difficulty"><option value="9">短め・9作品</option><option value="12" selected>ふつう・12作品</option><option value="16">長め・16作品</option><option value="24">たっぷり・24作品</option><option value="30">たっぷり・30作品</option></select></div><div class="controls"><button class="btn" id="hintBtn" type="button">💡 ヒント</button><button class="btn" id="undoBtn" type="button">↶ 戻す</button><button class="btn" id="rescueBtn" type="button">🛟 手詰まり救済</button><button class="btn" id="resetBtn" type="button">⟳ 最初から</button></div></div>
 <section class="stage"><div class="board-top"><span>🧩 6×6 パズルボード</span><span class="piece-count" id="boardCount">36 / 36枚</span></div>
 <div class="stock-heading"><b>🃏 6列の補充ストック</b><span id="stockCount" class="stock-remaining" aria-live="polite">残り <strong>12</strong> 枚</span></div>
 <div id="stockDesc" class="stock-help">6列共通の山札。消した列の真上からカードが落ちるで！</div>
 <div class="stock-rack" id="stockRack" aria-label="6列の補充ストック"><div class="stock-lane" data-col="0"><div class="deck-card"></div></div><div class="stock-lane" data-col="1"><div class="deck-card"></div></div><div class="stock-lane" data-col="2"><div class="deck-card"></div></div><div class="stock-lane" data-col="3"><div class="deck-card"></div></div><div class="stock-lane" data-col="4"><div class="deck-card"></div></div><div class="stock-lane" data-col="5"><div class="deck-card"></div></div></div>
 <div class="stock-arrows" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span><span>↓</span><span>↓</span><span>↓</span></div><div class="board" id="board" role="grid" aria-label="タップで選択し別のマスへ交換。ドラッグもできます"></div><div class="status" id="status" role="status">好きなピースを選んで、別のマスと入れ替えよう！</div><div class="progress"><div class="progress-head"><span>完成した作品</span><span id="progressText">0 / 12</span></div><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div id="progressFill"></div></div><div id="completed" class="completed"><span class="none">完成した絵がここに並ぶで！</span></div></div></section>
-<section class="panel"><h2>🕹️ 遊び方</h2><p>① 最初から<b>36マス全部にカード</b>が並んでる。<br>② どのカードにも重ねられる！ <b>移動先のカードと入れ替わる</b>で。<br>③ 同じ絵が正しく隣り合うと<b>枠が消えて合体</b>。くっついた絵は<b>まとめて動く</b>。<br>④ 4枚で絵ができると消えて、<b>消えたマスの真上の列から4枚補充</b>される。上の残り枚数をチェック！<br>⑤ 新しい絵は4枚セットで補充されるで。山札がなくなったら、完成した分だけ<b>空きマス</b>が増えていく！<br>⑥ どうしても進めなくなったら<b>「🛟 手詰まり救済」</b>。完成した作品・山札枚数はそのままで、未完成カードを並び直す（つながりはいったん解除）。</p></section>
+<section class="panel"><h2>🕹️ 遊び方</h2><p>① 最初から<b>36マス全部にカード</b>が並んでる。<br>② どのカードにも重ねられる！ <b>移動先のカードと入れ替わる</b>で。<br>③ 同じ絵が正しく隣り合うと<b>枠が消えて合体</b>。くっついた絵は<b>まとめて動く</b>。<br>④ 4枚で絵ができると消えて、<b>消えたマスの真上の列から4枚補充</b>される。上の残り枚数をチェック！<br>⑤ 新しいカードは<b>1枚ずつランダム</b>に補充されるで。山札がなくなったら、完成した分だけ<b>空きマス</b>が増えていく！<br>⑥ どうしても進めなくなったら<b>「🛟 手詰まり救済」</b>。完成した作品・山札枚数はそのままで、未完成カードを並び直す（つながりはいったん解除）。</p></section>
 <section class="panel"><div class="picture-head"><div><h2>🖼️ 写真を変える</h2><div class="micro">昨日の採用画像60枚を内蔵。名画・建物などをランダム出題</div></div><div class="upload-buttons"><button class="btn primary" id="imageChangeBtn" type="button">🔀 別の絵で遊ぶ</button><label class="btn upload-trigger" id="uploadBtn" for="fileInput" role="button" tabindex="0">📷 写真を読み込む</label><button class="btn" id="builtinBtn" type="button">採用画像に戻す</button></div></div><input class="upload-input" type="file" id="fileInput" accept="image/*" multiple><p id="libraryState" role="status" aria-live="polite" style="margin-top:7px">採用画像を準備中…</p><p style="margin-top:6px">📷 写真1枚からOK！9枚未満なら見本画像を混ぜるで。端末の写真は外部へ送信しません。採用画像には通信が必要です。</p></section>
 <section class="panel gallery"><details><summary>今回の作品を見る <span class="micro">（完成図のヒント）</span></summary><div class="gallery-items" id="galleryItems"></div></details><details class="credit-details"><summary>採用画像の出典と利用条件</summary><p>写真はゲーム用に中央をトリミングして表示しています。</p><ul id="credits"></ul></details></section>
-<p class="footer">CP PICTURE DROP · 公開 Ver.1.3<br>広告なし・時間制限なし・画像ダウンロードにはネット接続が必要です。</p>
+<p class="footer">CP PICTURE DROP · 公開 Ver.1.4<br>広告なし・時間制限なし・画像ダウンロードにはネット接続が必要です。</p>
 </main>
 <div id="winOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="winTitle"><div class="modal"><div class="emoji">🏆</div><h2 id="winTitle">全作品クリア！</h2><div id="winArt" class="award"></div><p id="winDetail"></p><button class="btn primary" id="replayBtn" type="button">もう一回あそぶ！</button><button class="btn" id="closeBtn" type="button">盤面を見る</button></div></div>
 <div id="toast" class="toast" role="status"></div>
@@ -170,7 +196,7 @@ function paintStock(){
    lane.setAttribute('aria-label',`${col+1}列目の補充口：${n?'補充可能':'ストックなし'}`);
  });
 }
-function paint(){const chosen=selected>=0?getGroup(board,selected):[];boardEl.innerHTML=board.map((p,i)=>{if(!p)return `<div role="gridcell" class="cell empty ${tooltip?.target===i?'target-hint':''}" data-i="${i}" aria-label="空きマス"></div>`;const {r,c}=pos(i),neighbour=(dy,dx,q)=>{let y=r+dy,x=c+dx;if(y<0||y>=6||x<0||x>=6)return false;let n=board[idx(y,x)];return !!n&&n.id===p.id&&n.q===q};let t=(p.q>=2&&neighbour(-1,0,p.q-2))?0:2,rr=(p.q%2===0&&neighbour(0,1,p.q+1))?0:2,bb=(p.q<2&&neighbour(1,0,p.q+2))?0:2,l=(p.q%2===1&&neighbour(0,-1,p.q-1))?0:2;let im=photo(p.id);let name=im?.name||'絵';let extra=[chosen.includes(i)?'selected':'',tooltip?.source===i?'source-hint':'',tooltip?.target===i?'target-hint':'',dropFx.has(i)?'landed':'',gravityFx.has(i)?'grav':''].filter(Boolean).join(' ');return `<div class="cell ${extra}" role="gridcell" data-i="${i}" aria-label="${esc(name)}、${p.q+1}番ピース"><div class="tile" style="--bt:${t}px;--br:${rr}px;--bb:${bb}px;--bl:${l}px;${tileBackground(p)}"><span class="label-id">${p.q+1}</span></div></div>`}).join('');$('doneCount').innerHTML=`${done.length} <em>/ ${levelImages.length}</em>`;$('movesCount').textContent=moves;$('emptyCount').textContent=board.filter(x=>!x).length;$('boardCount').textContent=`${board.filter(Boolean).length} / 36枚`;paintStock();$('undoBtn').disabled=busy||!undoStack.length;$('hintBtn').disabled=busy;$('rescueBtn').disabled=busy;$('resetBtn').disabled=busy;$('difficulty').disabled=busy;const percent=levelImages.length?100*done.length/levelImages.length:0;$('progressFill').style.width=percent+'%';$('progressBar').setAttribute('aria-valuenow',String(Math.round(percent)));$('progressText').textContent=`${done.length} / ${levelImages.length}`;$('completed').innerHTML=done.length?done.map(id=>`<div class="sm" title="${esc(pname(id))}" style="background-image:url(&quot;${esc(photo(id)?.url)}&quot;)"></div>`).join(''):'<span class="none">完成した絵がここに並ぶで！</span>'}
+function paint(){const chosen=selected>=0?getGroup(board,selected):[];boardEl.innerHTML=board.map((p,i)=>{if(!p)return `<div role="gridcell" class="cell empty ${tooltip?.target===i?'target-hint':''}" data-i="${i}" aria-label="空きマス"></div>`;const {r,c}=pos(i),neighbour=(dy,dx,q)=>{let y=r+dy,x=c+dx;if(y<0||y>=6||x<0||x>=6)return false;let n=board[idx(y,x)];return !!n&&n.id===p.id&&n.q===q};let t=(p.q>=2&&neighbour(-1,0,p.q-2))?0:2,rr=(p.q%2===0&&neighbour(0,1,p.q+1))?0:2,bb=(p.q<2&&neighbour(1,0,p.q+2))?0:2,l=(p.q%2===1&&neighbour(0,-1,p.q-1))?0:2;let im=photo(p.id);let name=im?.name||'絵';let extra=[chosen.includes(i)?'selected':'',tooltip?.source===i?'source-hint':'',tooltip?.target===i?'target-hint':'',dropFx.has(i)?'landed':'',gravityFx.has(i)?'grav':''].filter(Boolean).join(' ');return `<div class="cell ${extra}" role="gridcell" data-i="${i}" aria-label="${esc(name)}、${p.q+1}番ピース"><div class="tile" style="--bt:${t}px;--br:${rr}px;--bb:${bb}px;--bl:${l}px;${tileBackground(p)}"><span class="label-id">${p.q+1}</span></div></div>`}).join('');$('doneCount').innerHTML=`${done.length} <em>/ ${levelImages.length}</em>`;$('movesCount').textContent=moves;$('emptyCount').textContent=board.filter(x=>!x).length;$('boardCount').textContent=`${board.filter(Boolean).length} / 36枚`;paintStock();$('undoBtn').disabled=busy||!undoStack.length;$('hintBtn').disabled=busy;$('rescueBtn').disabled=busy;$('resetBtn').disabled=busy;$('difficulty').disabled=busy;const percent=levelImages.length?100*done.length/levelImages.length:0;$('progressFill').style.width=percent+'%';$('progressBar').setAttribute('aria-valuenow',String(Math.round(percent)));$('progressText').textContent=`${done.length} / ${levelImages.length}`;$('completed').innerHTML=done.length?done.map(id=>`<div class="sm" title="${esc(pname(id))}" style="background-image:url(&quot;${esc(photo(id)?.url)}&quot;)"></div>`).join(''):'<span class="none">完成した絵がここに並ぶで！</span>';updateFocusMini()}
 function paintGallery(){
   $('galleryItems').innerHTML=levelImages.map(a=>`<div class="gallery-item"><div class="gallery-art" style="background-image:url(&quot;${esc(a.url)}&quot;)"></div><small>${esc(a.name)}</small></div>`).join('');
   $('credits').innerHTML=levelImages.filter(a=>a.credit).map(a=>`<li><a href="${esc(a.credit.source)}" target="_blank" rel="noopener noreferrer">${esc(a.name)}</a> — ${esc(a.credit.author)}／${esc(a.credit.license)}（<a href="${esc(a.credit.licenseUrl)}" target="_blank" rel="noopener noreferrer">ライセンス</a>）</li>`).join('')||'<li>ご自身の写真、または同梱の見本画像です。</li>';
@@ -552,6 +578,26 @@ $('imageChangeBtn').addEventListener('click',()=>{
 });
 updateDifficulty();publicBoot();
 // Read-only gameplay inspection plus isolated test helpers. Does not access files or network.
+
+function updateFocusMini(){
+  const el=$('focusMini');
+  if(el)el.textContent='完成 '+done.length+'/'+(levelImages.length||Number($('difficulty').value)||12)+' · '+moves+'手';
+}
+function setFocusMode(on,persist=true){
+  document.body.classList.toggle('focus-mode',!!on);
+  const btn=$('focusToggle');
+  btn.setAttribute('aria-pressed',on?'true':'false');
+  btn.textContent=on?'↩ 通常表示':'🔎 盤面集中';
+  btn.title=on?'いつもの画面に戻す':'盤面を大きくして遊ぶ';
+  updateFocusMini();
+  if(persist){try{localStorage.setItem('CP_PICTURE_DROP_FOCUS_V1',on?'1':'0')}catch(e){}}
+}
+$('focusToggle').addEventListener('click',()=>{
+  setFocusMode(!document.body.classList.contains('focus-mode'));
+  window.scrollTo(0,0);
+});
+try{if(localStorage.getItem('CP_PICTURE_DROP_FOCUS_V1')==='1')setFocusMode(true,false)}catch(e){}
+
 window.__CP_DROP_TEST__={get:()=>({board:board.map(p=>p?{...p}:null),stock:stock.map(p=>({...p})),done:done.slice(),moves,busy,fairRefillCount,imageCount:levelImages.length,art:levelImages.map(a=>({id:a.id,name:a.name})),remainingStock:stock.length}),group:i=>getGroup(board,i),valid:(i,j)=>validMove(board,i,j),swap:(i,j)=>move(i,j),matches:()=>getMatches(board),trigger:()=>{const m=getMatches(board);if(m.length&&!busy)settle(m,runId)},setBoard:cards=>{if(!busy&&cards.length===36){board=cards.map(x=>x?{...x}:null);dropFx.clear();gravityFx.clear();paint()}},newGame:start,rescue:rescueBoard,planned:()=>planRefills(getRefillHoles()),ready:()=>{const m=new Map();board.filter(Boolean).forEach(p=>{const q=m.get(p.id)||new Set();q.add(p.q);m.set(p.id,q)});return [...m.values()].filter(q=>q.size===4).length},undo:()=>{if(!busy&&undoStack.length)restore(undoStack.pop())},gravity:()=>{rigidGravity();paint()}};
 })();
 </script></body></html>

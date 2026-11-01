@@ -6,9 +6,10 @@
 
 ## 結論 / 公開前の対応状況
 
-- **最優先修正**：画像 `CP-PIC-49`「ピサの斜塔」。カタログには `Leaning_tower_of_Pisa.jpg` / `CC BY 2.5` とある。一方、検索で確認できた `File:Leaning_Tower_of_Pisa.jpg` は **CC BY-SA 3.0**、作者 **Softeis**。小文字・大文字を含むファイル名とライセンスが一致するか未確認。**確証が得られるまで両ゲームの採用候補から除外し、条件を確認した別写真へ差し替えること。** (https://commons.wikimedia.org/wiki/File:Leaning_Tower_of_Pisa.jpg)
+- **最優先修正①**：画像 `CP-PIC-49`「ピサの斜塔」。カタログには `Leaning_tower_of_Pisa.jpg` / `CC BY 2.5` とある。一方、検索で確認できた `File:Leaning_Tower_of_Pisa.jpg` は **CC BY-SA 3.0**、作者 **Softeis**。小文字・大文字を含むファイル名とライセンスが一致するか未確認。**確証が得られるまで両ゲームの採用候補から除外し、条件を確認した別写真へ差し替えること。** (https://commons.wikimedia.org/wiki/File:Leaning_Tower_of_Pisa.jpg)
 - **要注意**：`CP-PIC-57`「モン・サン＝ミシェル」はCommonsライセンス欄に CC BY-SA 4.0 と表示される一方、Exifには「All rights reserved / no reproduction without prior permission」の古い文言がある。Commons上の公開ライセンスが優先と考えられるが、出典の確認や安全優先の差替えを検討。 (https://commons.wikimedia.org/wiki/File:Mont-Saint-Michel_from_distance.JPG)
-- **画像クレジット**：CC BY/SA掲載候補13件は全件、著作者名・画像名・出典リンク・正確な版数つきCCライセンスへのリンク・トリミング/分割した旨を掲載。公開前に正確な原本を再照合する。
+- **最優先修正②**：画像 `CP-PIC-45`「白貂を抱く貴婦人」。カタログは `PD-Art` 想定だが、実際の `File:Lady_with_the_ermine.jpg` の撮影者は Cezary Piwowarski、画像ライセンスは **CC BY-SA 4.0等**。撮影者クレジットと適切なライセンス表示が必要。PDの別画像に差し替えるか原本の条件に合わせる。 https://commons.wikimedia.org/wiki/File:Lady_with_the_ermine.jpg
+- **画像クレジット**：カタログでCC BY/SA想定13件に、CP-PIC-45の実際のCC BY-SA画像を加え**少なくとも14件**で著作者名・タイトル・出典リンク・正確なCCライセンスへのリンク・分割/トリミングの表示が必要。
 - **CC BY-SA**：元画像の改変が翻案に該当して公表される場合、該当する画像加工物は同じ互換ライセンスに従う。ゲーム全体のコードまで自動的にCC BY-SAに変わるものではない。写真とゲーム本体のライセンス範囲を明確に記載する。
 - **The Met**：APIで `isPublicDomain===true` を要求する処理を維持する。画像本体の著作権と別に商標・人物などの権利は例外になり得る。
 - **Pexels**：PexelsライセンスはWebサイト・アプリ内での無料利用と加工を許可している。写真単体再配布、ロゴ/商標への写真使用、写っている人物・ブランドの推薦を装う利用を避ける。全写真の原本ページを一件ずつ開く個別照合は未完了。
@@ -24,8 +25,8 @@
 - PICTURE PUZZLE：70候補（The Met 10、Pexels 30、Commons 30）。`名画-05` は `rights_ok=false` かつ `recommended=false` で採用不可。
 - PICTURE DROP：60候補（The Met 8、Pexels 22、Commons 30）。60件すべて `rights_ok=true` のフラグ。
 - **二作品で重複する画像が多数**。カタログの `rights_ok=true` は登録時のフラグであり第三者の権利が法的にクリアであることの証明ではない。
-- Commons 30件はPD-Art想定15、CC BYまたはBY-SA想定13、CC0想定2。公開直前に全30画像の実際のメタデータを再確認する。
-- Commonsの画像原本ページについて**15件を抜き出して利用条件を照合した記録**が下表にある。他の画像は「原本未照合」。各画像の表示可否は実行時APIだけに依存させず、公開前に静的な監査記録を残す。
+- Commons 30件のコード内想定はPD-Art 15、CC BYまたはBY-SA 13、CC0 2。しかしCP-PIC-45は実際にCC BY-SAなので、原本の確認後はPD-Art相当14、CC BY/SA少なくとも14、CC0 2となる可能性。CP-PIC-49は未確定。
+- Commons原本ページを**30件中29件**、ファイル名と権利欄に照らして確認。CP-PIC-45に権利想定不一致、CP-PIC-57にExifの古い権利表記との相違。CP-PIC-49は原本特定が未完了。公開前に実際に読み込まれる画像のAPIメタデータとクレジット表示も再照合する。
 
 ## 個別画像台帳（全70候補）
 
@@ -71,36 +72,36 @@
 | 料理-08 | 美味しそうな料理 | トマトとバジルのパスタ | pexels | Pexels License | 候補のみ | Pexels共通ライセンス確認・個別写真未照合 | [原本](https://www.pexels.com/photo/pasta-decorated-with-fresh-basil-and-tomato-served-in-bowl-11937509/) |
 | 料理-09 | 美味しそうな料理 | グリルステーキ | pexels | Pexels License | 候補のみ | Pexels共通ライセンス確認・個別写真未照合 | [原本](https://www.pexels.com/photo/gourmet-grilled-steak-with-herb-sauce-and-vegetables-28962426/) |
 | 料理-10 | 美味しそうな料理 | ナンとインドカレー | pexels | Pexels License | 候補のみ | Pexels共通ライセンス確認・個別写真未照合 | [原本](https://www.pexels.com/photo/delicious-indian-curry-with-naan-bread-28497406/) |
-| CP-PIC-31 | 世界の名画 | モナ・リザ | commons | PD-Art | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_-_Mona_Lisa_(Louvre%2C_Paris).jpg) |
-| CP-PIC-32 | 世界の名画 | 最後の晩餐 | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Last_Supper_by_Leonardo_da_Vinci.jpg) |
-| CP-PIC-33 | 世界の名画 | 星月夜 | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Vincent_Van_Gogh_Starry_Night.jpg) |
-| CP-PIC-34 | 世界の名画 | ひまわり | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Sunflowers_National_Gallery.jpg) |
-| CP-PIC-35 | 世界の名画 | 真珠の耳飾りの少女 | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:1665_Girl_with_a_Pearl_Earring.jpg) |
-| CP-PIC-36 | 世界の名画 | 睡蓮（1906年の作品） | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Waterlilies_-_Google_Art_Project.jpg) |
-| CP-PIC-37 | 世界の名画 | 印象・日の出 | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Monet_-_Impression%2C_Sunrise.jpg) |
-| CP-PIC-38 | 世界の名画 | 叫び（1893年カラー絵画） | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:The_Scream.jpg) |
-| CP-PIC-39 | 世界の名画 | 夜のカフェテラス | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Terrace_of_a_Caf%C3%A9_at_Night_(Place_du_Forum)_1888.jpg) |
-| CP-PIC-40 | 世界の名画 | 牛乳を注ぐ女 | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg) |
-| CP-PIC-41 | 世界の名画 | 落穂拾い | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Jean-Fran%C3%A7ois_Millet_-_Des_glaneuses.jpg) |
-| CP-PIC-42 | 世界の名画 | ムーラン・ド・ラ・ギャレットの舞踏会 | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Pierre-Auguste_Renoir_-_Bal_du_moulin_de_la_Galette.jpeg) |
-| CP-PIC-43 | 世界の名画 | ヴィーナスの誕生 | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:La_naissance_de_V%C3%A9nus%2C_Boticelli.jpg) |
-| CP-PIC-44 | 世界の名画 | 接吻 | commons | PD-Art | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Klimt_-_The_Kiss.jpg) |
-| CP-PIC-45 | 世界の名画 | 白貂を抱く貴婦人 | commons | PD-Art | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Lady_with_the_ermine.jpg) |
-| CP-PIC-46 | 世界の建物・名所 | エッフェル塔（昼景） | commons | CC BY-SA 4.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Eiffel_Tower_during_day_01.jpg) |
-| CP-PIC-47 | 世界の建物・名所 | ビッグ・ベン | commons | CC BY-SA 3.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:BigBenLondon.jpg) |
-| CP-PIC-48 | 世界の建物・名所 | タージ・マハル | commons | CC BY-SA 4.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Taj_Mahal_frontal.jpg) |
+| CP-PIC-31 | 世界の名画 | モナ・リザ | commons | PD-Art | 両方 | 原本確認：PD-Art／レオナルド・ダ・ヴィンチ | [原本](https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_-_Mona_Lisa_(Louvre%2C_Paris).jpg) |
+| CP-PIC-32 | 世界の名画 | 最後の晩餐 | commons | PD-Art | 両方 | 原本確認：PD-Art／レオナルド・ダ・ヴィンチ | [原本](https://commons.wikimedia.org/wiki/File:Last_Supper_by_Leonardo_da_Vinci.jpg) |
+| CP-PIC-33 | 世界の名画 | 星月夜 | commons | PD-Art | 両方 | 原本確認：PD-Art／ファン・ゴッホ | [原本](https://commons.wikimedia.org/wiki/File:Vincent_Van_Gogh_Starry_Night.jpg) |
+| CP-PIC-34 | 世界の名画 | ひまわり | commons | PD-Art | 両方 | 原本確認：Public domain／ファン・ゴッホ | [原本](https://commons.wikimedia.org/wiki/File:Sunflowers_National_Gallery.jpg) |
+| CP-PIC-35 | 世界の名画 | 真珠の耳飾りの少女 | commons | PD-Art | 両方 | 原本確認：PD-Art／フェルメール | [原本](https://commons.wikimedia.org/wiki/File:1665_Girl_with_a_Pearl_Earring.jpg) |
+| CP-PIC-36 | 世界の名画 | 睡蓮（1906年の作品） | commons | PD-Art | 両方 | 原本確認：PD-Art／モネ | [原本](https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Waterlilies_-_Google_Art_Project.jpg) |
+| CP-PIC-37 | 世界の名画 | 印象・日の出 | commons | PD-Art | 両方 | 原本確認：Public domain／モネ | [原本](https://commons.wikimedia.org/wiki/File:Monet_-_Impression%2C_Sunrise.jpg) |
+| CP-PIC-38 | 世界の名画 | 叫び（1893年カラー絵画） | commons | PD-Art | 両方 | 原本確認：PD-Art／ムンク | [原本](https://commons.wikimedia.org/wiki/File:The_Scream.jpg) |
+| CP-PIC-39 | 世界の名画 | 夜のカフェテラス | commons | PD-Art | 両方 | 原本確認：PD-Art／ファン・ゴッホ | [原本](https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Terrace_of_a_Caf%C3%A9_at_Night_(Place_du_Forum)_1888.jpg) |
+| CP-PIC-40 | 世界の名画 | 牛乳を注ぐ女 | commons | PD-Art | 両方 | 原本確認：PD-Art／フェルメール | [原本](https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg) |
+| CP-PIC-41 | 世界の名画 | 落穂拾い | commons | PD-Art | 両方 | 原本確認：PD-Art／ミレー | [原本](https://commons.wikimedia.org/wiki/File:Jean-Fran%C3%A7ois_Millet_-_Des_glaneuses.jpg) |
+| CP-PIC-42 | 世界の名画 | ムーラン・ド・ラ・ギャレットの舞踏会 | commons | PD-Art | 両方 | 原本確認：PD-Art／ルノワール | [原本](https://commons.wikimedia.org/wiki/File:Pierre-Auguste_Renoir_-_Bal_du_moulin_de_la_Galette.jpeg) |
+| CP-PIC-43 | 世界の名画 | ヴィーナスの誕生 | commons | PD-Art | 両方 | 原本確認：PD-Art／ボッティチェリ | [原本](https://commons.wikimedia.org/wiki/File:La_naissance_de_V%C3%A9nus%2C_Boticelli.jpg) |
+| CP-PIC-44 | 世界の名画 | 接吻 | commons | PD-Art | 両方 | 原本確認：PD-Art／クリムト | [原本](https://commons.wikimedia.org/wiki/File:Klimt_-_The_Kiss.jpg) |
+| CP-PIC-45 | 世界の名画 | 白貂を抱く貴婦人 | commons | PD-Art | 両方 | 原本確認：**要修正**：実際はCC BY-SA 4.0等／撮影 Cezary Piwowarski。想定PD-Artと不一致 | [原本](https://commons.wikimedia.org/wiki/File:Lady_with_the_ermine.jpg) |
+| CP-PIC-46 | 世界の建物・名所 | エッフェル塔（昼景） | commons | CC BY-SA 4.0 | 両方 | 原本確認：CC BY-SA 4.0／Shypoetess | [原本](https://commons.wikimedia.org/wiki/File:Eiffel_Tower_during_day_01.jpg) |
+| CP-PIC-47 | 世界の建物・名所 | ビッグ・ベン | commons | CC BY-SA 3.0 | 両方 | 原本確認：CC BY-SA 3.0／Massimo Catarinella | [原本](https://commons.wikimedia.org/wiki/File:BigBenLondon.jpg) |
+| CP-PIC-48 | 世界の建物・名所 | タージ・マハル | commons | CC BY-SA 4.0 | 両方 | 原本確認：CC BY-SA 4.0／Marsmux | [原本](https://commons.wikimedia.org/wiki/File:Taj_Mahal_frontal.jpg) |
 | CP-PIC-49 | 世界の建物・名所 | ピサの斜塔 | commons | CC BY 2.5 | 両方 | **要修正**：登録URLと類似画像のライセンス不一致 | [原本](https://commons.wikimedia.org/wiki/File:Leaning_tower_of_Pisa.jpg) |
-| CP-PIC-50 | 世界の建物・名所 | サグラダ・ファミリア | commons | CC BY-SA 4.0 | 両方 | Commons原本ページは未照合 | [原本](https://commons.wikimedia.org/wiki/File:Facade_of_the_Sagrada_Familia%2C_Barcelona%2C_Spain.jpg) |
-| CP-PIC-51 | 世界の建物・名所 | コロッセオ | commons | CC BY-SA 4.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Exterior_of_Roman_Colosseum.jpg) |
-| CP-PIC-52 | 世界の建物・名所 | シドニー・オペラハウス | commons | CC BY-SA 4.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Sydney_Opera_House.jpg) |
-| CP-PIC-53 | 世界の建物・名所 | 自由の女神（白黒写真） | commons | CC0 1.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Statue_of_Liberty_-_New_York_City.jpg) |
-| CP-PIC-54 | 世界の建物・名所 | ブルジュ・ハリファ | commons | CC BY-SA 4.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Burj_Khalifa_-_Dubai.jpg) |
-| CP-PIC-55 | 世界の建物・名所 | エトワール凱旋門 | commons | CC BY-SA 3.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Arc_de_Triomphe_-_Front.jpg) |
-| CP-PIC-56 | 世界の建物・名所 | ノイシュヴァンシュタイン城 | commons | CC BY-SA 4.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Neuschwanstein_Castle_in_Germany.jpg) |
-| CP-PIC-57 | 世界の建物・名所 | モン・サン＝ミシェル | commons | CC BY-SA 4.0 | 両方 | **要注意**：Commons本文はBY-SA4、Exif内の権利文言に相違 | [原本](https://commons.wikimedia.org/wiki/File:Mont-Saint-Michel_from_distance.JPG) |
-| CP-PIC-58 | 世界の建物・名所 | ペトラ遺跡（エル・ハズネ） | commons | CC BY-SA 3.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Petra_-_Al_Khazneh.jpg) |
-| CP-PIC-59 | 世界の建物・名所 | 富士山と忠霊塔 | commons | CC BY-SA 4.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Chureito_Pagoda_and_Mount_Fuji.jpg) |
-| CP-PIC-60 | 世界の建物・名所 | 姫路城 | commons | CC0 1.0 | 両方 | 原本ページの表示内容と想定ライセンスが一致 | [原本](https://commons.wikimedia.org/wiki/File:Himeji_castle.jpg) |
+| CP-PIC-50 | 世界の建物・名所 | サグラダ・ファミリア | commons | CC BY-SA 4.0 | 両方 | 原本確認：CC BY-SA 4.0／Teddy1244 | [原本](https://commons.wikimedia.org/wiki/File:Facade_of_the_Sagrada_Familia%2C_Barcelona%2C_Spain.jpg) |
+| CP-PIC-51 | 世界の建物・名所 | コロッセオ | commons | CC BY-SA 4.0 | 両方 | 原本確認：CC BY-SA 4.0／Formermanas | [原本](https://commons.wikimedia.org/wiki/File:Exterior_of_Roman_Colosseum.jpg) |
+| CP-PIC-52 | 世界の建物・名所 | シドニー・オペラハウス | commons | CC BY-SA 4.0 | 両方 | 原本確認：CC BY-SA 4.0／Michael elwazer | [原本](https://commons.wikimedia.org/wiki/File:Sydney_Opera_House.jpg) |
+| CP-PIC-53 | 世界の建物・名所 | 自由の女神（白黒写真） | commons | CC0 1.0 | 両方 | 原本確認：CC0 1.0／Anthony DELANOIX | [原本](https://commons.wikimedia.org/wiki/File:Statue_of_Liberty_-_New_York_City.jpg) |
+| CP-PIC-54 | 世界の建物・名所 | ブルジュ・ハリファ | commons | CC BY-SA 4.0 | 両方 | 原本確認：CC BY-SA 4.0／Nihad Nitz | [原本](https://commons.wikimedia.org/wiki/File:Burj_Khalifa_-_Dubai.jpg) |
+| CP-PIC-55 | 世界の建物・名所 | エトワール凱旋門 | commons | CC BY-SA 3.0 | 両方 | 原本確認：CC BY-SA 3.0／Boaz Meiri | [原本](https://commons.wikimedia.org/wiki/File:Arc_de_Triomphe_-_Front.jpg) |
+| CP-PIC-56 | 世界の建物・名所 | ノイシュヴァンシュタイン城 | commons | CC BY-SA 4.0 | 両方 | 原本確認：CC BY-SA 4.0／Awer20 | [原本](https://commons.wikimedia.org/wiki/File:Neuschwanstein_Castle_in_Germany.jpg) |
+| CP-PIC-57 | 世界の建物・名所 | モン・サン＝ミシェル | commons | CC BY-SA 4.0 | 両方 | 原本確認：**要注意**：CC BY-SA 4.0／Sameer g~commonswiki。Exifに古い権利文言 | [原本](https://commons.wikimedia.org/wiki/File:Mont-Saint-Michel_from_distance.JPG) |
+| CP-PIC-58 | 世界の建物・名所 | ペトラ遺跡（エル・ハズネ） | commons | CC BY-SA 3.0 | 両方 | 原本確認：CC BY-SA 3.0／Mahmoud Helwa | [原本](https://commons.wikimedia.org/wiki/File:Petra_-_Al_Khazneh.jpg) |
+| CP-PIC-59 | 世界の建物・名所 | 富士山と忠霊塔 | commons | CC BY-SA 4.0 | 両方 | 原本確認：CC BY-SA 4.0／Manishprabhune | [原本](https://commons.wikimedia.org/wiki/File:Chureito_Pagoda_and_Mount_Fuji.jpg) |
+| CP-PIC-60 | 世界の建物・名所 | 姫路城 | commons | CC0 1.0 | 両方 | 原本確認：CC0 1.0／Drivephotographer | [原本](https://commons.wikimedia.org/wiki/File:Himeji_castle.jpg) |
 
 ## 確認した公式資料
 
@@ -116,8 +117,9 @@
 ## 実施前の確認事項
 
 - [ ] CP-PIC-49の配布元・ライセンス問題を解消（差替え/除外を推奨）
+- [ ] CP-PIC-45の想定PD-Artと実画像CC BY-SA表記の不一致を解消
 - [ ] CP-PIC-57のExifと公開ライセンスの相違を再評価（代替画像ならより確実）
-- [ ] Commons 30件の原本・著作者・ライセンスを再照合し表の各行を「照合済」にする
+- [ ] Commons原本のCP-PIC-49を特定/差替えし、確認済29件は公開直前に再照合する
 - [ ] Pexelsの採用写真22件およびPUZZLEのみの8件の原本が存在し、利用条件が妥当か確認
 - [ ] The Met 10候補のOAフラグを再確認し非OA候補を除外
 - [ ] 画像のクレジット一覧ページを作成。TASL（Title/Author/Source/License）、加工の明記、BY-SA素材を区別

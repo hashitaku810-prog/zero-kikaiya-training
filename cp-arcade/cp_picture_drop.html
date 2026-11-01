@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a32"><title>CP PICTURE DROP | 公開修正版 Ver.1.2</title>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a32"><title>CP PICTURE DROP | 公開修正版 Ver.1.3</title>
 <style>
 :root{color-scheme:dark;--bg:#081429;--surface:#152641;--surface2:#1c3452;--line:#365170;--white:#f4f8ff;--soft:#bbcee1;--cyan:#8debdc;--orange:#ffce85}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse 90% 30% at 50% 0%,#29416d 0%,transparent 100%),linear-gradient(170deg,#0c1930,#090f24 78%);color:var(--white);font-family:system-ui,-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;font-weight:500}
@@ -35,7 +35,7 @@ button,select{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:tra
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
 <main class="app">
-<header class="hero"><div><div class="brand">CP QUEST · NEW PUZZLE</div><h1>PICTURE <span>DROP</span></h1><p class="desc">ピースを交換 → 絵がつながる → 4枚で完成！</p><a href="./index.html" class="back-link">← CP ARCADE に戻る</a></div><div class="version">Ver.1.2</div></header>
+<header class="hero"><div><div class="brand">CP QUEST · NEW PUZZLE</div><h1>PICTURE <span>DROP</span></h1><p class="desc">ピースを交換 → 絵がつながる → 4枚で完成！</p><a href="./index.html" class="back-link">← CP ARCADE に戻る</a></div><div class="version">Ver.1.3</div></header>
 <div class="stats"><div class="stat"><small>完成した絵</small><strong id="doneCount">0 <em>/ 12</em></strong></div><div class="stat"><small>移動回数</small><strong id="movesCount">0</strong></div><div class="stat"><small>盤面の空き</small><strong id="emptyCount">0</strong></div></div>
 <div class="toolbar"><div class="mode"><label for="difficulty">ゲームの長さ</label><select id="difficulty"><option value="9">短め・9作品</option><option value="12" selected>ふつう・12作品</option><option value="16">長め・16作品</option><option value="24">たっぷり・24作品</option><option value="30">たっぷり・30作品</option></select></div><div class="controls"><button class="btn" id="hintBtn" type="button">💡 ヒント</button><button class="btn" id="undoBtn" type="button">↶ 戻す</button><button class="btn" id="rescueBtn" type="button">🛟 手詰まり救済</button><button class="btn" id="resetBtn" type="button">⟳ 最初から</button></div></div>
 <section class="stage"><div class="board-top"><span>🧩 6×6 パズルボード</span><span class="piece-count" id="boardCount">36 / 36枚</span></div>
@@ -46,7 +46,7 @@ button,select{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:tra
 <section class="panel"><h2>🕹️ 遊び方</h2><p>① 最初から<b>36マス全部にカード</b>が並んでる。<br>② どのカードにも重ねられる！ <b>移動先のカードと入れ替わる</b>で。<br>③ 同じ絵が正しく隣り合うと<b>枠が消えて合体</b>。くっついた絵は<b>まとめて動く</b>。<br>④ 4枚で絵ができると消えて、<b>消えたマスの真上の列から4枚補充</b>される。上の残り枚数をチェック！<br>⑤ 新しい絵は4枚セットで補充されるで。山札がなくなったら、完成した分だけ<b>空きマス</b>が増えていく！<br>⑥ どうしても進めなくなったら<b>「🛟 手詰まり救済」</b>。完成した作品・山札枚数はそのままで、未完成カードを並び直す（つながりはいったん解除）。</p></section>
 <section class="panel"><div class="picture-head"><div><h2>🖼️ 写真を変える</h2><div class="micro">昨日の採用画像60枚を内蔵。名画・建物などをランダム出題</div></div><div class="upload-buttons"><button class="btn primary" id="imageChangeBtn" type="button">🔀 別の絵で遊ぶ</button><label class="btn upload-trigger" id="uploadBtn" for="fileInput" role="button" tabindex="0">📷 写真を読み込む</label><button class="btn" id="builtinBtn" type="button">採用画像に戻す</button></div></div><input class="upload-input" type="file" id="fileInput" accept="image/*" multiple><p id="libraryState" role="status" aria-live="polite" style="margin-top:7px">採用画像を準備中…</p><p style="margin-top:6px">📷 写真1枚からOK！9枚未満なら見本画像を混ぜるで。端末の写真は外部へ送信しません。採用画像には通信が必要です。</p></section>
 <section class="panel gallery"><details><summary>今回の作品を見る <span class="micro">（完成図のヒント）</span></summary><div class="gallery-items" id="galleryItems"></div></details><details class="credit-details"><summary>採用画像の出典と利用条件</summary><p>写真はゲーム用に中央をトリミングして表示しています。</p><ul id="credits"></ul></details></section>
-<p class="footer">CP PICTURE DROP · 公開 Ver.1.2<br>広告なし・時間制限なし・画像ダウンロードにはネット接続が必要です。</p>
+<p class="footer">CP PICTURE DROP · 公開 Ver.1.3<br>広告なし・時間制限なし・画像ダウンロードにはネット接続が必要です。</p>
 </main>
 <div id="winOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="winTitle"><div class="modal"><div class="emoji">🏆</div><h2 id="winTitle">全作品クリア！</h2><div id="winArt" class="award"></div><p id="winDetail"></p><button class="btn primary" id="replayBtn" type="button">もう一回あそぶ！</button><button class="btn" id="closeBtn" type="button">盤面を見る</button></div></div>
 <div id="toast" class="toast" role="status"></div>
@@ -163,7 +163,7 @@ function updateDifficulty(){const el=$('difficulty');let fallback=9;for(const op
 function paintStock(){
  const n=stock.length;
  $('stockCount').innerHTML=`残り <strong>${n}</strong> 枚 <small>(${Math.floor(n/4)}組)</small>`;
- $('stockDesc').textContent=n?'6列共通ストック。消えた場所と同じ列の真上から落ちる！':'ストック終了！ この後は完成するたびに空きマスが増えるで。';
+ $('stockDesc').textContent=n?'6列共通・1枚ずつランダム補充。消えた場所の真上から落ちる！':'ストック終了！ この後は完成するたびに空きマスが増えるで。';
  $('stockRack').classList.toggle('is-empty',n===0);
  $('stockRack').querySelectorAll('.stock-lane').forEach((lane,col)=>{
    lane.classList.toggle('empty',n===0);
@@ -175,7 +175,7 @@ function paintGallery(){
   $('galleryItems').innerHTML=levelImages.map(a=>`<div class="gallery-item"><div class="gallery-art" style="background-image:url(&quot;${esc(a.url)}&quot;)"></div><small>${esc(a.name)}</small></div>`).join('');
   $('credits').innerHTML=levelImages.filter(a=>a.credit).map(a=>`<li><a href="${esc(a.credit.source)}" target="_blank" rel="noopener noreferrer">${esc(a.name)}</a> — ${esc(a.credit.author)}／${esc(a.credit.license)}（<a href="${esc(a.credit.licenseUrl)}" target="_blank" rel="noopener noreferrer">ライセンス</a>）</li>`).join('')||'<li>ご自身の写真、または同梱の見本画像です。</li>';
 }
-function start(){runId++;busy=false;const n=Math.min(gallery.length,Number($('difficulty').value));levelImages=shuffle(gallery.slice()).slice(0,n);const first=levelImages.slice(0,9),rest=levelImages.slice(9);stock=shuffle(rest.slice()).flatMap(a=>shuffle([0,1,2,3]).map(q=>piece(a.id,q)));let tries=0;do{board=shuffle(first.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))))}while(getMatches(board).length&&++tries<200);done=[];moves=0;selected=-1;tooltip=null;undoStack=[];dropFx.clear();gravityFx.clear();$('winOverlay').classList.add('hidden');paintGallery();paint();status('36マス全部埋まってるで！ 絵をつなぐと上の6列から補充される！')}
+function start(){runId++;busy=false;const n=Math.min(gallery.length,Number($('difficulty').value));levelImages=shuffle(gallery.slice()).slice(0,n);const first=levelImages.slice(0,9),rest=levelImages.slice(9);stock=shuffle(rest.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))));let tries=0;do{board=shuffle(first.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))))}while(getMatches(board).length&&++tries<200);done=[];moves=0;fairRefillCount=0;selected=-1;tooltip=null;undoStack=[];dropFx.clear();gravityFx.clear();$('winOverlay').classList.add('hidden');paintGallery();paint();status('36マス全部埋まってるで！ 絵をつなぐと上の6列から補充される！')}
 function move(from,to){if(busy)return false;const action=validMove(board,from,to);if(!action){if(from!==to)toast('その形では盤面の外に出てしまうで！');return false}undoStack.push(snapshot());if(undoStack.length>80)undoStack.shift();board=swapped(board,action,true);moves++;selected=-1;tooltip=null;paint();const matches=getMatches(board);if(matches.length)settle(matches,runId);else status(action.group.length>1?`${action.group.length}枚つながった絵をまとめて移動！ 入れ替え成功。`:'ピースを交換したで！ 同じ絵を4枚つなげよう。');return true}
 // A joined group remains rigid when existing cards fall under gravity.
 
@@ -197,7 +197,7 @@ function rescueBoard(){
  const ids=shuffle([...byId.keys()]).sort((a,b)=>(oldCount.get(b)||0)-(oldCount.get(a)||0));
  const boardIds=ids.slice(0,active.length/4),stockIds=ids.slice(active.length/4);
  const featured=boardIds[0],chosen=new Map(byId.get(featured).map(p=>[p.q,p]));
- const reserve=shuffle(stockIds.slice()).flatMap(id=>shuffle(byId.get(id).slice()));
+ const reserve=shuffle(stockIds.flatMap(id=>byId.get(id).slice()));
  let layout=null,solution=null;
  for(let attempt=0;attempt<120;attempt++){
    const next=Array(AREA).fill(null);
@@ -226,6 +226,50 @@ function rigidGravity(){const moved=new Set();let rounds=0;while(rounds++<AREA){
 function getRefillHoles(){
  return board.map((p,i)=>p?null:i).filter(i=>i!==null)
    .sort((a,b)=>pos(b).r-pos(a).r||pos(a).c-pos(b).c);
+}
+// Cards drop in an independently shuffled order. Never package each artwork
+// in a four-card batch. Only correct the order when an entirely random draw
+// would leave the board without even one fully present four-piece artwork.
+function completeArtworkCount(cards){
+ const masks=new Map();
+ for(const p of cards)if(p)masks.set(p.id,(masks.get(p.id)||0)|(1<<p.q));
+ return [...masks.values()].filter(mask=>mask===15).length;
+}
+let fairRefillCount=0;
+function planRefills(holes){
+ const n=Math.min(holes.length,stock.length);
+ const deck=stock.slice(),active=board.filter(Boolean);
+ if(!n)return {refills:[],deck,fair:false};
+ const shown=active.concat(deck.slice(0,n));
+ let fair=false;
+ if(!completeArtworkCount(shown)){
+   const masks=new Map(),inBoard=new Map();
+   for(const p of active){masks.set(p.id,(masks.get(p.id)||0)|(1<<p.q));inBoard.set(p.id,(inBoard.get(p.id)||0)+1)}
+   for(const p of deck.slice(0,n))masks.set(p.id,(masks.get(p.id)||0)|(1<<p.q));
+   const options=[];
+   for(const [id,mask] of masks){
+     const missing=[0,1,2,3].filter(q=>!(mask&(1<<q)));
+     // Prefer filling an artwork already on the board, never an intact set.
+     if(!missing.length||missing.length>=n)continue;
+     const fromStock=missing.map(q=>deck.findIndex((p,j)=>j>=n&&p.id===id&&p.q===q));
+     const outgoing=deck.slice(0,n).map((p,j)=>p.id!==id?j:-1).filter(j=>j>=0);
+     if(fromStock.some(j=>j<0)||outgoing.length<missing.length)continue;
+     options.push({id,missing,fromStock,outgoing,existing:inBoard.get(id)||0});
+   }
+   shuffle(options).sort((a,b)=>a.missing.length-b.missing.length||b.existing-a.existing);
+   const target=options[0];
+   if(target){
+     const outgoing=shuffle(target.outgoing.slice());
+     target.fromStock.forEach((from,k)=>{
+       const to=outgoing[k];[deck[to],deck[from]]=[deck[from],deck[to]];
+     });
+     if(!completeArtworkCount(active.concat(deck.slice(0,n))))throw Error('refill guard failed');
+     fair=true;fairRefillCount++;
+   }else{
+     console.warn('CP PICTURE DROP: no eligible fair-refill solution; manual rescue remains available');
+   }
+ }
+ return {refills:holes.slice(0,n).map((i,k)=>({i,p:deck[k]})),deck,fair};
 }
 async function animateDrops(refills,token){
  if(!refills.length||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -278,13 +322,13 @@ async function settle(matches,token){
    }
    rigidGravity();paint();
    await sleep(270);if(token!==runId)return;
-   const holes=getRefillHoles(),n=Math.min(holes.length,stock.length);
-   const refills=holes.slice(0,n).map((i,k)=>({i,p:stock[k]}));
+   const holes=getRefillHoles(),plan=planRefills(holes);
+   const refills=plan.refills;
    if(refills.length){
      status(`🃏 6列のストックから ${refills.length}枚 落下中…`,true);
      await animateDrops(refills,token);
      if(token!==runId)return;
-     stock.splice(0,refills.length);
+     stock=plan.deck.slice(refills.length);
      for(const {i,p} of refills){board[i]=p;dropFx.add(i)}
      paint();
      status(stock.length?`⬇️ 同じ列の真上から補充！ ストック残り${stock.length}枚。`:'🃏 ストックが空になったで！ 次から空きマスが増えるで。',true);
@@ -508,6 +552,6 @@ $('imageChangeBtn').addEventListener('click',()=>{
 });
 updateDifficulty();publicBoot();
 // Read-only gameplay inspection plus isolated test helpers. Does not access files or network.
-window.__CP_DROP_TEST__={get:()=>({board:board.map(p=>p?{...p}:null),stock:stock.map(p=>({...p})),done:done.slice(),moves,busy,imageCount:levelImages.length,art:levelImages.map(a=>({id:a.id,name:a.name})),remainingStock:stock.length}),group:i=>getGroup(board,i),valid:(i,j)=>validMove(board,i,j),swap:(i,j)=>move(i,j),matches:()=>getMatches(board),trigger:()=>{const m=getMatches(board);if(m.length&&!busy)settle(m,runId)},setBoard:cards=>{if(!busy&&cards.length===36){board=cards.map(x=>x?{...x}:null);dropFx.clear();gravityFx.clear();paint()}},newGame:start,rescue:rescueBoard,ready:()=>{const m=new Map();board.filter(Boolean).forEach(p=>{const q=m.get(p.id)||new Set();q.add(p.q);m.set(p.id,q)});return [...m.values()].filter(q=>q.size===4).length},undo:()=>{if(!busy&&undoStack.length)restore(undoStack.pop())},gravity:()=>{rigidGravity();paint()}};
+window.__CP_DROP_TEST__={get:()=>({board:board.map(p=>p?{...p}:null),stock:stock.map(p=>({...p})),done:done.slice(),moves,busy,fairRefillCount,imageCount:levelImages.length,art:levelImages.map(a=>({id:a.id,name:a.name})),remainingStock:stock.length}),group:i=>getGroup(board,i),valid:(i,j)=>validMove(board,i,j),swap:(i,j)=>move(i,j),matches:()=>getMatches(board),trigger:()=>{const m=getMatches(board);if(m.length&&!busy)settle(m,runId)},setBoard:cards=>{if(!busy&&cards.length===36){board=cards.map(x=>x?{...x}:null);dropFx.clear();gravityFx.clear();paint()}},newGame:start,rescue:rescueBoard,planned:()=>planRefills(getRefillHoles()),ready:()=>{const m=new Map();board.filter(Boolean).forEach(p=>{const q=m.get(p.id)||new Set();q.add(p.q);m.set(p.id,q)});return [...m.values()].filter(q=>q.size===4).length},undo:()=>{if(!busy&&undoStack.length)restore(undoStack.pop())},gravity:()=>{rigidGravity();paint()}};
 })();
 </script></body></html>

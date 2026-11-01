@@ -96,13 +96,14 @@ button:disabled{opacity:.38;cursor:default}
 @media(max-width:360px){.app{padding:9px 7px 18px}.game-shell{padding:9px 6px}.board-layout{--arrow:21px}.grid{gap:1.5px;padding:3px}.piece{margin:3px}.symbol{font-size:23px}.mini-piece{width:23px;height:23px}.underboard{gap:4px}.ember-legend{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 a.back-arcade{display:inline-block;margin:0 4px 10px;color:#ffc88f;font-size:12px;text-decoration:none;font-weight:800}a.back-arcade:focus-visible{outline:2px solid #ffd59c;outline-offset:3px}
+.rank-anchor{display:flex;justify-content:center;margin:10px 0 5px}.rank-note{font-size:11px;color:#a9cbda;text-align:center;margin:5px 0 0;line-height:1.5}.rank-note.practice{color:#f5cb94}
 </style>
 </head>
 <body>
 <main class="app">
   <header class="header">
     <div><div class="logoTop">CP ORIGINAL PUZZLE · CP ARCADE</div><h1 class="title">NOKORIBI <span>のこり火</span></h1><p class="tagline">消した場所が、次の連鎖を呼ぶ。</p></div>
-    <div class="version">Ver.1.0</div>
+    <div class="version">Ver.1.1</div>
   </header>
   <a href="./index.html" class="back-arcade" aria-label="CP ARCADEのゲーム一覧に戻る">← CP ARCADEのゲーム一覧へ</a>
   <section class="hud" aria-label="ゲームの得点と残り手数">
@@ -132,6 +133,8 @@ a.back-arcade{display:inline-block;margin:0 4px 10px;color:#ffc88f;font-size:12p
       <button class="btn" id="retryBtn" type="button">⟳ 同じ盤面</button>
     </div>
     <div class="tiny-controls"><button id="rulesBtn" type="button">遊び方を見る</button><button id="newBtn" type="button">✦ 新しい盤面</button><button id="soundBtn" type="button" aria-pressed="false">♪ 音 OFF</button><span class="seed" id="seedTag">#—</span></div>
+    <div id="nokoribiRankAnchor" class="rank-anchor" aria-label="オンライン得点ランキング"></div>
+    <p id="rankNotice" class="rank-note">🏆 ランキング登録は20手完走＆「戻す」未使用の回が対象。ヒントは使用OK。通信が必要です。</p>
   </section>
   <details class="info" id="rules">
     <summary>遊び方と「のこり火」の仕組み</summary>
@@ -141,12 +144,13 @@ a.back-arcade{display:inline-block;margin:0 4px 10px;color:#ffc88f;font-size:12p
     <p><span class="rule-color">④ 連鎖する：</span>消えた場所には上から新しいピースが落ち、さらに揃うと連鎖します。20手でどこまで得点を伸ばせるか挑戦！</p>
     <div class="palette" id="palette"></div>
   </details>
-  <footer class="foot">CP NOKORIBI · Ver.1.0<br>広告なし · インストール不要 · オフライン対応<br>CP ARCADEのオリジナルパズルです。</footer>
+  <footer class="foot">CP NOKORIBI · Ver.1.1<br>広告なし · インストール不要 · オフライン対応<br>CP ARCADEのオリジナルパズルです。</footer>
 </main>
 <div class="toast" id="toast" aria-live="polite"></div>
 <div class="overlay hidden" id="endOverlay" role="dialog" aria-modal="true" aria-labelledby="endTitle">
   <div class="dialog"><div class="big">🔥</div><h2 id="endTitle">20手おつかれさま！</h2><p id="bestNotice">今回の記録</p><strong id="finalScore">0</strong><p id="finalDetails"></p><button class="btn primary" id="endRetry">↻ 同じ盤面でもう一度</button><button class="btn" id="endNew">✦ 別の盤面でチャレンジ</button><button class="btn" id="endClose">盤面を見る</button><p class="smaller">「次はもっと連鎖できるかも！」を目指そう。</p></div>
 </div>
+<script src="./ranking.js?v=3"></script>
 <script>
 (()=>{'use strict';
   const $=id=>document.getElementById(id);
@@ -162,7 +166,7 @@ a.back-arcade{display:inline-block;margin:0 4px 10px;color:#ffc88f;font-size:12p
   function readBest(){try{return Math.max(0,Number(localStorage.getItem(BEST_KEY))||0)}catch{return 0}}
   function writeBest(n){try{localStorage.setItem(BEST_KEY,String(n))}catch{}}
   const state={seed:0,rngState:0,board:[],embers:[],deck:[],moves:LIMIT,score:0,best:readBest(),maxChain:0,totalBurn:0,totalMatch:0,clearFx:new Set(),spawnFx:new Set(),shiftFx:new Set(),fireFx:new Set(),busy:false,ended:false,history:[],token:0,sound:false,audio:null,hint:null,lastChain:0};
-  let drag=null,toastTimer=null;
+  let drag=null,toastTimer=null,rankEligible=true,rankSubmitted=false;
   const prng=()=>{
     let t=state.rngState=(state.rngState+0x6d2b79f5)>>>0;
     t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);
@@ -232,10 +236,15 @@ a.back-arcade{display:inline-block;margin:0 4px 10px;color:#ffc88f;font-size:12p
   function snapshot(){return {board:state.board.slice(),embers:state.embers.slice(),deck:state.deck.slice(),rngState:state.rngState,moves:state.moves,score:state.score,maxChain:state.maxChain,totalBurn:state.totalBurn,totalMatch:state.totalMatch,lastChain:state.lastChain}}
   function restore(s){Object.assign(state,{board:s.board.slice(),embers:s.embers.slice(),deck:s.deck.slice(),rngState:s.rngState,moves:s.moves,score:s.score,maxChain:s.maxChain,totalBurn:s.totalBurn,totalMatch:s.totalMatch,lastChain:s.lastChain});state.clearFx.clear();state.spawnFx.clear();state.shiftFx.clear();state.fireFx.clear();state.busy=false;state.ended=false;state.hint=null}
   function start(seed){
+    // Ranked play uses 20 genuine moves. Undo turns this run into practice.
+    rankEligible=true;rankSubmitted=false;
+    $('rankNotice').classList.remove('practice');
+    $('rankNotice').textContent='🏆 ランキング登録は20手完走＆「戻す」未使用の回が対象。ヒントは使用OK。通信が必要です。';
     state.token++;state.seed=seed>>>0;state.rngState=state.seed;state.embers=Array(N).fill(null);state.moves=LIMIT;state.score=0;state.maxChain=0;state.totalBurn=0;state.totalMatch=0;state.lastChain=0;state.deck=[];state.busy=false;state.ended=false;state.history=[];state.hint=null;state.clearFx.clear();state.spawnFx.clear();state.shiftFx.clear();state.fireFx.clear();
     setupBoard();ensureDeck(8);$('endOverlay').classList.add('hidden');
     $('seedTag').textContent='#'+state.seed.toString(36).toUpperCase().slice(0,7);
     message('最初の一手をどうぞ。迷ったら「💡 次の一手」！');render();
+    window.CPLeaderboard?.start('nokoribi');
   }
   function makeArrows(){
     for(const [id,axis,dir,arrow] of [['leftArrows','row',-1,'‹'],['rightArrows','row',1,'›'],['topArrows','col',-1,'⌃'],['bottomArrows','col',1,'⌄']]){
@@ -347,8 +356,19 @@ a.back-arcade{display:inline-block;margin:0 4px 10px;color:#ffc88f;font-size:12p
     if(best.value>0)message(`💡 ${words}へ！ ${best.m?'3つ揃うかも！':''} ${best.f?'残り火も発火！':''}`);
     else message(`💡 今すぐ消える手はなさそう。${words}へずらして次の形を作ろう！`);
   }
-  function undo(){if(state.busy||!state.history.length)return;const s=state.history.pop();restore(s);$('endOverlay').classList.add('hidden');render();message('↶ 1手戻しました。別の方法を試してみよう！')}
+  function undo(){
+    if(state.busy||!state.history.length)return;
+    rankEligible=false;
+    $('rankNotice').classList.add('practice');
+    $('rankNotice').textContent='🏆 この回は「戻す」を使ったので練習扱いです。自己ベストは保存されます。ランキングへは送信しません。';
+    const s=state.history.pop();restore(s);$('endOverlay').classList.add('hidden');render();
+    message('↶ 1手戻しました。この回は練習扱いで続けられます。');
+  }
   function end(){
+    if(rankEligible&&!rankSubmitted&&state.moves===0&&state.score>0&&window.CPLeaderboard){
+      rankSubmitted=true;
+      window.CPLeaderboard.finish('nokoribi',state.score);
+    }
     const isRecord=state.score>state.best;
     if(isRecord){state.best=state.score;writeBest(state.best)}
     $('bestNotice').textContent=isRecord?'🎉 NEW BEST！自己ベスト更新！':'今回の記録';

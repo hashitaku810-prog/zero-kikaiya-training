@@ -3,7 +3,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a1730">
 <meta name="description" content="はしmoto Gamesの「よみチャレ！」。小学生の漢字から超難読まで、時間内に熟語の読みを入力！">
-<title>よみチャレ！試作 Ver.0.3｜はしmoto Games</title>
+<title>よみチャレ！試作 Ver.0.4｜はしmoto Games</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;--ink:#f5f8ff;--muted:#9fbad3;--line:#355675;--gold:#ffd99b;--aqua:#83ecd9}
 *{box-sizing:border-box}html{background:#091425}body{margin:0;min-height:100dvh;color:var(--ink);background:radial-gradient(ellipse 70% 33% at 18% 0%,#29507877,transparent),radial-gradient(ellipse 65% 38% at 99% 43%,#47406b30,transparent),linear-gradient(150deg,#111f37,#081327)}
@@ -44,11 +44,14 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
 .result-dialog .result-reading{display:block;font-size:clamp(24px,7vw,33px);font-weight:950;line-height:1.4;color:#94f1e4;overflow-wrap:anywhere;margin:10px 0}
 .result-dialog .result-note{font-size:13px;line-height:1.6;margin:8px 0;color:#e0eaf3}
 .result-dialog .primary{margin-top:14px}
+.result-dialog .meaning-box{text-align:left;border:1px solid #4b6a7e;background:#0d3041;border-radius:13px;padding:12px 13px;margin:12px 0 6px}
+.result-dialog .meaning-label{display:block;color:#8de5d9;font-weight:900;font-size:11px;letter-spacing:.12em;margin-bottom:4px}
+.result-dialog .result-meaning{color:#f2f8f9;font-size:clamp(13px,3.5vw,15px);font-weight:700;line-height:1.7;margin:0}
 @media(max-height:560px){body.typing .quiz{padding:5px 7px}body.typing .kanji{min-height:45px;margin:1px 0 4px}body.typing .tools{margin-top:4px}}
 @media(max-width:350px){.wrap{padding:10px 8px}.quiz{padding:14px 9px}.hero h1{font-size:32px}form button{padding:8px 12px}.kanji{font-size:44px}.top-brand{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
-<main class="wrap"><header class="top"><a class="back" href="./index.html">← はしmoto Games</a><span class="top-brand">はしmoto <b>Games</b> · Ver.0.3</span></header>
+<main class="wrap"><header class="top"><a class="back" href="./index.html">← はしmoto Games</a><span class="top-brand">はしmoto <b>Games</b> · Ver.0.4</span></header>
 <div class="hero"><div class="eyebrow">KANJI TIME ATTACK</div><h1>よみ<em>チャレ！</em> ⏱️</h1><p>読めたら入力！ 小学生から超難読まで全7レベル</p></div>
 <section class="stats" aria-label="得点と正解状況"><div class="stat"><small>スコア</small><strong id="score">0</strong></div><div class="stat"><small>正解数</small><strong id="correct">0 / 35</strong></div><div class="stat"><small>自己ベスト</small><strong id="best" class="hot">0</strong></div></section>
 <div id="stageDots" class="stage-nav" aria-label="レベルの進み具合"></div>
@@ -60,8 +63,8 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
 <p class="answer-hint">ひらがな・カタカナOK。時間内なら何回でも再挑戦できるよ。</p>
 <div id="feedback" class="feedback" role="status" aria-live="polite">「ゲームスタート」を押して挑戦！</div>
 <div class="tools"><button id="hint" type="button" class="smallbtn" disabled>💡 1文字ヒント</button><button id="skip" type="button" class="smallbtn skip" disabled>わからない・スキップ</button><button id="pause" type="button" class="smallbtn" disabled>Ⅱ 一時停止</button></div>
-</section><p class="subnote">各レベル5問。何問間違えても次のレベルへ進める！ 答えは自分で確認してから次へ。</p>
-<details class="rules"><summary>遊び方・点数のルールを見る</summary><p>漢字の読みを日本語で入力して「回答」を押そう。正解するほど得点が増えて、早く答えた分と連続正解のボーナスも付くで。間違っても時間内なら再挑戦OK。ヒントを使った問題は得点が半分。レベルは5問ごとに自動で上がり、小学生レベルから超難読まで全7レベル。時間切れ・スキップでも次へ進める。答えを確認したら「次へ」を押してな。各レベルで不正解が何問あってもゲームオーバーにはならないで。ゲーム中に別のタブへ切り替えた場合は自動で一時停止するで。</p></details>
+</section><p class="subnote">各レベル5問。正解ならそのまま次へ！ 時間切れ・スキップのときは、読みと意味をじっくり確認できるよ。</p>
+<details class="rules"><summary>遊び方・点数のルールを見る</summary><p>漢字の読みを日本語で入力して「回答」を押そう。正解するほど得点が増えて、早く答えた分と連続正解のボーナスも付くで。間違っても時間内なら再挑戦OK。ヒントを使った問題は得点が半分。レベルは5問ごとに自動で上がり、小学生レベルから超難読まで全7レベル。正解したら自動的に次の問題へ進むで。時間切れ・スキップのときは、漢字の読みと意味を確認してから「次へ」を押してな。各レベルで不正解が何問あってもゲームオーバーにはならないで。ゲーム中に別のタブへ切り替えた場合は自動で一時停止するで。</p></details>
 <footer class="foot">無料 · 広告なし · 記録はこの端末に保存<br><a href="./about.html">サイトについて</a> ｜ <a href="./index.html">ゲーム一覧へ</a></footer></main>
 <div id="startOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="startTitle"><div class="dialog"><div class="small">はしmoto Games · ORIGINAL QUIZ</div><div class="big" aria-hidden="true">🀄</div><h2 id="startTitle">よみチャレ！</h2><p>小学生レベルからスタート！<br>制限時間内に読みを入力して、全35問に挑戦しよう。</p><div class="mode" role="group" aria-label="時間のモード"><label><input type="radio" name="mode" value="normal" checked>ふつう</label><label><input type="radio" name="mode" value="relax">ゆっくり（+10秒）</label></div><p class="subnote">各問題に制限時間あり。間違い・時間切れでも次のレベルへ進めるで。</p><button class="primary" id="startGame" type="button">ゲームスタート ▶</button></div></div>
 <div id="resultOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle" hidden>
@@ -70,6 +73,7 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   <h2 id="resultTitle">正解発表</h2>
   <div id="resultWord" class="result-word">学校</div>
   <strong id="resultReading" class="result-reading">がっこう</strong>
+  <div class="meaning-box"><span class="meaning-label">この言葉の意味</span><p id="resultMeaning" class="result-meaning">学校などで学びます。</p></div>
   <p id="resultNote" class="result-note">答えを確認してから次へ進めます。</p>
   <button id="resultNext" class="primary" type="button">次の問題へ ▶</button>
  </div>
@@ -77,11 +81,11 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
 <div id="levelOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="levelTitle" hidden><div class="dialog"><div class="small">LEVEL FINISHED</div><div class="big" id="levelEmoji">🎉</div><h2 id="levelTitle">レベルクリア！</h2><p id="levelDetails"></p><div class="mini-stats"><div>このレベルの正解<b id="levelCorrect">0 / 5</b></div><div>現在のスコア<b id="levelScore">0</b></div></div><button class="primary" id="levelNext" type="button">次のレベルへ ▶</button></div></div>
 <div id="pauseOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="pauseTitle" hidden><div class="dialog"><div class="small">PAUSE</div><div class="big">⏸️</div><h2 id="pauseTitle">一時停止</h2><p>戻ったら続きをやろう！<br>時間は止まっているで。</p><button class="primary" id="resume" type="button">再開 ▶</button></div></div>
 <div id="finalOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="finalTitle" hidden><div class="dialog"><div class="small">ALL LEVELS FINISHED</div><div class="big">🏆</div><h2 id="finalTitle">全35問 おつかれさま！</h2><div id="finalScore" class="scoreline">0 点</div><p id="finalDetails"></p><button class="primary" id="replay" type="button">もう一度挑戦 ↻</button><button class="secondary" id="finalClose" type="button">盤面に戻る</button></div></div>
-<script id="questionData" type="application/json">[{"name":"小学生・やさしい","desc":"まずは身近な言葉から","seconds":25,"words":[["学校",["がっこう"]],["先生",["せんせい"]],["友達",["ともだち"]],["教室",["きょうしつ"]],["家族",["かぞく"]],["公園",["こうえん"]],["天気",["てんき"]],["時間",["じかん"]],["電車",["でんしゃ"]],["花火",["はなび"]],["山道",["やまみち"]],["大雨",["おおあめ"]],["夕日",["ゆうひ"]],["入口",["いりぐち"]],["音楽",["おんがく"]],["読書",["どくしょ"]]]},{"name":"小学生・ふつう","desc":"知っているけど読めるかな？","seconds":24,"words":[["温度",["おんど"]],["旅館",["りょかん"]],["運動",["うんどう"]],["景色",["けしき"]],["農業",["のうぎょう"]],["自由",["じゆう"]],["銀河",["ぎんが"]],["発明",["はつめい"]],["歴史",["れきし"]],["水泳",["すいえい"]],["港町",["みなとまち"]],["機械",["きかい"]],["研究",["けんきゅう"]],["植物",["しょくぶつ"]],["習慣",["しゅうかん"]],["努力",["どりょく"]]]},{"name":"小学生・むずかしい","desc":"少しずつ難しくなるで！","seconds":22,"words":[["経済",["けいざい"]],["複雑",["ふくざつ"]],["承認",["しょうにん"]],["提案",["ていあん"]],["演説",["えんぜつ"]],["貿易",["ぼうえき"]],["誠実",["せいじつ"]],["憲法",["けんぽう"]],["著者",["ちょしゃ"]],["比較",["ひかく"]],["衛星",["えいせい"]],["余裕",["よゆう"]],["危険",["きけん"]],["姿勢",["しせい"]],["効率",["こうりつ"]],["緊張",["きんちょう"]]]},{"name":"中学・高校","desc":"ここから本番！","seconds":20,"words":[["概念",["がいねん"]],["矛盾",["むじゅん"]],["抽象",["ちゅうしょう"]],["謙虚",["けんきょ"]],["衝突",["しょうとつ"]],["葛藤",["かっとう"]],["懸念",["けねん"]],["秩序",["ちつじょ"]],["融通",["ゆうずう"]],["均衡",["きんこう"]],["曖昧",["あいまい"]],["憂鬱",["ゆううつ"]],["信憑",["しんぴょう"]],["脅威",["きょうい"]],["傾向",["けいこう"]],["巧妙",["こうみょう"]]]},{"name":"大人の熟語","desc":"読めたらちょっと自慢できる","seconds":19,"words":[["忖度",["そんたく"]],["脆弱",["ぜいじゃく"]],["俯瞰",["ふかん"]],["語彙",["ごい"]],["矜持",["きょうじ","きんじ"]],["帰趨",["きすう"]],["乖離",["かいり"]],["逸脱",["いつだつ"]],["齟齬",["そご"]],["瑕疵",["かし"]],["慟哭",["どうこく"]],["耽美",["たんび"]],["哀愁",["あいしゅう"]],["困憊",["こんぱい"]],["連綿",["れんめん"]],["畏怖",["いふ"]]]},{"name":"難読漢字","desc":"熟字訓も登場！","seconds":18,"words":[["紫陽花",["あじさい"]],["山茶花",["さざんか"]],["海月",["くらげ"]],["土筆",["つくし"]],["時雨",["しぐれ"]],["五月雨",["さみだれ","さつきあめ"]],["案山子",["かかし"]],["木霊",["こだま"]],["不如帰",["ほととぎす"]],["河豚",["ふぐ"]],["杜若",["かきつばた"]],["蜻蛉",["とんぼ"]],["百舌鳥",["もず"]],["蒲公英",["たんぽぽ"]],["天牛",["かみきりむし"]],["躑躅",["つつじ"]]]},{"name":"超難読","desc":"ここまで来たら漢字博士！","seconds":17,"words":[["魑魅魍魎",["ちみもうりょう"]],["顰蹙",["ひんしゅく"]],["饕餮",["とうてつ"]],["矍鑠",["かくしゃく"]],["膾炙",["かいしゃ"]],["躊躇",["ちゅうちょ"]],["蹂躙",["じゅうりん"]],["忸怩",["じくじ"]],["贔屓",["ひいき"]],["慇懃",["いんぎん"]],["蹉跌",["さてつ"]],["嚆矢",["こうし"]],["斟酌",["しんしゃく"]],["彷徨",["ほうこう"]],["醍醐味",["だいごみ"]],["雲散霧消",["うんさんむしょう"]]]}]</script>
+<script id="questionData" type="application/json">[{"name":"小学生・やさしい","desc":"まずは身近な言葉から","seconds":25,"words":[["学校",["がっこう"],"子どもたちが勉強したり、友達と活動したりする場所。"],["先生",["せんせい"],"学校などで勉強や技術を教える人。"],["友達",["ともだち"],"仲よく付き合い、助け合う相手。"],["教室",["きょうしつ"],"授業や勉強をするための部屋。"],["家族",["かぞく"],"親や子どもなど、生活を共にする身近な人たち。"],["公園",["こうえん"],"みんなが遊んだり、休んだりできる場所。"],["天気",["てんき"],"晴れや雨など、そのときの空のようす。"],["時間",["じかん"],"出来事の長さや、時刻を表すもの。"],["電車",["でんしゃ"],"電気の力で線路の上を走る乗り物。"],["花火",["はなび"],"火薬で光や音を出して楽しむもの。"],["山道",["やまみち"],"山の中や山の斜面を通る道。"],["大雨",["おおあめ"],"短い時間などに、たくさん降る雨。"],["夕日",["ゆうひ"],"夕方、沈んでいくときの太陽。"],["入口",["いりぐち"],"建物や場所の中へ入るところ。"],["音楽",["おんがく"],"音やリズムを組み合わせて表現する芸術。"],["読書",["どくしょ"],"本を読むこと。"]]},{"name":"小学生・ふつう","desc":"知っているけど読めるかな？","seconds":24,"words":[["温度",["おんど"],"物や空気がどれくらい熱いか、冷たいかの程度。"],["旅館",["りょかん"],"旅行などで泊まるための宿。"],["運動",["うんどう"],"体を動かすこと。また、体を動かすスポーツ。"],["景色",["けしき"],"目に見える自然や町などのながめ。"],["農業",["のうぎょう"],"作物を育てたり、家畜を飼ったりする仕事。"],["自由",["じゆう"],"自分の意思で選び、行動できること。"],["銀河",["ぎんが"],"たくさんの星やガスなどが集まった大きな天体の集まり。"],["発明",["はつめい"],"今までなかった道具や方法を新しく考え出すこと。"],["歴史",["れきし"],"昔から今までの、人々や社会の出来事の流れ。"],["水泳",["すいえい"],"水の中を泳ぐこと。また、その競技。"],["港町",["みなとまち"],"港を中心として発展した町。"],["機械",["きかい"],"部品を組み合わせ、決まった働きをするように作った装置。"],["研究",["けんきゅう"],"物事を詳しく調べ、新しい知識を明らかにすること。"],["植物",["しょくぶつ"],"草や木などの生き物。光合成をするものが多い。"],["習慣",["しゅうかん"],"日ごろ繰り返すうちに身についた行動。"],["努力",["どりょく"],"目標のために力を尽くすこと。"]]},{"name":"小学生・むずかしい","desc":"少しずつ難しくなるで！","seconds":22,"words":[["経済",["けいざい"],"物やサービスの生産、売買、消費に関わる活動。"],["複雑",["ふくざつ"],"いろいろなものが絡み合い、簡単でないこと。"],["承認",["しょうにん"],"その内容をよいと認め、受け入れること。"],["提案",["ていあん"],"考えや計画を相手に示すこと。"],["演説",["えんぜつ"],"多くの人の前で、自分の意見や考えを述べること。"],["貿易",["ぼうえき"],"国と国の間で品物などを売り買いすること。"],["誠実",["せいじつ"],"うそやごまかしがなく、まじめで真心があること。"],["憲法",["けんぽう"],"国の基本的な仕組みや人々の権利を定める、最も基本となる法律。"],["著者",["ちょしゃ"],"本や文章を書いた人。"],["比較",["ひかく"],"二つ以上のものを比べ、同じ点や違う点を調べること。"],["衛星",["えいせい"],"惑星などの周りを回る天体。人工衛星もある。"],["余裕",["よゆう"],"時間や気持ち、お金などに十分なゆとりがあること。"],["危険",["きけん"],"事故やけがなど、悪いことが起こるおそれ。"],["姿勢",["しせい"],"体の構え方。また、物事に向き合う態度。"],["効率",["こうりつ"],"かけた時間や力に対して、どれだけ成果が得られるか。"],["緊張",["きんちょう"],"心や体が張りつめ、落ち着かなくなること。"]]},{"name":"中学・高校","desc":"ここから本番！","seconds":20,"words":[["概念",["がいねん"],"物事の共通した特徴をまとめた、頭の中の考え。"],["矛盾",["むじゅん"],"二つの話や考えが食い違い、両立しないこと。"],["抽象",["ちゅうしょう"],"個々の細かな違いを省き、共通する性質を取り出すこと。"],["謙虚",["けんきょ"],"いばらず、控えめで、人の意見を受け入れること。"],["衝突",["しょうとつ"],"物と物がぶつかること。また、意見が対立すること。"],["葛藤",["かっとう"],"心の中で違う気持ちや考えがぶつかり、迷うこと。"],["懸念",["けねん"],"悪いことが起こらないかと心配すること。"],["秩序",["ちつじょ"],"決まりに従い、物事が整っている状態。"],["融通",["ゆうずう"],"状況に合わせて、やり方を柔軟に変えること。"],["均衡",["きんこう"],"力や量などのつり合いが取れていること。"],["曖昧",["あいまい"],"はっきりせず、どちらとも取れること。"],["憂鬱",["ゆううつ"],"気分が沈んで、晴れないこと。"],["信憑",["しんぴょう"],"信じるに足る根拠があること。「信憑性」でよく使う。"],["脅威",["きょうい"],"危害や不安を与えるおそれのあるもの。"],["傾向",["けいこう"],"物事が、ある方向へ進みやすい性質。"],["巧妙",["こうみょう"],"とても上手に工夫されていること。悪だくみにも使う。"]]},{"name":"大人の熟語","desc":"読めたらちょっと自慢できる","seconds":19,"words":[["忖度",["そんたく"],"相手の気持ちや考えを推し量ること。"],["脆弱",["ぜいじゃく"],"もろくて、壊れたり傷ついたりしやすいこと。"],["俯瞰",["ふかん"],"高い所から見下ろすこと。転じて、全体を広く見ること。"],["語彙",["ごい"],"ある人や分野が使う、言葉の集まり。"],["矜持",["きょうじ","きんじ"],"自分の能力や立場に対して持つ誇り。プライド。"],["帰趨",["きすう"],"物事が最後にはどうなるかという成り行き。"],["乖離",["かいり"],"本来近いもの同士が、大きくかけ離れること。"],["逸脱",["いつだつ"],"決まりや本来の道筋から外れること。"],["齟齬",["そご"],"意見や内容が食い違い、うまくかみ合わないこと。"],["瑕疵",["かし"],"物事の欠点や不備。契約や法律の話でも使う。"],["慟哭",["どうこく"],"強い悲しみで、声を上げて激しく泣くこと。"],["耽美",["たんび"],"美しさを何よりも大切にし、その世界に浸ること。"],["哀愁",["あいしゅう"],"どことなくもの悲しい感じや雰囲気。"],["困憊",["こんぱい"],"とても疲れ、力が尽きてしまうこと。"],["連綿",["れんめん"],"長く途切れることなく続いているさま。"],["畏怖",["いふ"],"おそろしいと感じながら、尊敬もする気持ち。"]]},{"name":"難読漢字","desc":"熟字訓も登場！","seconds":18,"words":[["紫陽花",["あじさい"],"梅雨のころ、青や紫などの花を咲かせる植物。"],["山茶花",["さざんか"],"秋から冬に花を咲かせる、ツバキの仲間の木。"],["海月",["くらげ"],"海を漂う、傘のような形をした生き物。"],["土筆",["つくし"],"春の野原に出てくる、スギナの胞子をつくる茎。"],["時雨",["しぐれ"],"秋から冬にかけて、降ったりやんだりする雨。"],["五月雨",["さみだれ","さつきあめ"],"旧暦の五月ごろに降り続く長雨。梅雨の雨。"],["案山子",["かかし"],"田畑で、鳥などを追い払うために立てる人形。"],["木霊",["こだま"],"山や谷で声が反響すること。また、木に宿る精霊。"],["不如帰",["ほととぎす"],"夏に鳴き声が聞かれる渡り鳥。ホトトギス。"],["河豚",["ふぐ"],"ふぐ科の魚。種類によっては体内に強い毒がある。"],["杜若",["かきつばた"],"水辺に生えるアヤメの仲間。紫色などの花を咲かせる。"],["蜻蛉",["とんぼ"],"細長い体と大きな羽を持つ、空を飛ぶ昆虫。"],["百舌鳥",["もず"],"小さな鳥なども捕らえる、くちばしの鋭い野鳥。"],["蒲公英",["たんぽぽ"],"春に黄色い花を咲かせ、綿毛の種が飛ぶ草。"],["天牛",["かみきりむし"],"長い触角を持つ甲虫。木をかじる種類が多い。"],["躑躅",["つつじ"],"春に赤やピンクなどの花を咲かせる低木。"]]},{"name":"超難読","desc":"ここまで来たら漢字博士！","seconds":17,"words":[["魑魅魍魎",["ちみもうりょう"],"山や川などにいるとされる、さまざまな妖怪や化け物。"],["顰蹙",["ひんしゅく"],"不快に思われ、眉をひそめられること。「顰蹙を買う」。"],["饕餮",["とうてつ"],"飲食や財産などをむさぼること。また、古代中国の怪獣。"],["矍鑠",["かくしゃく"],"年を取っても元気で、しっかりしているさま。"],["膾炙",["かいしゃ"],"世間に広く知られ、もてはやされること。「人口に膾炙する」。"],["躊躇",["ちゅうちょ"],"どうしようかと迷い、決めかねること。"],["蹂躙",["じゅうりん"],"踏みにじり、乱暴に扱うこと。権利などを侵すこと。"],["忸怩",["じくじ"],"自分の行いを深く恥じるさま。「忸怩たる思い」。"],["贔屓",["ひいき"],"気に入った人や店などを、特別に応援すること。"],["慇懃",["いんぎん"],"丁寧で礼儀正しいこと。「慇懃無礼」にも使う。"],["蹉跌",["さてつ"],"物事が思うように進まず、つまずき失敗すること。"],["嚆矢",["こうし"],"物事の最初。始まりとなった出来事。"],["斟酌",["しんしゃく"],"相手の事情や気持ちを推し量り、考慮すること。"],["彷徨",["ほうこう"],"あてもなく、さまよい歩くこと。"],["醍醐味",["だいごみ"],"その物事ならではの、深い楽しみやおもしろさ。"],["雲散霧消",["うんさんむしょう"],"雲や霧のように、あとかたもなく消えること。"]]}]</script>
 <script>
 (()=>{'use strict';
  const $=id=>document.getElementById(id),LEVELS=JSON.parse($('questionData').textContent),COUNT=5,ALL=LEVELS.length*COUNT;
- const state={phase:'ready',mode:'normal',stage:0,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,usedHint:false,deadline:0,remain:0,total:0,frame:0,after:0,run:0,questions:[],current:null,composing:false,answers:[],correctByLevel:[]};
+ const state={phase:'ready',mode:'normal',stage:0,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,usedHint:false,deadline:0,remain:0,total:0,frame:0,after:0,run:0,questions:[],current:null,composing:false,pendingCorrect:false,answers:[],correctByLevel:[]};
  const bestKey=m=>'hashimoto-yomichare-best-v1-'+m;
  function getBest(){try{return Math.max(0,Number(localStorage.getItem(bestKey(state.mode)))||0)}catch{return 0}}
  function saveBest(){if(state.score>getBest()){try{localStorage.setItem(bestKey(state.mode),String(state.score))}catch{}return true}return false}
@@ -99,7 +103,9 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   $('word').textContent=state.current?.[0]||'よみチャレ！';
   $('stageDots').innerHTML=LEVELS.map((l,i)=>'<span class="stage-dot'+(i<state.stage?' past':i===state.stage?' current':'')+'" title="LEVEL '+(i+1)+' · '+l.name+'"></span>').join('');
   const can=state.phase==='playing';
-  for(const id of ['answer','send','skip','pause'])$(id).disabled=!can;
+  // On correct answers, keep the input focused during the quick transition.
+  $('answer').disabled=!can&&!state.pendingCorrect;
+  for(const id of ['send','skip','pause'])$(id).disabled=!can;
   $('hint').disabled=!can||state.usedHint;
  }
  function timeUI(sec){const safe=Math.max(0,sec),ratio=state.total?safe/state.total:0;
@@ -115,7 +121,7 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   state.frame=requestAnimationFrame(()=>tick(token));
  }
  function enterQuestion(){
-  cancelWork();state.phase='playing';state.usedHint=false;state.composing=false;state.run++;
+  cancelWork();state.phase='playing';state.pendingCorrect=false;state.usedHint=false;state.composing=false;state.run++;
   state.current=state.questions[state.stage][state.index];
   state.total=LEVELS[state.stage].seconds+(state.mode==='relax'?10:0);
   state.remain=state.total;state.deadline=performance.now()+state.total*1000;
@@ -127,21 +133,31 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
  function finishQuestion(ok,reason){
   if(state.phase!=='playing')return false;
   const word=state.current,aliases=word[1],remaining=Math.max(0,(state.deadline-performance.now())/1000);
-  state.remain=remaining;cancelWork();state.phase='feedback';let gain=0;
+  state.remain=remaining;cancelWork();state.phase='feedback';state.pendingCorrect=ok;let gain=0;
   if(ok){state.combo++;state.maxCombo=Math.max(state.maxCombo,state.combo);state.correct++;state.levelCorrect++;
    const bonus=Math.round(100*remaining/state.total),raw=(105+(state.stage*42)+bonus)*(1+Math.min(5,state.combo-1)*0.15);
    gain=Math.round(raw*(state.usedHint?0.5:1));state.score+=gain;
    banner('⭕ 正解！「'+primary(word)+'」  ＋'+gain+'点'+(state.combo>=2?' · '+state.combo+'連続！':''),'correct');
   }else{state.combo=0;banner(reason==='time'?'⌛ 時間切れ！ 正解は「'+primary(word)+'」':'正解は「'+primary(word)+'」だったで。','notice')}
-  state.answers.push({level:state.stage+1,word:word[0],reading:primary(word),correct:ok,score:gain,reason});
+  state.answers.push({level:state.stage+1,word:word[0],reading:primary(word),meaning:word[2],correct:ok,score:gain,reason});
   render();timeUI(remaining);
-  // Never auto-advance. Let the player read and learn before continuing.
+  if(ok){
+   // Correct: quick feedback, then next question without closing the IME.
+   // The 5th answer will instead show the normal level-end screen.
+   const finishedToken=state.run;
+   state.after=setTimeout(()=>{
+     if(state.phase==='feedback'&&state.run===finishedToken&&state.pendingCorrect)advance();
+   },380);
+   return true;
+  }
+  // Incorrect by timeout/skip: show reading and meaning until player presses 次へ.
   $('answer').blur();
   document.body.classList.remove('typing');
-  $('resultTitle').textContent=ok?'⭕ 正解！':reason==='time'?'⌛ 時間切れ':reason==='skip'?'答えを確認':'残念！';
+  $('resultTitle').textContent=reason==='time'?'⌛ 時間切れ':'答えを確認';
   $('resultWord').textContent=word[0];
   $('resultReading').textContent=aliases.join(' ／ ');
-  $('resultNote').textContent=ok?'＋'+gain+'点！'+(state.combo>=2?' '+state.combo+'連続正解！':''):'覚えて次の問題に進もう！ この問題は0点です。';
+  $('resultMeaning').textContent=word[2];
+  $('resultNote').textContent='意味も覚えて、次の問題へ！ この問題は0点です。';
   $('resultNext').textContent=state.index===COUNT-1?'レベルの結果を見る ▶':'次の問題へ ▶';
   $('resultOverlay').hidden=false;
   return true;
@@ -150,7 +166,7 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   clearTimeout(state.after);state.after=0;$('resultOverlay').hidden=true;
   state.index++;
   if(state.index<COUNT){enterQuestion();return}
-  state.phase='between';render();$('answer').blur();
+  state.phase='between';state.pendingCorrect=false;render();$('answer').blur();document.body.classList.remove('typing');
   const finished=state.stage===LEVELS.length-1;
   $('levelEmoji').textContent=finished?'🏆':'✨';
   $('levelTitle').textContent=finished?'最終レベル終了！':'LEVEL '+(state.stage+1)+' 終了！';

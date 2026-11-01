@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a32"><title>CP PICTURE DROP | 公開修正版 Ver.1.1</title>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101a32"><title>CP PICTURE DROP | 公開修正版 Ver.1.2</title>
 <style>
 :root{color-scheme:dark;--bg:#081429;--surface:#152641;--surface2:#1c3452;--line:#365170;--white:#f4f8ff;--soft:#bbcee1;--cyan:#8debdc;--orange:#ffce85}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse 90% 30% at 50% 0%,#29416d 0%,transparent 100%),linear-gradient(170deg,#0c1930,#090f24 78%);color:var(--white);font-family:system-ui,-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;font-weight:500}
@@ -35,18 +35,18 @@ button,select{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:tra
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
 <main class="app">
-<header class="hero"><div><div class="brand">CP QUEST · NEW PUZZLE</div><h1>PICTURE <span>DROP</span></h1><p class="desc">ピースを交換 → 絵がつながる → 4枚で完成！</p><a href="./index.html" class="back-link">← CP ARCADE に戻る</a></div><div class="version">Ver.1.1</div></header>
+<header class="hero"><div><div class="brand">CP QUEST · NEW PUZZLE</div><h1>PICTURE <span>DROP</span></h1><p class="desc">ピースを交換 → 絵がつながる → 4枚で完成！</p><a href="./index.html" class="back-link">← CP ARCADE に戻る</a></div><div class="version">Ver.1.2</div></header>
 <div class="stats"><div class="stat"><small>完成した絵</small><strong id="doneCount">0 <em>/ 12</em></strong></div><div class="stat"><small>移動回数</small><strong id="movesCount">0</strong></div><div class="stat"><small>盤面の空き</small><strong id="emptyCount">0</strong></div></div>
-<div class="toolbar"><div class="mode"><label for="difficulty">ゲームの長さ</label><select id="difficulty"><option value="9">短め・9作品</option><option value="12" selected>ふつう・12作品</option><option value="16">長め・16作品</option><option value="24">たっぷり・24作品</option><option value="30">たっぷり・30作品</option></select></div><div class="controls"><button class="btn" id="hintBtn" type="button">💡 ヒント</button><button class="btn" id="undoBtn" type="button">↶ 戻す</button><button class="btn" id="resetBtn" type="button">⟳ 最初から</button></div></div>
+<div class="toolbar"><div class="mode"><label for="difficulty">ゲームの長さ</label><select id="difficulty"><option value="9">短め・9作品</option><option value="12" selected>ふつう・12作品</option><option value="16">長め・16作品</option><option value="24">たっぷり・24作品</option><option value="30">たっぷり・30作品</option></select></div><div class="controls"><button class="btn" id="hintBtn" type="button">💡 ヒント</button><button class="btn" id="undoBtn" type="button">↶ 戻す</button><button class="btn" id="rescueBtn" type="button">🛟 手詰まり救済</button><button class="btn" id="resetBtn" type="button">⟳ 最初から</button></div></div>
 <section class="stage"><div class="board-top"><span>🧩 6×6 パズルボード</span><span class="piece-count" id="boardCount">36 / 36枚</span></div>
 <div class="stock-heading"><b>🃏 6列の補充ストック</b><span id="stockCount" class="stock-remaining" aria-live="polite">残り <strong>12</strong> 枚</span></div>
 <div id="stockDesc" class="stock-help">6列共通の山札。消した列の真上からカードが落ちるで！</div>
 <div class="stock-rack" id="stockRack" aria-label="6列の補充ストック"><div class="stock-lane" data-col="0"><div class="deck-card"></div></div><div class="stock-lane" data-col="1"><div class="deck-card"></div></div><div class="stock-lane" data-col="2"><div class="deck-card"></div></div><div class="stock-lane" data-col="3"><div class="deck-card"></div></div><div class="stock-lane" data-col="4"><div class="deck-card"></div></div><div class="stock-lane" data-col="5"><div class="deck-card"></div></div></div>
 <div class="stock-arrows" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span><span>↓</span><span>↓</span><span>↓</span></div><div class="board" id="board" role="grid" aria-label="タップで選択し別のマスへ交換。ドラッグもできます"></div><div class="status" id="status" role="status">好きなピースを選んで、別のマスと入れ替えよう！</div><div class="progress"><div class="progress-head"><span>完成した作品</span><span id="progressText">0 / 12</span></div><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div id="progressFill"></div></div><div id="completed" class="completed"><span class="none">完成した絵がここに並ぶで！</span></div></div></section>
-<section class="panel"><h2>🕹️ 遊び方</h2><p>① 最初から<b>36マス全部にカード</b>が並んでる。<br>② どのカードにも重ねられる！ <b>移動先のカードと入れ替わる</b>で。<br>③ 同じ絵が正しく隣り合うと<b>枠が消えて合体</b>。くっついた絵は<b>まとめて動く</b>。<br>④ 4枚で絵ができると消えて、<b>消えたマスの真上の列から4枚補充</b>される。上の残り枚数をチェック！<br>⑤ 山札がなくなったら、完成した分だけ<b>空きマス</b>が増えていく！</p></section>
+<section class="panel"><h2>🕹️ 遊び方</h2><p>① 最初から<b>36マス全部にカード</b>が並んでる。<br>② どのカードにも重ねられる！ <b>移動先のカードと入れ替わる</b>で。<br>③ 同じ絵が正しく隣り合うと<b>枠が消えて合体</b>。くっついた絵は<b>まとめて動く</b>。<br>④ 4枚で絵ができると消えて、<b>消えたマスの真上の列から4枚補充</b>される。上の残り枚数をチェック！<br>⑤ 新しい絵は4枚セットで補充されるで。山札がなくなったら、完成した分だけ<b>空きマス</b>が増えていく！<br>⑥ どうしても進めなくなったら<b>「🛟 手詰まり救済」</b>。完成した作品・山札枚数はそのままで、未完成カードを並び直す（つながりはいったん解除）。</p></section>
 <section class="panel"><div class="picture-head"><div><h2>🖼️ 写真を変える</h2><div class="micro">昨日の採用画像60枚を内蔵。名画・建物などをランダム出題</div></div><div class="upload-buttons"><button class="btn primary" id="imageChangeBtn" type="button">🔀 別の絵で遊ぶ</button><label class="btn upload-trigger" id="uploadBtn" for="fileInput" role="button" tabindex="0">📷 写真を読み込む</label><button class="btn" id="builtinBtn" type="button">採用画像に戻す</button></div></div><input class="upload-input" type="file" id="fileInput" accept="image/*" multiple><p id="libraryState" role="status" aria-live="polite" style="margin-top:7px">採用画像を準備中…</p><p style="margin-top:6px">📷 写真1枚からOK！9枚未満なら見本画像を混ぜるで。端末の写真は外部へ送信しません。採用画像には通信が必要です。</p></section>
 <section class="panel gallery"><details><summary>今回の作品を見る <span class="micro">（完成図のヒント）</span></summary><div class="gallery-items" id="galleryItems"></div></details><details class="credit-details"><summary>採用画像の出典と利用条件</summary><p>写真はゲーム用に中央をトリミングして表示しています。</p><ul id="credits"></ul></details></section>
-<p class="footer">CP PICTURE DROP · 公開 Ver.1.1<br>広告なし・時間制限なし・画像ダウンロードにはネット接続が必要です。</p>
+<p class="footer">CP PICTURE DROP · 公開 Ver.1.2<br>広告なし・時間制限なし・画像ダウンロードにはネット接続が必要です。</p>
 </main>
 <div id="winOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="winTitle"><div class="modal"><div class="emoji">🏆</div><h2 id="winTitle">全作品クリア！</h2><div id="winArt" class="award"></div><p id="winDetail"></p><button class="btn primary" id="replayBtn" type="button">もう一回あそぶ！</button><button class="btn" id="closeBtn" type="button">盤面を見る</button></div></div>
 <div id="toast" class="toast" role="status"></div>
@@ -170,14 +170,56 @@ function paintStock(){
    lane.setAttribute('aria-label',`${col+1}列目の補充口：${n?'補充可能':'ストックなし'}`);
  });
 }
-function paint(){const chosen=selected>=0?getGroup(board,selected):[];boardEl.innerHTML=board.map((p,i)=>{if(!p)return `<div role="gridcell" class="cell empty ${tooltip?.target===i?'target-hint':''}" data-i="${i}" aria-label="空きマス"></div>`;const {r,c}=pos(i),neighbour=(dy,dx,q)=>{let y=r+dy,x=c+dx;if(y<0||y>=6||x<0||x>=6)return false;let n=board[idx(y,x)];return !!n&&n.id===p.id&&n.q===q};let t=(p.q>=2&&neighbour(-1,0,p.q-2))?0:2,rr=(p.q%2===0&&neighbour(0,1,p.q+1))?0:2,bb=(p.q<2&&neighbour(1,0,p.q+2))?0:2,l=(p.q%2===1&&neighbour(0,-1,p.q-1))?0:2;let im=photo(p.id);let name=im?.name||'絵';let extra=[chosen.includes(i)?'selected':'',tooltip?.source===i?'source-hint':'',tooltip?.target===i?'target-hint':'',dropFx.has(i)?'landed':'',gravityFx.has(i)?'grav':''].filter(Boolean).join(' ');return `<div class="cell ${extra}" role="gridcell" data-i="${i}" aria-label="${esc(name)}、${p.q+1}番ピース"><div class="tile" style="--bt:${t}px;--br:${rr}px;--bb:${bb}px;--bl:${l}px;${tileBackground(p)}"><span class="label-id">${p.q+1}</span></div></div>`}).join('');$('doneCount').innerHTML=`${done.length} <em>/ ${levelImages.length}</em>`;$('movesCount').textContent=moves;$('emptyCount').textContent=board.filter(x=>!x).length;$('boardCount').textContent=`${board.filter(Boolean).length} / 36枚`;paintStock();$('undoBtn').disabled=busy||!undoStack.length;$('hintBtn').disabled=busy;$('resetBtn').disabled=busy;$('difficulty').disabled=busy;const percent=levelImages.length?100*done.length/levelImages.length:0;$('progressFill').style.width=percent+'%';$('progressBar').setAttribute('aria-valuenow',String(Math.round(percent)));$('progressText').textContent=`${done.length} / ${levelImages.length}`;$('completed').innerHTML=done.length?done.map(id=>`<div class="sm" title="${esc(pname(id))}" style="background-image:url(&quot;${esc(photo(id)?.url)}&quot;)"></div>`).join(''):'<span class="none">完成した絵がここに並ぶで！</span>'}
+function paint(){const chosen=selected>=0?getGroup(board,selected):[];boardEl.innerHTML=board.map((p,i)=>{if(!p)return `<div role="gridcell" class="cell empty ${tooltip?.target===i?'target-hint':''}" data-i="${i}" aria-label="空きマス"></div>`;const {r,c}=pos(i),neighbour=(dy,dx,q)=>{let y=r+dy,x=c+dx;if(y<0||y>=6||x<0||x>=6)return false;let n=board[idx(y,x)];return !!n&&n.id===p.id&&n.q===q};let t=(p.q>=2&&neighbour(-1,0,p.q-2))?0:2,rr=(p.q%2===0&&neighbour(0,1,p.q+1))?0:2,bb=(p.q<2&&neighbour(1,0,p.q+2))?0:2,l=(p.q%2===1&&neighbour(0,-1,p.q-1))?0:2;let im=photo(p.id);let name=im?.name||'絵';let extra=[chosen.includes(i)?'selected':'',tooltip?.source===i?'source-hint':'',tooltip?.target===i?'target-hint':'',dropFx.has(i)?'landed':'',gravityFx.has(i)?'grav':''].filter(Boolean).join(' ');return `<div class="cell ${extra}" role="gridcell" data-i="${i}" aria-label="${esc(name)}、${p.q+1}番ピース"><div class="tile" style="--bt:${t}px;--br:${rr}px;--bb:${bb}px;--bl:${l}px;${tileBackground(p)}"><span class="label-id">${p.q+1}</span></div></div>`}).join('');$('doneCount').innerHTML=`${done.length} <em>/ ${levelImages.length}</em>`;$('movesCount').textContent=moves;$('emptyCount').textContent=board.filter(x=>!x).length;$('boardCount').textContent=`${board.filter(Boolean).length} / 36枚`;paintStock();$('undoBtn').disabled=busy||!undoStack.length;$('hintBtn').disabled=busy;$('rescueBtn').disabled=busy;$('resetBtn').disabled=busy;$('difficulty').disabled=busy;const percent=levelImages.length?100*done.length/levelImages.length:0;$('progressFill').style.width=percent+'%';$('progressBar').setAttribute('aria-valuenow',String(Math.round(percent)));$('progressText').textContent=`${done.length} / ${levelImages.length}`;$('completed').innerHTML=done.length?done.map(id=>`<div class="sm" title="${esc(pname(id))}" style="background-image:url(&quot;${esc(photo(id)?.url)}&quot;)"></div>`).join(''):'<span class="none">完成した絵がここに並ぶで！</span>'}
 function paintGallery(){
   $('galleryItems').innerHTML=levelImages.map(a=>`<div class="gallery-item"><div class="gallery-art" style="background-image:url(&quot;${esc(a.url)}&quot;)"></div><small>${esc(a.name)}</small></div>`).join('');
   $('credits').innerHTML=levelImages.filter(a=>a.credit).map(a=>`<li><a href="${esc(a.credit.source)}" target="_blank" rel="noopener noreferrer">${esc(a.name)}</a> — ${esc(a.credit.author)}／${esc(a.credit.license)}（<a href="${esc(a.credit.licenseUrl)}" target="_blank" rel="noopener noreferrer">ライセンス</a>）</li>`).join('')||'<li>ご自身の写真、または同梱の見本画像です。</li>';
 }
-function start(){runId++;busy=false;const n=Math.min(gallery.length,Number($('difficulty').value));levelImages=shuffle(gallery.slice()).slice(0,n);const first=levelImages.slice(0,9),rest=levelImages.slice(9);stock=shuffle(rest.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))));let tries=0;do{board=shuffle(first.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))))}while(getMatches(board).length&&++tries<200);done=[];moves=0;selected=-1;tooltip=null;undoStack=[];dropFx.clear();gravityFx.clear();$('winOverlay').classList.add('hidden');paintGallery();paint();status('36マス全部埋まってるで！ 絵をつなぐと上の6列から補充される！')}
+function start(){runId++;busy=false;const n=Math.min(gallery.length,Number($('difficulty').value));levelImages=shuffle(gallery.slice()).slice(0,n);const first=levelImages.slice(0,9),rest=levelImages.slice(9);stock=shuffle(rest.slice()).flatMap(a=>shuffle([0,1,2,3]).map(q=>piece(a.id,q)));let tries=0;do{board=shuffle(first.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))))}while(getMatches(board).length&&++tries<200);done=[];moves=0;selected=-1;tooltip=null;undoStack=[];dropFx.clear();gravityFx.clear();$('winOverlay').classList.add('hidden');paintGallery();paint();status('36マス全部埋まってるで！ 絵をつなぐと上の6列から補充される！')}
 function move(from,to){if(busy)return false;const action=validMove(board,from,to);if(!action){if(from!==to)toast('その形では盤面の外に出てしまうで！');return false}undoStack.push(snapshot());if(undoStack.length>80)undoStack.shift();board=swapped(board,action,true);moves++;selected=-1;tooltip=null;paint();const matches=getMatches(board);if(matches.length)settle(matches,runId);else status(action.group.length>1?`${action.group.length}枚つながった絵をまとめて移動！ 入れ替え成功。`:'ピースを交換したで！ 同じ絵を4枚つなげよう。');return true}
 // A joined group remains rigid when existing cards fall under gravity.
+
+// Rescue reorganizes *all remaining cards* into complete quartets on the
+// board and on the stock, without changing the cleared list or card counts.
+// Joined pieces are temporarily separated. One artwork is set up so that
+// moving the highlighted fourth piece can immediately complete it.
+function rescueBoard(){
+ if(busy){toast('落下演出が終わってから試してな');return false}
+ const active=board.filter(Boolean),total=active.concat(stock);
+ if(active.length<4){toast('並べ直せるカードが残ってへんで');return false}
+ const byId=new Map(),oldCount=new Map();
+ for(const p of active)oldCount.set(p.id,(oldCount.get(p.id)||0)+1);
+ for(const p of total){if(!byId.has(p.id))byId.set(p.id,[]);byId.get(p.id).push(p)}
+ if(active.length%4!==0||[...byId.values()].some(cards=>cards.length!==4||new Set(cards.map(p=>p.q)).size!==4)){
+   status('⚠️ カード枚数に不整合があるため、安全のため救済を中止したで。');return false
+ }
+ if(!confirm('未完成のピースを並べ直すで（つながりはいったん解除）。クリア済みの作品と残りストック枚数はそのまま。よろしい？'))return false;
+ const ids=shuffle([...byId.keys()]).sort((a,b)=>(oldCount.get(b)||0)-(oldCount.get(a)||0));
+ const boardIds=ids.slice(0,active.length/4),stockIds=ids.slice(active.length/4);
+ const featured=boardIds[0],chosen=new Map(byId.get(featured).map(p=>[p.q,p]));
+ const reserve=shuffle(stockIds.slice()).flatMap(id=>shuffle(byId.get(id).slice()));
+ let layout=null,solution=null;
+ for(let attempt=0;attempt<120;attempt++){
+   const next=Array(AREA).fill(null);
+   next[0]=chosen.get(0);next[1]=chosen.get(1);next[6]=chosen.get(2);next[35]=chosen.get(3);
+   const others=shuffle(boardIds.slice(1).flatMap(id=>byId.get(id).slice()));
+   const available=shuffle(Array.from({length:AREA},(_,i)=>i).filter(i=>![0,1,6,35].includes(i)));
+   for(const p of others)next[available.pop()]=p;
+   const act=validMove(next,35,7);
+   if(!act||getMatches(next).length)continue;
+   const after=swapped(next,act,true);
+   if(getMatches(after).some(m=>m.id===featured)){
+     layout=next;solution={source:35,target:7};break;
+   }
+ }
+ if(!layout){status('うまく並べ直せへんかった。元のカードは変更してへんで。');return false}
+ undoStack.push(snapshot());if(undoStack.length>80)undoStack.shift();
+ board=layout;stock=reserve;selected=-1;tooltip=solution;dropFx.clear();gravityFx.clear();
+ paint();
+ status('🛟 並べ直し完了！ 完成済みの絵とストックはそのまま。光るピースを移動して1枚完成させよう！',true);
+ return true;
+}
+
 function rigidGravity(){const moved=new Set();let rounds=0;while(rounds++<AREA){let changed=false;const groups=[],seen=new Set();for(let i=0;i<AREA;i++){if(!board[i]||seen.has(i))continue;let group=getGroup(board,i);group.forEach(k=>seen.add(k));groups.push(group)}groups.sort((a,b)=>Math.max(...b.map(i=>pos(i).r))-Math.max(...a.map(i=>pos(i).r)));for(const group of groups){const gs=new Set(group);if(group.some(i=>pos(i).r===5||board[i+6]&&!gs.has(i+6)))continue;const old=group.map(i=>board[i]);group.forEach(i=>board[i]=null);group.forEach((i,k)=>{board[i+6]=old[k];moved.add(i+6)});changed=true}if(!changed)break}gravityFx=moved}
 // A common shuffled stock supplies six visible drop chutes. Each new card enters
 // through the chute directly above the open square, never from a random column.
@@ -212,7 +254,15 @@ async function animateDrops(refills,token){
    ],{duration:520,delay,easing:'cubic-bezier(.2,.78,.2,1)',fill:'forwards'});
    animations.push(a.finished.catch(()=>{}));
  }
- try{await Promise.all(animations)}finally{ghosts.forEach(el=>el.remove())}
+ // When a browser pauses Web Animations (e.g. a backgrounded phone tab),
+ // do not leave the whole game permanently blocked at the drop stage.
+ let watchdog;
+ try{
+   await Promise.race([Promise.all(animations),new Promise(resolve=>{watchdog=setTimeout(resolve,2400)})]);
+ }finally{
+   clearTimeout(watchdog);
+   ghosts.forEach(el=>{el.getAnimations().forEach(a=>a.cancel());el.remove()});
+ }
 }
 async function settle(matches,token){
  busy=true;let chain=0,completedNow=[];
@@ -251,14 +301,14 @@ async function settle(matches,token){
  }else status(`✨ ${completedNow.map(pname).join('・')} 完成！ あと${levelImages.length-done.length}作品やで。`,true);
 }
 function showWin(){const last=photo(done[done.length-1]);$('winArt').style.backgroundImage=`url("${last?.url||''}")`;$('winDetail').innerHTML=`<b>${done.length}作品すべて完成！</b><br>${moves}回の移動でクリア！<br>プレイしてくれてありがとう！`;$('winOverlay').classList.remove('hidden')}
-function hint(){if(busy)return;let best=null,base=countBonds(board);const ids=[...new Set(board.filter(Boolean).map(p=>p.id))];for(const id of ids){const parts=[0,1,2,3].map(q=>board.findIndex(p=>p&&p.id===id&&p.q===q));if(parts.some(i=>i<0))continue;for(let r=0;r<5;r++)for(let c=0;c<5;c++){const goal=[idx(r,c),idx(r,c+1),idx(r+1,c),idx(r+1,c+1)];const matched=goal.reduce((n,i,q)=>n+Number(board[i]?.id===id&&board[i]?.q===q),0);for(let q=0;q<4;q++){const from=parts[q],to=goal[q];if(from===to)continue;const act=validMove(board,from,to);if(!act)continue;const next=swapped(board,act),diff=countBonds(next)-base,fin=getMatches(next).length;const local=goal.reduce((n,i,quad)=>n+Number(next[i]?.id===id&&next[i]?.q===quad),0);let weight=fin*300+diff*24+local*3+matched*.8-act.group.length*.03+Math.random()*.02;if(!best||weight>best.weight)best={source:from,target:to,weight}}}}if(!best){status('💡 絵の4枚をひとつの2×2に並べてみてな。');return}tooltip=best;selected=-1;paint();status('💡 光るカードを選んで、もうひとつの光るマスへ移動してみて！',true)}
+function hint(){if(busy)return;let best=null,base=countBonds(board);const ids=[...new Set(board.filter(Boolean).map(p=>p.id))];for(const id of ids){const parts=[0,1,2,3].map(q=>board.findIndex(p=>p&&p.id===id&&p.q===q));if(parts.some(i=>i<0))continue;for(let r=0;r<5;r++)for(let c=0;c<5;c++){const goal=[idx(r,c),idx(r,c+1),idx(r+1,c),idx(r+1,c+1)];const matched=goal.reduce((n,i,q)=>n+Number(board[i]?.id===id&&board[i]?.q===q),0);for(let q=0;q<4;q++){const from=parts[q],to=goal[q];if(from===to)continue;const act=validMove(board,from,to);if(!act)continue;const next=swapped(board,act),diff=countBonds(next)-base,fin=getMatches(next).length;const local=goal.reduce((n,i,quad)=>n+Number(next[i]?.id===id&&next[i]?.q===quad),0);let weight=fin*300+diff*24+local*3+matched*.8-act.group.length*.03+Math.random()*.02;if(!best||weight>best.weight)best={source:from,target:to,weight}}}}if(!best){status(stock.length?'🛟 並べづらいときは「手詰まり救済」を使ってな。ストック枚数は減らへんで。':'💡 絵の4枚をひとつの2×2に並べてみてな。');return}tooltip=best;selected=-1;paint();status('💡 光るカードを選んで、もうひとつの光るマスへ移動してみて！',true)}
 function cellTap(i){if(busy)return;if(selected>=0){if(i===selected){selected=-1;tooltip=null;paint();status('選択を解除したで。');return}if(move(selected,i))return;return}if(!board[i]){status('そこは空きマスやで。まず動かしたいカードを選んでな。');return}selected=i;if(tooltip&&tooltip.source!==i)tooltip=null;const group=getGroup(board,i);paint();status(`${pname(board[i].id)}を選択中${group.length>1?'（'+group.length+'枚つながってる）':''}。交換したいマスをタップしてな！`)}
 boardEl.addEventListener('click',e=>{if(performance.now()<blockClickUntil)return;const el=e.target.closest('.cell');if(el)cellTap(Number(el.dataset.i))});
 boardEl.addEventListener('pointerdown',e=>{if(busy)return;const el=e.target.closest('.cell');if(!el)return;const from=Number(el.dataset.i);if(!board[from])return;drag={from,startX:e.clientX,startY:e.clientY,x:e.clientX,y:e.clientY,active:false,id:e.pointerId};});
 window.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;drag.x=e.clientX;drag.y=e.clientY;if(!drag.active&&Math.hypot(drag.x-drag.startX,drag.y-drag.startY)>9){drag.active=true;const p=board[drag.from];let g=document.createElement('div');g.id='dragGhost';g.className='ghost';g.dataset.count=getGroup(board,drag.from).length+'枚';g.style.backgroundImage=`url("${photo(p.id)?.url||''}")`;g.style.backgroundPosition=tileCoordinates(p).position;g.style.backgroundSize=tileCoordinates(p).size;document.body.appendChild(g)}if(drag.active){let g=$('dragGhost');if(g){g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'}e.preventDefault()}});
 function finishDrag(e){if(!drag||drag.id!==e.pointerId)return;const d=drag;drag=null;$('dragGhost')?.remove();if(!d.active)return;blockClickUntil=performance.now()+400;const target=document.elementFromPoint(e.clientX,e.clientY)?.closest('#board .cell');if(target){const to=Number(target.dataset.i);if(!move(d.from,to)){selected=d.from;paint()}}else{selected=d.from;paint()}}
 window.addEventListener('pointerup',finishDrag);window.addEventListener('pointercancel',e=>{if(drag?.id===e.pointerId){drag=null;$('dragGhost')?.remove()}});
-$('hintBtn').addEventListener('click',hint);$('undoBtn').addEventListener('click',()=>{if(busy||!undoStack.length)return;restore(undoStack.pop());status('1手戻したで！')});$('resetBtn').addEventListener('click',()=>{if(!busy&&(!moves||confirm('今のステージを最初からやり直す？')))start()});$('difficulty').addEventListener('change',()=>{if(onlineMode)publicBoot();else if(!busy)start()});$('replayBtn').addEventListener('click',()=>{if(onlineMode)publicBoot();else start()});$('closeBtn').addEventListener('click',()=>$('winOverlay').classList.add('hidden'));
+$('hintBtn').addEventListener('click',hint);$('rescueBtn').addEventListener('click',rescueBoard);$('undoBtn').addEventListener('click',()=>{if(busy||!undoStack.length)return;restore(undoStack.pop());status('1手戻したで！')});$('resetBtn').addEventListener('click',()=>{if(!busy&&(!moves||confirm('今のステージを最初からやり直す？')))start()});$('difficulty').addEventListener('change',()=>{if(onlineMode)publicBoot();else if(!busy)start()});$('replayBtn').addEventListener('click',()=>{if(onlineMode)publicBoot();else start()});$('closeBtn').addEventListener('click',()=>$('winOverlay').classList.add('hidden'));
 $('uploadBtn').addEventListener('keydown',e=>{
  if(e.key==='Enter'||e.key===' '){e.preventDefault();$('fileInput').click()}
 });
@@ -327,7 +377,7 @@ function tileBackground(piece){
 }
 
 function unlockPictureControls(){
-  for(const id of ['hintBtn','undoBtn','resetBtn','difficulty','imageChangeBtn','builtinBtn']){
+  for(const id of ['hintBtn','undoBtn','rescueBtn','resetBtn','difficulty','imageChangeBtn','builtinBtn']){
     const element=$(id);if(element)element.disabled=false;
   }
 }
@@ -341,7 +391,7 @@ async function publicBoot(){
   loadingPictures=true;busy=true;
   const requested=Number($('difficulty').value)||12;
   const label=$('libraryState');
-  for(const id of ['hintBtn','undoBtn','resetBtn','difficulty','imageChangeBtn','builtinBtn']){
+  for(const id of ['hintBtn','undoBtn','rescueBtn','resetBtn','difficulty','imageChangeBtn','builtinBtn']){
     const control=$(id);if(control)control.disabled=true;
   }
   function progress(msg){if(token!==loadToken)return;label.textContent=msg;status(msg)}
@@ -458,6 +508,6 @@ $('imageChangeBtn').addEventListener('click',()=>{
 });
 updateDifficulty();publicBoot();
 // Read-only gameplay inspection plus isolated test helpers. Does not access files or network.
-window.__CP_DROP_TEST__={get:()=>({board:board.map(p=>p?{...p}:null),stock:stock.map(p=>({...p})),done:done.slice(),moves,busy,imageCount:levelImages.length,art:levelImages.map(a=>({id:a.id,name:a.name})),remainingStock:stock.length}),group:i=>getGroup(board,i),valid:(i,j)=>validMove(board,i,j),swap:(i,j)=>move(i,j),matches:()=>getMatches(board),trigger:()=>{const m=getMatches(board);if(m.length&&!busy)settle(m,runId)},setBoard:cards=>{if(!busy&&cards.length===36){board=cards.map(x=>x?{...x}:null);dropFx.clear();gravityFx.clear();paint()}},newGame:start,undo:()=>{if(!busy&&undoStack.length)restore(undoStack.pop())},gravity:()=>{rigidGravity();paint()}};
+window.__CP_DROP_TEST__={get:()=>({board:board.map(p=>p?{...p}:null),stock:stock.map(p=>({...p})),done:done.slice(),moves,busy,imageCount:levelImages.length,art:levelImages.map(a=>({id:a.id,name:a.name})),remainingStock:stock.length}),group:i=>getGroup(board,i),valid:(i,j)=>validMove(board,i,j),swap:(i,j)=>move(i,j),matches:()=>getMatches(board),trigger:()=>{const m=getMatches(board);if(m.length&&!busy)settle(m,runId)},setBoard:cards=>{if(!busy&&cards.length===36){board=cards.map(x=>x?{...x}:null);dropFx.clear();gravityFx.clear();paint()}},newGame:start,rescue:rescueBoard,ready:()=>{const m=new Map();board.filter(Boolean).forEach(p=>{const q=m.get(p.id)||new Set();q.add(p.q);m.set(p.id,q)});return [...m.values()].filter(q=>q.size===4).length},undo:()=>{if(!busy&&undoStack.length)restore(undoStack.pop())},gravity:()=>{rigidGravity();paint()}};
 })();
 </script></body></html>

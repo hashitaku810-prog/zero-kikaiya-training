@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0e20">
-<meta name="description" content="CP ARCADEで気軽に遊ぼう！スマホのブラウザで遊べる無料のミニゲーム7本。登録もアプリも不要。">
-<meta property="og:title" content="CP ARCADE｜スマホで遊べるミニゲーム">
+<meta name="description" content="はしmoto Gamesで気軽に遊ぼう！スマホのブラウザで遊べる無料のミニゲーム7本。登録もアプリも不要。">
+<meta property="og:title" content="はしmoto Games｜スマホで遊べるミニゲーム">
 <meta property="og:description" content="スマホで遊べる7本のオリジナルパズルゲーム🎮">
 <meta property="og:type" content="website">
-<title>CP ARCADE｜スマホで遊べるミニゲーム</title>
+<title>はしmoto Games｜スマホで遊べるミニゲーム</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif}
 *{box-sizing:border-box}
@@ -21,7 +21,7 @@ button,a{-webkit-tap-highlight-color:transparent}
 .logo{display:flex;gap:12px;align-items:center}
 .logo-icon{display:grid;grid-template-columns:repeat(2,9px);gap:4px;width:39px;height:39px;align-content:center;justify-content:center;background:linear-gradient(145deg,#292c55,#181c38);border:1px solid #494977;border-radius:12px;box-shadow:0 8px 25px #0004}
 .logo-icon i{width:9px;height:9px;border-radius:3px;display:block;background:#70e9f0}.logo-icon i:nth-child(2){background:#b98cff}.logo-icon i:nth-child(3){background:#ffae76}.logo-icon i:nth-child(4){background:#76e7aa}
-.logo-name{font-size:17px;letter-spacing:.8px;font-weight:950;line-height:1.15}.logo-sub{font-size:8px;letter-spacing:2.1px;color:#9ca5ce;font-weight:800;margin-top:3px}
+.logo-name{font-size:clamp(13px,3.8vw,19px);letter-spacing:.15px;font-weight:950;line-height:1.2;white-space:nowrap}.logo-sub{font-size:8px;letter-spacing:2.1px;color:#9ca5ce;font-weight:800;margin-top:3px}
 .share{min-height:40px;display:flex;align-items:center;gap:7px;padding:9px 14px;color:#e8ddff;background:#222344;border:1px solid #454775;border-radius:999px;font-size:12px;font-weight:850;cursor:pointer}
 .share:active{transform:scale(.97)}.share svg{width:16px;height:16px}
 .hero{padding:40px 1px 25px;position:relative}.tag{display:inline-flex;align-items:center;gap:7px;background:#292448;border:1px solid #5c4f8b;padding:7px 10px;border-radius:9px;color:#c9affd;font-size:10px;letter-spacing:1.5px;font-weight:900}
@@ -37,7 +37,7 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
 .explain{color:#adb8d3;font-size:12px;margin:1px 0 7px;line-height:1.7;min-height:41px}
 .play{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:50px;border-radius:13px;padding:12px 16px;text-decoration:none;font-size:14px;font-weight:950;background:linear-gradient(135deg,#74efd6,#3fc3cc);color:#0e2834;box-shadow:0 6px 22px #4bd8ca1a}
 .chain .play{background:linear-gradient(135deg,#c7a3ff,#b383fc);color:#291d45;box-shadow:0 6px 22px #b383fc19}.fruits .play{background:linear-gradient(135deg,#ffe19a,#ffab66);color:#3e2536;box-shadow:0 6px 22px #ffa64b22}.picture .play{background:linear-gradient(135deg,#f5dfa9,#edba78);color:#322947;box-shadow:0 6px 22px #dfa87321}.play:active{transform:scale(.982)}.nokoribi .category{color:#ffce94}.nokoribi .play{background:linear-gradient(135deg,#ffce92,#ff91a4);color:#3d2437;box-shadow:0 6px 22px #ee855b26}.game.nokoribi{grid-column:1/-1;display:grid;grid-template-columns:1.06fr .94fr}.game.nokoribi .visual{aspect-ratio:auto;min-height:230px}.game.nokoribi .content{justify-content:center}.game.kanji-eight{grid-column:1/-1;display:grid;grid-template-columns:1.06fr .94fr}.game.kanji-eight .visual{aspect-ratio:auto;min-height:226px}.game.kanji-eight .content{justify-content:center}.game.kanji-eight .category{color:#e5d09c}.game.kanji-eight .play{background:linear-gradient(135deg,#ffe0ab,#8bd4d4);color:#183847;box-shadow:0 6px 22px #9fe8da20}.picture-drop .category{color:#90eadb}.picture-drop .play{background:linear-gradient(135deg,#8ef0e0,#91bee6);color:#10334b;box-shadow:0 6px 22px #5cbdb822}.picture{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr}.picture .visual{aspect-ratio:auto;min-height:225px}.picture .content{justify-content:center}.arrow{font-size:19px}
-.foot{padding:24px 5px 0;text-align:center;color:#7b86aa;font-size:11px;line-height:1.8}
+.foot{padding:24px 5px 0;text-align:center;color:#a0afca;font-size:11px;line-height:1.8}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:7px;margin:11px 0 7px}.footer-links a{color:#bed5e9;text-decoration:underline;text-underline-offset:3px}.footer-links a:focus-visible{outline:2px solid #ffdda9;outline-offset:3px}
 .toast{position:fixed;z-index:10;bottom:calc(env(safe-area-inset-bottom,0px) + 23px);left:50%;transform:translate(-50%,15px);min-width:220px;padding:12px 17px;background:#ede9ff;color:#252044;border-radius:13px;text-align:center;font-weight:850;font-size:12px;box-shadow:0 15px 35px #0007;opacity:0;pointer-events:none;transition:.2s}.toast.show{transform:translate(-50%,0);opacity:1}
 @media(min-width:820px){.games{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.game.game.game.content{padding:16px 16px 18px}.titleline h3{font-size:22px}}
 @media(min-width:700px){.hero{padding:60px 4px 39px}.wrap{padding-left:30px;padding-right:30px}.lead{font-size:15px}.sectiontop h2{font-size:18px}.content{padding:19px 23px 22px}.explain{font-size:13px}}
@@ -46,7 +46,7 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
 @media(max-width:640px){.games{grid-template-columns:1fr;gap:16px}.visual{aspect-ratio:340/178}.game{border-radius:18px}.content{gap:6px}.explain{min-height:auto;margin-bottom:5px}.hero{padding-bottom:21px}.picture{display:flex}.picture .visual{aspect-ratio:340/178;min-height:unset}.game.nokoribi{display:flex;flex-direction:column}.game.nokoribi .visual{aspect-ratio:340/178;min-height:unset}.game.kanji-eight{display:flex;flex-direction:column}.game.kanji-eight .visual{aspect-ratio:340/178;min-height:unset}}
 @media(prefers-reduced-motion:reduce){.game,.toast{transition:none}}
 
-/* CP ARCADE category navigator and compact catalog — v2 */
+/* はしmoto Games category navigator and compact catalog — v2 */
 .category-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:0 1px 7px}
 .category-tab{min-height:44px;display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;padding:8px 5px;border:1px solid #455575;background:#192741;color:#cee1f1;border-radius:12px;font:800 11px system-ui,-apple-system,sans-serif;line-height:1.2;cursor:pointer;transition:background .16s,border-color .16s}
 .category-tab span{font-size:10px;min-width:19px;text-align:center;background:#31435d;border-radius:999px;padding:3px 5px;color:#e1eafd}
@@ -102,13 +102,13 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
 </head>
 <body><main class="wrap">
   <header class="top">
-    <div class="logo"><span class="logo-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span><div><div class="logo-name">CP ARCADE</div><div class="logo-sub">POCKET GAME CENTER</div></div></div>
+    <div class="logo"><span class="logo-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span><div><div class="logo-name">はしmoto Games</div><div class="logo-sub">POCKET GAME CENTER</div></div></div>
     <button type="button" id="share" class="share" aria-label="このゲームセンターのリンクを共有する"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4m-6.6 7.2 6.6 4.3"/></svg>シェア</button>
   </header>
   <section class="hero">
-    <span class="tag">✦ &nbsp;NOW PLAYING : 04 GAMES</span>
+    <span class="tag">✦ &nbsp;NOW PLAYING : 07 GAMES</span>
     <h1>ちょっと暇？<em>1ゲームどう？</em></h1>
-    <p class="lead">落ち物も、絵合わせパズルも、好きなだけ。<br>スマホですぐ遊べる、CPのゲームセンターやで！</p>
+    <p class="lead">落ち物も、絵合わせパズルも、好きなだけ。<br>スマホですぐ遊べる、手作りのゲーム置き場！</p>
     <div class="features"><span class="feature">📱 スマホ対応</span><span class="feature">⚡ インストール不要</span><span class="feature">🎮 無料・登録なし</span></div>
   </section>
   <div class="sectiontop"><h2>遊びたいゲームを選ぼう</h2><span class="small">7 GAMES</span></div>
@@ -300,7 +300,10 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
       </div>
     </article>
   </section>
-  <footer class="foot">好きなゲームを選んで、タップするだけ。<br>自己ベストや絵合わせパズルの進行状況も保存できるで 🏆<br>CP ARCADE · 2026</footer>
+  <footer class="foot">好きなゲームを選んで、タップするだけ。<br>自己ベストや絵合わせパズルの進行状況も保存できるで 🏆
+  <nav class="footer-links" aria-label="サイト情報"><a href="./about.html">サイトについて</a><span aria-hidden="true">｜</span><a href="./credits.html">画像・著作権</a></nav>
+  <span>© 2026 はしmoto Games</span>
+</footer>
 </main><div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script>
 (()=>{
@@ -327,7 +330,7 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
  async function share(){
   if(location.protocol==='file:'){show('Web公開したURLからシェアしてな！');return}
   const url=location.href;
-  if(navigator.share){try{await navigator.share({title:'CP ARCADE',text:'7本のミニゲームで遊べるで🎮',url});return}catch(e){if(e?.name==='AbortError')return}}
+  if(navigator.share){try{await navigator.share({title:'はしmoto Games',text:'7本のミニゲームで遊べるで🎮',url});return}catch(e){if(e?.name==='AbortError')return}}
   try{await navigator.clipboard.writeText(url);show('リンクをコピーしたで！LINEに貼ってな')}catch(e){
     const t=document.createElement('textarea');t.value=url;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();const ok=document.execCommand('copy');t.remove();show(ok?'リンクをコピーしたで！LINEに貼ってな':'このページのURLをLINEに送ってな')
   }

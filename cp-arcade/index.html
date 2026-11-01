@@ -45,6 +45,59 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
 @media(max-width:359px){.wrap{padding-left:12px;padding-right:12px}.hero{padding-top:30px}.titleline h3{font-size:22px}.logo-name{font-size:15px}.share{padding:9px 11px}}
 @media(max-width:640px){.games{grid-template-columns:1fr;gap:16px}.visual{aspect-ratio:340/178}.game{border-radius:18px}.content{gap:6px}.explain{min-height:auto;margin-bottom:5px}.hero{padding-bottom:21px}.picture{display:flex}.picture .visual{aspect-ratio:340/178;min-height:unset}.game.nokoribi{display:flex;flex-direction:column}.game.nokoribi .visual{aspect-ratio:340/178;min-height:unset}.game.kanji-eight{display:flex;flex-direction:column}.game.kanji-eight .visual{aspect-ratio:340/178;min-height:unset}}
 @media(prefers-reduced-motion:reduce){.game,.toast{transition:none}}
+
+/* CP ARCADE category navigator and compact catalog — v2 */
+.category-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:0 1px 7px}
+.category-tab{min-height:44px;display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;padding:8px 5px;border:1px solid #455575;background:#192741;color:#cee1f1;border-radius:12px;font:800 11px system-ui,-apple-system,sans-serif;line-height:1.2;cursor:pointer;transition:background .16s,border-color .16s}
+.category-tab span{font-size:10px;min-width:19px;text-align:center;background:#31435d;border-radius:999px;padding:3px 5px;color:#e1eafd}
+.category-tab[aria-pressed="true"]{background:#a8e5dd;color:#133340;border-color:#b9fcf2;box-shadow:0 4px 15px #6cd5cc22}
+.category-tab[aria-pressed="true"] span{background:#20515d;color:#f4fffd}
+.category-tab:focus-visible{outline:3px solid #ffd486;outline-offset:2px}
+.filter-feedback{margin:0 2px 12px;color:#9fc4d6;font-size:11px;line-height:1.5;min-height:16px}
+#gameCatalog>.game[hidden]{display:none!important}
+@media(min-width:641px){
+ #gameCatalog{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+ #gameCatalog>.game{grid-column:auto!important;display:flex!important;flex-direction:column!important;max-width:none!important;width:auto!important}
+ #gameCatalog>.game>.visual{min-height:0!important;aspect-ratio:16/9!important;height:auto!important}
+ #gameCatalog>.game .content{padding:13px 13px 15px;gap:7px;justify-content:flex-start!important}
+ #gameCatalog>.game .titleline{display:block}
+ #gameCatalog>.game .titleline h3{font-size:19px;line-height:1.2}
+ #gameCatalog>.game .score{margin-top:5px}
+ #gameCatalog>.game .score b{text-align:left}
+ #gameCatalog>.game .explain{min-height:3.2em;margin-bottom:4px;line-height:1.5;font-size:11px}
+ #gameCatalog>.game .play{margin-top:auto;min-height:42px;padding:10px 12px;font-size:12px}
+}
+@media(max-width:640px){
+ .wrap{padding-left:13px;padding-right:13px}
+ .hero{padding:22px 1px 12px}
+ .hero h1{font-size:clamp(29px,7vw,38px);line-height:1.12;margin:10px 0 7px}
+ .lead{font-size:12px;line-height:1.55;margin:8px 0 10px}
+ .features{gap:5px}
+ .feature{padding:5px 7px;font-size:10px}
+ .sectiontop{margin-top:14px;margin-bottom:9px}
+ #gameCatalog{grid-template-columns:1fr;gap:10px}
+ #gameCatalog>.game{display:flex!important;flex-direction:row!important;grid-column:auto!important;align-items:stretch;min-height:126px;max-width:none!important;width:100%!important;border-radius:15px}
+ #gameCatalog>.game>.visual{flex:0 0 112px;width:112px;min-width:112px;min-height:0!important;height:auto!important;aspect-ratio:auto!important;border-right:1px solid #364765;border-bottom:0}
+ #gameCatalog>.game .visual::after{height:22%}
+ #gameCatalog>.game .number{top:6px;left:6px;font-size:8px;padding:4px 6px}
+ #gameCatalog>.game .content{flex:1;padding:10px 11px;gap:4px;justify-content:center!important}
+ #gameCatalog>.game .category{font-size:8px;letter-spacing:.4px;line-height:1.15}
+ #gameCatalog>.game .titleline{display:block}
+ #gameCatalog>.game .titleline h3{font-size:clamp(13px,3.65vw,16px);line-height:1.16;letter-spacing:0}
+ #gameCatalog>.game .score{display:none}
+ #gameCatalog>.game .explain{font-size:10px;line-height:1.45;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:0;max-height:2.9em;margin:0}
+ #gameCatalog>.game .play{min-height:34px;padding:7px 10px;border-radius:9px;margin-top:auto}
+ #gameCatalog>.game .play span:first-child{font-size:0}
+ #gameCatalog>.game .play span:first-child::after{content:'遊ぶ';font-size:12px}
+ #gameCatalog>.game .play .arrow{font-size:16px}
+ .foot{padding-top:17px}
+}
+@media(max-width:360px){
+ .category-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #gameCatalog>.game>.visual{flex-basis:96px;width:96px;min-width:96px}
+ #gameCatalog>.game .content{padding:8px 9px}
+ #gameCatalog>.game .titleline h3{font-size:13px}
+}
 </style>
 </head>
 <body><main class="wrap">
@@ -58,10 +111,17 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
     <p class="lead">落ち物も、絵合わせパズルも、好きなだけ。<br>スマホですぐ遊べる、CPのゲームセンターやで！</p>
     <div class="features"><span class="feature">📱 スマホ対応</span><span class="feature">⚡ インストール不要</span><span class="feature">🎮 無料・登録なし</span></div>
   </section>
-  <div class="sectiontop"><h2>遊びたいゲームを選んでな</h2><span class="small">SELECT GAME ↓</span></div>
-  <section class="games" aria-label="ゲーム一覧">
-    <article class="game drop">
-      <div class="visual"><span class="number">GAME 01</span><svg viewBox="0 0 340 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="カラフルなブロックを積み上げるゲームのイメージ"><defs><linearGradient id="dpbg" x2="1" y2="1"><stop stop-color="#172b49"/><stop offset="1" stop-color="#090f22"/></linearGradient><pattern id="dpgrid" width="28" height="28" patternUnits="userSpaceOnUse"><rect width="26" height="26" rx="3" fill="#1d2941" fill-opacity=".55" /></pattern><filter id="dpg"><feGaussianBlur stdDeviation="11"/></filter></defs>
+  <div class="sectiontop"><h2>遊びたいゲームを選ぼう</h2><span class="small">7 GAMES</span></div>
+  <nav class="category-tabs" aria-label="ゲームのカテゴリ" role="group">
+    <button type="button" class="category-tab" data-filter="all" aria-pressed="true">🎮 すべて <span>7</span></button>
+    <button type="button" class="category-tab" data-filter="score" aria-pressed="false">🔥 スコア <span>4</span></button>
+    <button type="button" class="category-tab" data-filter="picture" aria-pressed="false">🖼️ 絵合わせ <span>2</span></button>
+    <button type="button" class="category-tab" data-filter="kanji" aria-pressed="false">🀄 漢字 <span>1</span></button>
+  </nav>
+  <p class="filter-feedback" id="filterFeedback" role="status" aria-live="polite">7作品を表示中。カテゴリを押すと絞り込めるで！</p>
+  <section class="games" id="gameCatalog" aria-label="ゲーム一覧">
+    <article class="game drop" data-category="score">
+      <div class="visual"><span class="number">GAME 01</span><svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 340 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="カラフルなブロックを積み上げるゲームのイメージ"><defs><linearGradient id="dpbg" x2="1" y2="1"><stop stop-color="#172b49"/><stop offset="1" stop-color="#090f22"/></linearGradient><pattern id="dpgrid" width="28" height="28" patternUnits="userSpaceOnUse"><rect width="26" height="26" rx="3" fill="#1d2941" fill-opacity=".55" /></pattern><filter id="dpg"><feGaussianBlur stdDeviation="11"/></filter></defs>
     <rect width="340" height="215" rx="16" fill="url(#dpbg)"/>
     <circle cx="300" cy="24" r="65" fill="#27d8be" opacity=".14" filter="url(#dpg)"/>
     <g transform="translate(53 9)"><rect x="0" y="0" width="224" height="196" rx="7" fill="#10192e" stroke="#3b526e" stroke-width="2"/><rect x="6" y="6" width="212" height="184" fill="url(#dpgrid)"/></g><rect x="81" y="147" width="21" height="21" rx="3.8" fill="#69a3ff"/><path d="M84 151h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="81" y="169" width="21" height="21" rx="3.8" fill="#69a3ff"/><path d="M84 173h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="103" y="169" width="21" height="21" rx="3.8" fill="#69a3ff"/><path d="M106 173h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="125" y="169" width="21" height="21" rx="3.8" fill="#69a3ff"/><path d="M128 173h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="147" y="169" width="21" height="21" rx="3.8" fill="#ffb972"/><path d="M150 173h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="169" y="169" width="21" height="21" rx="3.8" fill="#ffb972"/><path d="M172 173h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="169" y="147" width="21" height="21" rx="3.8" fill="#ffb972"/><path d="M172 151h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="191" y="147" width="21" height="21" rx="3.8" fill="#ffb972"/><path d="M194 151h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="191" y="169" width="21" height="21" rx="3.8" fill="#c596ff"/><path d="M194 173h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="213" y="169" width="21" height="21" rx="3.8" fill="#c596ff"/><path d="M216 173h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="213" y="147" width="21" height="21" rx="3.8" fill="#c596ff"/><path d="M216 151h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="235" y="147" width="21" height="21" rx="3.8" fill="#c596ff"/><path d="M238 151h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="59" y="169" width="21" height="21" rx="3.8" fill="#72eec0"/><path d="M62 173h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="59" y="147" width="21" height="21" rx="3.8" fill="#72eec0"/><path d="M62 151h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="103" y="147" width="21" height="21" rx="3.8" fill="#ec789d"/><path d="M106 151h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="103" y="125" width="21" height="21" rx="3.8" fill="#ec789d"/><path d="M106 129h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="125" y="125" width="21" height="21" rx="3.8" fill="#ec789d"/><path d="M128 129h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="125" y="103" width="21" height="21" rx="3.8" fill="#ec789d"/><path d="M128 107h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="147" y="125" width="21" height="21" rx="3.8" fill="#6de2f1"/><path d="M150 129h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="169" y="125" width="21" height="21" rx="3.8" fill="#6de2f1"/><path d="M172 129h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="191" y="125" width="21" height="21" rx="3.8" fill="#6de2f1"/><path d="M194 129h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="191" y="103" width="21" height="21" rx="3.8" fill="#6de2f1"/><path d="M194 107h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="213" y="103" width="21" height="21" rx="3.8" fill="#ffd970"/><path d="M216 107h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="235" y="103" width="21" height="21" rx="3.8" fill="#ffd970"/><path d="M238 107h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="235" y="125" width="21" height="21" rx="3.8" fill="#ffd970"/><path d="M238 129h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="213" y="125" width="21" height="21" rx="3.8" fill="#ffd970"/><path d="M216 129h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="147" y="59" width="21" height="21" rx="3.8" fill="#d69dff"/><path d="M150 63h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="169" y="59" width="21" height="21" rx="3.8" fill="#d69dff"/><path d="M172 63h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="191" y="59" width="21" height="21" rx="3.8" fill="#d69dff"/><path d="M194 63h14" stroke="white" opacity=".35" stroke-width="2"/><rect x="169" y="37" width="21" height="21" rx="3.8" fill="#d69dff"/><path d="M172 41h14" stroke="white" opacity=".35" stroke-width="2"/><g transform="translate(264 24)"><rect width="61" height="40" rx="11" fill="#192f43" stroke="#2a4e62"/><text x="30" y="14" fill="#a9c9d9" font-size="8" font-family="system-ui" text-anchor="middle">SCORE</text><text x="30" y="31" fill="#63edda" font-weight="900" font-size="15" font-family="system-ui" text-anchor="middle">2,480</text></g></svg></div>
@@ -70,8 +130,8 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
         <a class="play" href="./cp_drop.html" aria-label="CP DROPをプレイする"><span>プレイする</span><span class="arrow" aria-hidden="true">↗</span></a>
       </div>
     </article>
-    <article class="game chain">
-      <div class="visual"><span class="number">GAME 02</span><svg viewBox="0 0 340 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="かわいい色つきの丸いキャラが連鎖するゲームのイメージ"><defs><linearGradient id="chbg" x2="1" y2="1"><stop stop-color="#29224d"/><stop offset="1" stop-color="#101227"/></linearGradient><pattern id="chgrid" width="32" height="32" patternUnits="userSpaceOnUse"><rect width="30" height="30" rx="6" fill="#312953" fill-opacity=".62"/></pattern><filter id="chglow"><feGaussianBlur stdDeviation="13"/></filter></defs>
+    <article class="game chain" data-category="score">
+      <div class="visual"><span class="number">GAME 02</span><svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 340 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="かわいい色つきの丸いキャラが連鎖するゲームのイメージ"><defs><linearGradient id="chbg" x2="1" y2="1"><stop stop-color="#29224d"/><stop offset="1" stop-color="#101227"/></linearGradient><pattern id="chgrid" width="32" height="32" patternUnits="userSpaceOnUse"><rect width="30" height="30" rx="6" fill="#312953" fill-opacity=".62"/></pattern><filter id="chglow"><feGaussianBlur stdDeviation="13"/></filter></defs>
     <rect width="340" height="215" rx="16" fill="url(#chbg)"/>
     <circle cx="65" cy="160" r="80" fill="#fa7dbb" opacity=".16" filter="url(#chglow)"/>
     <g transform="translate(65 6)"><rect width="210" height="200" rx="10" fill="#151631" stroke="#6954a3" stroke-width="2"/><rect x="10" y="8" width="190" height="185" fill="url(#chgrid)"/></g><circle cx="93.1" cy="189.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="93.1" cy="188.1" r="14.3" fill="#ff88aa"/><ellipse cx="89.1" cy="183.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="89.1" cy="189.29999999999998" r="1.7" fill="#272443"/><circle cx="97.1" cy="189.29999999999998" r="1.7" fill="#272443"/><path d="M 90.1 194.1 Q 93.1 197.1 96.1 194.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="124.1" cy="189.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="124.1" cy="188.1" r="14.3" fill="#ffa35f"/><ellipse cx="120.1" cy="183.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="120.1" cy="189.29999999999998" r="1.7" fill="#272443"/><circle cx="128.1" cy="189.29999999999998" r="1.7" fill="#272443"/><path d="M 121.1 194.1 Q 124.1 197.1 127.1 194.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="155.1" cy="189.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="155.1" cy="188.1" r="14.3" fill="#69d6fc"/><ellipse cx="151.1" cy="183.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="151.1" cy="189.29999999999998" r="1.7" fill="#272443"/><circle cx="159.1" cy="189.29999999999998" r="1.7" fill="#272443"/><path d="M 152.1 194.1 Q 155.1 197.1 158.1 194.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="186.1" cy="189.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="186.1" cy="188.1" r="14.3" fill="#8bea90"/><ellipse cx="182.1" cy="183.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="182.1" cy="189.29999999999998" r="1.7" fill="#272443"/><circle cx="190.1" cy="189.29999999999998" r="1.7" fill="#272443"/><path d="M 183.1 194.1 Q 186.1 197.1 189.1 194.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="217.1" cy="189.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="217.1" cy="188.1" r="14.3" fill="#b496ff"/><ellipse cx="213.1" cy="183.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="213.1" cy="189.29999999999998" r="1.7" fill="#272443"/><circle cx="221.1" cy="189.29999999999998" r="1.7" fill="#272443"/><path d="M 214.1 194.1 Q 217.1 197.1 220.1 194.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="248.1" cy="189.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="248.1" cy="188.1" r="14.3" fill="#ffa35f"/><ellipse cx="244.1" cy="183.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="244.1" cy="189.29999999999998" r="1.7" fill="#272443"/><circle cx="252.1" cy="189.29999999999998" r="1.7" fill="#272443"/><path d="M 245.1 194.1 Q 248.1 197.1 251.1 194.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="93.1" cy="158.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="93.1" cy="157.1" r="14.3" fill="#ff88aa"/><ellipse cx="89.1" cy="152.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="89.1" cy="158.29999999999998" r="1.7" fill="#272443"/><circle cx="97.1" cy="158.29999999999998" r="1.7" fill="#272443"/><path d="M 90.1 163.1 Q 93.1 166.1 96.1 163.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="124.1" cy="158.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="124.1" cy="157.1" r="14.3" fill="#ffa35f"/><ellipse cx="120.1" cy="152.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="120.1" cy="158.29999999999998" r="1.7" fill="#272443"/><circle cx="128.1" cy="158.29999999999998" r="1.7" fill="#272443"/><path d="M 121.1 163.1 Q 124.1 166.1 127.1 163.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="155.1" cy="158.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="155.1" cy="157.1" r="14.3" fill="#ff88aa"/><ellipse cx="151.1" cy="152.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="151.1" cy="158.29999999999998" r="1.7" fill="#272443"/><circle cx="159.1" cy="158.29999999999998" r="1.7" fill="#272443"/><path d="M 152.1 163.1 Q 155.1 166.1 158.1 163.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="186.1" cy="158.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="186.1" cy="157.1" r="14.3" fill="#8bea90"/><ellipse cx="182.1" cy="152.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="182.1" cy="158.29999999999998" r="1.7" fill="#272443"/><circle cx="190.1" cy="158.29999999999998" r="1.7" fill="#272443"/><path d="M 183.1 163.1 Q 186.1 166.1 189.1 163.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="217.1" cy="158.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="217.1" cy="157.1" r="14.3" fill="#b496ff"/><ellipse cx="213.1" cy="152.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="213.1" cy="158.29999999999998" r="1.7" fill="#272443"/><circle cx="221.1" cy="158.29999999999998" r="1.7" fill="#272443"/><path d="M 214.1 163.1 Q 217.1 166.1 220.1 163.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="248.1" cy="158.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="248.1" cy="157.1" r="14.3" fill="#b496ff"/><ellipse cx="244.1" cy="152.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="244.1" cy="158.29999999999998" r="1.7" fill="#272443"/><circle cx="252.1" cy="158.29999999999998" r="1.7" fill="#272443"/><path d="M 245.1 163.1 Q 248.1 166.1 251.1 163.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="93.1" cy="127.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="93.1" cy="126.1" r="14.3" fill="#69d6fc"/><ellipse cx="89.1" cy="121.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="89.1" cy="127.3" r="1.7" fill="#272443"/><circle cx="97.1" cy="127.3" r="1.7" fill="#272443"/><path d="M 90.1 132.1 Q 93.1 135.1 96.1 132.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="124.1" cy="127.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="124.1" cy="126.1" r="14.3" fill="#ff88aa"/><ellipse cx="120.1" cy="121.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="120.1" cy="127.3" r="1.7" fill="#272443"/><circle cx="128.1" cy="127.3" r="1.7" fill="#272443"/><path d="M 121.1 132.1 Q 124.1 135.1 127.1 132.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="155.1" cy="127.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="155.1" cy="126.1" r="14.3" fill="#8bea90"/><ellipse cx="151.1" cy="121.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="151.1" cy="127.3" r="1.7" fill="#272443"/><circle cx="159.1" cy="127.3" r="1.7" fill="#272443"/><path d="M 152.1 132.1 Q 155.1 135.1 158.1 132.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="186.1" cy="127.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="186.1" cy="126.1" r="14.3" fill="#8bea90"/><ellipse cx="182.1" cy="121.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="182.1" cy="127.3" r="1.7" fill="#272443"/><circle cx="190.1" cy="127.3" r="1.7" fill="#272443"/><path d="M 183.1 132.1 Q 186.1 135.1 189.1 132.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="217.1" cy="127.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="217.1" cy="126.1" r="14.3" fill="#b496ff"/><ellipse cx="213.1" cy="121.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="213.1" cy="127.3" r="1.7" fill="#272443"/><circle cx="221.1" cy="127.3" r="1.7" fill="#272443"/><path d="M 214.1 132.1 Q 217.1 135.1 220.1 132.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="248.1" cy="127.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="248.1" cy="126.1" r="14.3" fill="#69d6fc"/><ellipse cx="244.1" cy="121.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="244.1" cy="127.3" r="1.7" fill="#272443"/><circle cx="252.1" cy="127.3" r="1.7" fill="#272443"/><path d="M 245.1 132.1 Q 248.1 135.1 251.1 132.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="124.1" cy="96.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="124.1" cy="95.1" r="14.3" fill="#69d6fc"/><ellipse cx="120.1" cy="90.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="120.1" cy="96.3" r="1.7" fill="#272443"/><circle cx="128.1" cy="96.3" r="1.7" fill="#272443"/><path d="M 121.1 101.1 Q 124.1 104.1 127.1 101.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="155.1" cy="96.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="155.1" cy="95.1" r="14.3" fill="#69d6fc"/><ellipse cx="151.1" cy="90.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="151.1" cy="96.3" r="1.7" fill="#272443"/><circle cx="159.1" cy="96.3" r="1.7" fill="#272443"/><path d="M 152.1 101.1 Q 155.1 104.1 158.1 101.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="217.1" cy="96.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="217.1" cy="95.1" r="14.3" fill="#ff88aa"/><ellipse cx="213.1" cy="90.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="213.1" cy="96.3" r="1.7" fill="#272443"/><circle cx="221.1" cy="96.3" r="1.7" fill="#272443"/><path d="M 214.1 101.1 Q 217.1 104.1 220.1 101.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="248.1" cy="96.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="248.1" cy="95.1" r="14.3" fill="#ffa35f"/><ellipse cx="244.1" cy="90.1" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="244.1" cy="96.3" r="1.7" fill="#272443"/><circle cx="252.1" cy="96.3" r="1.7" fill="#272443"/><path d="M 245.1 101.1 Q 248.1 104.1 251.1 101.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="186.1" cy="65.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="186.1" cy="64.1" r="14.3" fill="#8bea90"/><ellipse cx="182.1" cy="59.099999999999994" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="182.1" cy="65.3" r="1.7" fill="#272443"/><circle cx="190.1" cy="65.3" r="1.7" fill="#272443"/><path d="M 183.1 70.1 Q 186.1 73.1 189.1 70.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><circle cx="217.1" cy="65.1" r="14.6" fill="#050415" opacity=".4"/><circle cx="217.1" cy="64.1" r="14.3" fill="#8bea90"/><ellipse cx="213.1" cy="59.099999999999994" rx="5" ry="3" fill="white" opacity=".30"/><circle cx="213.1" cy="65.3" r="1.7" fill="#272443"/><circle cx="221.1" cy="65.3" r="1.7" fill="#272443"/><path d="M 214.1 70.1 Q 217.1 73.1 220.1 70.1" fill="none" stroke="#272443" stroke-width="1.5" stroke-linecap="round"/><g><rect x="230" y="11" rx="10" width="100" height="31" fill="#aa4de7"/><text x="280" y="31" fill="white" text-anchor="middle" font-family="system-ui" font-size="14" font-weight="900">2 CHAIN!</text></g></svg></div>
@@ -80,9 +140,9 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
         <a class="play" href="./cp_chain.html" aria-label="CP CHAINをプレイする"><span>プレイする</span><span class="arrow" aria-hidden="true">↗</span></a>
       </div>
     </article>
-    <article class="game fruits">
+    <article class="game fruits" data-category="score">
       <div class="visual"><span class="number">GAME 03</span>
-        <svg viewBox="0 0 340 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="カラフルなフルーツが転がりながら合体するゲームのイメージ">
+        <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 340 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="カラフルなフルーツが転がりながら合体するゲームのイメージ">
           <defs>
            <linearGradient id="frbg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3a2d57"/><stop offset="1" stop-color="#152640"/></linearGradient>
            <radialGradient id="frshine" cx="35%" cy="25%" r="85%"><stop stop-color="#ffffff" stop-opacity=".42"/><stop offset=".35" stop-color="#ffffff" stop-opacity=".05"/><stop offset="1" stop-color="#000000" stop-opacity=".25"/></radialGradient>
@@ -120,10 +180,10 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
         <a class="play" href="./cp_fruits.html" aria-label="CP FRUITSをプレイする"><span>プレイする</span><span class="arrow" aria-hidden="true">↗</span></a>
       </div>
     </article>
-    <article class="game picture">
+    <article class="game picture" data-category="picture">
       <div class="visual">
         <span class="number">GAME 04</span>
-        <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="夕焼けの湖と山を絵合わせパズルにしたイメージ">
+        <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="夕焼けの湖と山を絵合わせパズルにしたイメージ">
           <defs>
             <linearGradient id="ppsky" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stop-color="#283f77"/><stop offset=".55" stop-color="#cf7796"/><stop offset="1" stop-color="#f8c384"/>
@@ -161,10 +221,10 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
       </div>
     </article>
 
-    <article class="game picture picture-drop">
+    <article class="game picture picture-drop" data-category="picture">
       <div class="visual">
         <span class="number">GAME 05 · NEW</span>
-        <svg viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="6列のストックから絵のピースが落ちるパズルのイメージ">
+        <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="6列のストックから絵のピースが落ちるパズルのイメージ">
           <defs><linearGradient id="pdark" x2="1" y2="1"><stop stop-color="#142d49"/><stop offset="1" stop-color="#092034"/></linearGradient></defs>
           <rect width="340" height="300" rx="15" fill="url(#pdark)"/>
           <rect x="49" y="14" width="242" height="46" rx="9" fill="#1d405a" stroke="#5d829a"/>
@@ -186,10 +246,10 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
       </div>
     </article>
 
-    <article class="game nokoribi">
+    <article class="game nokoribi" data-category="score">
       <div class="visual">
         <span class="number">GAME 06</span>
-        <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="5×5のカラフルなピースと、消した場所に残る光の輪を使うNOKORIBIのゲームイメージ">
+        <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="5×5のカラフルなピースと、消した場所に残る光の輪を使うNOKORIBIのゲームイメージ">
           <defs>
             <linearGradient id="nokbg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#231b36"/><stop offset="1" stop-color="#0b2339"/></linearGradient>
             <radialGradient id="nokglow" cx="50%" cy="50%"><stop stop-color="#faad82" stop-opacity=".28"/><stop offset="1" stop-color="#faad82" stop-opacity="0"/></radialGradient>
@@ -216,10 +276,10 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
       </div>
     </article>
 
-    <article class="game kanji-eight">
+    <article class="game kanji-eight" data-category="kanji">
       <div class="visual">
         <span class="number">GAME 07 · NEW</span>
-        <svg viewBox="0 0 600 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="難しい漢字の8ピースを動かして揃える3×3スライドパズル">
+        <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 600 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="難しい漢字の8ピースを動かして揃える3×3スライドパズル">
           <defs>
             <linearGradient id="kanji8bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#223e4a"/><stop offset=".55" stop-color="#1e243c"/><stop offset="1" stop-color="#4c3447"/></linearGradient>
             <clipPath id="k8clip0"><rect x="170" y="29" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip1"><rect x="257" y="29" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip2"><rect x="344" y="29" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip3"><rect x="170" y="116" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip4"><rect x="257" y="116" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip5"><rect x="344" y="116" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip6"><rect x="170" y="203" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip7"><rect x="257" y="203" width="83" height="83" rx="7"/></clipPath>
@@ -247,6 +307,21 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
  const $=s=>document.querySelector(s);
  for(const [id,key] of [['#best-drop','cpdrop-best-v1'],['#best-chain','cp-chain-best-v1'],['#best-fruits','cp-fruits-best-v1']]){try{let score=Number(localStorage.getItem(key))||0;if(score>0)$(id).textContent=score.toLocaleString('ja-JP')}catch(_){}}
  
+
+ const filters=[...document.querySelectorAll('.category-tab')];
+ const cards=[...document.querySelectorAll('#gameCatalog > .game')];
+ const categories={all:'すべて',score:'スコア・連鎖',picture:'絵合わせ',kanji:'漢字'};
+ function chooseCategory(category){
+  if(!Object.prototype.hasOwnProperty.call(categories,category))category='all';
+  for(const b of filters)b.setAttribute('aria-pressed',String(b.dataset.filter===category));
+  let count=0;
+  for(const card of cards){card.hidden=category!=='all'&&card.dataset.category!==category;if(!card.hidden)count++;}
+  const description=category==='all'?'7作品すべて':categories[category];
+  document.getElementById('filterFeedback').textContent=description+'：'+count+'作品を表示中';
+ }
+ filters.forEach(b=>b.addEventListener('click',()=>chooseCategory(b.dataset.filter)));
+ chooseCategory('all');
+
  const toast=$('#toast');let timer;
  function show(message){toast.textContent=message;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),2600)}
  async function share(){

@@ -2,7 +2,7 @@
 <html lang="ja"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101b30"><meta name="description" content="CP 漢字8パズル。空きマスへ8枚の漢字ピースを滑らせて完成させよう。難しい配置も必ず解けます。">
-<title>CP 漢字8パズル｜CP ARCADE Ver.1.0</title>
+<title>CP 漢字8パズル｜はしmoto Games Ver.1.0</title>
 <style>
 :root{font-family:system-ui,-apple-system,'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;color-scheme:dark;--ink:#f1f6fd;--soft:#acc4d7;--gold:#f7cf8c;--teal:#77e2ce}
 *{box-sizing:border-box}html{background:#071221}body{margin:0;min-height:100dvh;color:var(--ink);background:radial-gradient(ellipse 70% 35% at 9% 3%,#31507680,transparent),radial-gradient(ellipse 75% 32% at 100% 70%,#45345e40,transparent),linear-gradient(160deg,#0e2038,#081324 77%);-webkit-tap-highlight-color:transparent}
@@ -28,8 +28,8 @@ button,select{font:inherit}button{cursor:pointer}button:focus-visible,select:foc
 a.arcade-return{display:inline-block;margin:-4px 2px 12px;font-size:12px;font-weight:850;color:#9fe3df;text-decoration:none}a.arcade-return:focus-visible{outline:2px solid #f6d18e;outline-offset:3px}
 </style></head><body>
 <main class="app">
-<header class="header"><div><div class="brand">CP ARCADE · KANJI PUZZLE</div><h1>漢字<em>8パズル</em></h1></div><div class="version">Ver.1.0</div></header>
-<p class="tagline">空きマスの隣を動かして、難しい漢字を完成させよう。</p><a href="./index.html" class="arcade-return">← CP ARCADEのゲーム一覧へ</a>
+<header class="header"><div><div class="brand">はしmoto Games · KANJI PUZZLE</div><h1>漢字<em>8パズル</em></h1></div><div class="version">Ver.1.0</div></header>
+<p class="tagline">空きマスの隣を動かして、難しい漢字を完成させよう。</p><a href="./index.html" class="arcade-return">← はしmoto Gamesのゲーム一覧へ</a>
 <div class="bar"><label for="difficulty">🧩 問題の難しさ</label><select id="difficulty"><option value="normal">少し難しい</option><option value="hard" selected>難しい（おすすめ）</option><option value="expert">超難問</option></select></div>
 <div class="stats"><div class="stat"><small>移動した回数</small><strong id="moveCount">0</strong></div><div class="stat"><small>正しい位置</small><strong id="correctCount">0 <span>/ 8</span></strong></div><div class="stat"><small>自己ベスト</small><strong id="bestCount">―</strong></div></div>
 <section class="game"><p class="game-hint"><strong>隣のピースをタップ</strong>、または空きマスに向かってスワイプ</p><div id="board" class="board" role="grid" aria-label="3×3の漢字8パズル。空きマスの隣をタップして動かす"><div id="hole" class="hole">空き</div><div id="finishPatch" class="finish-patch"></div></div><p class="legend">８枚のピース＋空き１マス。<b>正しい位置のピースも動かせる</b>で。</p></section>

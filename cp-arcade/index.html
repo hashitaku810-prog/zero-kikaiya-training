@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0e20">
-<meta name="description" content="CP ARCADEで気軽に遊ぼう！スマホのブラウザで遊べる無料のミニゲーム6本。登録もアプリも不要。">
+<meta name="description" content="CP ARCADEで気軽に遊ぼう！スマホのブラウザで遊べる無料のミニゲーム7本。登録もアプリも不要。">
 <meta property="og:title" content="CP ARCADE｜スマホで遊べるミニゲーム">
-<meta property="og:description" content="スマホで遊べる6本のオリジナルパズルゲーム🎮">
+<meta property="og:description" content="スマホで遊べる7本のオリジナルパズルゲーム🎮">
 <meta property="og:type" content="website">
 <title>CP ARCADE｜スマホで遊べるミニゲーム</title>
 <style>
@@ -36,14 +36,14 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
 .content{padding:17px 17px 18px;display:flex;flex-direction:column;gap:8px;flex:1}.category{font-size:10px;letter-spacing:1.2px;font-weight:900;color:#78e6d5}.game.chain .category{color:#c399ff}.game.fruits .category{color:#ffca83}.game.picture .category{color:#f6d493}.game.titleline{display:flex;align-items:center;justify-content:space-between;gap:8px}.titleline h3{font-size:25px;letter-spacing:.7px;margin:0;font-weight:1000}.score{font-size:10px;font-weight:800;color:#a3a9c7;white-space:nowrap}.score b{display:block;color:#ffdb94;font-size:12px;text-align:right;margin-top:3px;font-variant-numeric:tabular-nums}
 .explain{color:#adb8d3;font-size:12px;margin:1px 0 7px;line-height:1.7;min-height:41px}
 .play{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:50px;border-radius:13px;padding:12px 16px;text-decoration:none;font-size:14px;font-weight:950;background:linear-gradient(135deg,#74efd6,#3fc3cc);color:#0e2834;box-shadow:0 6px 22px #4bd8ca1a}
-.chain .play{background:linear-gradient(135deg,#c7a3ff,#b383fc);color:#291d45;box-shadow:0 6px 22px #b383fc19}.fruits .play{background:linear-gradient(135deg,#ffe19a,#ffab66);color:#3e2536;box-shadow:0 6px 22px #ffa64b22}.picture .play{background:linear-gradient(135deg,#f5dfa9,#edba78);color:#322947;box-shadow:0 6px 22px #dfa87321}.play:active{transform:scale(.982)}.nokoribi .category{color:#ffce94}.nokoribi .play{background:linear-gradient(135deg,#ffce92,#ff91a4);color:#3d2437;box-shadow:0 6px 22px #ee855b26}.game.nokoribi{grid-column:1/-1;display:grid;grid-template-columns:1.06fr .94fr}.game.nokoribi .visual{aspect-ratio:auto;min-height:230px}.game.nokoribi .content{justify-content:center}.picture-drop .category{color:#90eadb}.picture-drop .play{background:linear-gradient(135deg,#8ef0e0,#91bee6);color:#10334b;box-shadow:0 6px 22px #5cbdb822}.picture{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr}.picture .visual{aspect-ratio:auto;min-height:225px}.picture .content{justify-content:center}.arrow{font-size:19px}
+.chain .play{background:linear-gradient(135deg,#c7a3ff,#b383fc);color:#291d45;box-shadow:0 6px 22px #b383fc19}.fruits .play{background:linear-gradient(135deg,#ffe19a,#ffab66);color:#3e2536;box-shadow:0 6px 22px #ffa64b22}.picture .play{background:linear-gradient(135deg,#f5dfa9,#edba78);color:#322947;box-shadow:0 6px 22px #dfa87321}.play:active{transform:scale(.982)}.nokoribi .category{color:#ffce94}.nokoribi .play{background:linear-gradient(135deg,#ffce92,#ff91a4);color:#3d2437;box-shadow:0 6px 22px #ee855b26}.game.nokoribi{grid-column:1/-1;display:grid;grid-template-columns:1.06fr .94fr}.game.nokoribi .visual{aspect-ratio:auto;min-height:230px}.game.nokoribi .content{justify-content:center}.game.kanji-eight{grid-column:1/-1;display:grid;grid-template-columns:1.06fr .94fr}.game.kanji-eight .visual{aspect-ratio:auto;min-height:226px}.game.kanji-eight .content{justify-content:center}.game.kanji-eight .category{color:#e5d09c}.game.kanji-eight .play{background:linear-gradient(135deg,#ffe0ab,#8bd4d4);color:#183847;box-shadow:0 6px 22px #9fe8da20}.picture-drop .category{color:#90eadb}.picture-drop .play{background:linear-gradient(135deg,#8ef0e0,#91bee6);color:#10334b;box-shadow:0 6px 22px #5cbdb822}.picture{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr}.picture .visual{aspect-ratio:auto;min-height:225px}.picture .content{justify-content:center}.arrow{font-size:19px}
 .foot{padding:24px 5px 0;text-align:center;color:#7b86aa;font-size:11px;line-height:1.8}
 .toast{position:fixed;z-index:10;bottom:calc(env(safe-area-inset-bottom,0px) + 23px);left:50%;transform:translate(-50%,15px);min-width:220px;padding:12px 17px;background:#ede9ff;color:#252044;border-radius:13px;text-align:center;font-weight:850;font-size:12px;box-shadow:0 15px 35px #0007;opacity:0;pointer-events:none;transition:.2s}.toast.show{transform:translate(-50%,0);opacity:1}
 @media(min-width:820px){.games{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.game.game.game.content{padding:16px 16px 18px}.titleline h3{font-size:22px}}
 @media(min-width:700px){.hero{padding:60px 4px 39px}.wrap{padding-left:30px;padding-right:30px}.lead{font-size:15px}.sectiontop h2{font-size:18px}.content{padding:19px 23px 22px}.explain{font-size:13px}}
 @media(min-width:641px) and (max-width:819px){.game.fruits{grid-column:1/-1;max-width:430px;margin:auto;width:100%}}
 @media(max-width:359px){.wrap{padding-left:12px;padding-right:12px}.hero{padding-top:30px}.titleline h3{font-size:22px}.logo-name{font-size:15px}.share{padding:9px 11px}}
-@media(max-width:640px){.games{grid-template-columns:1fr;gap:16px}.visual{aspect-ratio:340/178}.game{border-radius:18px}.content{gap:6px}.explain{min-height:auto;margin-bottom:5px}.hero{padding-bottom:21px}.picture{display:flex}.picture .visual{aspect-ratio:340/178;min-height:unset}.game.nokoribi{display:flex;flex-direction:column}.game.nokoribi .visual{aspect-ratio:340/178;min-height:unset}}
+@media(max-width:640px){.games{grid-template-columns:1fr;gap:16px}.visual{aspect-ratio:340/178}.game{border-radius:18px}.content{gap:6px}.explain{min-height:auto;margin-bottom:5px}.hero{padding-bottom:21px}.picture{display:flex}.picture .visual{aspect-ratio:340/178;min-height:unset}.game.nokoribi{display:flex;flex-direction:column}.game.nokoribi .visual{aspect-ratio:340/178;min-height:unset}.game.kanji-eight{display:flex;flex-direction:column}.game.kanji-eight .visual{aspect-ratio:340/178;min-height:unset}}
 @media(prefers-reduced-motion:reduce){.game,.toast{transition:none}}
 </style>
 </head>
@@ -188,7 +188,7 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
 
     <article class="game nokoribi">
       <div class="visual">
-        <span class="number">GAME 06 · NEW</span>
+        <span class="number">GAME 06</span>
         <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="5×5のカラフルなピースと、消した場所に残る光の輪を使うNOKORIBIのゲームイメージ">
           <defs>
             <linearGradient id="nokbg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#231b36"/><stop offset="1" stop-color="#0b2339"/></linearGradient>
@@ -215,6 +215,30 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
         <a class="play" href="./cp_nokoribi.html" aria-label="CP NOKORIBI のこり火を遊ぶ"><span>のこり火で遊ぶ</span><span class="arrow" aria-hidden="true">↗</span></a>
       </div>
     </article>
+
+    <article class="game kanji-eight">
+      <div class="visual">
+        <span class="number">GAME 07 · NEW</span>
+        <svg viewBox="0 0 600 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="難しい漢字の8ピースを動かして揃える3×3スライドパズル">
+          <defs>
+            <linearGradient id="kanji8bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#223e4a"/><stop offset=".55" stop-color="#1e243c"/><stop offset="1" stop-color="#4c3447"/></linearGradient>
+            <clipPath id="k8clip0"><rect x="170" y="29" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip1"><rect x="257" y="29" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip2"><rect x="344" y="29" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip3"><rect x="170" y="116" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip4"><rect x="257" y="116" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip5"><rect x="344" y="116" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip6"><rect x="170" y="203" width="83" height="83" rx="7"/></clipPath><clipPath id="k8clip7"><rect x="257" y="203" width="83" height="83" rx="7"/></clipPath>
+          </defs>
+          <rect width="600" height="330" fill="url(#kanji8bg)"/>
+          <circle cx="475" cy="120" r="160" fill="#cbb3ac" opacity=".06"/>
+          <rect x="162" y="21" width="278" height="278" rx="17" fill="#081827" stroke="#85d5d5" stroke-width="2"/>
+          <rect x="170" y="29" width="83" height="83" rx="7" fill="#f5dcaa" stroke="#fff8e1" stroke-width="1.5"/><g clip-path="url(#k8clip0)"><g transform="translate(0 0)"><text x="296" y="239" font-family="'Noto Serif JP','Yu Mincho',serif" font-size="238" font-weight="900" fill="#273d50" text-anchor="middle">鬱</text></g></g><rect x="174" y="33" width="75" height="14" rx="4" fill="#ffffff" opacity=".13"/><rect x="257" y="29" width="83" height="83" rx="7" fill="#f5dcaa" stroke="#fff8e1" stroke-width="1.5"/><g clip-path="url(#k8clip1)"><g transform="translate(0 -87)"><text x="296" y="239" font-family="'Noto Serif JP','Yu Mincho',serif" font-size="238" font-weight="900" fill="#273d50" text-anchor="middle">鬱</text></g></g><rect x="261" y="33" width="75" height="14" rx="4" fill="#ffffff" opacity=".13"/><rect x="344" y="29" width="83" height="83" rx="7" fill="#f5dcaa" stroke="#fff8e1" stroke-width="1.5"/><g clip-path="url(#k8clip2)"><g transform="translate(0 0)"><text x="296" y="239" font-family="'Noto Serif JP','Yu Mincho',serif" font-size="238" font-weight="900" fill="#273d50" text-anchor="middle">鬱</text></g></g><rect x="348" y="33" width="75" height="14" rx="4" fill="#ffffff" opacity=".13"/><rect x="170" y="116" width="83" height="83" rx="7" fill="#f5dcaa" stroke="#fff8e1" stroke-width="1.5"/><g clip-path="url(#k8clip3)"><g transform="translate(0 0)"><text x="296" y="239" font-family="'Noto Serif JP','Yu Mincho',serif" font-size="238" font-weight="900" fill="#273d50" text-anchor="middle">鬱</text></g></g><rect x="174" y="120" width="75" height="14" rx="4" fill="#ffffff" opacity=".13"/><rect x="257" y="116" width="83" height="83" rx="7" fill="#f5dcaa" stroke="#fff8e1" stroke-width="1.5"/><g clip-path="url(#k8clip4)"><g transform="translate(0 87)"><text x="296" y="239" font-family="'Noto Serif JP','Yu Mincho',serif" font-size="238" font-weight="900" fill="#273d50" text-anchor="middle">鬱</text></g></g><rect x="261" y="120" width="75" height="14" rx="4" fill="#ffffff" opacity=".13"/><rect x="344" y="116" width="83" height="83" rx="7" fill="#f5dcaa" stroke="#fff8e1" stroke-width="1.5"/><g clip-path="url(#k8clip5)"><g transform="translate(0 0)"><text x="296" y="239" font-family="'Noto Serif JP','Yu Mincho',serif" font-size="238" font-weight="900" fill="#273d50" text-anchor="middle">鬱</text></g></g><rect x="348" y="120" width="75" height="14" rx="4" fill="#ffffff" opacity=".13"/><rect x="170" y="203" width="83" height="83" rx="7" fill="#f5dcaa" stroke="#fff8e1" stroke-width="1.5"/><g clip-path="url(#k8clip6)"><g transform="translate(0 0)"><text x="296" y="239" font-family="'Noto Serif JP','Yu Mincho',serif" font-size="238" font-weight="900" fill="#273d50" text-anchor="middle">鬱</text></g></g><rect x="174" y="207" width="75" height="14" rx="4" fill="#ffffff" opacity=".13"/><rect x="257" y="203" width="83" height="83" rx="7" fill="#f5dcaa" stroke="#fff8e1" stroke-width="1.5"/><g clip-path="url(#k8clip7)"><g transform="translate(-87 0)"><text x="296" y="239" font-family="'Noto Serif JP','Yu Mincho',serif" font-size="238" font-weight="900" fill="#273d50" text-anchor="middle">鬱</text></g></g><rect x="261" y="207" width="75" height="14" rx="4" fill="#ffffff" opacity=".13"/><rect x="344" y="203" width="83" height="83" rx="7" fill="#122a40" stroke="#c9d5cf" stroke-opacity=".35" stroke-dasharray="5 6"/>
+          <path d="M456 123h39m0 0-12-11m12 11-12 11" fill="none" stroke="#9de2da" stroke-linecap="round" stroke-width="3.5"/>
+          <text x="301" y="316" text-anchor="middle" fill="#b6e9df" font-size="12" letter-spacing="1.1" font-weight="900">3 × 3  ·  KANJI SLIDE PUZZLE</text>
+        </svg>
+      </div>
+      <div class="content">
+        <div class="category">KANJI · 8 SLIDE PUZZLE</div>
+        <div class="titleline"><h3>CP 漢字8パズル</h3><div class="score">3 LEVELS<b>難しい漢字28種</b></div></div>
+        <p class="explain">空きマスの隣を動かして、難しい漢字を完成させよう。<br>「難しい」「超難問」も選べる本格スライドパズル。</p>
+        <a class="play" href="./cp_kanji_eight.html" aria-label="CP 漢字8パズルをプレイする"><span>漢字8パズルで遊ぶ</span><span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </article>
   </section>
   <footer class="foot">好きなゲームを選んで、タップするだけ。<br>自己ベストや絵合わせパズルの進行状況も保存できるで 🏆<br>CP ARCADE · 2026</footer>
 </main><div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -228,7 +252,7 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
  async function share(){
   if(location.protocol==='file:'){show('Web公開したURLからシェアしてな！');return}
   const url=location.href;
-  if(navigator.share){try{await navigator.share({title:'CP ARCADE',text:'6本のミニゲームで遊べるで🎮',url});return}catch(e){if(e?.name==='AbortError')return}}
+  if(navigator.share){try{await navigator.share({title:'CP ARCADE',text:'7本のミニゲームで遊べるで🎮',url});return}catch(e){if(e?.name==='AbortError')return}}
   try{await navigator.clipboard.writeText(url);show('リンクをコピーしたで！LINEに貼ってな')}catch(e){
     const t=document.createElement('textarea');t.value=url;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();const ok=document.execCommand('copy');t.remove();show(ok?'リンクをコピーしたで！LINEに貼ってな':'このページのURLをLINEに送ってな')
   }

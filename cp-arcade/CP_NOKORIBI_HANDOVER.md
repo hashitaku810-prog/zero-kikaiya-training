@@ -59,3 +59,34 @@
 - 正式版およびTOPのJavaScript構文テスト、6作品カードとリンク維持の静的検証PASS
 - GitHub Pages反映後の本番HTTP表示・ユーザー操作まで確認して初めて「本番動作確認済み」とする
 - 正式公開許可あり／追加機能開発は既存プレイの反応を踏まえて判断
+
+
+## 2026-11-01 — Ver.1.1 オンラインランキング対応
+
+### 利用者承認
+- CP ARCADEの3ゲームと同じオンライン得点ランキングを「のこり火」に追加するようユーザーから承認。
+- 既存スコアおよび既存ゲーム本体は保存すること。
+
+### 本番構成
+- `cp-arcade/cp_nokoribi.html`: Ver.1.1。20手完走／得点>0／「戻す」未使用の回のみランキング送信する。
+- 既存の自己ベスト `CP_NOKORIBI_BEST_V01` を変更しない。「戻す」を使った練習プレイでも自己ベストは保存する。
+- 通信できない場合もゲーム自体はプレイできる。ランキングはオンライン機能のため通信が必要。
+- `cp-arcade/ranking.js`: 共通ランキングv0.2（NOKORIBI game IDを追加）。ゲーム画面内にランキングボタンを設置し、今週／歴代TOP10と英数字3文字で登録できる。既存3ゲームの動作条件を変えない。
+- NOKORIBI独自の効果音初期OFFを維持するため、共通ランキング経由の追加SFXはこのゲームでは鳴らさない。
+- `cp_nokoribi_preview.html` は変更しない。
+
+### Supabase
+- プロジェクト `cp-arcade-ranking`（`zotajucfdvmyernfwxnm`）の `arcade_runs`, `arcade_scores` のCHECK制約に `nokoribi` を追加。移行名: `allow_nokoribi_arcade_ranking_game`。
+- Edge Function `arcade-ranking` version 4: 許可IDに `nokoribi` を追加。既存POST開始→評価→登録、GETランキング一覧のAPIフローは維持。
+- NOKORIBIについてスコア5の倍数、300万点以下の基本整合性条件を追加（正規ルールは120点・95点に倍率を乗じる）。
+- Edge Functionは旧設定どおり `verify_jwt=false`、POSTは配信元Origin制限、毎分リクエスト制限、ワンタイムrun_token、時間条件を利用。サービスロールキーは関数側のみ。
+- RLSは2テーブルとも有効かつ公開ポリシーなし。サービスロールからのみ操作する意図的な設計。既存スコアデータは変更しない。
+
+### 検証
+- SQLで制約とRLSの状態・既存スコア件数維持を確認。
+- Edge Function v4 ACTIVE・コード読戻し確認。
+- `arcade_top('nokoribi','week')` と `arcade_top('nokoribi','all')` は空リストを返す（初期ランキング未登録）。既存ゲームの集計は維持。
+- 共通ランキングJS／NOKORIBI JSの構文チェックPASS。
+- モックDOM・モック通信にてNOKORIBIと既存CP DROPの開始→資格判定リクエスト、ランキングボタンの配置確認を通過。
+- GitHub Pages公開ワークフローの成功確認後にリンクを案内する。
+- **Android実機での20手完走→ランクイン登録の本番一連操作は未確認。** 不正スコアの厳密なサーバー再計算はまだ実装していないため、基本的な形式・上限・時間制約のみ。

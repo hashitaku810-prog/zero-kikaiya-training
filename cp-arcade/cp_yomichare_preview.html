@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a1730">
+<meta name="description" content="はしmoto Gamesの「よみチャレ！」。小学生の漢字から超難読まで、時間内に熟語の読みを入力！">
+<title>よみチャレ！｜はしmoto Games</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;--ink:#f5f8ff;--muted:#9fbad3;--line:#355675;--gold:#ffd99b;--aqua:#83ecd9}
+*{box-sizing:border-box}html{background:#091425}body{margin:0;min-height:100dvh;color:var(--ink);background:radial-gradient(ellipse 70% 33% at 18% 0%,#29507877,transparent),radial-gradient(ellipse 65% 38% at 99% 43%,#47406b30,transparent),linear-gradient(150deg,#111f37,#081327)}
+button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:default}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+a{color:#a3eade}.wrap{width:min(100%,520px);margin:auto;padding:12px 13px max(25px,env(safe-area-inset-bottom,20px))}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:15px}.back{font-size:11px;text-decoration:none;color:#bde5f0;font-weight:800}.top-brand{font-weight:850;font-size:10px;letter-spacing:.08em;color:#9dc4db}.top-brand b{color:#ffe2aa}
+.hero{text-align:center;margin:0 0 15px}.eyebrow{color:#82e4d9;font-size:10px;font-weight:900;letter-spacing:.14em}.hero h1{font-size:clamp(33px,8.5vw,45px);letter-spacing:.04em;font-weight:1000;line-height:1.1;margin:4px 0}.hero h1 em{font-style:normal;color:#ffcd8e}.hero p{font-size:12px;margin:6px 0 0;color:#b9cfe2}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-bottom:11px}.stat{text-align:center;background:#182c43;border:1px solid #344f68;border-radius:13px;padding:8px 6px;min-height:58px}.stat small{display:block;color:#a9c2d7;font-size:10px;font-weight:750}.stat strong{display:block;color:#f7f8ff;font-size:22px;line-height:1.35;font-weight:950;font-variant-numeric:tabular-nums}.stat strong.hot{color:#ffe09d}
+.stage-nav{display:flex;gap:5px;justify-content:space-between;margin:8px 0 12px}.stage-dot{height:7px;border-radius:99px;flex:1;background:#273f57;position:relative}.stage-dot.past{background:#6ad8c8}.stage-dot.current{background:#ffc88d;box-shadow:0 0 11px #f9bd7933}
+.quiz{border:1px solid #3b6077;border-radius:19px;padding:17px 15px 16px;background:linear-gradient(170deg,#1d354c,#14253c 70%);box-shadow:0 14px 39px #0004;text-align:center;position:relative;overflow:hidden}.quiz:before{content:'';position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#5edecf,#ffe2a1,#f09bbd)}
+.stage-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.stage-name{color:#c1e5e9;font-weight:900;font-size:12px}.q-counter{font-size:12px;font-weight:900;color:#e0c9a6}.stage-sub{font-size:10px;color:#9db8cc;margin:3px 0 15px;text-align:left}
+.count-wrap{display:flex;justify-content:space-between;align-items:end;gap:8px;margin:0 2px 4px}.time-label{font-size:11px;color:#b2c7d6}.seconds{font-weight:1000;font-size:28px;color:#ffdfae;line-height:1.1;font-variant-numeric:tabular-nums}.seconds.danger{color:#ff8c96;animation:pulse .5s alternate infinite}@keyframes pulse{to{opacity:.6}}
+.time-track{height:9px;border-radius:99px;overflow:hidden;background:#364d5d}.time-fill{width:100%;height:100%;transform:scaleX(1);transform-origin:left center;background:linear-gradient(90deg,#78ead7,#ffd9a0);border-radius:99px}.time-fill.danger{background:linear-gradient(90deg,#f5ba80,#fc7384)}
+.question-hint{margin:16px 0 4px;color:#c2d6e2;font-size:12px}.kanji{font-family:"Noto Serif JP","Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(43px,12.2vw,66px);font-weight:900;letter-spacing:.02em;line-height:1.22;margin:2px 0 11px;overflow-wrap:anywhere;word-break:keep-all;color:#ffebc6;text-shadow:0 3px 25px #efb56f47;min-height:75px;display:grid;place-items:center}
+form{display:flex;gap:7px;align-items:stretch}input{width:100%;min-width:0;flex:1;background:#edf9ff;color:#183148;border:2px solid #afd5e6;border-radius:12px;padding:12px 13px;font-size:18px;font-weight:800;min-height:52px;ime-mode:active}input::placeholder{color:#8099a8;font-size:15px;font-weight:700}form button{flex:0 0 auto;border:0;border-radius:12px;padding:9px 17px;background:linear-gradient(125deg,#8be9df,#65c6e1);color:#143747;font-size:15px;font-weight:950;min-height:52px}
+.answer-hint{margin:7px 0 10px;color:#a9c4d4;font-size:11px;line-height:1.6}.feedback{min-height:54px;display:flex;justify-content:center;align-items:center;background:#102b42;border:1px solid #345874;border-radius:12px;padding:9px 10px;font-size:13px;font-weight:850;line-height:1.45}.feedback.correct{border-color:#82d6b4;background:#1b4d47;color:#d5fff0}.feedback.wrong{border-color:#cc8695;background:#503342;color:#ffe8e9}.feedback.notice{border-color:#d6ba7f;background:#3f3935;color:#ffead0}
+.tools{display:flex;gap:8px;margin-top:12px}.smallbtn{flex:1;min-height:40px;border-radius:11px;background:#1d3a53;border:1px solid #41647b;color:#d7e7ef;font-size:12px;font-weight:850;padding:8px}.smallbtn:active{transform:scale(.98)}.smallbtn.skip{background:#263446}
+.subnote{margin:12px 3px;text-align:center;color:#9bb5c8;font-size:10px;line-height:1.6}.rules{margin:13px 0;padding:12px 13px;border:1px solid #304d69;background:#101f36;border-radius:13px}.rules summary{cursor:pointer;font-size:12px;font-weight:900;color:#d5e5ed}.rules p{font-size:11px;line-height:1.8;color:#b0c4d3}
+.foot{text-align:center;font-size:10px;color:#8ca4b9;margin:14px 0}.foot a{color:#bad7e8;text-decoration:none}
+.overlay{position:fixed;z-index:30;inset:0;background:#071327ea;display:grid;place-items:center;padding:14px;backdrop-filter:blur(8px)}.overlay[hidden]{display:none!important}.dialog{width:min(100%,410px);max-height:92dvh;overflow:auto;background:linear-gradient(155deg,#263e56,#12243c);border:1px solid #618495;border-radius:21px;box-shadow:0 25px 70px #0009;text-align:center;padding:21px 18px}.dialog .small{font-size:10px;color:#93e4d4;font-weight:850;letter-spacing:.1em}.dialog h2{font-size:27px;margin:6px 0 12px;color:#ffe1ac}.dialog p{font-size:13px;line-height:1.7;color:#c6d7e3}.dialog .big{font-size:54px;margin:6px 0}.dialog .scoreline{font-size:28px;font-weight:1000;color:#f9e1b1;font-variant-numeric:tabular-nums}.primary{border:0;border-radius:12px;padding:12px 18px;background:linear-gradient(135deg,#ffd59a,#ffa68e);color:#3c2a34;font-weight:950;font-size:16px;min-height:48px;width:100%;margin:12px 0 4px}.mode{display:flex;gap:9px;align-items:stretch;justify-content:center;margin:16px 0 6px}.mode label{flex:1;border-radius:11px;background:#172d45;border:1px solid #57758a;padding:9px 8px;font-size:12px;font-weight:750;cursor:pointer}.mode input{width:auto;min-height:0;margin:0 4px 0 0;accent-color:#82e7dc}.mode label:has(input:checked){border-color:#8be6d9;background:#254c56}.mini-stats{display:flex;justify-content:space-around;background:#172c42;border-radius:12px;padding:12px;margin:12px 0;font-size:12px;color:#d5e8f4}.mini-stats b{display:block;font-size:23px;color:#ffe4bb}.secondary{width:100%;border:1px solid #4f7286;background:#20344a;border-radius:12px;color:#ddf3ef;min-height:43px;font-size:13px;font-weight:850;margin-top:8px}
+@media(max-width:350px){.wrap{padding:10px 8px}.quiz{padding:14px 9px}.hero h1{font-size:32px}form button{padding:8px 12px}.kanji{font-size:44px}.top-brand{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style></head><body>
+<main class="wrap"><header class="top"><a class="back" href="./index.html">← はしmoto Games</a><span class="top-brand">はしmoto <b>Games</b> · NEW GAME</span></header>
+<div class="hero"><div class="eyebrow">KANJI TIME ATTACK</div><h1>よみ<em>チャレ！</em> ⏱️</h1><p>読めたら入力！ 小学生から超難読まで全7レベル</p></div>
+<section class="stats" aria-label="得点と正解状況"><div class="stat"><small>スコア</small><strong id="score">0</strong></div><div class="stat"><small>正解数</small><strong id="correct">0 / 35</strong></div><div class="stat"><small>自己ベスト</small><strong id="best" class="hot">0</strong></div></section>
+<div id="stageDots" class="stage-nav" aria-label="レベルの進み具合"></div>
+<section class="quiz" aria-label="漢字の読みクイズ">
+<div class="stage-row"><span class="stage-name" id="stageLabel">LEVEL 1 · 小学生・やさしい</span><span class="q-counter" id="qCounter">第1問 / 5</span></div><p class="stage-sub" id="stageSub">まずは身近な言葉から</p>
+<div class="count-wrap"><span class="time-label">のこり時間</span><span class="seconds" id="seconds" aria-label="残り時間">25</span></div><div class="time-track" aria-hidden="true"><div id="timeFill" class="time-fill"></div></div>
+<div class="question-hint">この漢字、なんて読む？</div><div class="kanji" id="word">学校</div>
+<form id="answerForm"><input id="answer" type="text" inputmode="text" lang="ja" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="ひらがなで入力" aria-label="漢字の読みを入力" enterkeyhint="done" maxlength="25" disabled><button id="send" type="submit" disabled>回答</button></form>
+<p class="answer-hint">ひらがな・カタカナどちらでもOK。間違えても再挑戦できるよ。</p>
+<div id="feedback" class="feedback" role="status" aria-live="polite">「ゲームスタート」を押して挑戦！</div>
+<div class="tools"><button id="hint" type="button" class="smallbtn" disabled>💡 1文字ヒント</button><button id="skip" type="button" class="smallbtn skip" disabled>わからない・スキップ</button><button id="pause" type="button" class="smallbtn" disabled>Ⅱ 一時停止</button></div>
+</section><p class="subnote">各レベル5問。正解すると得点UP！ 時間切れでも答えが分かるで。</p>
+<details class="rules"><summary>遊び方・点数のルールを見る</summary><p>漢字の読みを日本語で入力して「回答」を押そう。正解するほど得点が増えて、早く答えた分と連続正解のボーナスも付くで。間違っても時間内なら再挑戦OK。ヒントを使った問題は得点が半分。レベルは5問ごとに自動で上がり、小学生レベルから超難読まで全7レベル。時間切れ・スキップでも次へ進める。ゲーム中に別のタブへ切り替えた場合は自動で一時停止するで。</p></details>
+<footer class="foot">無料 · 広告なし · 記録はこの端末に保存<br><a href="./about.html">サイトについて</a> ｜ <a href="./index.html">ゲーム一覧へ</a></footer></main>
+<div id="startOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="startTitle"><div class="dialog"><div class="small">はしmoto Games · ORIGINAL QUIZ</div><div class="big" aria-hidden="true">🀄</div><h2 id="startTitle">よみチャレ！</h2><p>小学生レベルからスタート！<br>制限時間内に読みを入力して、全35問に挑戦しよう。</p><div class="mode" role="group" aria-label="時間のモード"><label><input type="radio" name="mode" value="normal" checked>ふつう</label><label><input type="radio" name="mode" value="relax">ゆっくり（+10秒）</label></div><p class="subnote">各問題に制限時間あり。間違い・時間切れでも次のレベルへ進めるで。</p><button class="primary" id="startGame" type="button">ゲームスタート ▶</button></div></div>
+<div id="levelOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="levelTitle" hidden><div class="dialog"><div class="small">LEVEL CLEAR</div><div class="big" id="levelEmoji">🎉</div><h2 id="levelTitle">レベルクリア！</h2><p id="levelDetails"></p><div class="mini-stats"><div>このレベルの正解<b id="levelCorrect">0 / 5</b></div><div>現在のスコア<b id="levelScore">0</b></div></div><button class="primary" id="levelNext" type="button">次のレベルへ ▶</button></div></div>
+<div id="pauseOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="pauseTitle" hidden><div class="dialog"><div class="small">PAUSE</div><div class="big">⏸️</div><h2 id="pauseTitle">一時停止</h2><p>戻ったら続きをやろう！<br>時間は止まっているで。</p><button class="primary" id="resume" type="button">再開 ▶</button></div></div>
+<div id="finalOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="finalTitle" hidden><div class="dialog"><div class="small">ALL LEVELS FINISHED</div><div class="big">🏆</div><h2 id="finalTitle">全35問 おつかれさま！</h2><div id="finalScore" class="scoreline">0 点</div><p id="finalDetails"></p><button class="primary" id="replay" type="button">もう一度挑戦 ↻</button><button class="secondary" id="finalClose" type="button">盤面に戻る</button></div></div>
+<script id="questionData" type="application/json">[{"name":"小学生・やさしい","desc":"まずは身近な言葉から","seconds":25,"words":[["学校",["がっこう"]],["先生",["せんせい"]],["友達",["ともだち"]],["教室",["きょうしつ"]],["家族",["かぞく"]],["公園",["こうえん"]],["天気",["てんき"]],["時間",["じかん"]],["電車",["でんしゃ"]],["花火",["はなび"]],["山道",["やまみち"]],["大雨",["おおあめ"]],["夕日",["ゆうひ"]],["入口",["いりぐち"]],["音楽",["おんがく"]],["読書",["どくしょ"]]]},{"name":"小学生・ふつう","desc":"知っているけど読めるかな？","seconds":24,"words":[["温度",["おんど"]],["旅館",["りょかん"]],["運動",["うんどう"]],["景色",["けしき"]],["農業",["のうぎょう"]],["自由",["じゆう"]],["銀河",["ぎんが"]],["発明",["はつめい"]],["歴史",["れきし"]],["水泳",["すいえい"]],["港町",["みなとまち"]],["機械",["きかい"]],["研究",["けんきゅう"]],["植物",["しょくぶつ"]],["習慣",["しゅうかん"]],["努力",["どりょく"]]]},{"name":"小学生・むずかしい","desc":"少しずつ難しくなるで！","seconds":22,"words":[["経済",["けいざい"]],["複雑",["ふくざつ"]],["承認",["しょうにん"]],["提案",["ていあん"]],["演説",["えんぜつ"]],["貿易",["ぼうえき"]],["誠実",["せいじつ"]],["憲法",["けんぽう"]],["著者",["ちょしゃ"]],["比較",["ひかく"]],["衛星",["えいせい"]],["余裕",["よゆう"]],["危険",["きけん"]],["姿勢",["しせい"]],["効率",["こうりつ"]],["緊張",["きんちょう"]]]},{"name":"中学・高校","desc":"ここから本番！","seconds":20,"words":[["概念",["がいねん"]],["矛盾",["むじゅん"]],["抽象",["ちゅうしょう"]],["謙虚",["けんきょ"]],["衝突",["しょうとつ"]],["葛藤",["かっとう"]],["懸念",["けねん"]],["秩序",["ちつじょ"]],["融通",["ゆうずう"]],["均衡",["きんこう"]],["曖昧",["あいまい"]],["憂鬱",["ゆううつ"]],["信憑",["しんぴょう"]],["脅威",["きょうい"]],["傾向",["けいこう"]],["巧妙",["こうみょう"]]]},{"name":"大人の熟語","desc":"読めたらちょっと自慢できる","seconds":19,"words":[["忖度",["そんたく"]],["脆弱",["ぜいじゃく"]],["俯瞰",["ふかん"]],["語彙",["ごい"]],["矜持",["きょうじ","きんじ"]],["帰趨",["きすう"]],["乖離",["かいり"]],["逸脱",["いつだつ"]],["齟齬",["そご"]],["瑕疵",["かし"]],["慟哭",["どうこく"]],["耽美",["たんび"]],["哀愁",["あいしゅう"]],["困憊",["こんぱい"]],["連綿",["れんめん"]],["畏怖",["いふ"]]]},{"name":"難読漢字","desc":"熟字訓も登場！","seconds":18,"words":[["紫陽花",["あじさい"]],["山茶花",["さざんか"]],["海月",["くらげ"]],["土筆",["つくし"]],["時雨",["しぐれ"]],["五月雨",["さみだれ","さつきあめ"]],["案山子",["かかし"]],["木霊",["こだま"]],["不如帰",["ほととぎす"]],["河豚",["ふぐ"]],["杜若",["かきつばた"]],["蜻蛉",["とんぼ"]],["百舌鳥",["もず"]],["蒲公英",["たんぽぽ"]],["天牛",["かみきりむし"]],["躑躅",["つつじ"]]]},{"name":"超難読","desc":"ここまで来たら漢字博士！","seconds":17,"words":[["魑魅魍魎",["ちみもうりょう"]],["顰蹙",["ひんしゅく"]],["饕餮",["とうてつ"]],["矍鑠",["かくしゃく"]],["膾炙",["かいしゃ"]],["躊躇",["ちゅうちょ"]],["蹂躙",["じゅうりん"]],["忸怩",["じくじ"]],["贔屓",["ひいき"]],["慇懃",["いんぎん"]],["蹉跌",["さてつ"]],["嚆矢",["こうし"]],["斟酌",["しんしゃく"]],["彷徨",["ほうこう"]],["醍醐味",["だいごみ"]],["雲散霧消",["うんさんむしょう"]]]}]</script>
+<script>
+(()=>{'use strict';
+ const $=id=>document.getElementById(id),LEVELS=JSON.parse($('questionData').textContent),COUNT=5,ALL=LEVELS.length*COUNT;
+ const state={phase:'ready',mode:'normal',stage:0,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,usedHint:false,deadline:0,remain:0,total:0,frame:0,after:0,run:0,questions:[],current:null,composing:false,answers:[],correctByLevel:[]};
+ const bestKey=m=>'hashimoto-yomichare-best-v1-'+m;
+ function getBest(){try{return Math.max(0,Number(localStorage.getItem(bestKey(state.mode)))||0)}catch{return 0}}
+ function saveBest(){if(state.score>getBest()){try{localStorage.setItem(bestKey(state.mode),String(state.score))}catch{}return true}return false}
+ const shuffle=a=>{for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+ function norm(text){return String(text).normalize('NFKC').trim().replace(/[\s　・･]/g,'').replace(/[\u30a1-\u30f6]/g,ch=>String.fromCodePoint(ch.codePointAt(0)-96));}
+ const primary=x=>x[1][0];
+ function banner(text,cls=''){const x=$('feedback');x.className='feedback'+(cls?' '+cls:'');x.textContent=text}
+ function render(){
+  $('score').textContent=state.score.toLocaleString('ja-JP');
+  $('correct').textContent=state.correct+' / '+ALL;
+  $('best').textContent=getBest().toLocaleString('ja-JP');
+  $('stageLabel').textContent='LEVEL '+(state.stage+1)+' · '+LEVELS[state.stage].name;
+  $('stageSub').textContent=LEVELS[state.stage].desc;
+  $('qCounter').textContent='第'+(state.index+1)+'問 / '+COUNT;
+  $('word').textContent=state.current?.[0]||'よみチャレ！';
+  $('stageDots').innerHTML=LEVELS.map((l,i)=>'<span class="stage-dot'+(i<state.stage?' past':i===state.stage?' current':'')+'" title="LEVEL '+(i+1)+' · '+l.name+'"></span>').join('');
+  const can=state.phase==='playing';
+  for(const id of ['answer','send','skip','pause'])$(id).disabled=!can;
+  $('hint').disabled=!can||state.usedHint;
+ }
+ function timeUI(sec){const safe=Math.max(0,sec),ratio=state.total?safe/state.total:0;
+  const rounded=Math.ceil(safe);if($('seconds').textContent!==String(rounded))$('seconds').textContent=rounded;
+  $('seconds').classList.toggle('danger',safe<=5);$('timeFill').classList.toggle('danger',safe<=5);
+  $('timeFill').style.transform='scaleX('+Math.max(0,Math.min(1,ratio)).toFixed(4)+')';
+ }
+ function cancelWork(){cancelAnimationFrame(state.frame);clearTimeout(state.after);state.frame=0;state.after=0}
+ function tick(token){
+  if(state.phase!=='playing'||token!==state.run)return;
+  state.remain=Math.max(0,(state.deadline-performance.now())/1000);timeUI(state.remain);
+  if(state.remain<=0){finishQuestion(false,'time');return}
+  state.frame=requestAnimationFrame(()=>tick(token));
+ }
+ function enterQuestion(){
+  cancelWork();state.phase='playing';state.usedHint=false;state.composing=false;state.run++;
+  state.current=state.questions[state.stage][state.index];
+  state.total=LEVELS[state.stage].seconds+(state.mode==='relax'?10:0);
+  state.remain=state.total;state.deadline=performance.now()+state.total*1000;
+  $('answer').value='';$('answer').placeholder='ひらがなで入力';
+  banner('読めたら入力して「回答」を押そう！');render();timeUI(state.remain);
+  requestAnimationFrame(()=>{if(state.phase==='playing')$('answer').focus({preventScroll:true})});
+  state.frame=requestAnimationFrame(()=>tick(state.run));
+ }
+ function finishQuestion(ok,reason){
+  if(state.phase!=='playing')return false;
+  const word=state.current,aliases=word[1],remaining=Math.max(0,(state.deadline-performance.now())/1000);
+  state.remain=remaining;cancelWork();state.phase='feedback';let gain=0;
+  if(ok){state.combo++;state.maxCombo=Math.max(state.maxCombo,state.combo);state.correct++;state.levelCorrect++;
+   const bonus=Math.round(100*remaining/state.total),raw=(105+(state.stage*42)+bonus)*(1+Math.min(5,state.combo-1)*0.15);
+   gain=Math.round(raw*(state.usedHint?0.5:1));state.score+=gain;
+   banner('⭕ 正解！「'+primary(word)+'」  ＋'+gain+'点'+(state.combo>=2?' · '+state.combo+'連続！':''),'correct');
+  }else{state.combo=0;banner(reason==='time'?'⌛ 時間切れ！ 正解は「'+primary(word)+'」':'正解は「'+primary(word)+'」だったで。','notice')}
+  state.answers.push({level:state.stage+1,word:word[0],reading:primary(word),correct:ok,score:gain,reason});
+  render();timeUI(remaining);
+  const finishedToken=state.run;
+  state.after=setTimeout(()=>{if(state.phase==='feedback'&&state.run===finishedToken)advance()},1250);
+  return true;
+ }
+ function advance(){if(state.phase!=='feedback')return;
+  clearTimeout(state.after);state.after=0;
+  state.index++;
+  if(state.index<COUNT){enterQuestion();return}
+  state.phase='between';render();$('answer').blur();
+  const finished=state.stage===LEVELS.length-1;
+  $('levelEmoji').textContent=finished?'🏆':'✨';
+  $('levelTitle').textContent=finished?'最終レベル終了！':'LEVEL '+(state.stage+1)+' クリア！';
+  $('levelDetails').textContent=finished?'全レベルに挑戦したで！ 結果を見よう。':'次は「'+LEVELS[state.stage+1].name+'」にチャレンジ！';
+  $('levelCorrect').textContent=state.levelCorrect+' / '+COUNT;
+  $('levelScore').textContent=state.score.toLocaleString('ja-JP');
+  $('levelNext').textContent=finished?'総合結果を見る ▶':'次のレベルへ ▶';
+  $('levelOverlay').hidden=false;
+ }
+ function showFinal(){state.phase='complete';$('levelOverlay').hidden=true;const record=saveBest();render();
+  $('finalScore').textContent=state.score.toLocaleString('ja-JP')+' 点';
+  $('finalDetails').textContent='全'+ALL+'問中 '+state.correct+'問正解 · 最大'+state.maxCombo+'連続正解'+(record?' · 🏆 自己ベスト更新！':'');
+  $('finalOverlay').hidden=false;
+ }
+ function start(){cancelWork();state.mode=document.querySelector('input[name="mode"]:checked')?.value==='relax'?'relax':'normal';
+  Object.assign(state,{stage:0,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,answers:[],correctByLevel:[],questions:LEVELS.map(l=>shuffle(l.words.slice()).slice(0,COUNT))});
+  $('startOverlay').hidden=true;$('finalOverlay').hidden=true;$('pauseOverlay').hidden=true;$('levelOverlay').hidden=true;enterQuestion();
+ }
+ function submitAnswer(){
+  if(state.phase!=='playing')return;
+  if(state.composing){banner('文字の変換を確定してから「回答」を押してな。','notice');return}
+  // Recheck the deadline on submit to avoid accepting an answer after timeout.
+  if(performance.now()>=state.deadline){finishQuestion(false,'time');return}
+  const value=norm($('answer').value);if(!value){banner('読みを入力してな！','notice');$('answer').focus();return}
+  if(!/^[ぁ-ゖー]+$/.test(value)){banner('ひらがな・カタカナで入力してな！','notice');$('answer').focus();return}
+  if(state.current[1].some(r=>norm(r)===value)){finishQuestion(true,'correct');return}
+  banner('もう一回！ まだ時間はあるで。','wrong');$('answer').select();
+ }
+ function pause(){if(state.phase!=='playing')return;
+  state.remain=Math.max(0,(state.deadline-performance.now())/1000);cancelAnimationFrame(state.frame);
+  if(state.remain<=0){finishQuestion(false,'time');return}
+  state.phase='paused';render();$('pauseOverlay').hidden=false;$('answer').blur();
+ }
+ function resume(){if(state.phase!=='paused')return;
+  $('pauseOverlay').hidden=true;state.phase='playing';state.deadline=performance.now()+state.remain*1000;render();
+  requestAnimationFrame(()=>{if(state.phase==='playing')$('answer').focus({preventScroll:true})});
+  state.frame=requestAnimationFrame(()=>tick(state.run));
+ }
+ $('startGame').addEventListener('click',start);
+ $('answerForm').addEventListener('submit',e=>{e.preventDefault();submitAnswer()});
+ $('answer').addEventListener('compositionstart',()=>state.composing=true);
+ $('answer').addEventListener('compositionend',()=>state.composing=false);
+ $('hint').addEventListener('click',()=>{if(state.phase!=='playing'||state.usedHint)return;state.usedHint=true;banner('ヒント：最初の文字は「'+primary(state.current)[0]+'」！ 正解得点は半分。','notice');render();$('answer').focus()});
+ $('skip').addEventListener('click',()=>finishQuestion(false,'skip'));
+ $('pause').addEventListener('click',pause);$('resume').addEventListener('click',resume);
+ $('levelNext').addEventListener('click',()=>{if(state.phase!=='between')return;if(state.stage===LEVELS.length-1){showFinal();return}state.stage++;state.index=0;state.levelCorrect=0;$('levelOverlay').hidden=true;enterQuestion()});
+ $('replay').addEventListener('click',()=>{const selected=document.querySelector('input[name="mode"]:checked');if(selected)selected.checked=true;start()});
+ $('finalClose').addEventListener('click',()=>$('finalOverlay').hidden=true);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden&&state.phase==='playing')pause()});
+ window.__YOMICHARE_TEST__={get:()=>({phase:state.phase,level:state.stage+1,index:state.index,word:state.current?.[0]||'',readings:state.current?.[1]?.slice()||[],score:state.score,correct:state.correct,combo:state.combo,remains:state.remain,mode:state.mode,answers:state.answers.slice(),totalQuestions:ALL}),start,submit:value=>{$('answer').value=value;submitAnswer()},skip:()=>finishQuestion(false,'skip'),expire:()=>{if(state.phase==='playing'){state.deadline=performance.now()-1;finishQuestion(false,'time')}},advance,continue:()=>$('levelNext').click(),pause,resume};
+ render();timeUI(LEVELS[0].seconds);
+})();
+</script></body></html>

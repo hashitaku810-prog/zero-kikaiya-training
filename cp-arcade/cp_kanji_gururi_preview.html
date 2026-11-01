@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b1526">
 <meta name="description" content="CP 漢字ぐるり。縦横にスルリと動かして、正しい位置に入ったピースがカチッと固定される漢字パズル。">
-<title>CP 漢字ぐるり｜試作 Ver.0.1</title>
+<title>CP 漢字ぐるり｜試作 Ver.0.2</title>
 <style>
 :root{color-scheme:dark;--text:#f4f7fc;--muted:#9aacc7;--gold:#f6d18e;--aqua:#7be4e0;--outline:#334963;--depth:#091324;--line:#34516b;font-family:system-ui,-apple-system,'Noto Sans JP','Hiragino Kaku Gothic ProN','Meiryo',sans-serif}
 *{box-sizing:border-box}
@@ -43,13 +43,13 @@ h1{margin:4px 0 2px;font-size:clamp(31px,8vw,43px);line-height:1.1;font-weight:9
 @keyframes hint-pulse{to{box-shadow:inset 0 0 0 2px #ffdfad}}
 .board{position:relative;aspect-ratio:1;width:100%;overflow:hidden;border:4px solid #4e7183;border-radius:12px;background:#12243b;box-shadow:0 0 0 3px #253d5399,0 11px 31px #0006;touch-action:none;user-select:none;-webkit-user-select:none;isolation:isolate}
 .board::before{content:'';position:absolute;inset:0;background-image:linear-gradient(to right,#ffffff33 1px,transparent 1px),linear-gradient(to bottom,#ffffff33 1px,transparent 1px);background-size:calc(100% / var(--n)) calc(100% / var(--n));pointer-events:none;z-index:2}
-.tile{background-image:var(--tile-image);position:absolute;width:calc(100% / var(--n));height:calc(100% / var(--n));background-size:calc(var(--n)*100%) calc(var(--n)*100%);background-repeat:no-repeat;overflow:hidden;border:1px solid #dce5ed22;will-change:transform;z-index:1}
-.tile.locked{z-index:3;border:1.5px solid #f8d797b8;box-shadow:inset 0 0 0 2px #ffe2a62a,inset 0 0 20px #ffdd8c2c;background-color:#ffdb8644}
+.tile{background-image:var(--tile-image);position:absolute;width:calc(100% / var(--n));height:calc(100% / var(--n));background-size:calc(var(--n)*100%) calc(var(--n)*100%);background-repeat:no-repeat;overflow:hidden;border:1px solid #dce5ed22;z-index:1}
+.tile.moving{will-change:transform}.board.tracking{cursor:grabbing}.tile.locked{z-index:3;border:1.5px solid #f8d797b8;box-shadow:inset 0 0 0 2px #ffe2a62a,inset 0 0 20px #ffdd8c2c;background-color:#ffdb8644}
 .tile .padlock{display:none;position:absolute;bottom:1px;right:2px;font-size:clamp(9px,2.4vw,12px);color:#fff1c3;text-shadow:0 0 4px #473f25,0 0 10px #f9d58f;font-weight:900;line-height:1;pointer-events:none}
 .tile.locked .padlock{display:block}
 .tile.just-locked{animation:lock-flash .6s ease-out}
 @keyframes lock-flash{0%{filter:brightness(2.5);box-shadow:0 0 25px #ffd678,0 0 0 2px #ffdc9e}70%{filter:brightness(1.5)}100%{filter:brightness(1)}}
-.tile.flow-clone{pointer-events:none;z-index:4;border-color:#9ff3e1a8}
+.tile.flow-clone{pointer-events:none;z-index:2;border-color:#9ff3e1a8}
 .board .spark{position:absolute;z-index:7;pointer-events:none;border:2px solid #ffe0a5;border-radius:50%;width:calc(100% / var(--n));height:calc(100% / var(--n));animation:pop .62s ease-out forwards;box-shadow:0 0 20px #ffe2a8}
 @keyframes pop{0%{opacity:1;transform:scale(.3)}100%{opacity:0;transform:scale(1.55)}}
 .short-help{color:#cedee8;font-size:11px;text-align:center;margin:11px 4px 4px;line-height:1.6}
@@ -78,7 +78,7 @@ h1{margin:4px 0 2px;font-size:clamp(31px,8vw,43px);line-height:1.1;font-weight:9
 </head>
 <body>
 <main class="app">
-<header class="heading"><div><div class="eyebrow">CP GAME LAB · ORIGINAL PUZZLE</div><h1>漢字ぐるり<span>KANJI GURURI</span></h1><p class="tagline">スルリと動かす。合ったらカチッ。あとは気楽に。</p></div><div class="version">試作 Ver.0.1</div></header>
+<header class="heading"><div><div class="eyebrow">CP GAME LAB · ORIGINAL PUZZLE</div><h1>漢字ぐるり<span>KANJI GURURI</span></h1><p class="tagline">指にスルスルついてくる。合ったらカチッ。</p></div><div class="version">試作 Ver.0.2</div></header>
 <div class="intro"><div><div class="stage-label" id="stageLabel">第1問 · 漢字は完成までお楽しみ</div><div class="sub">正しい位置のマスだけ自動で固定されます</div></div><div class="sizes" role="group" aria-label="盤面の大きさ"><button class="size-button active" data-size="5" type="button">5×5</button><button class="size-button" data-size="6" type="button">6×6</button><button class="size-button" data-size="7" type="button">7×7</button></div></div>
 <div class="stats"><div class="stat"><small>ロック</small><strong id="locks">0 <em>/25</em></strong></div><div class="stat"><small>スクロール</small><strong id="moves">0</strong></div><div class="stat"><small>連続ロック</small><strong id="combo">0</strong></div></div>
 <div class="progress"><div id="progressFill"></div></div>
@@ -89,11 +89,11 @@ h1{margin:4px 0 2px;font-size:clamp(31px,8vw,43px);line-height:1.1;font-weight:9
     <div class="edge vertical" id="left" aria-label="各行を左へ動かす"></div><div id="board" class="board" style="--n:5" aria-label="スワイプで行・列をスクロールさせる"></div><div class="edge vertical" id="right" aria-label="各行を右へ動かす"></div>
     <div class="arena-cell"></div><div class="edge horizontal" id="down" aria-label="各列を下へ動かす"></div><div class="arena-cell"></div>
   </div>
-  <p class="short-help">盤面を横にスワイプすると行が、縦にスワイプすると列が動くよ。<br>端から出たピースは反対側へ。正しい場所に来たらロック！</p>
+  <p class="short-help">指でなぞるとピースがそのまま動くよ。<br>端から出たピースは反対側へ。正しい場所に来たらロック！</p>
 </section>
 <div id="status" class="status" aria-live="polite" role="status">どの行・列からでもOK。まずはスルリと動かしてみよう。</div>
 <div class="actions"><button id="hintBtn" class="action" type="button">💡 次のヒント</button><button id="restartBtn" class="action" type="button">↶ 同じ配置から</button><button id="nextBtn" class="action important" type="button">🀄 別の漢字</button></div>
-<details class="learning"><summary>遊び方を見る</summary><p>縦または横にスワイプすると、行・列のピースが循環してスクロールします。金色に光ったピースは正解位置なので固定され、次のスクロールではそこを飛び越えて、ほかのピースだけが動きます。気楽に動かすだけでも少しずつ完成します。長くロックが出なければ小さな「おたすけ」が入るので、途中で詰まることはありません。全部ロックすると、完成した漢字と読み方を発表します。</p></details>
+<details class="learning"><summary>遊び方を見る</summary><p>指を滑らせると、行・列のピースが指について動き、離すと近いマスに吸い付きます。金色に光ったピースは正解位置なので固定され、次のスクロールではそこを飛び越えて、ほかのピースだけが動きます。気楽に動かすだけでも少しずつ完成します。長くロックが出なければ小さな「おたすけ」が入るので、途中で詰まることはありません。全部ロックすると、完成した漢字と読み方を発表します。</p></details>
 <footer class="foot">CP 漢字ぐるり · First playable prototype · 広告なし · 時間制限なし</footer>
 </main>
 <div id="winOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="winTitle">
@@ -173,69 +173,112 @@ h1{margin:4px 0 2px;font-size:clamp(31px,8vw,43px);line-height:1.1;font-weight:9
    $('winOverlay').classList.add('hidden');$('stageLabel').textContent=`第${state.stage}問 · 漢字は完成までお楽しみ`;
    edgeControls();render();status('左右・上下にスワイプしてみよう。正しい場所に来るとカチッと固定！');
  }
- function shiftPlan(axis,line,dir){const spots=freePositions(axis,line),k=spots.length;if(k<2)return null;
+ function shiftPlan(axis,line,dir,steps=1){
+   const spots=freePositions(axis,line),k=spots.length;if(k<2)return null;
    const next=state.board.slice(),routes=[];
+   const d=((dir*steps)%k+k)%k;
    for(let j=0;j<k;j++){
-      const src=spots[j],dest=spots[(j+dir+k)%k];
-      next[dest]=state.board[src];routes.push({src,dest,id:state.board[src]});
+     const src=spots[j],dest=spots[(j+d)%k];
+     next[dest]=state.board[src];routes.push({src,dest,id:state.board[src]});
    }
    return {next,routes,axis,dir,spots};
  }
- function animate(plan){
-   if(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches)return sleep(20);
-   const {routes,axis,dir}=plan,rect=boardEl.getBoundingClientRect(),unit=rect.width/state.n,animations=[],clones=[];
-   for(const {src,dest,id} of routes){const el=boardEl.querySelector(`.tile[data-i="${src}"]`);if(!el)continue;
-      const p=pos(src),q=pos(dest),a=axis==='r'?p.c:p.r,b=axis==='r'?q.c:q.r;
-      const wraps=(dir>0&&b<a)||(dir<0&&b>a);
-      let from=0,to=wraps?(dir>0?state.n-a:-1-a)*unit:(b-a)*unit;
-      const frame=axis==='r'?`translateX(${to}px)`:`translateY(${to}px)`;
-      animations.push(el.animate([{transform:'translate(0px,0px)'},{transform:frame}],{duration:250,easing:'cubic-bezier(.17,.82,.26,.99)',fill:'forwards'}).finished.catch(()=>{}));
-      if(wraps){
-        const clone=el.cloneNode(true);clone.classList.add('flow-clone');clone.style.left=(axis==='r'?(dir>0?-1:state.n)*100/state.n:p.c*100/state.n)+'%';
-        clone.style.top=(axis==='c'?(dir>0?-1:state.n)*100/state.n:p.r*100/state.n)+'%';
-        boardEl.appendChild(clone);clones.push(clone);
-        const toDest=axis==='r'?(dir>0?b+1:b-state.n):(dir>0?b+1:b-state.n);
-        const frame2=axis==='r'?`translateX(${toDest*unit}px)`:`translateY(${toDest*unit}px)`;
-        animations.push(clone.animate([{transform:'translate(0px,0px)'},{transform:frame2}],{duration:250,easing:'cubic-bezier(.17,.82,.26,.99)',fill:'forwards'}).finished.catch(()=>{}));
-      }
+ // Move only the selected row/column. All other pieces remain stationary.
+ function newTrack(axis,line){
+   const spots=freePositions(axis,line);if(spots.length<2)return null;
+   const rect=boardEl.getBoundingClientRect();
+   const nodes=spots.map(i=>({i,el:boardEl.querySelector('.tile[data-i="'+i+'"]')}));
+   if(nodes.some(x=>!x.el))return null;
+   boardEl.classList.add('tracking');
+   nodes.forEach(({el})=>el.classList.add('moving'));
+   return {axis,line,spots,nodes,clones:new Map(),unit:rect.width/state.n};
+ }
+ function visualTrack(track,amount,dir){
+   if(!track)return;
+   const {axis,spots,nodes,clones,unit}=track,k=spots.length,n=state.n;
+   const whole=Math.floor(Math.max(0,amount)),frac=Math.max(0,amount-whole);
+   const active=new Set();
+   for(let j=0;j<k;j++){
+     const {i,el}=nodes[j],current=((j+dir*whole)%k+k)%k,next=((current+dir)%k+k)%k;
+     const at=axis==='r'?pos(spots[current]).c:pos(spots[current]).r;
+     let to=axis==='r'?pos(spots[next]).c:pos(spots[next]).r;
+     const base=axis==='r'?pos(i).c:pos(i).r;
+     const wrapping=dir>0?next<current:next>current;
+     if(wrapping)to+=dir*n;
+     const distance=(at+(to-at)*frac-base)*unit;
+     el.style.transform=axis==='r'?'translate3d('+distance.toFixed(2)+'px,0,0)':'translate3d(0,'+distance.toFixed(2)+'px,0)';
+     if(wrapping && frac>0.001){
+       let ghost=clones.get(j);
+       if(!ghost){ghost=el.cloneNode(true);ghost.classList.add('flow-clone');ghost.classList.remove('locked','just-locked');boardEl.appendChild(ghost);clones.set(j,ghost)}
+       const ghostDistance=distance-dir*n*unit;
+       ghost.style.transform=axis==='r'?'translate3d('+ghostDistance.toFixed(2)+'px,0,0)':'translate3d(0,'+ghostDistance.toFixed(2)+'px,0)';
+       active.add(j);
+     }
    }
-   return Promise.race([Promise.all(animations),sleep(360)]).finally(()=>clones.forEach(c=>c.remove()));
+   for(const [j,clone] of clones){if(!active.has(j)){clone.remove();clones.delete(j)}}
+ }
+ function clearTrack(track){
+   if(!track)return;
+   for(const {el} of track.nodes){el.style.removeProperty('transform');el.classList.remove('moving')}
+   for(const clone of track.clones.values())clone.remove();
+   track.clones.clear();boardEl.classList.remove('tracking');
+ }
+ function snapTrack(track,from,to,dir,ms){
+   return new Promise(resolve=>{
+     if(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || ms<=0){visualTrack(track,to,dir);resolve();return}
+     let began=null;
+     const step=now=>{
+       if(began===null)began=now;
+       const t=Math.min(1,(now-began)/ms),ease=1-Math.pow(1-t,3);
+       visualTrack(track,from+(to-from)*ease,dir);
+       if(t<1)requestAnimationFrame(step);else resolve();
+     };
+     requestAnimationFrame(step);
+   });
  }
  function noMovableLine(){for(let k=0;k<state.n;k++)if(freePositions('r',k).length>=2||freePositions('c',k).length>=2)return false;return true}
  function lockArrivals(){const newly=[];
    for(let i=0;i<state.board.length;i++)if(!state.locked[i]&&state.board[i]===i){state.locked[i]=true;newly.push(i)}
    return newly;
  }
- async function shift(axis,line,dir,steps=1){
-   if(state.busy||state.finished)return;
-   state.busy=true;render();state.moves++;let total=0;
-   for(let k=0;k<steps;k++){
-     const plan=shiftPlan(axis,line,dir);if(!plan)break;
-     await animate(plan);state.board=plan.next;const fresh=lockArrivals();total+=fresh.length;render(fresh);
-     if(countLocked()===state.n*state.n)break;
-     if(k<steps-1)await sleep(75);
+ async function shift(axis,line,dir,steps=1,dragTrack=null,dragProgress=0){
+   if(state.busy||state.finished)return false;
+   const spots=freePositions(axis,line);
+   if(spots.length<2){if(dragTrack)clearTrack(dragTrack);return false}
+   const count=Math.min(spots.length-1,Math.max(1,steps|0));
+   const track=dragTrack||newTrack(axis,line);
+   if(!track)return false;
+   state.busy=true;
+   try{
+     await snapTrack(track,dragTrack?dragProgress:0,count,dir,dragTrack?78:115);
+   }finally{clearTrack(track)}
+   const plan=shiftPlan(axis,line,dir,count);
+   if(!plan){state.busy=false;return false}
+   state.board=plan.next;state.moves++;
+   let fresh=lockArrivals(),assisted=false;
+   if(fresh.length){state.combo++;state.stagnant=0}
+   else{state.combo=0;state.stagnant++}
+   if(countLocked()<state.n*state.n&&(state.stagnant>=7||noMovableLine())){
+     const helper=luckyLock(false);
+     fresh=fresh.concat(helper);assisted=helper.length>0;state.stagnant=0;
    }
-   if(total){state.combo++;state.stagnant=0;status('カチッ！ '+total+'マスが正しい場所にロック！ ✨',true);try{navigator.vibrate?.(total>=2?[12,40,20]:12)}catch{}}
-   else{state.combo=0;state.stagnant++;status('スルリ！ まだ合わないマスも、次のスクロールへ。')}
-   // A gentle insurance against endgame deadlocks, not an alternative to swiping.
-   if((state.stagnant>=7||noMovableLine())&&countLocked()<state.n*state.n){await luckyLock();state.stagnant=0}
-   state.busy=false;render();
-   if(countLocked()===state.n*state.n){state.finished=true;render();finish()}
+   state.busy=false;
+   if(countLocked()===state.n*state.n)state.finished=true;
+   render(fresh);
+   if(assisted)status('✨ おたすけ磁力！ 1マスだけ正しい場所に近づけました。',true);
+   else if(fresh.length){status('カチッ！ '+fresh.length+'マスが正しい場所にロック！ ✨',true);try{navigator.vibrate?.(fresh.length>=2?[12,30,14]:12)}catch{}}
+   else status('スルリ！ 指の動きで移動したよ。次も動かしてみよう。');
+   if(state.finished)finish();
+   return true;
  }
- async function luckyLock(){
-   const indices=allCells(state.n).filter(i=>!state.locked[i]);if(!indices.length)return;
-   // Prefer a random free target, then swap in its correct piece. Both ids are preserved.
-   const home=indices[Math.floor(Math.random()*indices.length)],from=state.board.indexOf(home);
-   if(from<0||state.locked[from])return;
-   if(from!==home){
-     const el=boardEl.querySelector(`.tile[data-i="${from}"]`),other=boardEl.querySelector(`.tile[data-i="${home}"]`),a=pos(from),b=pos(home),unit=boardEl.getBoundingClientRect().width/state.n;
-     if(el&&other&&!window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches){
-       const dx=(b.c-a.c)*unit,dy=(b.r-a.r)*unit;
-       await Promise.race([Promise.all([el.animate([{transform:'translate(0)'},{transform:`translate(${dx}px,${dy}px)`}],{duration:340,easing:'ease-in-out',fill:'forwards'}).finished.catch(()=>{}),other.animate([{transform:'translate(0)'},{transform:`translate(${-dx}px,${-dy}px)`}],{duration:340,easing:'ease-in-out',fill:'forwards'}).finished.catch(()=>{})]),sleep(450)]);
-     }
-     [state.board[home],state.board[from]]=[state.board[from],state.board[home]];
-   }
-   const fresh=lockArrivals();render(fresh);status('✨ おたすけ磁力！ 長く揃わなかったので、1マスを正しい場所へ。',true);
+ function luckyLock(paint=true){
+   const candidates=allCells(state.n).filter(i=>!state.locked[i]);if(!candidates.length)return [];
+   const home=candidates[Math.floor(Math.random()*candidates.length)],from=state.board.indexOf(home);
+   if(from<0||state.locked[from])return [];
+   if(from!==home)[state.board[home],state.board[from]]=[state.board[from],state.board[home]];
+   const fresh=lockArrivals();
+   if(paint){render(fresh);status('✨ おたすけ磁力！ 長く揃わなかったので、1マスを正しい場所へ。',true)}
+   return fresh;
  }
  function bestHint(){
    let result=null;for(const axis of ['r','c'])for(let line=0;line<state.n;line++)for(const dir of [-1,1]){
@@ -255,17 +298,51 @@ h1{margin:4px 0 2px;font-size:clamp(31px,8vw,43px);line-height:1.1;font-weight:9
    $('winNote').textContent=`${state.n}×${state.n}・${state.moves}回のスクロールで完成！　読みは一例です。`;
    $('winOverlay').classList.remove('hidden');status('🎉 完成！ 漢字は「'+kanji+'」、読みは「'+reading+'」！',true)
  }
- function attachSwipe(){let pointer=null;
-  boardEl.addEventListener('pointerdown',e=>{if(state.busy||state.finished)return;const rect=boardEl.getBoundingClientRect();pointer={id:e.pointerId,x:e.clientX,y:e.clientY,localX:e.clientX-rect.left,localY:e.clientY-rect.top};if(boardEl.setPointerCapture)boardEl.setPointerCapture(e.pointerId)});
-  boardEl.addEventListener('pointerup',e=>{if(!pointer||pointer.id!==e.pointerId)return;const p=pointer;pointer=null;const dx=e.clientX-p.x,dy=e.clientY-p.y;
-    if(Math.max(Math.abs(dx),Math.abs(dy))<15)return;
-    const rect=boardEl.getBoundingClientRect(),unit=rect.width/state.n;
-    const axis=Math.abs(dx)>Math.abs(dy)?'r':'c',dir=(axis==='r'?dx:dy)>0?1:-1;
-    const line=Math.min(state.n-1,Math.max(0,Math.floor((axis==='r'?p.localY:p.localX)/unit)));
-    const steps=Math.min(3,Math.max(1,Math.round(Math.abs(axis==='r'?dx:dy)/unit)));
-    shift(axis,line,dir,steps);
-  });
-  boardEl.addEventListener('pointercancel',()=>{pointer=null});
+ function attachSwipe(){
+   let pointer=null;
+   boardEl.addEventListener('pointerdown',e=>{
+     if(state.busy||state.finished||e.button>0)return;
+     const rect=boardEl.getBoundingClientRect();
+     pointer={id:e.pointerId,x:e.clientX,y:e.clientY,localX:e.clientX-rect.left,localY:e.clientY-rect.top,axis:null,dir:1,delta:0,progress:0,track:null,framePending:false};
+     try{boardEl.setPointerCapture?.(e.pointerId)}catch{}
+   });
+   boardEl.addEventListener('pointermove',e=>{
+     const p=pointer;if(!p||p.id!==e.pointerId)return;
+     const dx=e.clientX-p.x,dy=e.clientY-p.y;
+     if(p.axis===null){
+       if(Math.hypot(dx,dy)<5)return;
+       p.axis=Math.abs(dx)>=Math.abs(dy)?'r':'c';
+       const unit=boardEl.clientWidth/state.n;
+       const line=Math.max(0,Math.min(state.n-1,Math.floor((p.axis==='r'?p.localY:p.localX)/unit)));
+       p.track=newTrack(p.axis,line);
+       if(!p.track){p.axis='none';return}
+     }
+     if(!p.track)return;
+     p.delta=p.axis==='r'?dx:dy;
+     p.dir=p.delta>=0?1:-1;
+     p.progress=Math.min(p.track.spots.length-1,Math.abs(p.delta)/p.track.unit);
+     if(!p.framePending){
+       p.framePending=true;
+       requestAnimationFrame(()=>{
+         p.framePending=false;
+         if(pointer!==p||!p.track)return;
+         visualTrack(p.track,p.progress,p.dir);
+       });
+     }
+     if(e.cancelable)e.preventDefault();
+   });
+   boardEl.addEventListener('pointerup',e=>{
+     const p=pointer;if(!p||p.id!==e.pointerId)return;
+     pointer=null;
+     if(!p.track)return;
+     if(Math.abs(p.delta)<12){clearTrack(p.track);return}
+     const count=Math.min(p.track.spots.length-1,Math.max(1,Math.round(p.progress)));
+     shift(p.axis,p.track.line,p.dir,count,p.track,p.progress).catch(err=>{
+       console.error('スクロール処理エラー',err);clearTrack(p.track);state.busy=false;render();status('もう一度スワイプしてみてね。');
+     });
+   });
+   boardEl.addEventListener('pointercancel',e=>{if(pointer?.id===e.pointerId){clearTrack(pointer.track);pointer=null}});
+   window.addEventListener('blur',()=>{if(pointer){clearTrack(pointer.track);pointer=null}});
  }
  function setup(){document.querySelectorAll('.size-button').forEach(b=>b.addEventListener('click',()=>{const n=Number(b.dataset.size);if(state.busy)return;if(n===state.n)return;state.stage++;begin(n,state.wordIndex)}));
    $('restartBtn').addEventListener('click',()=>{if(state.busy)return;begin(state.n,state.wordIndex,true)});

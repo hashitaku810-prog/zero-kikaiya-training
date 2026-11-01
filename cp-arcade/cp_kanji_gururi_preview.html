@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1526">
+<meta name="description" content="CP 漢字ぐるり。縦横にスルリと動かして、正しい位置に入ったピースがカチッと固定される漢字パズル。">
+<title>CP 漢字ぐるり｜試作 Ver.0.1</title>
+<style>
+:root{color-scheme:dark;--text:#f4f7fc;--muted:#9aacc7;--gold:#f6d18e;--aqua:#7be4e0;--outline:#334963;--depth:#091324;--line:#34516b;font-family:system-ui,-apple-system,'Noto Sans JP','Hiragino Kaku Gothic ProN','Meiryo',sans-serif}
+*{box-sizing:border-box}
+html{background:#0b1220}
+body{margin:0;min-height:100dvh;color:var(--text);background:radial-gradient(ellipse 76% 35% at 12% 0%,#2c4a65a6,transparent),radial-gradient(ellipse 54% 27% at 98% 36%,#60435c3e,transparent),linear-gradient(150deg,#111f34,#091221 79%);-webkit-tap-highlight-color:transparent}
+button,select{font:inherit}button{cursor:pointer;color:inherit}button:disabled{opacity:.28;cursor:default}
+button:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.app{max-width:620px;margin:0 auto;padding:16px 13px max(35px,env(safe-area-inset-bottom,22px))}
+.heading{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin:5px 1px 13px}
+.eyebrow{font-size:10px;color:var(--aqua);font-weight:800;letter-spacing:.15em}
+h1{margin:4px 0 2px;font-size:clamp(31px,8vw,43px);line-height:1.1;font-weight:950;letter-spacing:-.06em}h1 span{font-size:.48em;color:var(--gold);font-weight:850;letter-spacing:0;margin-left:8px;white-space:nowrap}
+.tagline{color:#c0d1e5;font-size:12px;margin:7px 0 0;line-height:1.55}
+.version{background:#20364a;border:1px solid #516d84;border-radius:99px;white-space:nowrap;padding:7px 9px;font-size:10px;font-weight:800;color:#d7e9ee}
+.intro{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:4px 1px 13px}
+.intro .stage-label{font-weight:900;color:#e9d6a8;font-size:12px}.intro .sub{font-size:11px;color:var(--muted);margin-top:3px}
+.sizes{display:flex;gap:4px;background:#152a3e;padding:4px;border-radius:11px;border:1px solid #304e62}
+.size-button{font-size:12px;font-weight:800;min-width:50px;min-height:37px;background:transparent;border:0;border-radius:8px;color:#afc3d2}
+.size-button.active{background:#83d9ce;color:#10323d;box-shadow:0 1px 10px #68c9c64a}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:0 1px 9px}
+.stat{background:#162c43;border:1px solid #37536d;border-radius:13px;padding:10px 8px 9px;text-align:center}
+.stat small{font-size:10px;display:block;color:#a6c2d6;font-weight:700}.stat strong{display:block;font-size:23px;font-weight:950;margin-top:2px;line-height:1.22;font-variant-numeric:tabular-nums}.stat em{color:#a0b5c3;font-size:11px;font-style:normal}
+.progress{height:7px;border-radius:99px;background:#253a51;overflow:hidden;margin:0 2px 13px}
+.progress>div{height:100%;width:0;background:linear-gradient(90deg,#67c7c7,#ffdc99);border-radius:99px;transition:width .25s}
+.game-card{background:#13263cba;border:1px solid #38546b;border-radius:18px;padding:13px 9px 13px;box-shadow:0 18px 46px #0004}
+.board-label{font-size:11px;color:#c8d7e9;font-weight:800;text-align:center;margin:0 0 8px;display:flex;align-items:center;justify-content:center;gap:5px}
+.board-label .lock-example{display:inline-flex;background:#f8d593;color:#34404a;padding:2px 7px;border-radius:99px;font-size:9px;vertical-align:middle}
+.arena{--n:5;--arrow:34px;width:min(100%,548px);margin:0 auto;display:grid;grid-template-columns:var(--arrow) minmax(0,1fr) var(--arrow);grid-template-rows:27px auto 27px;align-items:stretch;touch-action:pan-y}
+.arena-cell{min-width:0;min-height:0}
+.edge{display:grid;min-height:0;min-width:0}
+.edge.horizontal{grid-template-columns:repeat(var(--n),minmax(0,1fr))}
+.edge.vertical{grid-template-rows:repeat(var(--n),minmax(0,1fr))}
+.edge button{width:100%;height:100%;display:grid;place-items:center;background:transparent;border:0;padding:0;color:#b0e5e6;font-size:clamp(13px,3.5vw,19px);font-weight:900;transition:color .16s,background .16s}
+.edge button:active{background:#3b6b7973;color:white;border-radius:8px}
+.edge button.selected-hint{background:#f0ca8655;color:#ffe7ad;border-radius:7px;animation:hint-pulse 1s infinite alternate}
+@keyframes hint-pulse{to{box-shadow:inset 0 0 0 2px #ffdfad}}
+.board{position:relative;aspect-ratio:1;width:100%;overflow:hidden;border:4px solid #4e7183;border-radius:12px;background:#12243b;box-shadow:0 0 0 3px #253d5399,0 11px 31px #0006;touch-action:none;user-select:none;-webkit-user-select:none;isolation:isolate}
+.board::before{content:'';position:absolute;inset:0;background-image:linear-gradient(to right,#ffffff33 1px,transparent 1px),linear-gradient(to bottom,#ffffff33 1px,transparent 1px);background-size:calc(100% / var(--n)) calc(100% / var(--n));pointer-events:none;z-index:2}
+.tile{background-image:var(--tile-image);position:absolute;width:calc(100% / var(--n));height:calc(100% / var(--n));background-size:calc(var(--n)*100%) calc(var(--n)*100%);background-repeat:no-repeat;overflow:hidden;border:1px solid #dce5ed22;will-change:transform;z-index:1}
+.tile.locked{z-index:3;border:1.5px solid #f8d797b8;box-shadow:inset 0 0 0 2px #ffe2a62a,inset 0 0 20px #ffdd8c2c;background-color:#ffdb8644}
+.tile .padlock{display:none;position:absolute;bottom:1px;right:2px;font-size:clamp(9px,2.4vw,12px);color:#fff1c3;text-shadow:0 0 4px #473f25,0 0 10px #f9d58f;font-weight:900;line-height:1;pointer-events:none}
+.tile.locked .padlock{display:block}
+.tile.just-locked{animation:lock-flash .6s ease-out}
+@keyframes lock-flash{0%{filter:brightness(2.5);box-shadow:0 0 25px #ffd678,0 0 0 2px #ffdc9e}70%{filter:brightness(1.5)}100%{filter:brightness(1)}}
+.tile.flow-clone{pointer-events:none;z-index:4;border-color:#9ff3e1a8}
+.board .spark{position:absolute;z-index:7;pointer-events:none;border:2px solid #ffe0a5;border-radius:50%;width:calc(100% / var(--n));height:calc(100% / var(--n));animation:pop .62s ease-out forwards;box-shadow:0 0 20px #ffe2a8}
+@keyframes pop{0%{opacity:1;transform:scale(.3)}100%{opacity:0;transform:scale(1.55)}}
+.short-help{color:#cedee8;font-size:11px;text-align:center;margin:11px 4px 4px;line-height:1.6}
+.status{min-height:46px;margin:11px 1px 10px;border:1px solid #43667b;background:#1b3448;border-radius:12px;padding:9px 10px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;line-height:1.5;font-weight:700;color:#d7eff0}
+.status.celebrate{border-color:#daa768;background:#423928;color:#ffebbd}
+.actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+.action{min-height:41px;padding:10px 11px;border:1px solid #45677b;background:#203b50;border-radius:11px;font-size:11px;font-weight:850}
+.action.important{background:linear-gradient(130deg,#a5e9df,#69b8d5);border:0;color:#183440}
+.action:active{transform:scale(.98)}
+.learning{margin:14px 1px 0;padding:12px;background:#102638a3;border:1px solid #31536b;border-radius:13px}
+.learning summary{cursor:pointer;font-size:12px;font-weight:900;color:#d8e8f3}.learning p{margin:10px 0 0;font-size:11px;line-height:1.95;color:#bdd0e0}
+.foot{font-size:10px;text-align:center;color:#718ca1;line-height:1.8;margin:16px 0 0}
+.overlay{position:fixed;z-index:30;inset:0;display:grid;place-items:center;background:#051021e8;backdrop-filter:blur(8px);padding:20px}
+.overlay.hidden{display:none}
+.modal{width:min(100%,405px);text-align:center;background:linear-gradient(160deg,#25465b,#142539);border:1px solid #83acb5;border-radius:24px;padding:22px 19px;box-shadow:0 22px 65px #0009}
+.modal .label{font-size:12px;color:#eed2a4;font-weight:900;letter-spacing:.12em}
+.winning-art{width:min(60vw,238px);aspect-ratio:1;border-radius:15px;margin:14px auto 0;background-size:cover;box-shadow:0 0 24px #e0b58160;overflow:hidden}
+.win-kanji{font-size:80px;line-height:1.14;font-weight:900;letter-spacing:.1em;margin:6px 0 0;color:#ffe6b1;text-shadow:0 0 18px #dcb78280}
+.win-reading{font-size:21px;font-weight:900;color:#cef3ef;margin:0 0 13px}
+.win-note{font-size:12px;color:#d6e1e8;line-height:1.8;margin:5px 0 17px}
+.modal .action{width:100%;font-size:14px;min-height:48px}
+@media(max-width:359px){.app{padding-left:7px;padding-right:7px}.arena{--arrow:28px}.game-card{padding:10px 5px}.size-button{min-width:43px}.action{padding:9px 8px}.tagline{font-size:11px}}
+@media(min-width:580px){.arena{--arrow:43px}.edge button{font-size:21px}.app{padding-top:24px}.game-card{padding:18px 13px}}
+@media(prefers-reduced-motion:reduce){.tile,.spark,*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="heading"><div><div class="eyebrow">CP GAME LAB · ORIGINAL PUZZLE</div><h1>漢字ぐるり<span>KANJI GURURI</span></h1><p class="tagline">スルリと動かす。合ったらカチッ。あとは気楽に。</p></div><div class="version">試作 Ver.0.1</div></header>
+<div class="intro"><div><div class="stage-label" id="stageLabel">第1問 · 漢字は完成までお楽しみ</div><div class="sub">正しい位置のマスだけ自動で固定されます</div></div><div class="sizes" role="group" aria-label="盤面の大きさ"><button class="size-button active" data-size="5" type="button">5×5</button><button class="size-button" data-size="6" type="button">6×6</button><button class="size-button" data-size="7" type="button">7×7</button></div></div>
+<div class="stats"><div class="stat"><small>ロック</small><strong id="locks">0 <em>/25</em></strong></div><div class="stat"><small>スクロール</small><strong id="moves">0</strong></div><div class="stat"><small>連続ロック</small><strong id="combo">0</strong></div></div>
+<div class="progress"><div id="progressFill"></div></div>
+<section class="game-card" aria-label="漢字パズルの盤面">
+  <p class="board-label">🔒 金色のマスは固定<span class="lock-example">正解！</span></p>
+  <div id="arena" class="arena" style="--n:5">
+    <div class="arena-cell"></div><div class="edge horizontal" id="up" aria-label="各列を上へ動かす"></div><div class="arena-cell"></div>
+    <div class="edge vertical" id="left" aria-label="各行を左へ動かす"></div><div id="board" class="board" style="--n:5" aria-label="スワイプで行・列をスクロールさせる"></div><div class="edge vertical" id="right" aria-label="各行を右へ動かす"></div>
+    <div class="arena-cell"></div><div class="edge horizontal" id="down" aria-label="各列を下へ動かす"></div><div class="arena-cell"></div>
+  </div>
+  <p class="short-help">盤面を横にスワイプすると行が、縦にスワイプすると列が動くよ。<br>端から出たピースは反対側へ。正しい場所に来たらロック！</p>
+</section>
+<div id="status" class="status" aria-live="polite" role="status">どの行・列からでもOK。まずはスルリと動かしてみよう。</div>
+<div class="actions"><button id="hintBtn" class="action" type="button">💡 次のヒント</button><button id="restartBtn" class="action" type="button">↶ 同じ配置から</button><button id="nextBtn" class="action important" type="button">🀄 別の漢字</button></div>
+<details class="learning"><summary>遊び方を見る</summary><p>縦または横にスワイプすると、行・列のピースが循環してスクロールします。金色に光ったピースは正解位置なので固定され、次のスクロールではそこを飛び越えて、ほかのピースだけが動きます。気楽に動かすだけでも少しずつ完成します。長くロックが出なければ小さな「おたすけ」が入るので、途中で詰まることはありません。全部ロックすると、完成した漢字と読み方を発表します。</p></details>
+<footer class="foot">CP 漢字ぐるり · First playable prototype · 広告なし · 時間制限なし</footer>
+</main>
+<div id="winOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+ <div class="modal"><div class="label">🎉 すべてのマスがそろった！</div><div class="winning-art" id="winArt"></div><h2 id="winTitle" class="win-kanji">夢</h2><p id="winReading" class="win-reading">ゆめ</p><p id="winNote" class="win-note">気持ちよく完成！</p><button class="action important" id="winNext" type="button">次の漢字で遊ぶ</button><button class="action" id="winClose" type="button">完成した盤面を見る</button></div>
+</div>
+<script>
+(()=>{'use strict';
+ const $=id=>document.getElementById(id);
+ const WORDS=[
+  ['夢','ゆめ'],['花','はな'],['海','うみ'],['空','そら'],['森','もり'],['星','ほし'],['光','ひかり'],['風','かぜ'],['雪','ゆき'],['虹','にじ'],['月','つき'],['雲','くも'],['春','はる'],['夏','なつ'],['秋','あき'],['冬','ふゆ'],['朝','あさ'],['夜','よる'],['心','こころ'],['愛','あい'],['旅','たび'],['音','おと'],['道','みち'],['桜','さくら'],['泉','いずみ'],['波','なみ'],['山','やま'],['鳥','とり'],['雨','あめ'],['炎','ほのお']
+ ];
+ const THEMES=[['#133f56','#1b2a45','#ffe7b7','#8ee6e0'],['#3c2b4b','#192b41','#ffe4d1','#f2ba97'],['#143f44','#17334c','#faf4ca','#80c6e6'],['#3d334a','#1b2743','#fff0c1','#f2aabb'],['#23465a','#302f53','#fff0bf','#82debf']];
+ const boardEl=$('board');let state={n:5,wordIndex:0,stage:1,board:[],locked:[],moves:0,combo:0,stagnant:0,busy:false,finished:false,art:'',initial:[],lastLocks:[],messageTimer:null};
+ const allCells=n=>Array.from({length:n*n},(_,i)=>i);
+ const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+ const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+ const pos=i=>({r:Math.floor(i/state.n),c:i%state.n});
+ const index=(r,c)=>r*state.n+c;
+ const countLocked=()=>state.locked.filter(Boolean).length;
+ function status(message,celebrate=false){const el=$('status');el.textContent=message;el.classList.toggle('celebrate',celebrate)}
+ function shadeImage(char,theme){
+   const cvs=document.createElement('canvas'),N=900;cvs.width=cvs.height=N;
+   const g=cvs.getContext('2d');if(!g)return '';
+   const grd=g.createLinearGradient(25,25,900,900);grd.addColorStop(0,theme[0]);grd.addColorStop(1,theme[1]);g.fillStyle=grd;g.fillRect(0,0,N,N);
+   const bloom=g.createRadialGradient(340,295,40,450,420,510);bloom.addColorStop(0,'#ffffff14');bloom.addColorStop(1,'#ffffff00');g.fillStyle=bloom;g.fillRect(0,0,N,N);
+   let seed=char.codePointAt(0)>>>0;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
+   for(let i=0;i<80;i++){const x=random()*N,y=random()*N,r=3+random()*46;g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fillStyle=i%5===0?'#ffffff12':'#ffffff05';g.fill()}
+   g.strokeStyle=theme[3]+'55';g.lineWidth=4;g.beginPath();g.arc(460,445,360,0,Math.PI*2);g.stroke();g.beginPath();g.arc(440,470,302,0,Math.PI*2);g.stroke();
+   for(let i=0;i<15;i++){const y=90+i*49;g.beginPath();g.moveTo(15,y+Math.sin(i*1.5)*15);g.bezierCurveTo(220,y+25,620,y-31,895,y+Math.cos(i)*16);g.strokeStyle=i%4===0?theme[3]+'28':'#ffffff0a';g.lineWidth=i%4===0?3:1;g.stroke()}
+   const font='900 660px "Noto Serif CJK JP","Noto Sans CJK JP","Yu Mincho","Hiragino Mincho ProN","Noto Sans JP",serif';g.font=font;g.textAlign='center';g.textBaseline='middle';
+   g.lineJoin='round';g.shadowColor=theme[3]+'66';g.shadowBlur=40;g.lineWidth=26;g.strokeStyle='#011b2a72';g.strokeText(char,450,466);
+   g.shadowBlur=0;g.fillStyle=theme[2];g.fillText(char,450,466);
+   g.fillStyle='#ffffff1a';g.fillRect(21,21,8,858);g.fillRect(871,21,8,858);
+   return cvs.toDataURL('image/png');
+ }
+ function tile(id,loc,locked,flash=false){
+  const el=document.createElement('div');el.className='tile'+(locked?' locked':'')+(flash?' just-locked':'');el.dataset.i=String(loc);el.dataset.id=String(id);
+  const n=state.n,rr=Math.floor(id/n),cc=id%n,where=pos(loc);
+  el.style.left=(where.c/n*100)+'%';el.style.top=(where.r/n*100)+'%';
+  el.style.setProperty('--n',String(n));el.style.backgroundPosition=`${(cc/(n-1)*100).toFixed(4)}% ${(rr/(n-1)*100).toFixed(4)}%`;
+  el.innerHTML='<span class="padlock">◆</span>';
+  return el;
+ }
+ function render(flash=[]){
+   const n=state.n;boardEl.innerHTML='';boardEl.style.setProperty('--tile-image',`url("${state.art}")`);boardEl.style.setProperty('--n',n);$('arena').style.setProperty('--n',n);
+   const f=new Set(flash);for(let i=0;i<state.board.length;i++)boardEl.appendChild(tile(state.board[i],i,state.locked[i],f.has(i)));
+   const fixed=countLocked();$('locks').innerHTML=fixed+' <em>/ '+(n*n)+'</em>';$('moves').textContent=state.moves;$('combo').textContent=state.combo;
+   $('progressFill').style.width=(100*fixed/(n*n)).toFixed(1)+'%';
+   for(const key of ['up','down','left','right']){const rail=$(key);for(const button of rail.querySelectorAll('button')){
+      const ax=button.dataset.axis,row=Number(button.dataset.line),free=freePositions(ax,row);button.disabled=state.busy||state.finished||free.length<2;
+   }}
+   for(const el of document.querySelectorAll('.size-button')){el.classList.toggle('active',Number(el.dataset.size)===n)}
+   $('hintBtn').disabled=state.busy||state.finished;
+   if(flash.length)requestAnimationFrame(()=>{for(const i of flash){const {r,c}=pos(i),v=document.createElement('div');v.className='spark';v.style.left=(c/n*100)+'%';v.style.top=(r/n*100)+'%';boardEl.appendChild(v);setTimeout(()=>v.remove(),650)}});
+ }
+ function freePositions(axis,line){const arr=[];for(let k=0;k<state.n;k++){const i=axis==='r'?index(line,k):index(k,line);if(!state.locked[i])arr.push(i)}return arr}
+ function edgeControls(){
+   const spec=[['up','c',-1,'↑'],['down','c',1,'↓'],['left','r',-1,'←'],['right','r',1,'→']];
+   for(const [name,axis,dir,arrow] of spec){const el=$(name);el.innerHTML='';for(let i=0;i<state.n;i++){
+      const b=document.createElement('button');b.type='button';b.textContent=arrow;b.setAttribute('aria-label',(i+1)+(axis==='r'?'行目':'列目')+'を'+({'↑':'上','↓':'下','←':'左','→':'右'}[arrow])+'へ');
+      b.dataset.axis=axis;b.dataset.line=String(i);b.dataset.dir=String(dir);b.addEventListener('click',()=>shift(axis,i,dir,1));el.appendChild(b)
+   }}
+ }
+ function initialBoard(){const ids=allCells(state.n);let arrangement=shuffle(ids.slice());for(let j=0;j<150;j++){
+   const count=arrangement.filter((x,i)=>x===i).length;
+   if(count<=Math.max(2,Math.floor(state.n/2)))break;
+   arrangement=shuffle(ids.slice())
+ }return arrangement}
+ function begin(n=state.n,indexWord=null,replay=false){
+   state.n=n;
+   if(indexWord!==null)state.wordIndex=indexWord;
+   else if(!replay){let next=state.wordIndex;for(let i=0;i<20&&next===state.wordIndex;i++)next=Math.floor(Math.random()*WORDS.length);state.wordIndex=next}
+   state.busy=false;state.finished=false;state.moves=0;state.combo=0;state.stagnant=0;state.lastLocks=[];
+   const word=WORDS[state.wordIndex];state.art=shadeImage(word[0],THEMES[state.wordIndex%THEMES.length]);
+   state.board=replay?state.initial.slice():initialBoard();if(!replay)state.initial=state.board.slice();
+   state.locked=state.board.map((x,i)=>x===i);
+   $('winOverlay').classList.add('hidden');$('stageLabel').textContent=`第${state.stage}問 · 漢字は完成までお楽しみ`;
+   edgeControls();render();status('左右・上下にスワイプしてみよう。正しい場所に来るとカチッと固定！');
+ }
+ function shiftPlan(axis,line,dir){const spots=freePositions(axis,line),k=spots.length;if(k<2)return null;
+   const next=state.board.slice(),routes=[];
+   for(let j=0;j<k;j++){
+      const src=spots[j],dest=spots[(j+dir+k)%k];
+      next[dest]=state.board[src];routes.push({src,dest,id:state.board[src]});
+   }
+   return {next,routes,axis,dir,spots};
+ }
+ function animate(plan){
+   if(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches)return sleep(20);
+   const {routes,axis,dir}=plan,rect=boardEl.getBoundingClientRect(),unit=rect.width/state.n,animations=[],clones=[];
+   for(const {src,dest,id} of routes){const el=boardEl.querySelector(`.tile[data-i="${src}"]`);if(!el)continue;
+      const p=pos(src),q=pos(dest),a=axis==='r'?p.c:p.r,b=axis==='r'?q.c:q.r;
+      const wraps=(dir>0&&b<a)||(dir<0&&b>a);
+      let from=0,to=wraps?(dir>0?state.n-a:-1-a)*unit:(b-a)*unit;
+      const frame=axis==='r'?`translateX(${to}px)`:`translateY(${to}px)`;
+      animations.push(el.animate([{transform:'translate(0px,0px)'},{transform:frame}],{duration:250,easing:'cubic-bezier(.17,.82,.26,.99)',fill:'forwards'}).finished.catch(()=>{}));
+      if(wraps){
+        const clone=el.cloneNode(true);clone.classList.add('flow-clone');clone.style.left=(axis==='r'?(dir>0?-1:state.n)*100/state.n:p.c*100/state.n)+'%';
+        clone.style.top=(axis==='c'?(dir>0?-1:state.n)*100/state.n:p.r*100/state.n)+'%';
+        boardEl.appendChild(clone);clones.push(clone);
+        const toDest=axis==='r'?(dir>0?b+1:b-state.n):(dir>0?b+1:b-state.n);
+        const frame2=axis==='r'?`translateX(${toDest*unit}px)`:`translateY(${toDest*unit}px)`;
+        animations.push(clone.animate([{transform:'translate(0px,0px)'},{transform:frame2}],{duration:250,easing:'cubic-bezier(.17,.82,.26,.99)',fill:'forwards'}).finished.catch(()=>{}));
+      }
+   }
+   return Promise.race([Promise.all(animations),sleep(360)]).finally(()=>clones.forEach(c=>c.remove()));
+ }
+ function noMovableLine(){for(let k=0;k<state.n;k++)if(freePositions('r',k).length>=2||freePositions('c',k).length>=2)return false;return true}
+ function lockArrivals(){const newly=[];
+   for(let i=0;i<state.board.length;i++)if(!state.locked[i]&&state.board[i]===i){state.locked[i]=true;newly.push(i)}
+   return newly;
+ }
+ async function shift(axis,line,dir,steps=1){
+   if(state.busy||state.finished)return;
+   state.busy=true;render();state.moves++;let total=0;
+   for(let k=0;k<steps;k++){
+     const plan=shiftPlan(axis,line,dir);if(!plan)break;
+     await animate(plan);state.board=plan.next;const fresh=lockArrivals();total+=fresh.length;render(fresh);
+     if(countLocked()===state.n*state.n)break;
+     if(k<steps-1)await sleep(75);
+   }
+   if(total){state.combo++;state.stagnant=0;status('カチッ！ '+total+'マスが正しい場所にロック！ ✨',true);try{navigator.vibrate?.(total>=2?[12,40,20]:12)}catch{}}
+   else{state.combo=0;state.stagnant++;status('スルリ！ まだ合わないマスも、次のスクロールへ。')}
+   // A gentle insurance against endgame deadlocks, not an alternative to swiping.
+   if((state.stagnant>=7||noMovableLine())&&countLocked()<state.n*state.n){await luckyLock();state.stagnant=0}
+   state.busy=false;render();
+   if(countLocked()===state.n*state.n){state.finished=true;render();finish()}
+ }
+ async function luckyLock(){
+   const indices=allCells(state.n).filter(i=>!state.locked[i]);if(!indices.length)return;
+   // Prefer a random free target, then swap in its correct piece. Both ids are preserved.
+   const home=indices[Math.floor(Math.random()*indices.length)],from=state.board.indexOf(home);
+   if(from<0||state.locked[from])return;
+   if(from!==home){
+     const el=boardEl.querySelector(`.tile[data-i="${from}"]`),other=boardEl.querySelector(`.tile[data-i="${home}"]`),a=pos(from),b=pos(home),unit=boardEl.getBoundingClientRect().width/state.n;
+     if(el&&other&&!window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches){
+       const dx=(b.c-a.c)*unit,dy=(b.r-a.r)*unit;
+       await Promise.race([Promise.all([el.animate([{transform:'translate(0)'},{transform:`translate(${dx}px,${dy}px)`}],{duration:340,easing:'ease-in-out',fill:'forwards'}).finished.catch(()=>{}),other.animate([{transform:'translate(0)'},{transform:`translate(${-dx}px,${-dy}px)`}],{duration:340,easing:'ease-in-out',fill:'forwards'}).finished.catch(()=>{})]),sleep(450)]);
+     }
+     [state.board[home],state.board[from]]=[state.board[from],state.board[home]];
+   }
+   const fresh=lockArrivals();render(fresh);status('✨ おたすけ磁力！ 長く揃わなかったので、1マスを正しい場所へ。',true);
+ }
+ function bestHint(){
+   let result=null;for(const axis of ['r','c'])for(let line=0;line<state.n;line++)for(const dir of [-1,1]){
+     const plan=shiftPlan(axis,line,dir);if(!plan)continue;
+     const gains=plan.next.reduce((v,id,i)=>v+Number(!state.locked[i]&&id===i),0);
+     if(gains&&(!result||gains>result.gains))result={axis,line,dir,gains};
+   }return result;
+ }
+ function hint(){if(state.busy||state.finished)return;
+   document.querySelectorAll('.edge button').forEach(x=>x.classList.remove('selected-hint'));
+   const best=bestHint();if(!best){status('今すぐ正解になる列がなくても大丈夫。気楽に動かしてみよう。');return}
+   const key=best.axis==='r'?(best.dir===1?'right':'left'):(best.dir===1?'down':'up');
+   const btn=$(key).querySelector(`button[data-line="${best.line}"]`);if(btn){btn.classList.add('selected-hint');btn.focus({preventScroll:true});}
+   status(`${best.line+1}${best.axis==='r'?'行':'列'}目を${best.dir===1?(best.axis==='r'?'右':'下'):(best.axis==='r'?'左':'上')}へ1マス。正解が近い！`,true)
+ }
+ function finish(){const [kanji,reading]=WORDS[state.wordIndex];$('winTitle').textContent=kanji;$('winReading').textContent='読み：'+reading;$('winArt').style.backgroundImage=`url("${state.art}")`;
+   $('winNote').textContent=`${state.n}×${state.n}・${state.moves}回のスクロールで完成！　読みは一例です。`;
+   $('winOverlay').classList.remove('hidden');status('🎉 完成！ 漢字は「'+kanji+'」、読みは「'+reading+'」！',true)
+ }
+ function attachSwipe(){let pointer=null;
+  boardEl.addEventListener('pointerdown',e=>{if(state.busy||state.finished)return;const rect=boardEl.getBoundingClientRect();pointer={id:e.pointerId,x:e.clientX,y:e.clientY,localX:e.clientX-rect.left,localY:e.clientY-rect.top};if(boardEl.setPointerCapture)boardEl.setPointerCapture(e.pointerId)});
+  boardEl.addEventListener('pointerup',e=>{if(!pointer||pointer.id!==e.pointerId)return;const p=pointer;pointer=null;const dx=e.clientX-p.x,dy=e.clientY-p.y;
+    if(Math.max(Math.abs(dx),Math.abs(dy))<15)return;
+    const rect=boardEl.getBoundingClientRect(),unit=rect.width/state.n;
+    const axis=Math.abs(dx)>Math.abs(dy)?'r':'c',dir=(axis==='r'?dx:dy)>0?1:-1;
+    const line=Math.min(state.n-1,Math.max(0,Math.floor((axis==='r'?p.localY:p.localX)/unit)));
+    const steps=Math.min(3,Math.max(1,Math.round(Math.abs(axis==='r'?dx:dy)/unit)));
+    shift(axis,line,dir,steps);
+  });
+  boardEl.addEventListener('pointercancel',()=>{pointer=null});
+ }
+ function setup(){document.querySelectorAll('.size-button').forEach(b=>b.addEventListener('click',()=>{const n=Number(b.dataset.size);if(state.busy)return;if(n===state.n)return;state.stage++;begin(n,state.wordIndex)}));
+   $('restartBtn').addEventListener('click',()=>{if(state.busy)return;begin(state.n,state.wordIndex,true)});
+   function newWord(){if(state.busy)return;state.stage++;begin(state.n,null)}
+   $('nextBtn').addEventListener('click',newWord);$('winNext').addEventListener('click',newWord);
+   $('winClose').addEventListener('click',()=>$('winOverlay').classList.add('hidden'));
+   $('hintBtn').addEventListener('click',hint);attachSwipe();
+   document.addEventListener('keydown',e=>{if(e.key==='Escape')$('winOverlay').classList.add('hidden')});
+ }
+ setup();state.wordIndex=Math.floor(Math.random()*WORDS.length);begin(5,state.wordIndex);
+ window.__CP_GURURI_TEST__={get:()=>({n:state.n,word:WORDS[state.wordIndex][0],reading:WORDS[state.wordIndex][1],board:state.board.slice(),locked:state.locked.slice(),moves:state.moves,stagnant:state.stagnant,busy:state.busy,finished:state.finished}),shift,bestHint,luckyLock,begin,next:()=>{state.stage++;begin(state.n,null)},set:(arr)=>{if(state.busy||arr.length!==state.n*state.n)throw Error('Invalid board state');state.board=arr.slice();state.locked=state.board.map((id,i)=>id===i);render()}};
+})();
+</script>
+</body>
+</html>

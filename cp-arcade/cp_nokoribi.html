@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101725">
+<meta name="description" content="CPオリジナルパズル『NOKORIBI』。動かせるピースと動かない残り火を使って連鎖を仕込もう。">
+<title>CP NOKORIBI｜のこり火｜CP ARCADE</title>
+<style>
+:root{--bg:#0b1221;--surface:#16243a;--surface2:#1d304a;--muted:#a8b9cb;--ink:#f5f8ff;--fire:#ffc17b;--line:#34475f;--board:calc(100% - 54px);color-scheme:dark;font-family:system-ui,-apple-system,'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif}
+*{box-sizing:border-box}
+html{background:var(--bg);overscroll-behavior-y:contain}
+body{margin:0;min-height:100vh;min-height:100dvh;color:var(--ink);background:radial-gradient(ellipse 80% 33% at 48% -7%,#8f493750,transparent),radial-gradient(ellipse 60% 30% at 110% 42%,#354c8955,transparent),linear-gradient(165deg,#101b2b,#0b1221 70%);font-weight:500}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible{outline:3px solid #ffda9a;outline-offset:2px}
+button:disabled{opacity:.38;cursor:default}
+.app{max-width:560px;margin:0 auto;padding:14px 11px max(25px,env(safe-area-inset-bottom,25px))}
+.header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 4px 11px}
+.logoTop{font-size:9px;letter-spacing:.19em;font-weight:900;color:#ffcc9f}
+.title{font-size:clamp(30px,8.5vw,43px);letter-spacing:.045em;font-weight:1000;line-height:1.03;margin:4px 0 1px;background:linear-gradient(105deg,#fff0cb,#ffbc8a 48%,#f28d82);-webkit-background-clip:text;background-clip:text;color:transparent}
+.title span{font-size:14px;color:#d6b3a2;-webkit-text-fill-color:#d6b3a2;letter-spacing:.02em;font-weight:800}
+.tagline{font-size:10px;color:#b7c6d7;margin:5px 0 0;letter-spacing:.01em}
+.version{font-size:10px;color:#c8d6e3;border:1px solid #566073;border-radius:12px;padding:6px 9px;white-space:nowrap;background:#263448aa}
+.hud{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:6px;margin:0 2px 11px}
+.stat{min-width:0;padding:8px 5px 7px;border-radius:13px;text-align:center;border:1px solid #39536e;background:linear-gradient(160deg,#223650,#18273c);box-shadow:0 6px 18px #0002}
+.stat small{display:block;color:#b4c7d8;font-size:10px;font-weight:750;letter-spacing:.02em}
+.stat strong{display:block;font-size:24px;line-height:1.25;font-variant-numeric:tabular-nums;font-weight:900;margin-top:2px}
+.stat .gold{color:#ffd39a}.stat .blue{color:#a5e9f4}
+.remaining-track{height:4px;background:#213047;border-radius:99px;overflow:hidden;margin:3px 2px 11px}
+.remaining-track>div{height:100%;background:linear-gradient(90deg,#f57f86,#ffc07c);transition:width .25s;width:100%}
+.best-line{display:flex;justify-content:space-between;align-items:center;color:#91a9be;font-size:10px;margin:-5px 5px 11px;gap:8px}.best-line strong{color:#ffe0a4;font-size:12px;font-weight:900}
+.headline{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:0 5px 5px}
+.headline b{font-size:13px}.headline span{color:#a7b7ca;font-size:10px}
+.game-shell{padding:11px 9px 11px;background:linear-gradient(155deg,#1b2c45,#121e30);border:1px solid #405873;border-radius:19px;box-shadow:0 10px 38px #0004, inset 0 1px 0 #ffffff10;position:relative}
+.how-summary{font-size:11px;line-height:1.65;color:#b9d1da;margin:0 2px 9px;text-align:center}
+.how-summary b{color:#ffe2aa}
+.board-layout{max-width:495px;margin:0 auto;--arrow:24px}
+.column-arrows{display:grid;grid-template-columns:var(--arrow) repeat(5,minmax(0,1fr)) var(--arrow);gap:0;align-items:center}
+.column-arrows .arrow{height:23px;margin:1px 0 3px}.column-arrows.bottom .arrow{margin:3px 0 1px}
+.board-main{display:grid;grid-template-columns:var(--arrow) minmax(0,1fr) var(--arrow);gap:0;align-items:stretch}
+.row-arrows{display:grid;grid-template-rows:repeat(5,minmax(0,1fr));align-items:stretch}
+.row-arrows .arrow{height:auto;margin:1px 2px}
+.arrow{min-width:0;padding:0;display:grid;place-items:center;border:1px solid #3d5c73;border-radius:7px;background:#1f394c;color:#b3d8e6;font-size:14px;font-weight:900;line-height:1;transition:background .14s,box-shadow .14s}
+.arrow:active,.arrow:focus-visible{background:#4f7382;color:white}.arrow.suggested{color:#ffe4a8;border-color:#ffe4a8;box-shadow:0 0 11px #f5a85eaa;animation:hintPulse 1s infinite alternate}
+.grid{width:100%;aspect-ratio:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(5,minmax(0,1fr));gap:2px;padding:4px;background:#081827;border:2px solid #496275;border-radius:11px;box-shadow:0 5px 20px #0006,inset 0 0 12px #0006;touch-action:none;user-select:none;-webkit-user-select:none;isolation:isolate}
+.cell{min-width:0;min-height:0;position:relative;border-radius:8px;background:#12263b;display:flex;align-items:stretch;justify-content:stretch;overflow:hidden;touch-action:none}
+.cell.has-ember{background:radial-gradient(circle,#2b3a4e,#1b2e45 74%);box-shadow:inset 0 0 0 2px var(--ember-color),inset 0 0 18px var(--ember-glow)}
+.cell.has-ember::before{content:'';position:absolute;inset:2px;border:2px dashed var(--ember-color);border-radius:8px;opacity:.78;pointer-events:none;z-index:2}
+.piece{margin:4px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:9px;border:1px solid #ffffff45;position:relative;background:linear-gradient(151deg,var(--top),var(--bottom));box-shadow:0 3px 4px #0005,inset 0 1px 0 #ffffff55;transition:filter .12s}
+.piece::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,#ffffff25,transparent 47%,#00000010);pointer-events:none}
+.symbol{font-size:clamp(25px,7vw,42px);font-weight:900;line-height:1.08;filter:drop-shadow(0 2px 2px #0006);text-shadow:0 1px 3px #0003;color:white}
+.color-name{font-size:clamp(7px,1.85vw,9px);letter-spacing:.05em;color:#fff8;font-weight:850;line-height:1}
+.ember-chip{position:absolute;top:1px;right:1px;width:18px;height:18px;border-radius:50%;z-index:5;border:2.5px solid var(--ember-color);background:#092033;display:grid;place-items:center;font-size:8px;box-shadow:0 0 8px var(--ember-glow),0 0 2px #000;color:white;pointer-events:none}
+.ember-chip::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--ember-color)}
+.cell.is-clearing .piece{animation:clearPiece .27s ease-in forwards}
+.cell.is-new .piece{animation:enterPiece .29s cubic-bezier(.2,.8,.25,1.2) both}
+.cell.is-shifting .piece{animation:shiftPiece .18s ease-out both}
+.cell.is-firing .ember-chip{animation:fireBurst .3s ease-out both}
+@keyframes clearPiece{0%{filter:brightness(1)}50%{filter:brightness(2);transform:scale(.92)}100%{filter:brightness(2.3);transform:scale(.1);opacity:0}}
+@keyframes enterPiece{0%{transform:translateY(-20px) scale(.84);opacity:.15}100%{transform:none;opacity:1}}
+@keyframes shiftPiece{0%{transform:scale(.91);filter:brightness(1.4)}100%{transform:none;filter:brightness(1)}}
+@keyframes hintPulse{to{box-shadow:0 0 2px #f5a85e33}}
+@keyframes fireBurst{to{transform:scale(1.8);opacity:0}}
+.underboard{display:flex;align-items:center;gap:7px;justify-content:space-between;margin:10px 2px 0;min-height:29px}
+.next-label{font-size:10px;color:#b7cbd9;font-weight:800;white-space:nowrap}
+.next-tiles{display:flex;gap:3px;flex:1;justify-content:flex-start}
+.mini-piece{width:27px;height:27px;border-radius:7px;border:1px solid #ffffff40;display:grid;place-items:center;font-size:16px;font-weight:800;background:linear-gradient(150deg,var(--top),var(--bottom));color:white;box-shadow:0 2px 4px #0005}
+.ember-legend{font-size:10px;color:#b9d1e0;white-space:nowrap}
+.ember-legend i{font-style:normal;color:#ffbb95;font-size:16px;font-weight:1000;vertical-align:middle}
+.status{margin:11px 1px 8px;border-radius:11px;border:1px solid #58718a;background:linear-gradient(130deg,#1c3950,#193149);padding:9px 10px;line-height:1.5;font-size:12px;text-align:center;font-weight:800;color:#e2f2f5;min-height:40px;display:flex;align-items:center;justify-content:center}
+.status.combo{border-color:#e4a06b;background:#49313b;color:#fff0c2}
+.controls{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:6px;margin:9px 0 4px}
+.btn{border:1px solid #55728a;border-radius:10px;padding:10px 9px;min-height:42px;background:#203b54;color:#ebf5ff;font-size:11px;font-weight:850;flex:1;white-space:nowrap}
+.btn.primary{background:linear-gradient(110deg,#f5a37c,#ffcf86);color:#322237;border-color:#ffce95}
+.btn:active{transform:scale(.98)}
+.tiny-controls{display:flex;gap:7px;align-items:center;margin:8px 0 0;justify-content:space-between}
+.tiny-controls button{border:none;background:none;padding:5px 3px;color:#bdcfe0;font-size:11px;text-decoration:underline;text-underline-offset:3px}
+.seed{font-size:10px;color:#90a9bd;white-space:nowrap}
+.info{margin-top:12px;padding:12px 13px;border:1px solid #394e68;background:#13243a;border-radius:14px;color:#b9cedd;font-size:12px;line-height:1.7}
+.info summary{font-weight:900;font-size:12px;color:#f9d3a9;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+.info summary::after{content:'⌄';color:#e8b789}
+.info[open] summary::after{content:'⌃'}
+.info p{margin:9px 0 0}.rule-color{color:#ffe4b7;font-weight:900}
+.palette{display:flex;justify-content:space-between;gap:4px;margin:11px 0 0;flex-wrap:wrap}
+.palette span{font-weight:800;font-size:10px;padding:5px 7px;border:1px solid #506078;border-radius:7px}
+.foot{color:#788fa6;font-size:10px;text-align:center;line-height:1.8;margin-top:14px}
+.toast{position:fixed;z-index:50;pointer-events:none;left:50%;bottom:35px;transform:translate(-50%,35px);opacity:0;border-radius:12px;padding:11px 15px;max-width:94%;background:#ffdaa6;color:#2c2530;box-shadow:0 10px 30px #0009;font-size:13px;font-weight:900;text-align:center;transition:opacity .2s,transform .2s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.overlay{position:fixed;inset:0;z-index:70;background:#080e1adb;backdrop-filter:blur(9px);display:grid;place-items:center;padding:17px}
+.overlay.hidden{display:none}
+.dialog{width:min(100%,410px);border:1px solid #8c736e;border-radius:23px;background:radial-gradient(circle at 50% 0%,#6c46485e,transparent 57%),linear-gradient(150deg,#26394e,#152338);padding:25px 18px 22px;text-align:center;box-shadow:0 20px 60px #0009}
+.dialog .big{font-size:51px;line-height:1}.dialog h2{font-size:26px;margin:5px 0 0}.dialog p{color:#c9d7e3;line-height:1.7;font-size:13px}
+.dialog strong{font-size:40px;color:#ffdda3;display:block;line-height:1.25}
+.dialog .btn{width:100%;display:block;margin-top:8px;font-size:13px;min-height:46px}
+.dialog .smaller{font-size:11px;color:#a5bace;margin-top:11px}
+@media(max-width:360px){.app{padding:9px 7px 18px}.game-shell{padding:9px 6px}.board-layout{--arrow:21px}.grid{gap:1.5px;padding:3px}.piece{margin:3px}.symbol{font-size:23px}.mini-piece{width:23px;height:23px}.underboard{gap:4px}.ember-legend{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+a.back-arcade{display:inline-block;margin:0 4px 10px;color:#ffc88f;font-size:12px;text-decoration:none;font-weight:800}a.back-arcade:focus-visible{outline:2px solid #ffd59c;outline-offset:3px}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="header">
+    <div><div class="logoTop">CP ORIGINAL PUZZLE · CP ARCADE</div><h1 class="title">NOKORIBI <span>のこり火</span></h1><p class="tagline">消した場所が、次の連鎖を呼ぶ。</p></div>
+    <div class="version">Ver.1.0</div>
+  </header>
+  <a href="./index.html" class="back-arcade" aria-label="CP ARCADEのゲーム一覧に戻る">← CP ARCADEのゲーム一覧へ</a>
+  <section class="hud" aria-label="ゲームの得点と残り手数">
+    <div class="stat"><small>のこり手数</small><strong class="gold" id="moves">20</strong></div>
+    <div class="stat"><small>スコア</small><strong id="score">0</strong></div>
+    <div class="stat"><small>最大連鎖</small><strong class="blue" id="maxChain">0</strong></div>
+  </section>
+  <div class="remaining-track"><div id="moveFill"></div></div>
+  <div class="best-line"><span>🏆 自己ベスト <strong id="bestScore">0</strong> 点</span><span>同じ盤面で再挑戦できます</span></div>
+  <section class="game-shell">
+    <div class="headline"><b>🔥 火をつなげよう</b><span>5 × 5 · 1手で1マスずらす</span></div>
+    <div class="how-summary">行・列を<b>スワイプ</b>。同色3つで消去！<br>残った<b>色の輪</b>に同色を重ねると、1個でも消える。</div>
+    <div class="board-layout">
+      <div class="column-arrows top" id="topArrows" aria-label="列を上へ動かす"></div>
+      <div class="board-main">
+        <div class="row-arrows" id="leftArrows" aria-label="行を左へ動かす"></div>
+        <div class="grid" id="grid" role="grid" aria-label="5×5のパズル。スワイプして行または列をひとマス回転する"></div>
+        <div class="row-arrows" id="rightArrows" aria-label="行を右へ動かす"></div>
+      </div>
+      <div class="column-arrows bottom" id="bottomArrows" aria-label="列を下へ動かす"></div>
+    </div>
+    <div class="underboard"><span class="next-label">次の色</span><div class="next-tiles" id="nextTiles"></div><span class="ember-legend"><i>◎</i> 残り火 <b id="emberCount">0</b></span></div>
+    <div class="status" role="status" aria-live="polite" id="status">矢印かスワイプで動かしてみて！</div>
+    <div class="controls">
+      <button class="btn primary" id="hintBtn" type="button">💡 次の一手</button>
+      <button class="btn" id="undoBtn" type="button">↶ 戻す</button>
+      <button class="btn" id="retryBtn" type="button">⟳ 同じ盤面</button>
+    </div>
+    <div class="tiny-controls"><button id="rulesBtn" type="button">遊び方を見る</button><button id="newBtn" type="button">✦ 新しい盤面</button><button id="soundBtn" type="button" aria-pressed="false">♪ 音 OFF</button><span class="seed" id="seedTag">#—</span></div>
+  </section>
+  <details class="info" id="rules">
+    <summary>遊び方と「のこり火」の仕組み</summary>
+    <p><span class="rule-color">① ずらす：</span>盤面の行を左右、列を上下へ1マスずらします。端から出たピースは反対側へ戻ります。何も消えなくても1手使います。</p>
+    <p><span class="rule-color">② 3つ揃える：</span>同じ色が縦か横に3つ以上つながると消え、その場所に色付きの輪「残り火」が残ります。</p>
+    <p><span class="rule-color">③ 残り火を使う：</span>輪は場所に固定。あとから同じ色のピースがそこに来ると、1個だけでも燃えて消えます。輪は1回使うと消えます。</p>
+    <p><span class="rule-color">④ 連鎖する：</span>消えた場所には上から新しいピースが落ち、さらに揃うと連鎖します。20手でどこまで得点を伸ばせるか挑戦！</p>
+    <div class="palette" id="palette"></div>
+  </details>
+  <footer class="foot">CP NOKORIBI · Ver.1.0<br>広告なし · インストール不要 · オフライン対応<br>CP ARCADEのオリジナルパズルです。</footer>
+</main>
+<div class="toast" id="toast" aria-live="polite"></div>
+<div class="overlay hidden" id="endOverlay" role="dialog" aria-modal="true" aria-labelledby="endTitle">
+  <div class="dialog"><div class="big">🔥</div><h2 id="endTitle">20手おつかれさま！</h2><p id="bestNotice">今回の記録</p><strong id="finalScore">0</strong><p id="finalDetails"></p><button class="btn primary" id="endRetry">↻ 同じ盤面でもう一度</button><button class="btn" id="endNew">✦ 別の盤面でチャレンジ</button><button class="btn" id="endClose">盤面を見る</button><p class="smaller">「次はもっと連鎖できるかも！」を目指そう。</p></div>
+</div>
+<script>
+(()=>{'use strict';
+  const $=id=>document.getElementById(id);
+  const C=5,N=25,LIMIT=20;
+  const COLORS=[
+    {name:'あか',symbol:'◆',top:'#ff9e7c',bottom:'#bd5162',hex:'#ff9882'},
+    {name:'あお',symbol:'●',top:'#75d2ed',bottom:'#3467ae',hex:'#77cfef'},
+    {name:'きいろ',symbol:'▲',top:'#ffdb85',bottom:'#c57d32',hex:'#ffd486'},
+    {name:'みどり',symbol:'✿',top:'#81dcba',bottom:'#338d78',hex:'#77e0b1'},
+    {name:'むらさき',symbol:'★',top:'#cbb1fa',bottom:'#795db9',hex:'#c9a9ff'}
+  ];
+  const BEST_KEY='CP_NOKORIBI_BEST_V01';
+  function readBest(){try{return Math.max(0,Number(localStorage.getItem(BEST_KEY))||0)}catch{return 0}}
+  function writeBest(n){try{localStorage.setItem(BEST_KEY,String(n))}catch{}}
+  const state={seed:0,rngState:0,board:[],embers:[],deck:[],moves:LIMIT,score:0,best:readBest(),maxChain:0,totalBurn:0,totalMatch:0,clearFx:new Set(),spawnFx:new Set(),shiftFx:new Set(),fireFx:new Set(),busy:false,ended:false,history:[],token:0,sound:false,audio:null,hint:null,lastChain:0};
+  let drag=null,toastTimer=null;
+  const prng=()=>{
+    let t=state.rngState=(state.rngState+0x6d2b79f5)>>>0;
+    t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);
+    return ((t^(t>>>14))>>>0)/4294967296;
+  };
+  const sample=a=>a[Math.floor(prng()*a.length)];
+  const newSeed=()=>{try{const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]}catch{return Date.now()>>>0}};
+  const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+  const index=(r,c)=>r*C+c;
+  const cssColor=c=>`--top:${COLORS[c].top};--bottom:${COLORS[c].bottom}`;
+  function notify(s){const node=$('toast');node.textContent=s;node.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('show'),1750)}
+  function message(s,combo=false){const node=$('status');node.textContent=s;node.classList.toggle('combo',combo)}
+  function ensureDeck(n=8){while(state.deck.length<n)state.deck.push(Math.floor(prng()*COLORS.length))}
+  function takeTile(){ensureDeck(1);const color=state.deck.shift();ensureDeck(8);return color}
+  function matches(board){
+    const result=new Set();
+    for(let r=0;r<C;r++){
+      let start=0;
+      for(let c=1;c<=C;c++){
+        if(c<C&&board[index(r,c)]===board[index(r,start)])continue;
+        if(board[index(r,start)]!==null&&c-start>=3)for(let k=start;k<c;k++)result.add(index(r,k));
+        start=c;
+      }
+    }
+    for(let c=0;c<C;c++){
+      let start=0;
+      for(let r=1;r<=C;r++){
+        if(r<C&&board[index(r,c)]===board[index(start,c)])continue;
+        if(board[index(start,c)]!==null&&r-start>=3)for(let k=start;k<r;k++)result.add(index(k,c));
+        start=r;
+      }
+    }
+    return result;
+  }
+  function fires(board,embers){const result=new Set();for(let i=0;i<N;i++)if(embers[i]!==null&&embers[i]===board[i])result.add(i);return result}
+  function shifted(board,axis,rowOrCol,dir){
+    const out=board.slice();
+    for(let k=0;k<C;k++){
+      if(axis==='row')out[index(rowOrCol,(k+dir+C)%C)]=board[index(rowOrCol,k)];
+      else out[index((k+dir+C)%C,rowOrCol)]=board[index(k,rowOrCol)];
+    }
+    return out;
+  }
+  function hasProductiveMove(board,embers){
+    for(const axis of ['row','col'])for(let at=0;at<C;at++)for(const dir of [-1,1]){
+      const proposed=shifted(board,axis,at,dir);
+      if(matches(proposed).size||fires(proposed,embers).size)return true;
+    }
+    return false;
+  }
+  function setupBoard(){
+    let attempt=0;
+    do{
+      state.board=Array(N).fill(null);
+      for(let r=0;r<C;r++)for(let c=0;c<C;c++){
+        const possibilities=[];
+        for(let color=0;color<C;color++){
+          if(c>=2&&state.board[index(r,c-1)]===color&&state.board[index(r,c-2)]===color)continue;
+          if(r>=2&&state.board[index(r-1,c)]===color&&state.board[index(r-2,c)]===color)continue;
+          possibilities.push(color);
+        }
+        state.board[index(r,c)]=sample(possibilities);
+      }
+      attempt++;
+    }while(!hasProductiveMove(state.board,Array(N).fill(null))&&attempt<120);
+  }
+  function snapshot(){return {board:state.board.slice(),embers:state.embers.slice(),deck:state.deck.slice(),rngState:state.rngState,moves:state.moves,score:state.score,maxChain:state.maxChain,totalBurn:state.totalBurn,totalMatch:state.totalMatch,lastChain:state.lastChain}}
+  function restore(s){Object.assign(state,{board:s.board.slice(),embers:s.embers.slice(),deck:s.deck.slice(),rngState:s.rngState,moves:s.moves,score:s.score,maxChain:s.maxChain,totalBurn:s.totalBurn,totalMatch:s.totalMatch,lastChain:s.lastChain});state.clearFx.clear();state.spawnFx.clear();state.shiftFx.clear();state.fireFx.clear();state.busy=false;state.ended=false;state.hint=null}
+  function start(seed){
+    state.token++;state.seed=seed>>>0;state.rngState=state.seed;state.embers=Array(N).fill(null);state.moves=LIMIT;state.score=0;state.maxChain=0;state.totalBurn=0;state.totalMatch=0;state.lastChain=0;state.deck=[];state.busy=false;state.ended=false;state.history=[];state.hint=null;state.clearFx.clear();state.spawnFx.clear();state.shiftFx.clear();state.fireFx.clear();
+    setupBoard();ensureDeck(8);$('endOverlay').classList.add('hidden');
+    $('seedTag').textContent='#'+state.seed.toString(36).toUpperCase().slice(0,7);
+    message('最初の一手をどうぞ。迷ったら「💡 次の一手」！');render();
+  }
+  function makeArrows(){
+    for(const [id,axis,dir,arrow] of [['leftArrows','row',-1,'‹'],['rightArrows','row',1,'›'],['topArrows','col',-1,'⌃'],['bottomArrows','col',1,'⌄']]){
+      $(id).innerHTML=Array.from({length:C},(_,i)=>`<button type="button" class="arrow" data-axis="${axis}" data-where="${i}" data-dir="${dir}" aria-label="${i+1}${axis==='row'?'行':'列'}目を${axis==='row'?(dir===1?'右':'左'):(dir===1?'下':'上')}に1マス動かす">${arrow}</button>`).join('');
+      $(id).addEventListener('click',e=>{const b=e.target.closest('button[data-axis]');if(b)act(b.dataset.axis,Number(b.dataset.where),Number(b.dataset.dir))});
+    }
+  }
+  function render(){
+    $('grid').innerHTML=state.board.map((color,i)=>{
+      const ember=state.embers[i];const piece=COLORS[color];
+      const ring=ember===null?'':`<span class="ember-chip" aria-hidden="true"></span>`;
+      const style=ember===null?'':` style="--ember-color:${COLORS[ember].hex};--ember-glow:${COLORS[ember].hex}60"`;
+      const klass=`cell ${ember!==null?'has-ember':''} ${state.clearFx.has(i)?'is-clearing':''} ${state.spawnFx.has(i)?'is-new':''} ${state.shiftFx.has(i)?'is-shifting':''} ${state.fireFx.has(i)?'is-firing':''}`;
+      return `<div class="${klass}" role="gridcell" data-i="${i}" aria-label="${i+1}番、${piece.name}、${ember===null?'残り火なし':COLORS[ember].name+'の残り火あり'}"${style}><div class="piece" style="${cssColor(color)}"><span class="symbol" aria-hidden="true">${piece.symbol}</span><span class="color-name">${piece.name}</span></div>${ring}</div>`;
+    }).join('');
+    ensureDeck(5);
+    $('nextTiles').innerHTML=state.deck.slice(0,5).map(c=>`<span class="mini-piece" style="${cssColor(c)}" title="次の${COLORS[c].name}">${COLORS[c].symbol}</span>`).join('');
+    $('moves').textContent=state.moves;
+    $('score').textContent=state.score.toLocaleString('ja-JP');
+    $('bestScore').textContent=state.best.toLocaleString('ja-JP');
+    $('maxChain').textContent=state.maxChain;
+    $('emberCount').textContent=state.embers.filter(x=>x!==null).length;
+    $('moveFill').style.width=(state.moves/LIMIT*100)+'%';
+    $('undoBtn').disabled=state.busy||!state.history.length;
+    $('hintBtn').disabled=state.busy||state.ended;
+    for(const btn of document.querySelectorAll('.arrow')){
+      btn.disabled=state.busy||state.ended;
+      btn.classList.toggle('suggested',!!state.hint&&state.hint.axis===btn.dataset.axis&&state.hint.where===Number(btn.dataset.where)&&state.hint.dir===Number(btn.dataset.dir));
+    }
+  }
+  function sound(freq=440,dur=.12){
+    if(!state.sound)return;
+    try{
+      if(!state.audio)state.audio=new (window.AudioContext||window.webkitAudioContext)();
+      const ctx=state.audio,osc=ctx.createOscillator(),g=ctx.createGain();
+      osc.type='sine';osc.frequency.setValueAtTime(freq,ctx.currentTime);osc.frequency.exponentialRampToValueAtTime(freq*1.16,ctx.currentTime+dur);
+      g.gain.setValueAtTime(.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.055,ctx.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+dur);
+      osc.connect(g);g.connect(ctx.destination);osc.start();osc.stop(ctx.currentTime+dur+.01);
+    }catch{}
+  }
+  function downGravityAndRefill(){
+    const newly=new Set();
+    for(let c=0;c<C;c++){
+      const survivors=[];
+      for(let r=C-1;r>=0;r--){const color=state.board[index(r,c)];if(color!==null)survivors.push(color)}
+      let ptr=0;
+      for(let r=C-1;r>=0;r--){
+        const i=index(r,c);
+        if(ptr<survivors.length){state.board[i]=survivors[ptr++];}
+        else{state.board[i]=takeTile();newly.add(i)}
+      }
+    }
+    return newly;
+  }
+  async function resolve(token){
+    let chain=0,points=0;
+    while(true){
+      const groups=matches(state.board),ringHits=fires(state.board,state.embers);
+      if(!groups.size&&!ringHits.size)break;
+      chain++;if(chain>48){message('連鎖が長く続いたので、ここで一区切り！',true);break}
+      const union=new Set([...groups,...ringHits]);
+      state.clearFx=union;state.fireFx=ringHits;state.shiftFx.clear();state.spawnFx.clear();
+      const gain=(groups.size*120+ringHits.size*95)*Math.min(8,chain);
+      points+=gain;state.score+=gain;state.totalMatch+=groups.size;state.totalBurn+=ringHits.size;state.maxChain=Math.max(state.maxChain,chain);
+      if(ringHits.size){message(`🔥 ${chain}連鎖！ 残り火 ${ringHits.size}個が発火！ ＋${gain.toLocaleString()}`,true);sound(350+chain*75,.14)}
+      else{message(`✨ ${chain}連鎖！ ${groups.size}個を消去！ ＋${gain.toLocaleString()}`,true);sound(410+chain*75,.12)}
+      render();await sleep(255);if(state.token!==token)return;
+      // A normal three-or-more match leaves its color behind as an anchored ember.
+      for(const i of ringHits)state.embers[i]=null;
+      for(const i of groups)state.embers[i]=state.board[i];
+      for(const i of union)state.board[i]=null;
+      state.clearFx.clear();state.fireFx.clear();
+      state.spawnFx=downGravityAndRefill();
+      render();await sleep(280);if(state.token!==token)return;
+      state.spawnFx.clear();
+    }
+    state.lastChain=chain;state.fireFx.clear();state.clearFx.clear();state.spawnFx.clear();state.shiftFx.clear();
+    if(chain>=2){message(`🔥 ${chain}連鎖！ +${points.toLocaleString()}点！ 次はもっとつながるかも！`,true);}
+    else if(chain===1){message(`✨ +${points.toLocaleString()}点！ 残り火を仕込みました！`,true);}
+    else{message('ここは消えなかった。次の一手への仕込みになるかも！');}
+    render();
+  }
+  async function act(axis,where,dir){
+    if(state.busy||state.ended||state.moves<=0)return false;
+    if(!['row','col'].includes(axis)||where<0||where>=C||![-1,1].includes(dir))return false;
+    state.history.push(snapshot());if(state.history.length>LIMIT)state.history.shift();
+    state.busy=true;const token=state.token;state.hint=null;state.moves--;
+    state.board=shifted(state.board,axis,where,dir);
+    state.shiftFx=new Set(Array.from({length:C},(_,i)=>axis==='row'?index(where,i):index(i,where)));
+    render();sound(260,.065);
+    await sleep(155);if(state.token!==token)return false;
+    state.shiftFx.clear();await resolve(token);
+    if(state.token!==token)return false;
+    state.busy=false;render();
+    if(state.moves===0){state.ended=true;render();end();}
+    return true;
+  }
+  function chooseHint(){
+    if(state.busy||state.ended)return;
+    let best=null;
+    for(const axis of ['row','col'])for(let where=0;where<C;where++)for(const dir of [-1,1]){
+      const moved=shifted(state.board,axis,where,dir);const m=matches(moved).size,f=fires(moved,state.embers).size;
+      const potential=m*1.2+f*1.5;
+      if(!best||potential>best.value)best={axis,where,dir,value:potential,m,f};
+    }
+    if(!best)return;
+    state.hint=best;render();
+    const words=best.axis==='row'?`${best.where+1}行目を${best.dir>0?'右':'左'}`:`${best.where+1}列目を${best.dir>0?'下':'上'}`;
+    if(best.value>0)message(`💡 ${words}へ！ ${best.m?'3つ揃うかも！':''} ${best.f?'残り火も発火！':''}`);
+    else message(`💡 今すぐ消える手はなさそう。${words}へずらして次の形を作ろう！`);
+  }
+  function undo(){if(state.busy||!state.history.length)return;const s=state.history.pop();restore(s);$('endOverlay').classList.add('hidden');render();message('↶ 1手戻しました。別の方法を試してみよう！')}
+  function end(){
+    const isRecord=state.score>state.best;
+    if(isRecord){state.best=state.score;writeBest(state.best)}
+    $('bestNotice').textContent=isRecord?'🎉 NEW BEST！自己ベスト更新！':'今回の記録';
+    $('finalScore').textContent=state.score.toLocaleString('ja-JP')+' 点';
+    $('finalDetails').textContent=`最大 ${state.maxChain} 連鎖 ／ 残り火の発火 ${state.totalBurn} 回 ／ 3つ揃え ${state.totalMatch} ピース`; 
+    $('endOverlay').classList.remove('hidden');sound(650,.18)
+  }
+  function initSwipe(){
+    const grid=$('grid');
+    grid.addEventListener('pointerdown',e=>{
+      if(state.busy||state.ended||!e.isPrimary)return;
+      const node=e.target.closest('.cell');if(!node)return;
+      const i=Number(node.dataset.i);
+      drag={id:e.pointerId,x:e.clientX,y:e.clientY,i};
+      try{grid.setPointerCapture(e.pointerId)}catch{}
+    });
+    grid.addEventListener('pointerup',e=>{
+      if(!drag||drag.id!==e.pointerId)return;
+      const d=drag;drag=null;
+      const dx=e.clientX-d.x,dy=e.clientY-d.y;
+      if(Math.max(Math.abs(dx),Math.abs(dy))<23){message('左右か上下にスワイプしてな。周りの矢印でも動かせるで！');return}
+      const axis=Math.abs(dx)>Math.abs(dy)?'row':'col';
+      const where=axis==='row'?Math.floor(d.i/C):d.i%C;
+      act(axis,where,axis==='row'?Math.sign(dx):Math.sign(dy));
+    });
+    grid.addEventListener('pointercancel',()=>{drag=null});
+    grid.addEventListener('lostpointercapture',()=>{drag=null});
+  }
+  function controls(){
+    $('hintBtn').addEventListener('click',chooseHint);
+    $('undoBtn').addEventListener('click',undo);
+    $('retryBtn').addEventListener('click',()=>{if(state.busy)return;if(state.moves===LIMIT||confirm('同じ盤面の最初からやり直す？'))start(state.seed)});
+    $('newBtn').addEventListener('click',()=>{if(state.busy)return;if(state.moves===LIMIT||confirm('新しい盤面に変えますか？ 現在のプレイは終了します。'))start(newSeed())});
+    $('soundBtn').addEventListener('click',()=>{state.sound=!state.sound;$('soundBtn').textContent=state.sound?'♪ 音 ON':'♪ 音 OFF';$('soundBtn').setAttribute('aria-pressed',String(state.sound));if(state.sound)sound(520,.12)});
+    $('rulesBtn').addEventListener('click',()=>{$('rules').open=true;$('rules').scrollIntoView({behavior:'smooth',block:'start'})});
+    $('endRetry').addEventListener('click',()=>start(state.seed));
+    $('endNew').addEventListener('click',()=>start(newSeed()));
+    $('endClose').addEventListener('click',()=>$('endOverlay').classList.add('hidden'));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')$('endOverlay').classList.add('hidden')});
+  }
+  $('palette').innerHTML=COLORS.map(c=>`<span style="color:${c.hex}">${c.symbol} ${c.name}</span>`).join('');
+  makeArrows();initSwipe();controls();start(newSeed());
+  // Exposed read-only test API plus programmatic actions for automated browser QA.
+  window.__CP_NOKORIBI_TEST__={
+    get:()=>({board:state.board.slice(),embers:state.embers.slice(),deck:state.deck.slice(),moves:state.moves,score:state.score,maxChain:state.maxChain,totalBurn:state.totalBurn,totalMatch:state.totalMatch,busy:state.busy,ended:state.ended,seed:state.seed,best:state.best,history:state.history.length}),
+    act,undo,newGame:seed=>start(seed===undefined?newSeed():seed),hint:chooseHint,
+    matches:()=>[...matches(state.board)],fires:()=>[...fires(state.board,state.embers)],productive:()=>hasProductiveMove(state.board,state.embers),
+    set:(board,embers,deck)=>{if(state.busy)throw Error('busy');if(!Array.isArray(board)||board.length!==N)throw Error('board length');state.board=board.slice();if(embers)state.embers=embers.slice();if(deck)state.deck=deck.slice();render()},
+    adjustMoves:v=>{state.moves=v;render()}
+  };
+})();
+</script>
+</body>
+</html>

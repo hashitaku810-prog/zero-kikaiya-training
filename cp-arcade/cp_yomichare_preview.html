@@ -3,7 +3,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a1730">
 <meta name="description" content="はしmoto Gamesの「よみチャレ！」。小学生の漢字から超難読まで、時間内に熟語の読みを入力！">
-<title>よみチャレ！｜はしmoto Games</title>
+<title>よみチャレ！試作 Ver.0.2｜はしmoto Games</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;--ink:#f5f8ff;--muted:#9fbad3;--line:#355675;--gold:#ffd99b;--aqua:#83ecd9}
 *{box-sizing:border-box}html{background:#091425}body{margin:0;min-height:100dvh;color:var(--ink);background:radial-gradient(ellipse 70% 33% at 18% 0%,#29507877,transparent),radial-gradient(ellipse 65% 38% at 99% 43%,#47406b30,transparent),linear-gradient(150deg,#111f37,#081327)}
@@ -24,6 +24,27 @@ form{display:flex;gap:7px;align-items:stretch}input{width:100%;min-width:0;flex:
 .subnote{margin:12px 3px;text-align:center;color:#9bb5c8;font-size:10px;line-height:1.6}.rules{margin:13px 0;padding:12px 13px;border:1px solid #304d69;background:#101f36;border-radius:13px}.rules summary{cursor:pointer;font-size:12px;font-weight:900;color:#d5e5ed}.rules p{font-size:11px;line-height:1.8;color:#b0c4d3}
 .foot{text-align:center;font-size:10px;color:#8ca4b9;margin:14px 0}.foot a{color:#bad7e8;text-decoration:none}
 .overlay{position:fixed;z-index:30;inset:0;background:#071327ea;display:grid;place-items:center;padding:14px;backdrop-filter:blur(8px)}.overlay[hidden]{display:none!important}.dialog{width:min(100%,410px);max-height:92dvh;overflow:auto;background:linear-gradient(155deg,#263e56,#12243c);border:1px solid #618495;border-radius:21px;box-shadow:0 25px 70px #0009;text-align:center;padding:21px 18px}.dialog .small{font-size:10px;color:#93e4d4;font-weight:850;letter-spacing:.1em}.dialog h2{font-size:27px;margin:6px 0 12px;color:#ffe1ac}.dialog p{font-size:13px;line-height:1.7;color:#c6d7e3}.dialog .big{font-size:54px;margin:6px 0}.dialog .scoreline{font-size:28px;font-weight:1000;color:#f9e1b1;font-variant-numeric:tabular-nums}.primary{border:0;border-radius:12px;padding:12px 18px;background:linear-gradient(135deg,#ffd59a,#ffa68e);color:#3c2a34;font-weight:950;font-size:16px;min-height:48px;width:100%;margin:12px 0 4px}.mode{display:flex;gap:9px;align-items:stretch;justify-content:center;margin:16px 0 6px}.mode label{flex:1;border-radius:11px;background:#172d45;border:1px solid #57758a;padding:9px 8px;font-size:12px;font-weight:750;cursor:pointer}.mode input{width:auto;min-height:0;margin:0 4px 0 0;accent-color:#82e7dc}.mode label:has(input:checked){border-color:#8be6d9;background:#254c56}.mini-stats{display:flex;justify-content:space-around;background:#172c42;border-radius:12px;padding:12px;margin:12px 0;font-size:12px;color:#d5e8f4}.mini-stats b{display:block;font-size:23px;color:#ffe4bb}.secondary{width:100%;border:1px solid #4f7286;background:#20344a;border-radius:12px;color:#ddf3ef;min-height:43px;font-size:13px;font-weight:850;margin-top:8px}
+
+/* Mobile IME: compact play area keeps current word, time and input visible over keyboard. */
+body.typing .top,body.typing .hero,body.typing .stats,body.typing .stage-nav,body.typing .subnote,body.typing .rules,body.typing .foot{display:none!important}
+body.typing .wrap{padding:4px 7px 8px;max-width:520px}
+body.typing .quiz{position:sticky;top:0;z-index:5;padding:8px 10px;border-radius:12px;box-shadow:0 4px 15px #0006}
+body.typing .stage-sub,body.typing .question-hint,body.typing .answer-hint{display:none}
+body.typing .stage-name,body.typing .q-counter{font-size:11px}
+body.typing .count-wrap{margin:3px 0 3px}
+body.typing .seconds{font-size:23px}
+body.typing .time-track{height:6px}
+body.typing .kanji{min-height:53px;font-size:clamp(34px,9.5vw,51px);margin:4px 0 7px;line-height:1.2;word-break:normal}
+body.typing form input{min-height:44px;padding:8px 10px;font-size:17px}
+body.typing form button{min-height:44px;padding:8px 13px;font-size:13px}
+body.typing .feedback{min-height:35px;margin-top:6px;padding:6px;font-size:11px;line-height:1.4}
+body.typing .tools{gap:5px;margin-top:6px}
+body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
+.result-dialog .result-word{font-size:clamp(34px,10vw,51px);font-family:"Yu Mincho","Noto Serif JP",serif;font-weight:900;line-height:1.2;color:#ffe9ba;margin:9px 0 7px;overflow-wrap:anywhere}
+.result-dialog .result-reading{display:block;font-size:clamp(24px,7vw,33px);font-weight:950;line-height:1.4;color:#94f1e4;overflow-wrap:anywhere;margin:10px 0}
+.result-dialog .result-note{font-size:13px;line-height:1.6;margin:8px 0;color:#e0eaf3}
+.result-dialog .primary{margin-top:14px}
+@media(max-height:560px){body.typing .quiz{padding:5px 7px}body.typing .kanji{min-height:45px;margin:1px 0 4px}body.typing .tools{margin-top:4px}}
 @media(max-width:350px){.wrap{padding:10px 8px}.quiz{padding:14px 9px}.hero h1{font-size:32px}form button{padding:8px 12px}.kanji{font-size:44px}.top-brand{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
@@ -36,13 +57,23 @@ form{display:flex;gap:7px;align-items:stretch}input{width:100%;min-width:0;flex:
 <div class="count-wrap"><span class="time-label">のこり時間</span><span class="seconds" id="seconds" aria-label="残り時間">25</span></div><div class="time-track" aria-hidden="true"><div id="timeFill" class="time-fill"></div></div>
 <div class="question-hint">この漢字、なんて読む？</div><div class="kanji" id="word">学校</div>
 <form id="answerForm"><input id="answer" type="text" inputmode="text" lang="ja" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="ひらがなで入力" aria-label="漢字の読みを入力" enterkeyhint="done" maxlength="25" disabled><button id="send" type="submit" disabled>回答</button></form>
-<p class="answer-hint">ひらがな・カタカナどちらでもOK。間違えても再挑戦できるよ。</p>
+<p class="answer-hint">ひらがな・カタカナOK。時間内なら何回でも再挑戦できるよ。</p>
 <div id="feedback" class="feedback" role="status" aria-live="polite">「ゲームスタート」を押して挑戦！</div>
 <div class="tools"><button id="hint" type="button" class="smallbtn" disabled>💡 1文字ヒント</button><button id="skip" type="button" class="smallbtn skip" disabled>わからない・スキップ</button><button id="pause" type="button" class="smallbtn" disabled>Ⅱ 一時停止</button></div>
-</section><p class="subnote">各レベル5問。正解すると得点UP！ 時間切れでも答えが分かるで。</p>
-<details class="rules"><summary>遊び方・点数のルールを見る</summary><p>漢字の読みを日本語で入力して「回答」を押そう。正解するほど得点が増えて、早く答えた分と連続正解のボーナスも付くで。間違っても時間内なら再挑戦OK。ヒントを使った問題は得点が半分。レベルは5問ごとに自動で上がり、小学生レベルから超難読まで全7レベル。時間切れ・スキップでも次へ進める。ゲーム中に別のタブへ切り替えた場合は自動で一時停止するで。</p></details>
+</section><p class="subnote">各レベル5問。何問間違えても次のレベルへ進める！ 答えは自分で確認してから次へ。</p>
+<details class="rules"><summary>遊び方・点数のルールを見る</summary><p>漢字の読みを日本語で入力して「回答」を押そう。正解するほど得点が増えて、早く答えた分と連続正解のボーナスも付くで。間違っても時間内なら再挑戦OK。ヒントを使った問題は得点が半分。レベルは5問ごとに自動で上がり、小学生レベルから超難読まで全7レベル。時間切れ・スキップでも次へ進める。答えを確認したら「次へ」を押してな。各レベルで不正解が何問あってもゲームオーバーにはならないで。ゲーム中に別のタブへ切り替えた場合は自動で一時停止するで。</p></details>
 <footer class="foot">無料 · 広告なし · 記録はこの端末に保存<br><a href="./about.html">サイトについて</a> ｜ <a href="./index.html">ゲーム一覧へ</a></footer></main>
 <div id="startOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="startTitle"><div class="dialog"><div class="small">はしmoto Games · ORIGINAL QUIZ</div><div class="big" aria-hidden="true">🀄</div><h2 id="startTitle">よみチャレ！</h2><p>小学生レベルからスタート！<br>制限時間内に読みを入力して、全35問に挑戦しよう。</p><div class="mode" role="group" aria-label="時間のモード"><label><input type="radio" name="mode" value="normal" checked>ふつう</label><label><input type="radio" name="mode" value="relax">ゆっくり（+10秒）</label></div><p class="subnote">各問題に制限時間あり。間違い・時間切れでも次のレベルへ進めるで。</p><button class="primary" id="startGame" type="button">ゲームスタート ▶</button></div></div>
+<div id="resultOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle" hidden>
+ <div class="dialog result-dialog">
+  <div class="small">読みの答えを確認しよう</div>
+  <h2 id="resultTitle">正解発表</h2>
+  <div id="resultWord" class="result-word">学校</div>
+  <strong id="resultReading" class="result-reading">がっこう</strong>
+  <p id="resultNote" class="result-note">答えを確認してから次へ進めます。</p>
+  <button id="resultNext" class="primary" type="button">次の問題へ ▶</button>
+ </div>
+</div>
 <div id="levelOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="levelTitle" hidden><div class="dialog"><div class="small">LEVEL CLEAR</div><div class="big" id="levelEmoji">🎉</div><h2 id="levelTitle">レベルクリア！</h2><p id="levelDetails"></p><div class="mini-stats"><div>このレベルの正解<b id="levelCorrect">0 / 5</b></div><div>現在のスコア<b id="levelScore">0</b></div></div><button class="primary" id="levelNext" type="button">次のレベルへ ▶</button></div></div>
 <div id="pauseOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="pauseTitle" hidden><div class="dialog"><div class="small">PAUSE</div><div class="big">⏸️</div><h2 id="pauseTitle">一時停止</h2><p>戻ったら続きをやろう！<br>時間は止まっているで。</p><button class="primary" id="resume" type="button">再開 ▶</button></div></div>
 <div id="finalOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="finalTitle" hidden><div class="dialog"><div class="small">ALL LEVELS FINISHED</div><div class="big">🏆</div><h2 id="finalTitle">全35問 おつかれさま！</h2><div id="finalScore" class="scoreline">0 点</div><p id="finalDetails"></p><button class="primary" id="replay" type="button">もう一度挑戦 ↻</button><button class="secondary" id="finalClose" type="button">盤面に戻る</button></div></div>
@@ -90,7 +121,7 @@ form{display:flex;gap:7px;align-items:stretch}input{width:100%;min-width:0;flex:
   state.remain=state.total;state.deadline=performance.now()+state.total*1000;
   $('answer').value='';$('answer').placeholder='ひらがなで入力';
   banner('読めたら入力して「回答」を押そう！');render();timeUI(state.remain);
-  requestAnimationFrame(()=>{if(state.phase==='playing')$('answer').focus({preventScroll:true})});
+  requestAnimationFrame(()=>{if(state.phase==='playing'){document.body.classList.add('typing');$('answer').focus({preventScroll:true})}});
   state.frame=requestAnimationFrame(()=>tick(state.run));
  }
  function finishQuestion(ok,reason){
@@ -104,12 +135,19 @@ form{display:flex;gap:7px;align-items:stretch}input{width:100%;min-width:0;flex:
   }else{state.combo=0;banner(reason==='time'?'⌛ 時間切れ！ 正解は「'+primary(word)+'」':'正解は「'+primary(word)+'」だったで。','notice')}
   state.answers.push({level:state.stage+1,word:word[0],reading:primary(word),correct:ok,score:gain,reason});
   render();timeUI(remaining);
-  const finishedToken=state.run;
-  state.after=setTimeout(()=>{if(state.phase==='feedback'&&state.run===finishedToken)advance()},1250);
+  // Never auto-advance. Let the player read and learn before continuing.
+  $('answer').blur();
+  document.body.classList.remove('typing');
+  $('resultTitle').textContent=ok?'⭕ 正解！':reason==='time'?'⌛ 時間切れ':reason==='skip'?'答えを確認':'残念！';
+  $('resultWord').textContent=word[0];
+  $('resultReading').textContent=aliases.join(' ／ ');
+  $('resultNote').textContent=ok?'＋'+gain+'点！'+(state.combo>=2?' '+state.combo+'連続正解！':''):'覚えて次の問題に進もう！ この問題は0点です。';
+  $('resultNext').textContent=state.index===COUNT-1?'レベルの結果を見る ▶':'次の問題へ ▶';
+  $('resultOverlay').hidden=false;
   return true;
  }
  function advance(){if(state.phase!=='feedback')return;
-  clearTimeout(state.after);state.after=0;
+  clearTimeout(state.after);state.after=0;$('resultOverlay').hidden=true;
   state.index++;
   if(state.index<COUNT){enterQuestion();return}
   state.phase='between';render();$('answer').blur();
@@ -129,7 +167,7 @@ form{display:flex;gap:7px;align-items:stretch}input{width:100%;min-width:0;flex:
  }
  function start(){cancelWork();state.mode=document.querySelector('input[name="mode"]:checked')?.value==='relax'?'relax':'normal';
   Object.assign(state,{stage:0,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,answers:[],correctByLevel:[],questions:LEVELS.map(l=>shuffle(l.words.slice()).slice(0,COUNT))});
-  $('startOverlay').hidden=true;$('finalOverlay').hidden=true;$('pauseOverlay').hidden=true;$('levelOverlay').hidden=true;enterQuestion();
+  $('startOverlay').hidden=true;$('finalOverlay').hidden=true;$('pauseOverlay').hidden=true;$('levelOverlay').hidden=true;$('resultOverlay').hidden=true;document.body.classList.remove('typing');enterQuestion();
  }
  function submitAnswer(){
   if(state.phase!=='playing')return;
@@ -144,15 +182,27 @@ form{display:flex;gap:7px;align-items:stretch}input{width:100%;min-width:0;flex:
  function pause(){if(state.phase!=='playing')return;
   state.remain=Math.max(0,(state.deadline-performance.now())/1000);cancelAnimationFrame(state.frame);
   if(state.remain<=0){finishQuestion(false,'time');return}
-  state.phase='paused';render();$('pauseOverlay').hidden=false;$('answer').blur();
+  state.phase='paused';render();$('pauseOverlay').hidden=false;$('answer').blur();document.body.classList.remove('typing');
  }
  function resume(){if(state.phase!=='paused')return;
   $('pauseOverlay').hidden=true;state.phase='playing';state.deadline=performance.now()+state.remain*1000;render();
-  requestAnimationFrame(()=>{if(state.phase==='playing')$('answer').focus({preventScroll:true})});
+  requestAnimationFrame(()=>{if(state.phase==='playing'){document.body.classList.add('typing');$('answer').focus({preventScroll:true})}});
   state.frame=requestAnimationFrame(()=>tick(state.run));
  }
  $('startGame').addEventListener('click',start);
  $('answerForm').addEventListener('submit',e=>{e.preventDefault();submitAnswer()});
+ $('resultNext').addEventListener('click',advance);
+ $('answer').addEventListener('focus',()=>{
+   if(state.phase!=='playing')return;
+   document.body.classList.add('typing');
+   requestAnimationFrame(()=>window.scrollTo(0,0));
+ });
+ $('answer').addEventListener('blur',()=>document.body.classList.remove('typing'));
+ if(window.visualViewport){
+   window.visualViewport.addEventListener('resize',()=>{
+     if(document.activeElement===$('answer')&&state.phase==='playing')requestAnimationFrame(()=>window.scrollTo(0,0));
+   });
+ }
  $('answer').addEventListener('compositionstart',()=>state.composing=true);
  $('answer').addEventListener('compositionend',()=>state.composing=false);
  $('hint').addEventListener('click',()=>{if(state.phase!=='playing'||state.usedHint)return;state.usedHint=true;banner('ヒント：最初の文字は「'+primary(state.current)[0]+'」！ 正解得点は半分。','notice');render();$('answer').focus()});
@@ -162,7 +212,7 @@ form{display:flex;gap:7px;align-items:stretch}input{width:100%;min-width:0;flex:
  $('replay').addEventListener('click',()=>{const selected=document.querySelector('input[name="mode"]:checked');if(selected)selected.checked=true;start()});
  $('finalClose').addEventListener('click',()=>$('finalOverlay').hidden=true);
  document.addEventListener('visibilitychange',()=>{if(document.hidden&&state.phase==='playing')pause()});
- window.__YOMICHARE_TEST__={get:()=>({phase:state.phase,level:state.stage+1,index:state.index,word:state.current?.[0]||'',readings:state.current?.[1]?.slice()||[],score:state.score,correct:state.correct,combo:state.combo,remains:state.remain,mode:state.mode,answers:state.answers.slice(),totalQuestions:ALL}),start,submit:value=>{$('answer').value=value;submitAnswer()},skip:()=>finishQuestion(false,'skip'),expire:()=>{if(state.phase==='playing'){state.deadline=performance.now()-1;finishQuestion(false,'time')}},advance,continue:()=>$('levelNext').click(),pause,resume};
+ window.__YOMICHARE_TEST__={get:()=>({phase:state.phase,level:state.stage+1,index:state.index,word:state.current?.[0]||'',readings:state.current?.[1]?.slice()||[],score:state.score,correct:state.correct,combo:state.combo,remains:state.remain,mode:state.mode,answers:state.answers.slice(),totalQuestions:ALL,resultVisible:!$('resultOverlay').hidden,typing:document.body.classList.contains('typing')}),start,submit:value=>{$('answer').value=value;submitAnswer()},skip:()=>finishQuestion(false,'skip'),expire:()=>{if(state.phase==='playing'){state.deadline=performance.now()-1;finishQuestion(false,'time')}},advance,continue:()=>$('levelNext').click(),pause,resume};
  render();timeUI(LEVELS[0].seconds);
 })();
 </script></body></html>

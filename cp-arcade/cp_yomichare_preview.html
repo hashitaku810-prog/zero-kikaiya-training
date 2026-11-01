@@ -3,7 +3,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a1730">
 <meta name="description" content="はしmoto Gamesの「よみチャレ！」。小学生の漢字から超難読まで、時間内に熟語の読みを入力！">
-<title>よみチャレ！試作 Ver.0.2｜はしmoto Games</title>
+<title>よみチャレ！試作 Ver.0.3｜はしmoto Games</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;--ink:#f5f8ff;--muted:#9fbad3;--line:#355675;--gold:#ffd99b;--aqua:#83ecd9}
 *{box-sizing:border-box}html{background:#091425}body{margin:0;min-height:100dvh;color:var(--ink);background:radial-gradient(ellipse 70% 33% at 18% 0%,#29507877,transparent),radial-gradient(ellipse 65% 38% at 99% 43%,#47406b30,transparent),linear-gradient(150deg,#111f37,#081327)}
@@ -48,7 +48,7 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
 @media(max-width:350px){.wrap{padding:10px 8px}.quiz{padding:14px 9px}.hero h1{font-size:32px}form button{padding:8px 12px}.kanji{font-size:44px}.top-brand{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
-<main class="wrap"><header class="top"><a class="back" href="./index.html">← はしmoto Games</a><span class="top-brand">はしmoto <b>Games</b> · NEW GAME</span></header>
+<main class="wrap"><header class="top"><a class="back" href="./index.html">← はしmoto Games</a><span class="top-brand">はしmoto <b>Games</b> · Ver.0.3</span></header>
 <div class="hero"><div class="eyebrow">KANJI TIME ATTACK</div><h1>よみ<em>チャレ！</em> ⏱️</h1><p>読めたら入力！ 小学生から超難読まで全7レベル</p></div>
 <section class="stats" aria-label="得点と正解状況"><div class="stat"><small>スコア</small><strong id="score">0</strong></div><div class="stat"><small>正解数</small><strong id="correct">0 / 35</strong></div><div class="stat"><small>自己ベスト</small><strong id="best" class="hot">0</strong></div></section>
 <div id="stageDots" class="stage-nav" aria-label="レベルの進み具合"></div>
@@ -169,15 +169,19 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   Object.assign(state,{stage:0,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,answers:[],correctByLevel:[],questions:LEVELS.map(l=>shuffle(l.words.slice()).slice(0,COUNT))});
   $('startOverlay').hidden=true;$('finalOverlay').hidden=true;$('pauseOverlay').hidden=true;$('levelOverlay').hidden=true;$('resultOverlay').hidden=true;document.body.classList.remove('typing');enterQuestion();
  }
- function submitAnswer(){
+ function submitAnswer(fromButton=false){
   if(state.phase!=='playing')return;
-  if(state.composing){banner('文字の変換を確定してから「回答」を押してな。','notice');return}
+  // IME Enter confirms a kana conversion. Only a direct 回答 tap bypasses this.
+  if(state.composing&&!fromButton)return;
   // Recheck the deadline on submit to avoid accepting an answer after timeout.
   if(performance.now()>=state.deadline){finishQuestion(false,'time');return}
   const value=norm($('answer').value);if(!value){banner('読みを入力してな！','notice');$('answer').focus();return}
   if(!/^[ぁ-ゖー]+$/.test(value)){banner('ひらがな・カタカナで入力してな！','notice');$('answer').focus();return}
   if(state.current[1].some(r=>norm(r)===value)){finishQuestion(true,'correct');return}
-  banner('もう一回！ まだ時間はあるで。','wrong');$('answer').select();
+  banner('もう一回！ まだ時間はあるで。','wrong');
+  document.body.classList.add('typing');
+  $('answer').focus({preventScroll:true});
+  $('answer').select();
  }
  function pause(){if(state.phase!=='playing')return;
   state.remain=Math.max(0,(state.deadline-performance.now())/1000);cancelAnimationFrame(state.frame);
@@ -190,14 +194,34 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   state.frame=requestAnimationFrame(()=>tick(state.run));
  }
  $('startGame').addEventListener('click',start);
- $('answerForm').addEventListener('submit',e=>{e.preventDefault();submitAnswer()});
+ // Mobile keyboards may use the first tap only to dismiss the IME.
+ // Preventing focus transfer preserves the compact screen; pointerup checks the
+ // answer on that very first tap. Native form submit still handles keyboard Enter.
+ let lastTouchSubmit=-Infinity;
+ $('send').addEventListener('pointerdown',e=>{
+   if(state.phase==='playing'&&(e.pointerType==='touch'||e.pointerType==='pen'))e.preventDefault();
+ });
+ $('send').addEventListener('pointerup',e=>{
+   if((e.pointerType==='touch'||e.pointerType==='pen')&&state.phase==='playing'){
+     lastTouchSubmit=performance.now();
+     submitAnswer(true);
+   }
+ });
+ $('answerForm').addEventListener('submit',e=>{
+   e.preventDefault();
+   if(performance.now()-lastTouchSubmit<350)return; // Same touch's follow-up click
+   submitAnswer();
+ });
  $('resultNext').addEventListener('click',advance);
  $('answer').addEventListener('focus',()=>{
    if(state.phase!=='playing')return;
    document.body.classList.add('typing');
    requestAnimationFrame(()=>window.scrollTo(0,0));
  });
- $('answer').addEventListener('blur',()=>document.body.classList.remove('typing'));
+ $('answer').addEventListener('blur',()=>{
+   // The focused input can blur before button-click. Don't resize until judged.
+   if(state.phase!=='playing')document.body.classList.remove('typing');
+ });
  if(window.visualViewport){
    window.visualViewport.addEventListener('resize',()=>{
      if(document.activeElement===$('answer')&&state.phase==='playing')requestAnimationFrame(()=>window.scrollTo(0,0));

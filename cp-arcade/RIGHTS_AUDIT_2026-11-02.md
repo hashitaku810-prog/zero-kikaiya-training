@@ -4,6 +4,8 @@
 
 本ドキュメントは「YouTubeでゲーム集へのURLを広く紹介する前」にコードと画像の利用条件を見直すための記録。既存サイトやゲームの公開設定・画像カタログにはまだ変更を加えていない。
 
+> **差し替え実施後の更新（2026-11-02）**：下記の「要修正」は調査時の履歴です。両ゲームの採用カタログから疑義のある画像 `CP-PIC-45` / `CP-PIC-49` / `CP-PIC-57` を外し、The Metの公開PD絵画（Object 459117）、Pexelsのピサの斜塔（Photo 5654111）、モン・サン＝ミシェル（Photo 18681610）に置き換えました。元のCommons画像URL・権利フラグは、現在の採用画像としては使っていません。出典・作者・ライセンスの一般向け一覧は `cp-arcade/credits.html`（60画像）です。以下は**過去の監査記録**として保存しています。代替画像について原本ページと公式の一般ライセンスを確認していますが、**実機での全画像取得と正確なライセンス表示の再チェックは別途必要**です。
+
 ## 結論 / 公開前の対応状況
 
 - **最優先修正①**：画像 `CP-PIC-49`「ピサの斜塔」。カタログには `Leaning_tower_of_Pisa.jpg` / `CC BY 2.5` とある。一方、検索で確認できた `File:Leaning_Tower_of_Pisa.jpg` は **CC BY-SA 3.0**、作者 **Softeis**。小文字・大文字を含むファイル名とライセンスが一致するか未確認。**確証が得られるまで両ゲームの採用候補から除外し、条件を確認した別写真へ差し替えること。** (https://commons.wikimedia.org/wiki/File:Leaning_Tower_of_Pisa.jpg)
@@ -130,3 +132,16 @@
 - [ ] 画像をYouTubeサムネイル/動画に再掲載する場合のライセンス表示の確認
 
 *本記録は技術的・一般的な権利チェックであり、弁護士の個別法律鑑定ではない。公開可否は未確認項目を解消してから判断する。*
+
+
+## 差し替え・公開ページ実装の実施記録
+
+- 2026-11-02: `cp_picture_puzzle.html` と `cp_picture_drop.html` の両カタログで疑義のある3画像を同一ID・同一カテゴリのまま差替え。採用件数はそれぞれ60、総候補は前者70・後者60。
+- CP-PIC-45: `type=met`, object_id=459117, The Met公開「Study for A Sunday on La Grande Jatte」（Public Domain）。出典: https://www.metmuseum.org/art/collection/search/459117
+- CP-PIC-49: `type=pexels`, photo id=5654111, 撮影者 Fredric Lee Phillips。出典: https://www.pexels.com/photo/leaning-tower-of-pisa-italy-5654111/
+- CP-PIC-57: `type=pexels`, photo id=18681610, 撮影者 LIZHI LIANG。出典: https://www.pexels.com/photo/mont-saint-michel-abbey-in-normandy-france-18681610/
+- ゲーム実装のCommons確認処理（ライセンス/API参照）を維持。ライセンスによるクレジットが必要な残存Commons画像11件には、作者・出典・ライセンス・加工内容を `credits.html` に表示。
+- `about.html` に趣味制作・免責・ランキングの利用情報・連絡先案内を掲載。
+- `index.html` のサイト名を **はしmoto Games** に更新し、フッターに `about.html` と `credits.html` へのリンクを設置。
+- インターネット検索で目立つ同名のページは見つからなかったものの、**J-PlatPat商標のデータベース検索結果は取得できていません**。サイト名の商標クリアランスは未完了。
+- 元となった落ち物ゲーム／合体ゲームの画面表現の法的評価や、権利者による使用許諾を取得したわけではない。ゲームのルールの類似は一般に著作権保護とは別だが、音・画面などを法律家が評価したものではない。

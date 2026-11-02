@@ -1,8 +1,8 @@
-# はしmoto Games 「よみチャレ！」試作 Ver.0.1
+# はしmoto Games 「よみチャレ！」開発・公開履歴
 
 作成日：2026-11-02
 
-## 状態
+## 初期状態（Ver.0.1時点）
 - 独立体験版をGitHub Pagesに仮公開、既存のTOPゲーム一覧へは未掲載。ユーザーのスマホ実機評価待ち。
 - 体験URL: https://hashitaku810-prog.github.io/zero-kikaiya-training/cp-arcade/cp_yomichare_preview.html
 - 本体: cp-arcade/cp_yomichare_preview.html（HTML/JS/CSS単体、追加ライブラリ不要）
@@ -232,3 +232,17 @@
 - GitHub Pagesは本体更新コミット \`1937032d4d9c681bf74ec4d413401e0e94079600\` のデプロイ成功をGitHub Actionsで確認。
 - **未確認**：Android実機で漢字帳の開閉・検索・答え表示・ブラウザ再起動後の記録復元。ユーザーの実機試験待ち。
 - 正式TOPへの追加はユーザーの試遊・承認を待つ。
+
+## 2026-11-02 — Ver.0.9 正式公開（ユーザー承認済）
+
+- ユーザーによる漢字帳のAndroid実機確認：「OKや！これで公開して！」の承認を受け、正式TOPへ掲載。
+- はしmoto Games：`https://hashitaku810-prog.github.io/zero-kikaiya-training/cp-arcade/`
+- 正式ゲームURL：`https://hashitaku810-prog.github.io/zero-kikaiya-training/cp-arcade/cp_yomichare.html`
+- `cp-arcade/cp_yomichare_preview.html` は試作版として残し、正式TOPからはリンクしない。
+- Ver.0.9本体を正式ページに複製し、ブラウザのタイトル・OGメタデータとcanonical URLを更新。両方とも同一ドメインのlocalStorageを使うため、試作版の漢字帳データは同じブラウザで継続可能。
+- TOPには `GAME 08 · NEW` として「よみチャレ！」を追加。8作品（スコア4、絵合わせ2、漢字2）のカテゴリ表示・メタ情報・共有テキストを更新。
+- 画面デザインには外部画像を使わずインラインSVGを使用。既存7作品とリンク・カテゴリは維持。
+- `about.html` の「試作中」の表現を正式公開済みの文面に更新。個人漢字帳の端末内保存方針は変更なし。
+- テスト：正式HTMLのJavaScript構文・問題数・依存スクリプト、TOPのカテゴリ8作品とリンク一致を事前検証。
+- デプロイはGitHub Pages Actionsで確認（実行記録は実際の結果を別途参照）。
+- 実機の長期・全問プレイや通信時ランキング登録については今後も追加確認対象。ユーザー承認により正式公開状態とする。

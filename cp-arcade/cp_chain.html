@@ -73,6 +73,7 @@ h1 span{color:#ff92c7}
 
 .cp-arcade-return{display:inline-flex;align-items:center;gap:5px;color:#a9cff4;font-size:12px;font-weight:800;text-decoration:none;padding:4px 4px 9px;min-height:28px;touch-action:manipulation}.cp-arcade-return:active{opacity:.6}
 </style>
+<script src="./cp_analytics.js?v=1"></script>
 </head>
 <body>
 <main class="game" id="cp-chain-game">
@@ -143,7 +144,7 @@ function update(){saveBest();$('#score').textContent=String(score).padStart(6,'0
 }
 function showOverlay(title,desc,btn){$('#overlay-title').textContent=title;$('#overlay-desc').innerHTML=desc;$('#overlay-btn').textContent=btn;$('#overlay').classList.remove('hidden')}
 function hideOverlay(){$('#overlay').classList.add('hidden')}
-function newGame(){window.CPLeaderboard?.start('chain');board=blank();active=null;queue=[pair(),pair()];score=0;level=1;cleared=0;maxChain=0;dropCount=0;lastChain=0;chain=0;flashCells=[];fallItems=[];particles=[];floating=[];fallClock=0;mode='playing';phase='';lastFrame=performance.now();spawn();hideOverlay();update();drawPreviews();render(lastFrame)}
+function newGame(){window.CPAnalytics?.gameStart('chain');window.CPLeaderboard?.start('chain');board=blank();active=null;queue=[pair(),pair()];score=0;level=1;cleared=0;maxChain=0;dropCount=0;lastChain=0;chain=0;flashCells=[];fallItems=[];particles=[];floating=[];fallClock=0;mode='playing';phase='';lastFrame=performance.now();spawn();hideOverlay();update();drawPreviews();render(lastFrame)}
 function spawn(){active={...queue.shift(),x:2,y:1,rot:0};queue.push(pair());drawPreviews();if(!canPlace(active,active.x,active.y,active.rot)){active=null;gameOver()}}
 function gameOver(){window.CPLeaderboard?.finish('chain',score);mode='over';phase='';flashCells=[];fallItems=[];saveBest();update();playSfx('end');showOverlay('ゲームオーバー',`スコア <strong>${score.toLocaleString('ja-JP')} 点</strong><br>最高連鎖 ${maxChain} れんさ！<br>もう一回いっとく？`,'もう一回 ▶')}
 function playSfx(kind,n=1){if(!audioOn)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();let t=audioCtx.currentTime;

@@ -26,7 +26,8 @@ button,select{font:inherit}button{cursor:pointer}button:focus-visible,select:foc
 .overlay{position:fixed;inset:0;z-index:30;background:#020d20e8;display:grid;place-items:center;padding:18px;backdrop-filter:blur(7px)}.overlay.hidden{display:none}.modal{max-width:410px;width:100%;background:linear-gradient(155deg,#274560,#10283f);border:1px solid #79a1ae;border-radius:22px;text-align:center;padding:20px 18px;box-shadow:0 25px 75px #000b}.modal h2{margin:4px 0 0;font-size:27px}.win-art{width:min(60vw,230px);aspect-ratio:1;border-radius:12px;background-size:cover;background-position:center;border:3px solid #f6d898;margin:12px auto}.win-reading{font-size:23px;color:#ffe1a5;font-weight:900;margin:6px 0}.win-detail{font-size:12px;color:#dfebf4;line-height:1.8}.modal button{width:100%;margin-top:9px}.small{font-size:10px;color:#a9bdcc}
 @media(max-width:359px){.app{padding:8px 7px 20px}.header h1{font-size:25px}.game{padding:9px 6px}.btn{font-size:11px}}@media(prefers-reduced-motion:reduce){.piece,.hole,.finish-patch{transition:none!important}.piece.hint{animation:none}}
 a.arcade-return{display:inline-block;margin:-4px 2px 12px;font-size:12px;font-weight:850;color:#9fe3df;text-decoration:none}a.arcade-return:focus-visible{outline:2px solid #f6d18e;outline-offset:3px}
-</style></head><body>
+</style><script src="./cp_analytics.js?v=1"></script>
+</head><body>
 <main class="app">
 <header class="header"><div><div class="brand">はしmoto Games · KANJI PUZZLE</div><h1>漢字<em>8パズル</em></h1></div><div class="version">Ver.1.0</div></header>
 <p class="tagline">空きマスの隣を動かして、難しい漢字を完成させよう。</p><a href="./index.html" class="arcade-return">← はしmoto Gamesのゲーム一覧へ</a>
@@ -136,6 +137,7 @@ function positionTiles(){
 }
 function makeArt(){art=artFor(WORDS[wordIndex][0],wordIndex);boardEl.style.setProperty('--image',`url("${art}")`);$('miniArt').style.backgroundImage=`url("${art}")`;$('winArt').style.backgroundImage=`url("${art}")`}
 function makePuzzle(){
+  window.CPAnalytics?.gameStart('kanji_eight');
  const options=PRESETS[difficulty],pick=options[Math.floor(Math.random()*options.length)];startBoard=board=pick.a;puzzleDistance=pick.d;
  wordIndex=Math.floor(Math.random()*WORDS.length);moves=0;solved=false;hintTile=null;boardEl.classList.remove('ready');makeArt();tileNodes();positionTiles();
  requestAnimationFrame(()=>boardEl.classList.add('ready'));$('winOverlay').classList.add('hidden');$('preview').open=false;

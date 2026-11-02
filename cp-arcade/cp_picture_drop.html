@@ -58,7 +58,8 @@ body.focus-mode .deck-card{height:31px;border-radius:5px}
 body.focus-mode .stock-arrows{padding:0 4px;line-height:11px;font-size:12px;margin-bottom:0}
 body.focus-mode .board{border:3px solid #294661;border-radius:6px;box-shadow:0 5px 20px #0008}
 body.focus-mode .status{font-size:11px;line-height:1.3;min-height:32px;margin:3px auto 0;padding:6px;border-radius:7px}
-</style></head><body>
+</style><script src="./cp_analytics.js?v=1"></script>
+</head><body>
 <main class="app">
 <header class="hero"><div><div class="brand">CP QUEST · NEW PUZZLE</div><h1>PICTURE <span>DROP</span></h1><p class="desc">ピースを交換 → 絵がつながる → 4枚で完成！</p><a href="./index.html" class="back-link">← はしmoto Games に戻る</a></div><div class="version">Ver.1.4</div></header>
 <div class="stats"><div class="stat"><small>完成した絵</small><strong id="doneCount">0 <em>/ 12</em></strong></div><div class="stat"><small>移動回数</small><strong id="movesCount">0</strong></div><div class="stat"><small>盤面の空き</small><strong id="emptyCount">0</strong></div></div>
@@ -201,7 +202,7 @@ function paintGallery(){
   $('galleryItems').innerHTML=levelImages.map(a=>`<div class="gallery-item"><div class="gallery-art" style="background-image:url(&quot;${esc(a.url)}&quot;)"></div><small>${esc(a.name)}</small></div>`).join('');
   $('credits').innerHTML=levelImages.filter(a=>a.credit).map(a=>`<li><a href="${esc(a.credit.source)}" target="_blank" rel="noopener noreferrer">${esc(a.name)}</a> — ${esc(a.credit.author)}／${esc(a.credit.license)}（<a href="${esc(a.credit.licenseUrl)}" target="_blank" rel="noopener noreferrer">ライセンス</a>）</li>`).join('')||'<li>ご自身の写真、または同梱の見本画像です。</li>';
 }
-function start(){runId++;busy=false;const n=Math.min(gallery.length,Number($('difficulty').value));levelImages=shuffle(gallery.slice()).slice(0,n);const first=levelImages.slice(0,9),rest=levelImages.slice(9);stock=shuffle(rest.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))));let tries=0;do{board=shuffle(first.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))))}while(getMatches(board).length&&++tries<200);done=[];moves=0;fairRefillCount=0;selected=-1;tooltip=null;undoStack=[];dropFx.clear();gravityFx.clear();$('winOverlay').classList.add('hidden');paintGallery();paint();status('36マス全部埋まってるで！ 絵をつなぐと上の6列から補充される！')}
+function start(){window.CPAnalytics?.gameStart('picture_drop');runId++;busy=false;const n=Math.min(gallery.length,Number($('difficulty').value));levelImages=shuffle(gallery.slice()).slice(0,n);const first=levelImages.slice(0,9),rest=levelImages.slice(9);stock=shuffle(rest.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))));let tries=0;do{board=shuffle(first.flatMap(a=>[0,1,2,3].map(q=>piece(a.id,q))))}while(getMatches(board).length&&++tries<200);done=[];moves=0;fairRefillCount=0;selected=-1;tooltip=null;undoStack=[];dropFx.clear();gravityFx.clear();$('winOverlay').classList.add('hidden');paintGallery();paint();status('36マス全部埋まってるで！ 絵をつなぐと上の6列から補充される！')}
 function move(from,to){if(busy)return false;const action=validMove(board,from,to);if(!action){if(from!==to)toast('その形では盤面の外に出てしまうで！');return false}undoStack.push(snapshot());if(undoStack.length>80)undoStack.shift();board=swapped(board,action,true);moves++;selected=-1;tooltip=null;paint();const matches=getMatches(board);if(matches.length)settle(matches,runId);else status(action.group.length>1?`${action.group.length}枚つながった絵をまとめて移動！ 入れ替え成功。`:'ピースを交換したで！ 同じ絵を4枚つなげよう。');return true}
 // A joined group remains rigid when existing cards fall under gravity.
 

@@ -97,7 +97,8 @@ h1 small{font-size:11px;color:#ffe4ad;white-space:nowrap}
 .imageOptions{margin-top:13px;border:1px solid #3f5575;border-radius:12px;padding:10px 12px;background:#16243a}
 .imageOptions summary{cursor:pointer;font-size:12px;font-weight:800;color:#cadcf5}
 .imageOptions[open] summary{margin-bottom:9px}
-</style></head><body>
+</style><script src="./cp_analytics.js?v=1"></script>
+</head><body>
 <main class="wrap">
 <header><div><a class="arcadeBack" href="./index.html">‹ はしmoto Gamesへ戻る</a><h1>🧩 CP ピクチャーパズル <small>全15ステージ</small></h1></div><span class="tag">NEW GAME</span></header>
 <p class="subtitle">5シリーズを1問ずつクリアしよう！ 初級5問 → 中級5問 → 上級5問の全15ステージ。</p>
@@ -358,7 +359,7 @@ function startPuzzle(){
   }
  }
  if(completed()){const g=[...groups.values()][0];exchange(g[0],g[1])}
- playing=true;started=Date.now();seconds=0;stopClock();timer=setInterval(tick,1000);renderBoard();updateStats();saveRun();message('スタート！ 同じ形同士で入れ替えてね');
+ window.CPAnalytics?.gameStart('picture_puzzle');playing=true;started=Date.now();seconds=0;stopClock();timer=setInterval(tick,1000);renderBoard();updateStats();saveRun();message('スタート！ 同じ形同士で入れ替えてね');
 }
 function assist(){if(changingImage){message('画像を切り替え中です');return}if(!playing){message('シャッフルしてから使えるよ');return}const idx=order.findIndex((x,i)=>x!==i);if(idx<0)return;const from=order.indexOf(idx);
  exchange(idx,from);hints++;moves++;selected=-1;updateStats();renderBoard();saveRun();if(completed())finishStage();else message('1組を正しい場所に戻したよ');}

@@ -1,12 +1,16 @@
-/* はしmoto Games leaderboard v0.3: 7 Yomichare survival ranks, preserving original scores. */
+/* はしmoto Games leaderboard v0.4: 30-question Yomichare ranking and retained historical scores. */
 (()=>{
  const API='https://zotajucfdvmyernfwxnm.supabase.co/functions/v1/arcade-ranking';
  const IDS={drop:'CP DROP',chain:'CP CHAIN',fruits:'CP FRUITS',nokoribi:'CP NOKORIBI',
   yomi100_1:'よみチャレ！ LEVEL 1',yomi100_2:'よみチャレ！ LEVEL 2',
   yomi100_3:'よみチャレ！ LEVEL 3',yomi100_4:'よみチャレ！ LEVEL 4',
   yomi100_5:'よみチャレ！ LEVEL 5',yomi100_6:'よみチャレ！ LEVEL 6',
-  yomi100_7:'よみチャレ！ LEVEL 7'};
- const isYomi=game=>/^yomi100_[1-7]$/.test(game);
+  yomi100_7:'よみチャレ！旧100問 LEVEL 7',
+  yomi30_1:'よみチャレ！30問 LEVEL 1',yomi30_2:'よみチャレ！30問 LEVEL 2',
+  yomi30_3:'よみチャレ！30問 LEVEL 3',yomi30_4:'よみチャレ！30問 LEVEL 4',
+  yomi30_5:'よみチャレ！30問 LEVEL 5',yomi30_6:'よみチャレ！30問 LEVEL 6',
+  yomi30_7:'よみチャレ！30問 LEVEL 7'};
+ const isYomi=game=>/^yomi(30|100)_[1-7]$/.test(game);
  const formatDuration=tenths=>{
   const t=Math.max(0,Math.floor(tenths));
   const min=String(Math.floor(t/600)).padStart(2,'0');
@@ -17,7 +21,8 @@
   if(!isYomi(game))return Number(score).toLocaleString('ja-JP')+' pt';
   // Encoded as completed*100000 + 99999 - elapsed tenths.
   const n=Math.floor(score/100000),tenths=99999-(score%100000);
-  return n+'/100問 · '+formatDuration(tenths);
+  const limit=Number(/^yomi(30|100)_[1-7]$/.exec(game)?.[1]||100);
+  return n+'/'+limit+'問 · '+formatDuration(tenths);
  };
  const rankOnlyGame=location.pathname.endsWith('/cp_nokoribi.html')||location.pathname.endsWith('/cp_yomichare_preview.html');
 

@@ -58,7 +58,7 @@
           seen: cleanNumber(src.seen), correct: cleanNumber(src.correct), missed: cleanNumber(src.missed),
           review: src.review === true, star: src.star === true,
           cleanStreak: Math.min(2, cleanNumber(src.cleanStreak)),
-          updated: cleanNumber(src.updated)
+          updated: Number.isFinite(Number(src.updated)) ? Math.max(0, Math.floor(Number(src.updated))) : 0
         };
       }
     } catch (err) { /* private browsing may disable storage */ }

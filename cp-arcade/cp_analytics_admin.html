@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#10283d">
+<title>アクセス管理｜はしmoto Games</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;color-scheme:dark;--line:#416578;--muted:#b5c8d8;--aqua:#8ee9dc;--gold:#ffe1ae}
+*{box-sizing:border-box}html{background:#071422}body{margin:0;min-height:100dvh;background:radial-gradient(ellipse at top left,#21476677,transparent 55%),linear-gradient(#0c2034,#081321);color:#f1f7fa}
+button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #ffe0aa;outline-offset:2px}
+a{color:#a6ede0}.wrap{width:min(100% - 22px,900px);margin:0 auto;padding:18px 0 30px}
+.back{font-size:12px;font-weight:850;text-decoration:none}header{display:flex;justify-content:space-between;align-items:start;gap:12px;margin:14px 0 19px}
+h1{font-size:clamp(24px,5vw,35px);margin:3px 0;color:#ffe4bb}h2{font-size:16px;margin:0 0 12px;color:#a7eada}
+.sub{font-size:11px;line-height:1.7;color:#aec5d6;margin:6px 0 0}
+.panel{padding:18px;border:1px solid var(--line);border-radius:17px;background:#172f44;margin-bottom:12px}
+.locked{max-width:475px;margin:30px auto}.locked label{font-weight:850;font-size:13px;display:block;margin:14px 0 6px}
+.field{width:100%;min-height:46px;padding:10px 13px;border:1px solid #a3c6d6;background:#edfaff;color:#163445;border-radius:11px}
+.primary,.secondary{border:0;border-radius:10px;min-height:43px;padding:10px 17px;font-size:12px;font-weight:900}
+.primary{background:linear-gradient(135deg,#8febdb,#74bee8);color:#15364b}
+.secondary{background:#24445a;border:1px solid #55778a;color:#e2f5f1}
+.wide{width:100%;margin:13px 0 3px}.row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.actions{display:flex;flex-wrap:wrap;gap:7px;align-items:center}.actions select{padding:9px 12px;min-height:43px;border:1px solid #8daebe;border-radius:10px;color:#173244;background:#e5f5fa;font-size:12px;font-weight:850}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:10px 0 17px}
+.kpi{border:1px solid #3c5d6f;background:#152b3f;border-radius:12px;padding:12px 8px;min-width:0;text-align:center}
+.kpi small{font-size:10px;color:#aac6d5;font-weight:800;display:block;line-height:1.5}
+.kpi strong{display:block;font-size:clamp(17px,3vw,27px);font-weight:950;color:#ffe0aa;margin-top:5px;font-variant-numeric:tabular-nums}
+.chart{min-height:135px;display:flex;align-items:end;gap:3px;padding:8px 3px 0;background:#10293c;border:1px solid #355a6b;border-radius:12px}
+.bar-col{height:125px;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:3px}
+.bar-col .bar{width:100%;max-width:28px;min-height:2px;background:linear-gradient(180deg,#84ebd9,#5e9dc8);border-radius:4px 4px 1px 1px}
+.bar-col .axis{font-size:8px;white-space:nowrap;color:#9cb9c9;height:12px}
+.explain{font-size:11px;color:#abc6d3;line-height:1.65;margin:7px 0 0}
+.items{display:grid;gap:9px}.item-name{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;font-weight:800}
+.meter{background:#0e2939;border-radius:99px;min-height:8px;overflow:hidden;margin:5px 0 0}
+.fill{background:linear-gradient(90deg,#85e9d8,#a8c6ed);height:8px;border-radius:99px}
+.tiny{font-size:11px;color:#b0cada;line-height:1.65}
+.warn{color:#ffb9aa;font-size:12px;font-weight:800;min-height:18px;margin-top:9px}
+[hidden]{display:none!important}
+@media(max-width:650px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid .kpi:last-child{grid-column:1/-1}.panel{padding:13px}.wrap{width:min(100% - 16px,900px)}}
+@media(max-width:350px){h1{font-size:23px}.actions select{width:100%}.actions button{flex:1}}
+</style>
+</head><body>
+<main class="wrap">
+  <a class="back" href="./index.html">← はしmoto Gamesに戻る</a>
+  <header><div><div class="sub">PRIVATE DASHBOARD · 日本時間（JST）</div><h1>📊 アクセス管理</h1><p class="sub">管理者用の集計画面。個々の訪問者の氏名・IPアドレスは表示／保存しません。</p></div><span aria-hidden="true" style="font-size:35px">🎮</span></header>
+  <section id="login" class="panel locked">
+    <h2>管理者アクセスキー</h2>
+    <p class="tiny">CPから渡された専用キーを入力して開きます。キーはこのタブを開いている間だけ保存し、URLや公開ページには含めません。</p>
+    <form id="loginForm"><label for="key">アクセスキー</label><input class="field" type="password" id="key" minlength="32" placeholder="GA-..." autocomplete="off" required><button class="primary wide" type="submit">集計画面を開く</button></form>
+    <p id="loginError" role="alert" class="warn"></p>
+  </section>
+  <section id="dashboard" hidden>
+    <div class="panel row">
+      <div><strong>🎮 はしmoto Games</strong><div class="sub">データ収集を開始した日以降の集計</div></div>
+      <div class="actions"><select id="period" aria-label="集計期間"><option value="7">直近7日</option><option value="30" selected>直近30日</option><option value="90">直近90日</option></select>
+      <button id="refresh" type="button" class="secondary">↻ 更新</button><button id="csv" type="button" class="secondary">CSV保存</button><button id="logout" type="button" class="secondary">ログアウト</button></div>
+    </div>
+    <div class="grid" id="kpis">
+      <div class="kpi"><small>累計推定訪問者</small><strong id="kTotal">--</strong></div>
+      <div class="kpi"><small>今日の訪問者</small><strong id="kToday">--</strong></div>
+      <div class="kpi"><small>期間内PV</small><strong id="kPV">--</strong></div>
+      <div class="kpi"><small>ゲーム開始</small><strong id="kStarts">--</strong></div>
+      <div class="kpi"><small>YouTube流入</small><strong id="kYoutube">--</strong></div>
+    </div>
+    <section class="panel"><h2>📅 日別の訪問者数</h2><div class="chart" id="chart" role="img" aria-label="日別の訪問者数を示す棒グラフ"></div><p id="chartDetail" class="explain"></p></section>
+    <section class="panel"><h2>🎮 人気ゲーム（開始回数）</h2><div id="games" class="items"></div><p class="explain">実際にゲームが始まった回数です。自動開始するゲームはページを開いた時点も含みます。</p></section>
+    <section class="panel"><h2>🔗 アクセス元（訪問セッション）</h2><div id="sources" class="items"></div><p class="explain">YouTube概要欄の「utm_source=youtube」を優先。アプリ側で参照元が消えたアクセスは「直接・不明」に含まれます。</p></section>
+    <section class="panel"><h2>▶ YouTube動画別の流入</h2><div id="campaigns" class="items"></div><p class="explain">動画の概要欄に「utm_source=youtube&amp;utm_campaign=video_name」のように付けると、動画別のアクセスを集計できます。</p></section>
+    <div class="panel"><p id="updated" class="tiny"></p><p class="tiny">訪問者数はブラウザごとの匿名IDに基づく推定値で、端末変更やブラウザデータ消去で重複します。無効な計測・自動アクセスを完全には除けません。個々の訪問者データはこの画面には表示しません。</p><p id="dashError" role="status" class="warn"></p></div>
+  </section>
+</main>
+<script>
+(() => {
+ 'use strict';
+ const API='https://zotajucfdvmyernfwxnm.supabase.co/functions/v1/arcade-analytics?mode=admin';
+ const STORAGE='hm_games_analytics_admin_tab_v1';
+ const $=id=>document.getElementById(id);
+ const names={drop:'CP DROP',chain:'CP CHAIN',fruits:'CP FRUITS',picture_puzzle:'CP PICTURE PUZZLE',picture_drop:'CP PICTURE DROP',nokoribi:'CP NOKORIBI',kanji_eight:'CP 漢字8パズル',yomichare:'よみチャレ！'};
+ const refs={direct:'直接・不明',youtube:'YouTube',search:'検索エンジン',social:'SNS',referral:'その他サイト'};
+ let token='',data=null,busy=false;
+ const fmt=n=>Number(n||0).toLocaleString('ja-JP');
+ function showDashboard(yes){$('login').hidden=yes;$('dashboard').hidden=!yes}
+ async function fetchData(key){
+   const r=await fetch(API,{method:'GET',headers:{Authorization:'Bearer '+key},mode:'cors',cache:'no-store'});
+   if(!r.ok){if(r.status===401)throw Error('キーが違うか、無効になっています。');throw Error('集計の取得に失敗しました（HTTP '+r.status+'）。')}
+   const obj=await r.json();if(!obj.overview||!Array.isArray(obj.daily))throw Error('集計データの形式が正しくありません。');return obj;
+ }
+ async function load(key){
+   if(busy)return;busy=true;$('loginError').textContent='';$('dashError').textContent='';
+   try{
+     const response=await fetchData(key);
+     token=key;data=response;
+     try{sessionStorage.setItem(STORAGE,key)}catch{}
+     showDashboard(true);render();
+   }catch(err){
+     if(!data){showDashboard(false);$('loginError').textContent=String(err.message||err);}
+     else $('dashError').textContent=String(err.message||err);
+   }finally{busy=false}
+ }
+ function periodDates(count){
+   const base=new Date(new Date(Date.now()+9*3600000).toISOString().slice(0,10)+'T00:00:00Z');
+   const out=[];for(let i=count-1;i>=0;i--){const d=new Date(base);d.setUTCDate(d.getUTCDate()-i);out.push(d.toISOString().slice(0,10));}
+   return out;
+ }
+ function num(arr,key){return arr.reduce((a,x)=>a+Number(x[key]||0),0)}
+ function addProgress(container,records,labels,field,empty){
+   container.replaceChildren();
+   if(!records.length){const p=document.createElement('p');p.className='tiny';p.textContent=empty;container.append(p);return}
+   const peak=Math.max(1,...records.map(x=>x[field]));
+   for(const item of records){
+     const wrap=document.createElement('div');
+     const heading=document.createElement('div');heading.className='item-name';
+     const label=document.createElement('span');label.textContent=labels(item);
+     const value=document.createElement('strong');value.textContent=fmt(item[field])+'回';
+     heading.append(label,value);
+     const meter=document.createElement('div');meter.className='meter';
+     const bar=document.createElement('div');bar.className='fill';bar.style.width=(100*item[field]/peak).toFixed(1)+'%';
+     meter.append(bar);wrap.append(heading,meter);container.append(wrap);
+   }
+ }
+ function aggregate(rows,key,name){
+   const grouped=new Map();
+   for(const item of rows){const k=item[key]||'';grouped.set(k,(grouped.get(k)||0)+Number(item[name]||0));}
+   return [...grouped].map(([id,total])=>({id,total})).sort((a,b)=>b.total-a.total);
+ }
+ function render(){
+   if(!data)return;
+   const dates=periodDates(Number($('period').value));
+   const inRange=new Set(dates);
+   const daily=data.daily.filter(d=>inRange.has(d.day));
+   const games=data.games.filter(d=>inRange.has(d.day));
+   const sources=data.sources.filter(d=>inRange.has(d.day));
+   $('kTotal').textContent=fmt(data.overview.visitors);
+   $('kToday').textContent=fmt(data.overview.today_visitors);
+   $('kPV').textContent=fmt(num(daily,'pageviews'));
+   $('kStarts').textContent=fmt(num(games,'starts'));
+   $('kYoutube').textContent=fmt(num(sources.filter(s=>s.source==='youtube'),'sessions'));
+   const dayMap=new Map(daily.map(x=>[x.day,Number(x.unique_visitors||0)]));
+   const graphDays=dates.slice(-Math.min(dates.length,30));
+   const highest=Math.max(1,...graphDays.map(d=>dayMap.get(d)||0));
+   $('chart').replaceChildren();
+   graphDays.forEach((day,i)=>{
+      const count=dayMap.get(day)||0;
+      const col=document.createElement('div');col.className='bar-col';col.title=day+'：'+fmt(count)+'人';
+      const bar=document.createElement('div');bar.className='bar';bar.style.height=(4+94*count/highest).toFixed(1)+'px';
+      const axis=document.createElement('span');axis.className='axis';axis.textContent=(i===0||i===graphDays.length-1||i%5===0)?day.slice(5):'';
+      col.append(bar,axis);$('chart').append(col);
+   });
+   $('chartDetail').textContent=dates.length+'日間の推定訪問者合計（日別延べ）：'+fmt(num(daily,'unique_visitors'))+'。グラフは'+graphDays.length+'日分を表示。';
+   addProgress($('games'),aggregate(games,'game_id','starts').filter(x=>x.total>0),x=>names[x.id]||x.id,'total','まだゲーム開始データがありません。');
+   addProgress($('sources'),aggregate(sources,'source','sessions').filter(x=>x.total>0),x=>refs[x.id]||x.id,'total','まだ流入元データがありません。');
+   const campaigns=aggregate(sources.filter(s=>s.source==='youtube'&&s.campaign),'campaign','sessions').filter(x=>x.total>0);
+   addProgress($('campaigns'),campaigns,x=>x.id,'total','YouTube動画別の訪問はまだありません。');
+   $('updated').textContent='最終取得：'+new Date(data.asof).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'})+'（JST）';
+ }
+ function csvCell(s){return '"'+String(s==null?'':s).replace(/"/g,'""')+'"'}
+ function exportCSV(){
+   if(!data)return;
+   const dates=new Set(periodDates(Number($('period').value)));
+   const rows=[['section','date','name','unique_visitors','sessions','pageviews','game_starts','count']];
+   for(const d of data.daily.filter(x=>dates.has(x.day)))rows.push(['daily',d.day,'',d.unique_visitors,d.sessions,d.pageviews,d.game_starts,'']);
+   for(const g of data.games.filter(x=>dates.has(x.day)))rows.push(['game',g.day,g.game_id,'','','','',g.starts]);
+   for(const s of data.sources.filter(x=>dates.has(x.day)))rows.push(['source',s.day,s.source+(s.campaign?'/'+s.campaign:''),'','','','',s.sessions]);
+   const blob=new Blob(['\ufeff'+rows.map(row=>row.map(csvCell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});
+   const url=URL.createObjectURL(blob),a=document.createElement('a');
+   a.href=url;a.download='hashimoto-games-analytics-'+Number($('period').value)+'d.csv';
+   document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ }
+ $('loginForm').addEventListener('submit',e=>{e.preventDefault();load($('key').value.trim());$('key').value=''});
+ $('period').addEventListener('change',render);
+ $('refresh').addEventListener('click',()=>load(token));
+ $('csv').addEventListener('click',exportCSV);
+ $('logout').addEventListener('click',()=>{token='';data=null;try{sessionStorage.removeItem(STORAGE)}catch{};showDashboard(false);$('key').value='';$('loginError').textContent='ログアウトしました。'});
+ try{const saved=sessionStorage.getItem(STORAGE);if(saved&&saved.startsWith('GA-'))load(saved)}catch{}
+})();
+</script>
+</body></html>

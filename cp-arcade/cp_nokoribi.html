@@ -98,6 +98,7 @@ button:disabled{opacity:.38;cursor:default}
 a.back-arcade{display:inline-block;margin:0 4px 10px;color:#ffc88f;font-size:12px;text-decoration:none;font-weight:800}a.back-arcade:focus-visible{outline:2px solid #ffd59c;outline-offset:3px}
 .rank-anchor{display:flex;justify-content:center;margin:10px 0 5px}.rank-note{font-size:11px;color:#a9cbda;text-align:center;margin:5px 0 0;line-height:1.5}.rank-note.practice{color:#f5cb94}
 </style>
+<script src="./cp_analytics.js?v=1"></script>
 </head>
 <body>
 <main class="app">
@@ -236,6 +237,7 @@ a.back-arcade{display:inline-block;margin:0 4px 10px;color:#ffc88f;font-size:12p
   function snapshot(){return {board:state.board.slice(),embers:state.embers.slice(),deck:state.deck.slice(),rngState:state.rngState,moves:state.moves,score:state.score,maxChain:state.maxChain,totalBurn:state.totalBurn,totalMatch:state.totalMatch,lastChain:state.lastChain}}
   function restore(s){Object.assign(state,{board:s.board.slice(),embers:s.embers.slice(),deck:s.deck.slice(),rngState:s.rngState,moves:s.moves,score:s.score,maxChain:s.maxChain,totalBurn:s.totalBurn,totalMatch:s.totalMatch,lastChain:s.lastChain});state.clearFx.clear();state.spawnFx.clear();state.shiftFx.clear();state.fireFx.clear();state.busy=false;state.ended=false;state.hint=null}
   function start(seed){
+    window.CPAnalytics?.gameStart('nokoribi');
     // Ranked play uses 20 genuine moves. Undo turns this run into practice.
     rankEligible=true;rankSubmitted=false;
     $('rankNotice').classList.remove('practice');

@@ -3,7 +3,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a1730">
 <meta name="description" content="はしmoto Gamesの「よみチャレ！」。小学生の漢字から超難読まで、時間内に熟語の読みを入力！">
-<title>よみチャレ！試作 Ver.0.6｜はしmoto Games</title>
+<title>よみチャレ！試作 Ver.0.7｜はしmoto Games</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;--ink:#f5f8ff;--muted:#9fbad3;--line:#355675;--gold:#ffd99b;--aqua:#83ecd9}
 *{box-sizing:border-box}html{background:#091425}body{margin:0;min-height:100dvh;color:var(--ink);background:radial-gradient(ellipse 70% 33% at 18% 0%,#29507877,transparent),radial-gradient(ellipse 65% 38% at 99% 43%,#47406b30,transparent),linear-gradient(150deg,#111f37,#081327)}
@@ -38,6 +38,8 @@ form{display:flex;gap:7px;align-items:stretch}input{width:100%;min-width:0;flex:
 .challenge-settings .challenge-best{font-size:12px;font-weight:800;color:#ffdba6;margin:8px 0 2px}
 body.challenge .tools{display:none!important}
 body.challenge .answer-hint{display:none!important}
+#startOverlay .rank-link{display:block;width:100%;min-height:34px;margin:5px 0 0;border:1px solid #7fa8a7;border-radius:9px;background:#174659;color:#dffaf1;font-size:12px;font-weight:850}
+#startOverlay .rank-link:focus-visible{outline:3px solid #ffdda9;outline-offset:2px}
 @media(max-width:380px), (max-height:700px){
  #startOverlay .dialog{padding:12px 12px 13px}
  #startOverlay .dialog .big{font-size:33px;margin:0}
@@ -80,7 +82,7 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
 @media(max-width:350px){.wrap{padding:10px 8px}.quiz{padding:14px 9px}.hero h1{font-size:32px}form button{padding:8px 12px}.kanji{font-size:44px}.top-brand{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style></head><body>
-<main class="wrap"><header class="top"><a class="back" href="./index.html">← はしmoto Games</a><span class="top-brand">はしmoto <b>Games</b> · Ver.0.6</span></header>
+<main class="wrap"><header class="top"><a class="back" href="./index.html">← はしmoto Games</a><span class="top-brand">はしmoto <b>Games</b> · Ver.0.7</span></header>
 <div class="hero"><div class="eyebrow">KANJI TIME ATTACK</div><h1>よみ<em>チャレ！</em> ⏱️</h1><p>意味をヒントに読んで入力！ 小学生から超難読まで全7レベル</p></div>
 <section class="stats" aria-label="得点と正解状況"><div class="stat"><small>スコア</small><strong id="score">0</strong></div><div class="stat"><small>正解数</small><strong id="correct">0 / 35</strong></div><div class="stat"><small id="bestLabel">自己ベスト</small><strong id="best" class="hot">0</strong></div></section>
 <div id="stageDots" class="stage-nav" aria-label="レベルの進み具合"></div>
@@ -109,6 +111,7 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
 <label for="challengeLevel">挑戦する難易度を選択</label>
 <select id="challengeLevel" aria-label="100問サバイバルの難易度"><option value="0">LEVEL 1 · 小学生・やさしい （1問25秒）</option><option value="1">LEVEL 2 · 小学生・ふつう （1問24秒）</option><option value="2">LEVEL 3 · 小学生・むずかしい （1問22秒）</option><option value="3">LEVEL 4 · 中学・高校 （1問20秒）</option><option value="4">LEVEL 5 · 大人の熟語 （1問19秒）</option><option value="5">LEVEL 6 · 難読漢字 （1問18秒）</option><option value="6">LEVEL 7 · 超難読 （1問17秒）</option></select>
 <p class="challenge-best">🏆 このレベルの最高到達：<span id="challengeBest">0 / 100問</span></p>
+<button id="challengeRanking" type="button" class="rank-link">🏆 このレベルのオンラインTOP10</button>
 </div>
 <p class="subnote" id="startDescription">35問すべてに挑戦！ 不正解や時間切れでも次へ進めるで。</p>
 <button class="primary" id="startGame" type="button">ゲームスタート ▶</button></div></div>
@@ -125,9 +128,11 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
 </div>
 <div id="levelOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="levelTitle" hidden><div class="dialog"><div class="small">LEVEL FINISHED</div><div class="big" id="levelEmoji">🎉</div><h2 id="levelTitle">レベルクリア！</h2><p id="levelDetails"></p><div class="mini-stats"><div>このレベルの正解<b id="levelCorrect">0 / 5</b></div><div>現在のスコア<b id="levelScore">0</b></div></div><button class="primary" id="levelNext" type="button">次のレベルへ ▶</button></div></div>
 <div id="pauseOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="pauseTitle" hidden><div class="dialog"><div class="small">PAUSE</div><div class="big">⏸️</div><h2 id="pauseTitle">一時停止</h2><p>戻ったら続きをやろう！<br>時間は止まっているで。</p><button class="primary" id="resume" type="button">再開 ▶</button></div></div>
-<div id="finalOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="finalTitle" hidden><div class="dialog"><div class="small">ALL LEVELS FINISHED</div><div class="big">🏆</div><h2 id="finalTitle">全35問 おつかれさま！</h2><div id="finalScore" class="scoreline">0 点</div><p id="finalDetails"></p><button class="primary" id="replay" type="button">もう一度挑戦 ↻</button><button class="secondary" id="chooseMode" type="button">モード・難易度を選び直す</button><button class="secondary" id="finalClose" type="button">盤面に戻る</button></div></div>
+<div id="finalOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="finalTitle" hidden><div class="dialog"><div class="small">ALL LEVELS FINISHED</div><div class="big">🏆</div><h2 id="finalTitle">全35問 おつかれさま！</h2><div id="finalScore" class="scoreline">0 点</div><p id="finalDetails"></p><button class="primary" id="replay" type="button">もう一度挑戦 ↻</button><button class="secondary" id="finalRank" type="button" hidden>🏆 このレベルのランキングを見る</button>
+<button class="secondary" id="chooseMode" type="button">モード・難易度を選び直す</button><button class="secondary" id="finalClose" type="button">盤面に戻る</button></div></div>
 <script id="questionData" type="application/json">[{"name":"小学生・やさしい","desc":"まずは身近な言葉から","seconds":25,"words":[["学校",["がっこう"],"子どもたちが勉強したり、友達と活動したりする場所。"],["先生",["せんせい"],"学校などで勉強や技術を教える人。"],["友達",["ともだち"],"仲よく付き合い、助け合う相手。"],["教室",["きょうしつ"],"授業や勉強をするための部屋。"],["家族",["かぞく"],"親や子どもなど、生活を共にする身近な人たち。"],["公園",["こうえん"],"みんなが遊んだり、休んだりできる場所。"],["天気",["てんき"],"晴れや雨など、そのときの空のようす。"],["時間",["じかん"],"出来事の長さや、時刻を表すもの。"],["電車",["でんしゃ"],"電気の力で線路の上を走る乗り物。"],["花火",["はなび"],"火薬で光や音を出して楽しむもの。"],["山道",["やまみち"],"山の中や山の斜面を通る道。"],["大雨",["おおあめ"],"短い時間などに、たくさん降る雨。"],["夕日",["ゆうひ"],"夕方、沈んでいくときの太陽。"],["入口",["いりぐち"],"建物や場所の中へ入るところ。"],["音楽",["おんがく"],"音やリズムを組み合わせて表現する芸術。"],["読書",["どくしょ"],"本を読むこと。"]]},{"name":"小学生・ふつう","desc":"知っているけど読めるかな？","seconds":24,"words":[["温度",["おんど"],"物や空気がどれくらい熱いか、冷たいかの程度。"],["旅館",["りょかん"],"旅行などで泊まるための宿。"],["運動",["うんどう"],"体を動かすこと。また、体を動かすスポーツ。"],["景色",["けしき"],"目に見える自然や町などのながめ。"],["農業",["のうぎょう"],"作物を育てたり、家畜を飼ったりする仕事。"],["自由",["じゆう"],"自分の意思で選び、行動できること。"],["銀河",["ぎんが"],"たくさんの星やガスなどが集まった大きな天体の集まり。"],["発明",["はつめい"],"今までなかった道具や方法を新しく考え出すこと。"],["歴史",["れきし"],"昔から今までの、人々や社会の出来事の流れ。"],["水泳",["すいえい"],"水の中を泳ぐこと。また、その競技。"],["港町",["みなとまち"],"港を中心として発展した町。"],["機械",["きかい"],"部品を組み合わせ、決まった働きをするように作った装置。"],["研究",["けんきゅう"],"物事を詳しく調べ、新しい知識を明らかにすること。"],["植物",["しょくぶつ"],"草や木などの生き物。光合成をするものが多い。"],["習慣",["しゅうかん"],"日ごろ繰り返すうちに身についた行動。"],["努力",["どりょく"],"目標のために力を尽くすこと。"]]},{"name":"小学生・むずかしい","desc":"少しずつ難しくなるで！","seconds":22,"words":[["経済",["けいざい"],"物やサービスの生産、売買、消費に関わる活動。"],["複雑",["ふくざつ"],"いろいろなものが絡み合い、簡単でないこと。"],["承認",["しょうにん"],"その内容をよいと認め、受け入れること。"],["提案",["ていあん"],"考えや計画を相手に示すこと。"],["演説",["えんぜつ"],"多くの人の前で、自分の意見や考えを述べること。"],["貿易",["ぼうえき"],"国と国の間で品物などを売り買いすること。"],["誠実",["せいじつ"],"うそやごまかしがなく、まじめで真心があること。"],["憲法",["けんぽう"],"国の基本的な仕組みや人々の権利を定める、最も基本となる法律。"],["著者",["ちょしゃ"],"本や文章を書いた人。"],["比較",["ひかく"],"二つ以上のものを比べ、同じ点や違う点を調べること。"],["衛星",["えいせい"],"惑星などの周りを回る天体。人工衛星もある。"],["余裕",["よゆう"],"時間や気持ち、お金などに十分なゆとりがあること。"],["危険",["きけん"],"事故やけがなど、悪いことが起こるおそれ。"],["姿勢",["しせい"],"体の構え方。また、物事に向き合う態度。"],["効率",["こうりつ"],"かけた時間や力に対して、どれだけ成果が得られるか。"],["緊張",["きんちょう"],"心や体が張りつめ、落ち着かなくなること。"]]},{"name":"中学・高校","desc":"ここから本番！","seconds":20,"words":[["概念",["がいねん"],"物事の共通した特徴をまとめた、頭の中の考え。"],["矛盾",["むじゅん"],"二つの話や考えが食い違い、両立しないこと。"],["抽象",["ちゅうしょう"],"個々の細かな違いを省き、共通する性質を取り出すこと。"],["謙虚",["けんきょ"],"いばらず、控えめで、人の意見を受け入れること。"],["衝突",["しょうとつ"],"物と物がぶつかること。また、意見が対立すること。"],["葛藤",["かっとう"],"心の中で違う気持ちや考えがぶつかり、迷うこと。"],["懸念",["けねん"],"悪いことが起こらないかと心配すること。"],["秩序",["ちつじょ"],"決まりに従い、物事が整っている状態。"],["融通",["ゆうずう"],"状況に合わせて、やり方を柔軟に変えること。"],["均衡",["きんこう"],"力や量などのつり合いが取れていること。"],["曖昧",["あいまい"],"はっきりせず、どちらとも取れること。"],["憂鬱",["ゆううつ"],"気分が沈んで、晴れないこと。"],["信憑",["しんぴょう"],"信じるに足る根拠があること。「信憑性」でよく使う。"],["脅威",["きょうい"],"危害や不安を与えるおそれのあるもの。"],["傾向",["けいこう"],"物事が、ある方向へ進みやすい性質。"],["巧妙",["こうみょう"],"とても上手に工夫されていること。悪だくみにも使う。"]]},{"name":"大人の熟語","desc":"読めたらちょっと自慢できる","seconds":19,"words":[["忖度",["そんたく"],"相手の気持ちや考えを推し量ること。"],["脆弱",["ぜいじゃく"],"もろくて、壊れたり傷ついたりしやすいこと。"],["俯瞰",["ふかん"],"高い所から見下ろすこと。転じて、全体を広く見ること。"],["語彙",["ごい"],"ある人や分野が使う、言葉の集まり。"],["矜持",["きょうじ","きんじ"],"自分の能力や立場に対して持つ誇り。プライド。"],["帰趨",["きすう"],"物事が最後にはどうなるかという成り行き。"],["乖離",["かいり"],"本来近いもの同士が、大きくかけ離れること。"],["逸脱",["いつだつ"],"決まりや本来の道筋から外れること。"],["齟齬",["そご"],"意見や内容が食い違い、うまくかみ合わないこと。"],["瑕疵",["かし"],"物事の欠点や不備。契約や法律の話でも使う。"],["慟哭",["どうこく"],"強い悲しみで、声を上げて激しく泣くこと。"],["耽美",["たんび"],"美しさを何よりも大切にし、その世界に浸ること。"],["哀愁",["あいしゅう"],"どことなくもの悲しい感じや雰囲気。"],["困憊",["こんぱい"],"とても疲れ、力が尽きてしまうこと。"],["連綿",["れんめん"],"長く途切れることなく続いているさま。"],["畏怖",["いふ"],"おそろしいと感じながら、尊敬もする気持ち。"]]},{"name":"難読漢字","desc":"熟字訓も登場！","seconds":18,"words":[["紫陽花",["あじさい"],"梅雨のころ、青や紫などの花を咲かせる植物。"],["山茶花",["さざんか"],"秋から冬に花を咲かせる、ツバキの仲間の木。"],["海月",["くらげ"],"海を漂う、傘のような形をした生き物。"],["土筆",["つくし"],"春の野原に出てくる、スギナの胞子をつくる茎。"],["時雨",["しぐれ"],"秋から冬にかけて、降ったりやんだりする雨。"],["五月雨",["さみだれ","さつきあめ"],"旧暦の五月ごろに降り続く長雨。梅雨の雨。"],["案山子",["かかし"],"田畑で、鳥などを追い払うために立てる人形。"],["木霊",["こだま"],"山や谷で声が反響すること。また、木に宿る精霊。"],["不如帰",["ほととぎす"],"夏に鳴き声が聞かれる渡り鳥。ホトトギス。"],["河豚",["ふぐ"],"ふぐ科の魚。種類によっては体内に強い毒がある。"],["杜若",["かきつばた"],"水辺に生えるアヤメの仲間。紫色などの花を咲かせる。"],["蜻蛉",["とんぼ"],"細長い体と大きな羽を持つ、空を飛ぶ昆虫。"],["百舌鳥",["もず"],"小さな鳥なども捕らえる、くちばしの鋭い野鳥。"],["蒲公英",["たんぽぽ"],"春に黄色い花を咲かせ、綿毛の種が飛ぶ草。"],["天牛",["かみきりむし"],"長い触角を持つ甲虫。木をかじる種類が多い。"],["躑躅",["つつじ"],"春に赤やピンクなどの花を咲かせる低木。"]]},{"name":"超難読","desc":"ここまで来たら漢字博士！","seconds":17,"words":[["魑魅魍魎",["ちみもうりょう"],"山や川などにいるとされる、さまざまな妖怪や化け物。"],["顰蹙",["ひんしゅく"],"不快に思われ、眉をひそめられること。「顰蹙を買う」。"],["饕餮",["とうてつ"],"飲食や財産などをむさぼること。また、古代中国の怪獣。"],["矍鑠",["かくしゃく"],"年を取っても元気で、しっかりしているさま。"],["膾炙",["かいしゃ"],"世間に広く知られ、もてはやされること。「人口に膾炙する」。"],["躊躇",["ちゅうちょ"],"どうしようかと迷い、決めかねること。"],["蹂躙",["じゅうりん"],"踏みにじり、乱暴に扱うこと。権利などを侵すこと。"],["忸怩",["じくじ"],"自分の行いを深く恥じるさま。「忸怩たる思い」。"],["贔屓",["ひいき"],"気に入った人や店などを、特別に応援すること。"],["慇懃",["いんぎん"],"丁寧で礼儀正しいこと。「慇懃無礼」にも使う。"],["蹉跌",["さてつ"],"物事が思うように進まず、つまずき失敗すること。"],["嚆矢",["こうし"],"物事の最初。始まりとなった出来事。"],["斟酌",["しんしゃく"],"相手の事情や気持ちを推し量り、考慮すること。"],["彷徨",["ほうこう"],"あてもなく、さまよい歩くこと。"],["醍醐味",["だいごみ"],"その物事ならではの、深い楽しみやおもしろさ。"],["雲散霧消",["うんさんむしょう"],"雲や霧のように、あとかたもなく消えること。"]]}]</script>
 <script src="./cp_yomichare_100.js?v=2"></script>
+<script src="./ranking.js?v=4"></script>
 <script>
 (()=>{'use strict';
  const $=id=>document.getElementById(id),LEVELS=JSON.parse($('questionData').textContent),COUNT=5,ALL=LEVELS.length*COUNT,SURVIVAL_COUNT=100;
@@ -138,22 +143,41 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   return words.length===100&&new Set(words.map(x=>x[0])).size===100&&words.every(w=>Array.isArray(w[1])&&w[1].length>0&&typeof w[2]==='string'&&w[2].length>0);
  });
  const isChallenge=()=>state.mode==='challenge',targetCount=()=>isChallenge()?SURVIVAL_COUNT:COUNT,targetTotal=()=>isChallenge()?SURVIVAL_COUNT:ALL;
- const state={phase:'ready',mode:'normal',stage:0,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,usedHint:false,deadline:0,remain:0,total:0,frame:0,after:0,run:0,questions:[],current:null,composing:false,pendingCorrect:false,failed:false,answers:[],correctByLevel:[]};
+ const state={phase:'ready',mode:'normal',stage:0,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,usedHint:false,deadline:0,remain:0,total:0,frame:0,after:0,run:0,questions:[],current:null,composing:false,pendingCorrect:false,failed:false,challengeStartedAt:0,elapsedMs:0,rankSubmitted:false,answers:[],correctByLevel:[]};
  const bestKey=m=>'hashimoto-yomichare-best-v1-'+m;
  const survivalKey=stage=>'hashimoto-yomichare-100-best-v1-level-'+(stage+1);
- function survivalBest(stage){
-  try{const data=JSON.parse(localStorage.getItem(survivalKey(stage))||'null');
-   return data&&Number.isInteger(data.cleared)?Math.max(0,Math.min(100,data.cleared)):0
-  }catch{return 0}
+ function survivalRecord(stage){
+  try{
+   const d=JSON.parse(localStorage.getItem(survivalKey(stage))||'null');
+   if(!d||!Number.isInteger(d.cleared)||d.cleared<0||d.cleared>100)return null;
+   return {cleared:d.cleared,score:d.score||0,elapsedMs:Number.isFinite(d.elapsedMs)&&d.elapsedMs>=0?d.elapsedMs:null};
+  }catch{return null}
  }
+ const survivalBest=stage=>survivalRecord(stage)?.cleared||0;
+ const elapsedTenths=ms=>Math.ceil(Math.max(0,ms)/100);
+ const formatElapsed=ms=>{
+  const t=elapsedTenths(ms);
+  return String(Math.floor(t/600)).padStart(2,'0')+':'+String(Math.floor(t%600/10)).padStart(2,'0')+'.'+t%10;
+ };
+ // Ranking score uses clearance as the primary key, total elapsed time as tie-breaker.
+ // It is a score encoding only; the game itself keeps its original point system.
+ const rankGame=stage=>'yomi100_'+(stage+1);
+ const rankScore=(cleared,ms)=>cleared*100000+(99999-elapsedTenths(ms));
  function getBest(){
   if(isChallenge())return survivalBest(state.stage);
   try{return Math.max(0,Number(localStorage.getItem(bestKey(state.mode)))||0)}catch{return 0}
  }
  function saveBest(){
   if(isChallenge()){
-   const best=survivalBest(state.stage);
-   if(state.correct>best){try{localStorage.setItem(survivalKey(state.stage),JSON.stringify({cleared:state.correct,score:state.score,updated:new Date().toISOString()}))}catch{}return true}
+   const old=survivalRecord(state.stage);
+   const better=!old||state.correct>old.cleared||
+     (state.correct===old.cleared&&(old.elapsedMs===null||state.elapsedMs<old.elapsedMs));
+   if(better){
+    try{localStorage.setItem(survivalKey(state.stage),JSON.stringify({
+      cleared:state.correct,score:state.score,elapsedMs:Math.round(state.elapsedMs),updated:new Date().toISOString()
+    }))}catch{}
+    return true;
+   }
    return false;
   }
   if(state.score>getBest()){try{localStorage.setItem(bestKey(state.mode),String(state.score))}catch{}return true}return false
@@ -163,7 +187,9 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   $('classicSettings').hidden=survival;$('challengeSettings').hidden=!survival;
   $('startDescription').textContent=survival?'100問連続で正解を狙おう！ 間違っても再回答OK、時間切れ・スキップで即終了。ヒント・一時停止なし。':'35問を7レベルに分けて挑戦！ 途中で間違えても最後まで遊べるで。';
   const level=Math.max(0,Math.min(LEVELS.length-1,Number($('challengeLevel').value)||0));
-  $('challengeBest').textContent=survivalBest(level)+' / 100問';
+  const stored=survivalRecord(level);
+  $('challengeBest').textContent=(stored?.cleared||0)+' / 100問'+
+    (stored?.elapsedMs!==null&&stored?.elapsedMs!==undefined?' · '+(stored.cleared===100?'最速 ':'タイム ')+formatElapsed(stored.elapsedMs):'');
  }
  const shuffle=a=>{for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
  function norm(text){return String(text).normalize('NFKC').trim().replace(/[\s　・･]/g,'').replace(/[\u30a1-\u30f6]/g,ch=>String.fromCodePoint(ch.codePointAt(0)-96));}
@@ -226,6 +252,10 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
    banner('⭕ 正解！「'+primary(word)+'」  ＋'+gain+'点'+(state.combo>=2?' · '+state.combo+'連続！':''),'correct');
   }else{state.combo=0;banner(reason==='time'?'⌛ 時間切れ！ 正解は「'+primary(word)+'」':'正解は「'+primary(word)+'」だったで。','notice')}
   state.answers.push({level:state.stage+1,word:word[0],reading:primary(word),meaning:word[2],correct:ok,score:gain,reason});
+  if(isChallenge()&&(!ok||state.correct===SURVIVAL_COUNT)){
+    // Freeze the timer at the actual end of the last question, not after review.
+    state.elapsedMs=Math.max(0,performance.now()-state.challengeStartedAt);
+  }
   render();timeUI(remaining);
   if(ok){
    // Correct: quick feedback, then next question without closing the IME.
@@ -273,13 +303,22 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   if(isChallenge()){
    $('finalTitle').textContent=state.correct===SURVIVAL_COUNT?'🏆 100問完全制覇！':'💥 ゲームオーバー';
    $('finalScore').textContent=state.correct+' / 100 問突破';
-   $('finalDetails').textContent='LEVEL '+(state.stage+1)+' · '+LEVELS[state.stage].name+' ／ '+state.score.toLocaleString('ja-JP')+'点'+(record?' ／ 🏆 最高到達更新！':'');
+   $('finalDetails').textContent='LEVEL '+(state.stage+1)+' · '+LEVELS[state.stage].name+
+     ' ／ タイム '+formatElapsed(state.elapsedMs)+' ／ '+state.score.toLocaleString('ja-JP')+'点'+
+     (record?' ／ 🏆 記録更新！':'');
    $('replay').textContent='同じレベルに再挑戦 ↻';
+   $('finalRank').hidden=false;
+   if(state.correct>0&&!state.rankSubmitted){
+     state.rankSubmitted=true;
+     const points=rankScore(state.correct,state.elapsedMs);
+     if(points>0&&Number.isSafeInteger(points))window.CPLeaderboard?.finish(rankGame(state.stage),points);
+   }
   }else{
    $('finalTitle').textContent='全35問 おつかれさま！';
    $('finalScore').textContent=state.score.toLocaleString('ja-JP')+' 点';
    $('finalDetails').textContent='全'+ALL+'問中 '+state.correct+'問正解 · 最大'+state.maxCombo+'連続正解'+(record?' · 🏆 自己ベスト更新！':'');
    $('replay').textContent='もう一度挑戦 ↻';
+   $('finalRank').hidden=true;
   }
   $('finalOverlay').hidden=false;
  }
@@ -293,7 +332,9 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   const mode=challenge?'challenge':document.querySelector('input[name="mode"]:checked')?.value==='relax'?'relax':'normal';
   const stage=challenge?Math.max(0,Math.min(LEVELS.length-1,Number($('challengeLevel').value)||0)):0;
   const questions=challenge?LEVELS.map((l,i)=>i===stage?shuffle(l.words.concat(EXTRA[i].map(([word,reading,meaning])=>[word,reading.split('/'),meaning]))):[]):LEVELS.map(l=>shuffle(l.words.slice()).slice(0,COUNT));
-  Object.assign(state,{mode,stage,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,failed:false,answers:[],correctByLevel:[],questions});
+  Object.assign(state,{mode,stage,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,
+   failed:false,challengeStartedAt:challenge?performance.now():0,elapsedMs:0,rankSubmitted:false,answers:[],correctByLevel:[],questions});
+  if(challenge)window.CPLeaderboard?.start(rankGame(stage));
   document.body.classList.toggle('challenge',challenge);
   $('startOverlay').hidden=true;$('finalOverlay').hidden=true;$('pauseOverlay').hidden=true;$('levelOverlay').hidden=true;$('resultOverlay').hidden=true;document.body.classList.remove('typing');
   enterQuestion();
@@ -324,6 +365,11 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
  }
  for(const radio of document.querySelectorAll('input[name="playStyle"]'))radio.addEventListener('change',syncModeUI);
  $('challengeLevel').addEventListener('change',syncModeUI);
+ $('challengeRanking').addEventListener('click',()=>{
+   const level=Math.max(0,Math.min(LEVELS.length-1,Number($('challengeLevel').value)||0));
+   window.CPLeaderboard?.show(rankGame(level));
+ });
+ $('finalRank').addEventListener('click',()=>{if(isChallenge())window.CPLeaderboard?.show(rankGame(state.stage))});
  syncModeUI();
  $('startGame').addEventListener('click',start);
  // Mobile keyboards may use the first tap only to dismiss the IME.
@@ -380,7 +426,7 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
      if(!document.hidden&&performance.now()>=state.deadline)finishQuestion(false,'time');
    }else if(document.hidden)pause();
  });
- window.__YOMICHARE_TEST__={get:()=>({phase:state.phase,level:state.stage+1,index:state.index,word:state.current?.[0]||'',readings:state.current?.[1]?.slice()||[],score:state.score,correct:state.correct,combo:state.combo,remains:state.remain,mode:state.mode,answers:state.answers.slice(),totalQuestions:targetTotal(),challenge:isChallenge(),failed:state.failed,challengeReady,resultVisible:!$('resultOverlay').hidden,typing:document.body.classList.contains('typing')}),start,submit:value=>{$('answer').value=value;submitAnswer()},skip:()=>finishQuestion(false,'skip'),expire:()=>{if(state.phase==='playing'){state.deadline=performance.now()-1;finishQuestion(false,'time')}},advance,continue:()=>$('levelNext').click(),pause,resume};
+ window.__YOMICHARE_TEST__={get:()=>({phase:state.phase,level:state.stage+1,index:state.index,word:state.current?.[0]||'',readings:state.current?.[1]?.slice()||[],score:state.score,correct:state.correct,combo:state.combo,remains:state.remain,mode:state.mode,answers:state.answers.slice(),totalQuestions:targetTotal(),elapsedMs:state.elapsedMs,rankPoints:isChallenge()?rankScore(state.correct,state.elapsedMs):null,challenge:isChallenge(),failed:state.failed,challengeReady,resultVisible:!$('resultOverlay').hidden,typing:document.body.classList.contains('typing')}),start,submit:value=>{$('answer').value=value;submitAnswer()},skip:()=>finishQuestion(false,'skip'),expire:()=>{if(state.phase==='playing'){state.deadline=performance.now()-1;finishQuestion(false,'time')}},advance,continue:()=>$('levelNext').click(),pause,resume};
  render();timeUI(LEVELS[0].seconds);
 })();
 </script></body></html>

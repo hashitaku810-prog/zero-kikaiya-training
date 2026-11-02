@@ -61,6 +61,15 @@ h1{font-size:clamp(24px,5vw,35px);margin:3px 0;color:#ffe4bb}h2{font-size:16px;m
       <div class="kpi"><small>ゲーム開始</small><strong id="kStarts">--</strong></div>
       <div class="kpi"><small>YouTube流入</small><strong id="kYoutube">--</strong></div>
     </div>
+
+    <section class="panel"><h2>▶ YouTube概要欄用リンクを作る</h2>
+      <p class="explain">動画ごとに半角英数字・ハイフン・アンダーバーで名前を付けると、動画別の流入を比較できるで。</p>
+      <div class="actions" style="margin-top:9px">
+        <input id="videoSlug" class="field" type="text" maxlength="60" style="flex:1;min-width:150px" value="channel_intro" placeholder="例：touring_video_01" aria-label="YouTube動画の識別名">
+        <button id="copyYT" type="button" class="primary">リンクをコピー</button>
+      </div>
+      <p class="tiny" id="ytLink" style="overflow-wrap:anywhere"></p><p class="tiny" id="ytCopyNote" role="status"></p>
+    </section>
     <section class="panel"><h2>📅 日別の訪問者数</h2><div class="chart" id="chart" role="img" aria-label="日別の訪問者数を示す棒グラフ"></div><p id="chartDetail" class="explain"></p></section>
     <section class="panel"><h2>🎮 人気ゲーム（開始回数）</h2><div id="games" class="items"></div><p class="explain">実際にゲームが始まった回数です。自動開始するゲームはページを開いた時点も含みます。</p></section>
     <section class="panel"><h2>🔗 アクセス元（訪問セッション）</h2><div id="sources" class="items"></div><p class="explain">YouTube概要欄の「utm_source=youtube」を優先。アプリ側で参照元が消えたアクセスは「直接・不明」に含まれます。</p></section>
@@ -165,6 +174,19 @@ h1{font-size:clamp(24px,5vw,35px);margin:3px 0;color:#ffe4bb}h2{font-size:16px;m
    a.href=url;a.download='hashimoto-games-analytics-'+Number($('period').value)+'d.csv';
    document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
  }
+
+ function ytUrl(){
+  const value=$('videoSlug').value.toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,60)||'channel';
+  return 'https://hashitaku810-prog.github.io/zero-kikaiya-training/cp-arcade/?utm_source=youtube&utm_medium=video&utm_campaign='+encodeURIComponent(value);
+ }
+ function updateYTLink(){$('ytLink').textContent=ytUrl()}
+ $('videoSlug').addEventListener('input',updateYTLink);
+ $('copyYT').addEventListener('click',async()=>{
+  const link=ytUrl();
+  try{await navigator.clipboard.writeText(link);$('ytCopyNote').textContent='✅ リンクをコピーしたで！ YouTubeの概要欄に貼ってな。'}
+  catch{$('ytCopyNote').textContent='上のリンクを長押ししてコピーしてな。'}
+ });
+ updateYTLink();
  $('loginForm').addEventListener('submit',e=>{e.preventDefault();load($('key').value.trim());$('key').value=''});
  $('period').addEventListener('change',render);
  $('refresh').addEventListener('click',()=>load(token));

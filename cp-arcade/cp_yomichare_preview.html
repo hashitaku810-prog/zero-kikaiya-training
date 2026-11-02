@@ -144,7 +144,8 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
  });
  const isChallenge=()=>state.mode==='challenge',targetCount=()=>isChallenge()?SURVIVAL_COUNT:COUNT,targetTotal=()=>isChallenge()?SURVIVAL_COUNT:ALL;
  const state={phase:'ready',mode:'normal',stage:0,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,usedHint:false,deadline:0,remain:0,total:0,frame:0,after:0,run:0,questions:[],current:null,composing:false,pendingCorrect:false,failed:false,challengeStartedAt:0,elapsedMs:0,rankSubmitted:false,answers:[],correctByLevel:[]};
- const bestKey=m=>'hashimoto-yomichare-best-v1-'+m;
+ // Separate 21-question personal best from archived 35-question results.
+ const bestKey=m=>'hashimoto-yomichare-21-best-v1-'+m;
  const survivalKey=stage=>'hashimoto-yomichare-30-best-v1-level-'+(stage+1);
  function survivalRecord(stage){
   try{

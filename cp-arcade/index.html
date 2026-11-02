@@ -99,7 +99,18 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
  #gameCatalog>.game .content{padding:8px 9px}
  #gameCatalog>.game .titleline h3{font-size:13px}
 }
+
+/* 公開カウンター — 人数はブラウザ単位の推定値。 */
+.visitor-panel{margin:7px 1px 22px;padding:14px 16px;background:linear-gradient(120deg,#152e41,#152439);border:1px solid #3a626e;border-radius:16px}
+.visitor-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#93e6dd;font-size:11px;font-weight:900;letter-spacing:.06em;margin-bottom:8px}
+.visitor-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.visitor-grid>div{padding:7px 4px 5px;text-align:center;border-radius:10px;background:#102538}
+.visitor-grid small{display:block;color:#a3bcd0;font-size:10px;font-weight:750}
+.visitor-grid strong{display:block;margin-top:2px;color:#ffdfaa;font-size:clamp(18px,4vw,28px);font-weight:950;font-variant-numeric:tabular-nums;line-height:1.3}
+.visitor-note{color:#91a8bb;font-size:10px;line-height:1.6;margin:8px 0 0}
+@media(max-width:380px){.visitor-panel{padding:10px}.visitor-grid{gap:5px}.visitor-grid small{font-size:9px}.visitor-grid strong{font-size:18px}}
 </style>
+<script src="./cp_analytics.js?v=1"></script>
 </head>
 <body><main class="wrap">
   <header class="top">
@@ -111,6 +122,16 @@ h1{font-size:clamp(32px,7.7vw,62px);margin:18px 0 10px;line-height:1.18;letter-s
     <h1>ちょっと暇？<em>1ゲームどう？</em></h1>
     <p class="lead">落ち物も、絵合わせパズルも、好きなだけ。<br>スマホですぐ遊べる、手作りのゲーム置き場！</p>
     <div class="features"><span class="feature">📱 スマホ対応</span><span class="feature">⚡ インストール不要</span><span class="feature">🎮 無料・登録なし</span></div>
+  </section>
+
+  <section class="visitor-panel" aria-label="サイトのアクセスカウンター">
+    <div class="visitor-head"><span>🎮 VISITOR COUNTER</span><span>はしmoto Games</span></div>
+    <div class="visitor-grid">
+      <div><small>累計訪問者（推定）</small><strong id="hmVisitorCount" aria-live="polite">--</strong></div>
+      <div><small>今日の訪問者</small><strong id="hmTodayCount">--</strong></div>
+      <div><small>累計PV</small><strong id="hmPVCount">--</strong></div>
+    </div>
+    <p class="visitor-note" id="hmVisitorNote">同じブラウザをできるだけ重複させず集計した参考値です。個人を特定するための記録は取得しません。</p>
   </section>
   <div class="sectiontop"><h2>遊びたいゲームを選ぼう</h2><span class="small">8 GAMES</span></div>
   <nav class="category-tabs" aria-label="ゲームのカテゴリ" role="group">

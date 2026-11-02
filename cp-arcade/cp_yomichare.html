@@ -85,7 +85,8 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
 @media(max-height:560px){body.typing .quiz{padding:5px 7px}body.typing .kanji{min-height:43px;margin:1px 0 3px}body.typing .question-meaning{padding:5px 7px;margin-bottom:5px}body.typing .tools{margin-top:4px}}
 @media(max-width:350px){.wrap{padding:10px 8px}.quiz{padding:14px 9px}.hero h1{font-size:32px}form button{padding:8px 12px}.kanji{font-size:44px}.top-brand{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-</style></head><body>
+</style><script src="./cp_analytics.js?v=1"></script>
+</head><body>
 <main class="wrap"><header class="top"><a class="back" href="./index.html">← はしmoto Games</a><span class="top-brand">はしmoto <b>Games</b> · Ver.0.9</span></header>
 <div class="hero"><div class="eyebrow">KANJI TIME ATTACK</div><h1>よみ<em>チャレ！</em> ⏱️</h1><p>意味をヒントに読んで入力！ 小学生から超難読まで全7レベル</p></div>
 <section class="stats" aria-label="得点と正解状況"><div class="stat"><small>スコア</small><strong id="score">0</strong></div><div class="stat"><small>正解数</small><strong id="correct">0 / 35</strong></div><div class="stat"><small id="bestLabel">自己ベスト</small><strong id="best" class="hot">0</strong></div></section>
@@ -341,7 +342,8 @@ body.typing .smallbtn{min-height:32px;padding:5px 2px;font-size:10px}
   }
   const mode=challenge?'challenge':document.querySelector('input[name="mode"]:checked')?.value==='relax'?'relax':'normal';
   const stage=challenge?Math.max(0,Math.min(LEVELS.length-1,Number($('challengeLevel').value)||0)):0;
-  const questions=challenge?LEVELS.map((l,i)=>i===stage?shuffle(l.words.concat(EXTRA[i].map(([word,reading,meaning])=>[word,reading.split('/'),meaning]))).slice(0,SURVIVAL_COUNT):[]):LEVELS.map(l=>shuffle(l.words.slice()).slice(0,COUNT));
+  window.CPAnalytics?.gameStart('yomichare');
+ const questions=challenge?LEVELS.map((l,i)=>i===stage?shuffle(l.words.concat(EXTRA[i].map(([word,reading,meaning])=>[word,reading.split('/'),meaning]))).slice(0,SURVIVAL_COUNT):[]):LEVELS.map(l=>shuffle(l.words.slice()).slice(0,COUNT));
   Object.assign(state,{mode,stage,index:0,score:0,correct:0,combo:0,maxCombo:0,levelCorrect:0,
    failed:false,challengeStartedAt:challenge?performance.now():0,elapsedMs:0,rankSubmitted:false,answers:[],correctByLevel:[],questions});
   if(challenge)window.CPLeaderboard?.start(rankGame(stage));
